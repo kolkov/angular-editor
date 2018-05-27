@@ -1,0 +1,81 @@
+<div class="angular-toolbar">
+  <div class="angular-toolbar-set">
+    <button type="button" title="Undo" class="angular-editor-button" (click)="triggerCommand('undo')"><i
+      class='fa fa-undo'></i></button>
+    <button type="button" title="Redo" class="angular-editor-button" (click)="triggerCommand('redo')"><i
+      class='fa fa-repeat'></i></button>
+  </div>
+  <div class="angular-toolbar-set">
+    <button id="bold" type="button" title="Bold" class="angular-editor-button" (click)="triggerCommand('bold')"><i
+      class='fa fa-bold'></i></button>
+    <button id="italic" type="button" title="Italic" class="angular-editor-button" (click)="triggerCommand('italic')"><i
+      class='fa fa-italic'></i></button>
+    <button id="underline" type="button" title="Underline" class="angular-editor-button"
+            (click)="triggerCommand('underline')"><i class='fa fa-underline'></i></button>
+    <button id="strikeThrough" type="button" title="Strikethrough" class="angular-editor-button"
+            (click)="triggerCommand('strikeThrough')"><i class='fa fa-strikethrough'></i></button>
+    <button id="subscript" type="button" title="Subscript" class="angular-editor-button"
+            (click)="triggerCommand('subscript')"><i class='fa fa-subscript'></i></button>
+    <button id="superscript" type="button" title="Superscript" class="angular-editor-button"
+            (click)="triggerCommand('superscript')"><i class='fa fa-superscript'></i></button>
+
+  </div>
+  <div class="angular-toolbar-set">
+    <button type="button" title="Justify Left" class="angular-editor-button" (click)="triggerCommand('justifyLeft')"><i
+      class='fa fa-align-left'></i></button>
+    <button type="button" title="Justify Center" class="angular-editor-button"
+            (click)="triggerCommand('justifyCenter')"><i class='fa fa-align-center'></i></button>
+    <button type="button" title="Justify Right" class="angular-editor-button" (click)="triggerCommand('justifyRight')">
+      <i class='fa fa-align-right'></i></button>
+    <button type="button" title="Justify Full" class="angular-editor-button" (click)="triggerCommand('justifyFull')"><i
+      class='fa fa-align-justify'></i></button>
+  </div>
+  <div class="angular-toolbar-set">
+    <button id="indent" type="button" title="Indent" class="angular-editor-button" (click)="triggerCommand('indent')"><i
+      class='fa fa-indent'></i></button>
+    <button type="button" title="Outdent" class="angular-editor-button" (click)="triggerCommand('outdent')"><i
+      class='fa fa-outdent'></i></button>
+  </div>
+  <div class="angular-toolbar-set">
+    <button id="insertUnorderedList" type="button" title="Unordered List" class="angular-editor-button"
+            (click)="triggerCommand('insertUnorderedList')"><i class='fa fa-list-ul'></i></button>
+    <button id="insertOrderedList" type="button" title="Ordered List" class="angular-editor-button"
+            (click)="triggerCommand('insertOrderedList')"><i class='fa fa-list-ol'></i></button>
+  </div>
+  <div class="angular-toolbar-set">
+    <button id="h1" type="button" title="Heading 1" class="angular-editor-button" (click)="triggerCommand('h1')">H1
+    </button>
+    <button id="h2" type="button" title="Heading 2" class="angular-editor-button" (click)="triggerCommand('h2')">H2
+    </button>
+    <button id="h3" type="button" title="Heading 3" class="angular-editor-button" (click)="triggerCommand('h3')">H3
+    </button>
+    <button id="h4" type="button" title="Heading 4" class="angular-editor-button" (click)="triggerCommand('h4')">H4
+    </button>
+    <button id="h5" type="button" title="Heading 5" class="angular-editor-button" (click)="triggerCommand('h5')">H5
+    </button>
+    <button id="h6" type="button" title="Heading 6" class="angular-editor-button" (click)="triggerCommand('h6')">H6
+    </button>
+    <button id="p" type="button" title="Paragraph" class="angular-editor-button" (click)="triggerCommand('p')">P
+    </button>
+  </div>
+  <div class="angular-toolbar-set">
+    <button id="link" type="button" class="angular-editor-button" (click)="insertUrl()"
+            title="Insert Link">
+      <i class="fa fa-link"></i>
+    </button>
+    <button type="button" class="angular-editor-button" (click)="triggerCommand('unlink')"
+            title="Unlink">
+      <i class="fa fa-chain-broken"></i>
+    </button>
+    <button type="button" title="Horizontal Line" class="angular-editor-button"
+            (click)="triggerCommand('insertHorizontalRule')"><i class="fa fa-minus"></i></button>
+  </div>
+  <div class="angular-toolbar-set">
+    <button type="button" title="Clear Formatting" class="angular-editor-button"
+            (click)="triggerCommand('removeFormat')"><i class='fa fa-eraser'></i></button>
+  </div>
+  <div class="angular-toolbar-set">
+    <button id="toggleEditorMode" type="button" title="HTML code" class="angular-editor-button"
+            (click)="triggerCommand('toggleEditorMode')"><i class='fa fa-code'></i></button>
+  </div>
+</div>

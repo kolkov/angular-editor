@@ -1,0 +1,62 @@
+# AngularEditor
+A simple native wysiwyg editor for Angular 6+
+
+## Getting Started
+
+### Installation
+
+Install via [npm][npm] package manager
+
+```bash
+npm install angular-editor --save
+```
+
+### Usage
+
+Import `angular-editor` module
+
+```typescript
+import { AngularEditorModule } from 'angular-editor';
+
+@NgModule({
+  imports: [ AngularEditorModule ]
+})
+```
+
+Import [font-awesome](https://github.com/FortAwesome/Font-Awesome) into your application
+
+Then in HTML
+
+```html
+<angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="htmlContent"></angular-editor>
+```
+
+or
+
+```html
+<angular-editor formControlName="htmlContent" [config]="editorConfig"></angular-editor>
+```
+
+where
+
+```typescript
+import { AngularEditorConfig } from 'angular-editor';
+
+...
+
+editorConfig: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '25rem',
+    minHeight: '5rem',
+    placeholder: 'Enter text here...',
+    translate: 'no'
+  };
+```
+
+For `ngModel` to work, you must import `FormsModule` from `@angular/forms`, or for `formControlName`, you must import `ReactiveFormsModule` from `@angular/forms`
+
+
+
+
+[npm]: https://www.npmjs.com/

@@ -1,0 +1,12 @@
+{
+  "name": "@kolkov/angular-editor",
+  "version": "0.1.0",
+  "author": "Andrey Kolkov <a.kolkov@gmail.com>",
+  "repository": "https://github.com/kolkov/angular-editor",
+  "license": "MIT",
+  "private": false,
+  "peerDependencies": {
+    "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
+    "@angular/core": "^6.0.0-rc.0 || ^6.0.0"
+  }
+}

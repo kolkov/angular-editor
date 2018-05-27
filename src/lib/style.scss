@@ -1,0 +1,73 @@
+$fa-font-path:        "//netdna.bootstrapcdn.com/font-awesome/4.7.0/fonts" !default; // for referencing Bootstrap CDN font files directly
+@import "~font-awesome/scss/font-awesome.scss";
+
+a {
+  cursor: pointer;
+}
+
+#editor {
+  min-height: 150px;
+  overflow: auto;
+  margin-top: 5px;
+  resize: vertical;
+  outline: none;
+}
+
+.angular-toolbar {
+  background-color: #f5f5f5;
+  font-size: 0.8rem;
+  padding: 0.2rem;
+  border: 1px solid #ddd;
+  .angular-toolbar-set {
+    display: inline-block;
+    border-radius: 5px;
+    background-color: white;
+    margin-right: 5px;
+    .angular-editor-button {
+      background-color: transparent;
+      padding: 0.4rem;
+      min-width: 2.5rem;
+      float: left;
+      border: 1px solid #ddd;
+      border-right: transparent;
+
+      &:hover {
+        cursor: pointer;
+        background-color: #f1f1f1;
+        transition: 0.2s ease;
+      }
+
+      &:focus,
+      &.focus {
+        outline: 0;
+      }
+
+      &:last-child {
+        border-right: 1px solid #ddd;
+      }
+
+      &:first-child {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+      }
+
+      &:last-child {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+      }
+
+      &:disabled {
+        background-color: #f5f5f5;
+        pointer-events: none;
+        cursor: not-allowed;
+      }
+
+    }
+    .active {
+      background: #fff5b9;
+      &:hover {
+        background-color: #fffa98;
+      }
+    }
+  }
+}
