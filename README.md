@@ -56,7 +56,11 @@ editorConfig: AngularEditorConfig = {
 
 For `ngModel` to work, you must import `FormsModule` from `@angular/forms`, or for `formControlName`, you must import `ReactiveFormsModule` from `@angular/forms`
 
+## Demo
+Demo is here [demo][demo]
 
-
+Working example at stackblitz [example](https://stackblitz.com/edit/angular-editor-wysiwyg)
 
 [npm]: https://www.npmjs.com/
+[demo]: https://angular-editor-wysiwyg.stackblitz.io/
+[example]: https://stackblitz.com/edit/angular-editor-wysiwyg
