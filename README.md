@@ -8,7 +8,7 @@ A simple native wysiwyg editor for Angular 6+
 Install via [npm][npm] package manager
 
 ```bash
-npm install angular-editor --save
+npm install @kolkov/angular-editor --save
 ```
 
 ### Usage
@@ -16,7 +16,7 @@ npm install angular-editor --save
 Import `angular-editor` module
 
 ```typescript
-import { AngularEditorModule } from 'angular-editor';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
   imports: [ AngularEditorModule ]
