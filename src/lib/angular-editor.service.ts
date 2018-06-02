@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -8,14 +8,15 @@ export class AngularEditorService {
   savedSelection: Range | null;
   selectedText: string;
 
-  constructor() { }
+  constructor() {
+  }
 
   /**
    * Executed command from editor header buttons exclude toggleEditorMode
    * @param command string from triggerCommand
    */
-  executeCommand(command: string){
-    if (command == 'h1' || command == 'h2' || command == 'h3' || command == 'h4' || command == 'h5' || command == 'h6' || command == 'p'){
+  executeCommand(command: string) {
+    if (command == 'h1' || command == 'h2' || command == 'h3' || command == 'h4' || command == 'h5' || command == 'h6' || command == 'p') {
       document.execCommand('formatBlock', false, command);
     }
 

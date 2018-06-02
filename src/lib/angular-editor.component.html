@@ -3,7 +3,8 @@
   <angular-editor-toolbar #editorToolbar (execute)="executeCommand($event)"></angular-editor-toolbar>
 
   <div class="angular-editor-wrapper" #editorWrapper>
-    <div #editor id="editor" class="angular-editor-textarea" [attr.contenteditable]="config.editable" [attr.translate]="config.translate"
+    <div #editor id="editor" class="angular-editor-textarea" [attr.contenteditable]="config.editable"
+         [attr.translate]="config.translate"
          [attr.spellcheck]="config.spellcheck" [style.height]="config.height" [style.minHeight]="config.minHeight"
          (input)="onContentChange($event.target.innerHTML)" (blur)="onTextAreaBlur()" (click)="exec()" (keyup)="exec()">
     </div>

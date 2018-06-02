@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { AngularEditorComponent } from './angular-editor.component';
+import {NgModule} from '@angular/core';
+import {AngularEditorComponent} from './angular-editor.component';
 import {AngularEditorToolbarComponent} from "./angular-editor-toolbar.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
@@ -10,4 +10,5 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
   declarations: [AngularEditorComponent, AngularEditorToolbarComponent],
   exports: [AngularEditorComponent, AngularEditorToolbarComponent]
 })
-export class AngularEditorModule { }
+export class AngularEditorModule {
+}

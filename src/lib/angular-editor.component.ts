@@ -22,7 +22,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor {
   private onTouched: () => void;
 
   placeholder: boolean;
-  
+
   modeVisual = true;
   showPlaceholder = false;
 
@@ -33,10 +33,11 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor {
   @ViewChild('editor') textArea: any;
   @ViewChild('editorWrapper') editorWrapper: any;
   @ViewChild('editorToolbar') editorToolbar: AngularEditorToolbarComponent;
-  
+
   @Output() viewMode = new EventEmitter<boolean>();
 
-  constructor(private _renderer: Renderer2, private editorService: AngularEditorService) { }
+  constructor(private _renderer: Renderer2, private editorService: AngularEditorService) {
+  }
 
   ngOnInit() {
     if (this.config.defaultParagraphSeparator) {
@@ -48,10 +49,13 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor {
    * Executed command from editor header buttons
    * @param command string from triggerCommand
    */
-  executeCommand(command: string){
+  executeCommand(command: string) {
     if (command == 'toggleEditorMode') this.toggleEditorMode(this.modeVisual);
-    else this.editorService.executeCommand(command);
-    
+    else {
+      this.editorService.executeCommand(command);
+      this.exec();
+    }
+
     this.onEditorFocus();
     return;
   }
@@ -83,7 +87,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor {
 
     if (typeof this.onChange === 'function') {
       this.onChange(html);
-      if ((!html || html === '<br>' || html === '') != this.showPlaceholder){
+      if ((!html || html === '<br>' || html === '') != this.showPlaceholder) {
         this.togglePlaceholder(this.showPlaceholder);
       }
     }
@@ -118,7 +122,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor {
    */
   writeValue(value: any): void {
 
-    if ((!value || value === '<br>' || value === '') != this.showPlaceholder){
+    if ((!value || value === '<br>' || value === '') != this.showPlaceholder) {
       this.togglePlaceholder(this.showPlaceholder);
     }
 
@@ -150,6 +154,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor {
     if (!value) {
       this._renderer.addClass(this.editorWrapper.nativeElement, 'show-placeholder');
       this.showPlaceholder = true;
+
     } else {
       this._renderer.removeClass(this.editorWrapper.nativeElement, 'show-placeholder');
       this.showPlaceholder = false;
@@ -162,7 +167,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor {
    *
    * @param bToSource A boolean value from the editor
    */
-  toggleEditorMode(bToSource: boolean){
+  toggleEditorMode(bToSource: boolean) {
     let oContent: any;
     let editableElement = this.textArea.nativeElement;
 
@@ -185,7 +190,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor {
 
       this.modeVisual = false;
       this.viewMode.emit(false);
-    }else {
+    } else {
       if (document.all) {
         editableElement.innerHTML = editableElement.innerText;
       } else {
@@ -198,6 +203,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor {
       this.viewMode.emit(true);
       this.onContentChange(editableElement.innerHTML);
     }
+    this.editorToolbar.setEditorMode(!this.modeVisual);
     editableElement.focus();
   }
 
@@ -208,6 +214,8 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor {
    * Send a node array from the contentEditable of the editor
    */
   exec() {
+    this.editorToolbar.triggerButtons();
+
     let userSelection;
     if (window.getSelection) {
       userSelection = window.getSelection();
@@ -219,10 +227,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor {
       els.unshift(a);
       a = a.parentNode;
     }
-
-    let value = this.textArea.nativeElement.innerHTML;
-    if (!(!value || value === '<br>' || value === '')){
-      this.editorToolbar.triggerButton(els);
-    }
+    this.editorToolbar.triggerBlocks(els);
   }
+
 }
