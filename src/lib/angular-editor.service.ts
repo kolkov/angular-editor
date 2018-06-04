@@ -16,7 +16,7 @@ export class AngularEditorService {
    * @param command string from triggerCommand
    */
   executeCommand(command: string) {
-    if (command == 'h1' || command == 'h2' || command == 'h3' || command == 'h4' || command == 'h5' || command == 'h6' || command == 'p') {
+    if (command == 'h1' || command == 'h2' || command == 'h3' || command == 'h4' || command == 'h5' || command == 'h6' || command == 'p' || command == 'pre') {
       document.execCommand('formatBlock', false, command);
     }
 

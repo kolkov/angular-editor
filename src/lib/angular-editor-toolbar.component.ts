@@ -17,6 +17,7 @@ export class AngularEditorToolbarComponent {
     H5: "h5",
     H6: "h6",
     P: "p",
+    PRE: "pre",
     BLOCKQUOTE: "indent",
     A: "link"
   };
@@ -28,11 +29,18 @@ export class AngularEditorToolbarComponent {
   constructor(private _renderer: Renderer2, private editorService: AngularEditorService) {
   }
 
+  /**
+   * Trigger command from editor header buttons
+   * @param command string from toolbar buttons
+   */
   triggerCommand(command: string) {
     this.execute.emit(command);
     return;
   }
 
+  /**
+   * highlight editor buttons when cursor moved or positioning
+   */
   triggerButtons() {
     this.buttons.forEach(e => {
       let result = document.queryCommandState(e);
@@ -45,6 +53,9 @@ export class AngularEditorToolbarComponent {
     });
   }
 
+  /**
+   * trigger highlight editor buttons when cursor moved or positioning in block
+   */
   triggerBlocks(nodes: Node[]) {
     Object.keys(this.tagMap).map(e => {
       let elementById = document.getElementById(this.tagMap[e]);
@@ -59,6 +70,9 @@ export class AngularEditorToolbarComponent {
     });
   }
 
+  /**
+   * insert URL link
+   */
   insertUrl() {
     const url = prompt("Insert URL link", 'http:\/\/');
     if (url && url != '' && url != 'http://') {
@@ -66,6 +80,10 @@ export class AngularEditorToolbarComponent {
     }
   }
 
+  /**
+   * toggle editor mode (WYSIWYG or SOURCE)
+   * @param m boolean
+   */
   setEditorMode(m: boolean) {
     const toggleEditorModeButton = document.getElementById("toggleEditorMode");
     if (m) {

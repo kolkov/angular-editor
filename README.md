@@ -23,8 +23,6 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 })
 ```
 
-Import [font-awesome](https://github.com/FortAwesome/Font-Awesome) into your application
-
 Then in HTML
 
 ```html
