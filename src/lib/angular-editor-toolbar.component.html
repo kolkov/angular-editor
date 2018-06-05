@@ -44,7 +44,7 @@
   </div>
   <div class="angular-toolbar-set">
     <label for="heading" class="block-label"></label>
-      <select id="heading" class="select-heading" [(ngModel)]="block" (change)="triggerCommand(block)">
+      <select title="Formatting" id="heading" class="select-heading" [(ngModel)]="block" (change)="triggerCommand(block)">
         <optgroup label="Formatting"></optgroup>
         <option class="h1" value="h1">Heading 1</option>
         <option class="h2" value="h2">Heading 2</option>
@@ -58,11 +58,11 @@
       </select>
   </div>
   <div class="angular-toolbar-set">
-    <div class="color-picker-wrapper foreground">
+    <div title="Text Color" class="color-picker-wrapper foreground">
       <label for="foregroundColorPicker" class="color-label"><i class="fa fa-font"></i></label>
       <input #foregroundColor type="color" id="foregroundColorPicker" class="color-picker foreground" (change)="insertColor(foregroundColor.value, 'textColor')">
     </div>
-    <div class="color-picker-wrapper">
+    <div title="Background Color" class="color-picker-wrapper">
       <label for="backgroundColorPicker" class="color-label background"><i class="fa fa-font"></i></label>
       <input #backgroundColor type="color" id="backgroundColorPicker" class="color-picker background" (change)="insertColor(backgroundColor.value, 'backgroundColor')">
     </div>
@@ -84,7 +84,7 @@
             (click)="triggerCommand('removeFormat')"><i class='fa fa-eraser'></i></button>
   </div>
   <div class="angular-toolbar-set">
-    <button id="toggleEditorMode" type="button" title="HTML code" class="angular-editor-button"
+    <button id="toggleEditorMode" type="button" title="HTML Code" class="angular-editor-button"
             (click)="triggerCommand('toggleEditorMode')"><i class='fa fa-code'></i></button>
   </div>
 </div>

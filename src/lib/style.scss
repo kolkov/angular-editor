@@ -26,6 +26,7 @@ a {
     vertical-align: middle;
     border: 1px solid #ddd;
     margin-bottom: 3px;
+    //line-height: 29.97px;
     .angular-editor-button {
       background-color: transparent;
       padding: 0.4rem;
@@ -65,7 +66,7 @@ a {
       border: none;
       border-radius: 5px;
       outline: none;
-      padding: 0.44rem;
+      padding: 0.48rem;
       cursor: pointer;
       optgroup {
         font-size: 12px;
@@ -74,6 +75,7 @@ a {
       }
       option {
         border: 1px solid;
+        background-color: white;
       }
       .default {
         font-size: 16px;
@@ -96,19 +98,17 @@ a {
       .h6 {
         font-size: 13px;
       }
-      :hover {
+      .div {
+        font-size: 12px;
+      }
+      .pre {
+        font-size: 12px;
+      }
+      &:hover {
         cursor: pointer;
         background-color: #f1f1f1;
         transition: 0.2s ease;
       }
-    }
-
-    .color-picker-wrapper {
-      display: inline-block;
-      position: relative;
-      padding: 0;
-      margin: 0;
-      vertical-align: middle;
     }
 
     input[type="color"] {
@@ -116,27 +116,24 @@ a {
       width: 0;
       height: 0;
       border: none;
-      border-radius: 5px;
+      cursor: pointer;
     }
 
     .color-picker-wrapper {
-      display: inline-block;
       float: left;
-      min-width: 1.0rem;
-      height: 15px;
-      padding: 0.4rem;
+      min-width: 1.4rem;
+      padding: 0.24rem;
+      cursor: pointer;
       .color-label {
         position: relative;
-        bottom: 4px;
         cursor: pointer;
-        margin-left: 4px;
+        margin-left: 5px;
       }
       .background {
         font-size: smaller;
         background: #1b1b1b;
         color: white;
         padding: 3px;
-        top: -3px;
       }
       &:hover {
         cursor: pointer;
@@ -153,7 +150,7 @@ a {
         top: auto;
         bottom: -3px;
         right: auto;
-        width: 13px;
+        width: 14px;
         height: 2px;
         z-index: 0;
         background: red;
