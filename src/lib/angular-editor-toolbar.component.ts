@@ -59,9 +59,9 @@ export class AngularEditorToolbarComponent {
         if (found == false) {
           this.block = node.nodeName.toLowerCase();
           found = true;
-        } else {
-          this.block = 'default';
         }
+      } else if(found == false) {
+        this.block = 'default';
       }
     });
 
@@ -90,7 +90,7 @@ export class AngularEditorToolbarComponent {
 
   insertColor(color: string, where: string) {
     this.editorService.insertColor(color, where);
-}
+  }
 
   /**
    * toggle editor mode (WYSIWYG or SOURCE)
