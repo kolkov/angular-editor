@@ -1,4 +1,14 @@
-import {Component, EventEmitter, forwardRef, Input, OnInit, Output, Renderer2, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  forwardRef,
+  Input,
+  OnInit,
+  Output,
+  Renderer2,
+  ViewChild
+} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {AngularEditorConfig, angularEditorConfig} from "./config";
 import {AngularEditorToolbarComponent} from "./angular-editor-toolbar.component";
@@ -16,7 +26,7 @@ import {AngularEditorService} from "./angular-editor.service";
     }
   ]
 })
-export class AngularEditorComponent implements OnInit, ControlValueAccessor {
+export class AngularEditorComponent implements OnInit, ControlValueAccessor, AfterViewInit {
 
   private onChange: (value: string) => void;
   private onTouched: () => void;
@@ -45,13 +55,20 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor {
     }
   }
 
+  ngAfterViewInit() {
+    if (this.config.defaultFontName) {
+      this.onEditorFocus();
+      this.editorService.setFontName(this.config.defaultFontName);
+    }
+  }
+
   /**
    * Executed command from editor header buttons
    * @param command string from triggerCommand
    */
   executeCommand(command: string) {
     if (command == 'toggleEditorMode') this.toggleEditorMode(this.modeVisual);
-    else {
+    else if (command != '') {
       this.editorService.executeCommand(command);
       this.exec();
     }
@@ -190,6 +207,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor {
 
       this.modeVisual = false;
       this.viewMode.emit(false);
+      oCode.focus();
     } else {
       if (document.all) {
         editableElement.innerHTML = editableElement.innerText;
@@ -202,9 +220,9 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor {
       this.modeVisual = true;
       this.viewMode.emit(true);
       this.onContentChange(editableElement.innerHTML);
+      editableElement.focus();
     }
     this.editorToolbar.setEditorMode(!this.modeVisual);
-    editableElement.focus();
   }
 
 

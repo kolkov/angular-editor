@@ -14,7 +14,7 @@ a {
 }
 
 .angular-toolbar {
-  font: 100 14px/15px Roboto, Arial,sans-serif;
+  font: 100 14px/15px Roboto, Arial, sans-serif;
   background-color: #f5f5f5;
   font-size: 0.8rem;
   padding: 0.2rem;
@@ -145,6 +145,7 @@ a {
         background-color: #f5f5f5;
         pointer-events: none;
         cursor: not-allowed;
+        color: #5e5e5e;
       }
       &:hover {
         cursor: pointer;
@@ -161,10 +162,10 @@ a {
         top: auto;
         bottom: -3px;
         right: auto;
-        width: 14px;
+        width: 15px;
         height: 2px;
         z-index: 0;
-        background: red;
+        background: #1b1b1b;
       }
     }
   }

@@ -12,6 +12,7 @@ export class AngularEditorToolbarComponent {
   htmlMode = false;
 
   block: string = 'default';
+  fontName: string = 'Arial';
 
   tagMap = {
     BLOCKQUOTE: "indent",
@@ -62,7 +63,7 @@ export class AngularEditorToolbarComponent {
           this.block = node.nodeName.toLowerCase();
           found = true;
         }
-      } else if(found == false) {
+      } else if (found == false) {
         this.block = 'default';
       }
     });
@@ -90,8 +91,16 @@ export class AngularEditorToolbarComponent {
     }
   }
 
+  /** insert color */
   insertColor(color: string, where: string) {
     this.editorService.insertColor(color, where);
+    this.execute.emit("");
+  }
+
+  /** set font Name/family */
+  setFontName(fontName: string): void {
+    this.editorService.setFontName(fontName);
+    this.execute.emit("");
   }
 
   /**
@@ -109,7 +118,10 @@ export class AngularEditorToolbarComponent {
     this.disableColorPicker();
   }
 
-  disableColorPicker(){
+  /**
+   * Disable color picker
+   */
+  disableColorPicker() {
     const foregroundColorPickerWrapper = document.getElementById("foregroundColorPickerWrapper");
     const backgroundColorPickerWrapper = document.getElementById("backgroundColorPickerWrapper");
     if (this.htmlMode) {

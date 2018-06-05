@@ -10,6 +10,7 @@ export interface AngularEditorConfig {
   showToolbar?: boolean,
   placeholder?: string,
   defaultParagraphSeparator?: string;
+  defaultFontName?: string;
 }
 
 export const angularEditorConfig: AngularEditorConfig = {
@@ -23,5 +24,6 @@ export const angularEditorConfig: AngularEditorConfig = {
   enableToolbar: true,
   showToolbar: true,
   placeholder: 'Enter text here...',
-  defaultParagraphSeparator: ''
+  defaultParagraphSeparator: '',
+  defaultFontName: ''
 };

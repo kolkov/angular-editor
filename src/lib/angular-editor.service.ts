@@ -44,22 +44,24 @@ export class AngularEditorService {
    * @param where where the color has to be inserted either text/background
    */
   insertColor(color: string, where: string): void {
-
-    if (this.savedSelection) {
-      const restored = this.restoreSelection();
-      if (restored && this.checkSelection()) {
-        if (where === 'textColor') {
-          document.execCommand('foreColor', false, color);
-        } else {
-          document.execCommand('hiliteColor', false, color);
-        }
+    const restored = this.restoreSelection();
+    if (restored) {
+      if (where === 'textColor') {
+        document.execCommand('foreColor', false, color);
+      } else {
+        document.execCommand('hiliteColor', false, color);
       }
-
-    } else {
-      throw new Error('Range out of the editor');
     }
 
     return;
+  }
+
+  /**
+   * Set font name
+   * @param fontName string
+   */
+  setFontName(fontName: string) {
+    document.execCommand("fontName", false, fontName);
   }
 
   /**

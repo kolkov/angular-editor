@@ -6,9 +6,11 @@
       class='fa fa-repeat'></i></button>
   </div>
   <div class="angular-toolbar-set">
-    <button id="bold" type="button" title="Bold" class="angular-editor-button" (click)="triggerCommand('bold')" [disabled]="htmlMode"><i
+    <button id="bold" type="button" title="Bold" class="angular-editor-button" (click)="triggerCommand('bold')"
+            [disabled]="htmlMode"><i
       class='fa fa-bold'></i></button>
-    <button id="italic" type="button" title="Italic" class="angular-editor-button" (click)="triggerCommand('italic')" [disabled]="htmlMode"><i
+    <button id="italic" type="button" title="Italic" class="angular-editor-button" (click)="triggerCommand('italic')"
+            [disabled]="htmlMode"><i
       class='fa fa-italic'></i></button>
     <button id="underline" type="button" title="Underline" class="angular-editor-button"
             (click)="triggerCommand('underline')" [disabled]="htmlMode"><i class='fa fa-underline'></i></button>
@@ -21,19 +23,24 @@
 
   </div>
   <div class="angular-toolbar-set">
-    <button id="justifyLeft" type="button" title="Justify Left" class="angular-editor-button" (click)="triggerCommand('justifyLeft')" [disabled]="htmlMode"><i
+    <button id="justifyLeft" type="button" title="Justify Left" class="angular-editor-button"
+            (click)="triggerCommand('justifyLeft')" [disabled]="htmlMode"><i
       class='fa fa-align-left'></i></button>
     <button id="justifyCenter" type="button" title="Justify Center" class="angular-editor-button"
             (click)="triggerCommand('justifyCenter')" [disabled]="htmlMode"><i class='fa fa-align-center'></i></button>
-    <button id="justifyRight" type="button" title="Justify Right" class="angular-editor-button" (click)="triggerCommand('justifyRight')" [disabled]="htmlMode">
+    <button id="justifyRight" type="button" title="Justify Right" class="angular-editor-button"
+            (click)="triggerCommand('justifyRight')" [disabled]="htmlMode">
       <i class='fa fa-align-right'></i></button>
-    <button id="justifyFull" type="button" title="Justify Full" class="angular-editor-button" (click)="triggerCommand('justifyFull')" [disabled]="htmlMode"><i
+    <button id="justifyFull" type="button" title="Justify Full" class="angular-editor-button"
+            (click)="triggerCommand('justifyFull')" [disabled]="htmlMode"><i
       class='fa fa-align-justify'></i></button>
   </div>
   <div class="angular-toolbar-set">
-    <button id="indent" type="button" title="Indent" class="angular-editor-button" (click)="triggerCommand('indent')" [disabled]="htmlMode"><i
+    <button id="indent" type="button" title="Indent" class="angular-editor-button" (click)="triggerCommand('indent')"
+            [disabled]="htmlMode"><i
       class='fa fa-indent'></i></button>
-    <button id="outdent" type="button" title="Outdent" class="angular-editor-button" (click)="triggerCommand('outdent')" [disabled]="htmlMode"><i
+    <button id="outdent" type="button" title="Outdent" class="angular-editor-button" (click)="triggerCommand('outdent')"
+            [disabled]="htmlMode"><i
       class='fa fa-outdent'></i></button>
   </div>
   <div class="angular-toolbar-set">
@@ -44,28 +51,43 @@
   </div>
   <div class="angular-toolbar-set">
     <label for="heading" class="block-label"></label>
-      <select title="Formatting" id="heading" class="select-heading" [(ngModel)]="block" (change)="triggerCommand(block)" [disabled]="htmlMode">
-        <optgroup label="Formatting"></optgroup>
-        <option class="h1" value="h1">Heading 1</option>
-        <option class="h2" value="h2">Heading 2</option>
-        <option class="h3" value="h3">Heading 3</option>
-        <option class="h4" value="h4">Heading 4</option>
-        <option class="h5" value="h5">Heading 5</option>
-        <option class="h6" value="h6">Heading 6</option>
-        <option class="p" value="p">Paragraph</option>
-        <option class="pre" value="pre">Predefined</option>
-        <option class="div" value="div">Standard</option>
-        <option class="default" value="default">Default</option>
-      </select>
+    <select title="Formatting" id="heading" class="select-heading" [(ngModel)]="block" (change)="triggerCommand(block)"
+            [disabled]="htmlMode">
+      <optgroup label="Formatting"></optgroup>
+      <option class="h1" value="h1">Heading 1</option>
+      <option class="h2" value="h2">Heading 2</option>
+      <option class="h3" value="h3">Heading 3</option>
+      <option class="h4" value="h4">Heading 4</option>
+      <option class="h5" value="h5">Heading 5</option>
+      <option class="h6" value="h6">Heading 6</option>
+      <option class="p" value="p">Paragraph</option>
+      <option class="pre" value="pre">Predefined</option>
+      <option class="div" value="div">Standard</option>
+      <option class="default" value="default">Default</option>
+    </select>
+  </div>
+  <div class="angular-toolbar-set">
+    <label for="fontSelector" class="block-label"></label>
+    <select title="Formatting" id="fontSelector" class="select-heading" [(ngModel)]="fontName"
+            (change)="setFontName(fontName)"
+            [disabled]="htmlMode">
+      <optgroup label="Formatting"></optgroup>
+      <option class="arial" value="Arial">Arial</option>
+      <option class="calibri" value="Calibri">Calibri</option>
+      <option class="comic-sans-ms" value="Comic Sans MS">Comic Sans MS</option>
+      <option class="times-new-roman" value="Times New Roman">Times New Roman</option>
+    </select>
   </div>
   <div class="angular-toolbar-set">
     <div id="foregroundColorPickerWrapper" title="Text Color" class="color-picker-wrapper foreground">
       <label for="foregroundColorPicker" class="color-label"><i class="fa fa-font"></i></label>
-      <input #foregroundColor type="color" id="foregroundColorPicker" class="color-picker foreground" (change)="insertColor(foregroundColor.value, 'textColor')" [disabled]="htmlMode">
+      <input #foregroundColor type="color" id="foregroundColorPicker" class="color-picker foreground"
+             (change)="insertColor(foregroundColor.value, 'textColor')" [disabled]="htmlMode">
     </div>
     <div id="backgroundColorPickerWrapper" title="Background Color" class="color-picker-wrapper">
       <label for="backgroundColorPicker" class="color-label background"><i class="fa fa-font"></i></label>
-      <input #backgroundColor type="color" id="backgroundColorPicker" class="color-picker background" (change)="insertColor(backgroundColor.value, 'backgroundColor')" [disabled]="htmlMode">
+      <input #backgroundColor type="color" id="backgroundColorPicker" class="color-picker background"
+             (change)="insertColor(backgroundColor.value, 'backgroundColor')" [disabled]="htmlMode">
     </div>
   </div>
   <div class="angular-toolbar-set">
