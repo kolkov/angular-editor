@@ -23,13 +23,15 @@ a {
     border-radius: 5px;
     background-color: white;
     margin-right: 5px;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    margin-bottom: 3px;
     .angular-editor-button {
       background-color: transparent;
       padding: 0.4rem;
-      min-width: 2.5rem;
+      min-width: 2.0rem;
       float: left;
-      border: 1px solid #ddd;
-      border-right: transparent;
+      border: 0 solid #ddd;
 
       &:hover {
         cursor: pointer;
@@ -42,31 +44,119 @@ a {
         outline: 0;
       }
 
-      &:last-child {
-        border-right: 1px solid #ddd;
-      }
-
-      &:first-child {
-        border-top-left-radius: 5px;
-        border-bottom-left-radius: 5px;
-      }
-
-      &:last-child {
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
-      }
-
       &:disabled {
         background-color: #f5f5f5;
         pointer-events: none;
         cursor: not-allowed;
       }
 
+      &.active {
+        background: #fff5b9;
+        &:hover {
+          background-color: #fffa98;
+        }
+      }
     }
-    .active {
-      background: #fff5b9;
+    .select-heading {
+      font-size: 11px;
+      width: 90px;
+      vertical-align: middle;
+      background-color: transparent;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+      padding: 0.44rem;
+      cursor: pointer;
+      optgroup {
+        font-size: 12px;
+        background-color: #f4f4f4;
+        padding: 5px;
+      }
+      option {
+        border: 1px solid;
+      }
+      .default {
+        font-size: 16px;
+      }
+      .h1 {
+        font-size: 24px;
+      }
+      .h2 {
+        font-size: 20px;
+      }
+      .h3 {
+        font-size: 16px;
+      }
+      .h4 {
+        font-size: 15px;
+      }
+      .h5 {
+        font-size: 14px;
+      }
+      .h6 {
+        font-size: 13px;
+      }
+      :hover {
+        cursor: pointer;
+        background-color: #f1f1f1;
+        transition: 0.2s ease;
+      }
+    }
+
+    .color-picker-wrapper {
+      display: inline-block;
+      position: relative;
+      padding: 0;
+      margin: 0;
+      vertical-align: middle;
+    }
+
+    input[type="color"] {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .color-picker-wrapper {
+      display: inline-block;
+      float: left;
+      min-width: 1.0rem;
+      height: 15px;
+      padding: 0.4rem;
+      .color-label {
+        position: relative;
+        bottom: 4px;
+        cursor: pointer;
+        margin-left: 4px;
+      }
+      .background {
+        font-size: smaller;
+        background: #1b1b1b;
+        color: white;
+        padding: 3px;
+        top: -3px;
+      }
       &:hover {
-        background-color: #fffa98;
+        cursor: pointer;
+        background-color: #f1f1f1;
+        transition: 0.2s ease;
+      }
+    }
+
+    .foreground {
+      :after {
+        position: absolute;
+        content: "";
+        left: -1px;
+        top: auto;
+        bottom: -3px;
+        right: auto;
+        width: 13px;
+        height: 2px;
+        z-index: 0;
+        background: red;
       }
     }
   }

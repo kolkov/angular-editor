@@ -43,22 +43,29 @@
             (click)="triggerCommand('insertOrderedList')"><i class='fa fa-list-ol'></i></button>
   </div>
   <div class="angular-toolbar-set">
-    <button id="h1" type="button" title="Heading 1" class="angular-editor-button" (click)="triggerCommand('h1')">H1
-    </button>
-    <button id="h2" type="button" title="Heading 2" class="angular-editor-button" (click)="triggerCommand('h2')">H2
-    </button>
-    <button id="h3" type="button" title="Heading 3" class="angular-editor-button" (click)="triggerCommand('h3')">H3
-    </button>
-    <button id="h4" type="button" title="Heading 4" class="angular-editor-button" (click)="triggerCommand('h4')">H4
-    </button>
-    <button id="h5" type="button" title="Heading 5" class="angular-editor-button" (click)="triggerCommand('h5')">H5
-    </button>
-    <button id="h6" type="button" title="Heading 6" class="angular-editor-button" (click)="triggerCommand('h6')">H6
-    </button>
-    <button id="p" type="button" title="Paragraph" class="angular-editor-button" (click)="triggerCommand('p')">P
-    </button>
-    <button id="pre" type="button" title="Predefined" class="angular-editor-button" (click)="triggerCommand('pre')">PRE
-    </button>
+    <label for="heading" class="block-label"></label>
+      <select id="heading" class="select-heading" [(ngModel)]="block" (change)="triggerCommand(block)">
+        <optgroup label="Formatting"></optgroup>
+        <option class="h1" value="h1">Heading 1</option>
+        <option class="h2" value="h2">Heading 2</option>
+        <option class="h3" value="h3">Heading 3</option>
+        <option class="h4" value="h4">Heading 4</option>
+        <option class="h5" value="h5">Heading 5</option>
+        <option class="h6" value="h6">Heading 6</option>
+        <option class="pre" value="pre">Predefined</option>
+        <option class="div" value="div">Standard</option>
+        <option class="default" value="default">Default</option>
+      </select>
+  </div>
+  <div class="angular-toolbar-set">
+    <div class="color-picker-wrapper foreground">
+      <label for="foregroundColorPicker" class="color-label"><i class="fa fa-font"></i></label>
+      <input #foregroundColor type="color" id="foregroundColorPicker" class="color-picker foreground" (change)="insertColor(foregroundColor.value, 'textColor')">
+    </div>
+    <div class="color-picker-wrapper">
+      <label for="backgroundColorPicker" class="color-label background"><i class="fa fa-font"></i></label>
+      <input #backgroundColor type="color" id="backgroundColorPicker" class="color-picker background" (change)="insertColor(backgroundColor.value, 'backgroundColor')">
+    </div>
   </div>
   <div class="angular-toolbar-set">
     <button id="link" type="button" class="angular-editor-button" (click)="insertUrl()"

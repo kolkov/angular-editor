@@ -9,18 +9,13 @@ import {AngularEditorService} from "./angular-editor.service";
 
 export class AngularEditorToolbarComponent {
 
+  block: string = 'default';
+
   tagMap = {
-    H1: "h1",
-    H2: "h2",
-    H3: "h3",
-    H4: "h4",
-    H5: "h5",
-    H6: "h6",
-    P: "p",
-    PRE: "pre",
     BLOCKQUOTE: "indent",
     A: "link"
   };
+  select = ["H1", "H2", "H3", "H4", "H5", "H6", "P", "PRE", "DIV"];
 
   buttons = ["bold", "italic", "underline", "strikeThrough", "subscript", "superscript", "justifyLeft", "justifyCenter", "justifyRight", "justifyFull", "indent", "outdent", "insertUnorderedList", "insertOrderedList", "link"];
 
@@ -57,6 +52,19 @@ export class AngularEditorToolbarComponent {
    * trigger highlight editor buttons when cursor moved or positioning in block
    */
   triggerBlocks(nodes: Node[]) {
+    let found = false;
+    this.select.forEach(y => {
+      let node = nodes.find(x => x.nodeName == y);
+      if (node != undefined && y == node.nodeName) {
+        if (found == false) {
+          this.block = node.nodeName.toLowerCase();
+          found = true;
+        } else {
+          this.block = 'default';
+        }
+      }
+    });
+
     Object.keys(this.tagMap).map(e => {
       let elementById = document.getElementById(this.tagMap[e]);
 
@@ -79,6 +87,10 @@ export class AngularEditorToolbarComponent {
       this.editorService.createLink(url);
     }
   }
+
+  insertColor(color: string, where: string) {
+    this.editorService.insertColor(color, where);
+}
 
   /**
    * toggle editor mode (WYSIWYG or SOURCE)

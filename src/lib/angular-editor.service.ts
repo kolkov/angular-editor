@@ -38,6 +38,31 @@ export class AngularEditorService {
   }
 
   /**
+   * insert color either font or background
+   *
+   * @param color color to be inserted
+   * @param where where the color has to be inserted either text/background
+   */
+  insertColor(color: string, where: string): void {
+
+    if (this.savedSelection) {
+      const restored = this.restoreSelection();
+      if (restored && this.checkSelection()) {
+        if (where === 'textColor') {
+          document.execCommand('foreColor', false, color);
+        } else {
+          document.execCommand('hiliteColor', false, color);
+        }
+      }
+
+    } else {
+      throw new Error('Range out of the editor');
+    }
+
+    return;
+  }
+
+  /**
    * Create raw HTML
    * @param html HTML string
    */
@@ -64,8 +89,9 @@ export class AngularEditorService {
       }
     } else if (document.getSelection && document.createRange) {
       this.savedSelection = document.createRange();
+    } else {
+      this.savedSelection = null;
     }
-    this.savedSelection = null;
   }
 
   /**
@@ -87,5 +113,17 @@ export class AngularEditorService {
     } else {
       return false;
     }
+  }
+
+  /** check any slection is made or not */
+  private checkSelection(): any {
+
+    const slectedText = this.savedSelection.toString();
+
+    if (slectedText.length === 0) {
+      throw new Error('No Selection Made');
+    }
+
+    return true;
   }
 }
