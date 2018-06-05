@@ -105,6 +105,11 @@ a {
       .pre {
         font-size: 12px;
       }
+      &:disabled {
+        background-color: #f5f5f5;
+        pointer-events: none;
+        cursor: not-allowed;
+      }
       &:hover {
         cursor: pointer;
         background-color: #f1f1f1;
@@ -135,6 +140,11 @@ a {
         background: #1b1b1b;
         color: white;
         padding: 3px;
+      }
+      &.disabled {
+        background-color: #f5f5f5;
+        pointer-events: none;
+        cursor: not-allowed;
       }
       &:hover {
         cursor: pointer;

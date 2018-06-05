@@ -6,45 +6,45 @@
       class='fa fa-repeat'></i></button>
   </div>
   <div class="angular-toolbar-set">
-    <button id="bold" type="button" title="Bold" class="angular-editor-button" (click)="triggerCommand('bold')"><i
+    <button id="bold" type="button" title="Bold" class="angular-editor-button" (click)="triggerCommand('bold')" [disabled]="htmlMode"><i
       class='fa fa-bold'></i></button>
-    <button id="italic" type="button" title="Italic" class="angular-editor-button" (click)="triggerCommand('italic')"><i
+    <button id="italic" type="button" title="Italic" class="angular-editor-button" (click)="triggerCommand('italic')" [disabled]="htmlMode"><i
       class='fa fa-italic'></i></button>
     <button id="underline" type="button" title="Underline" class="angular-editor-button"
-            (click)="triggerCommand('underline')"><i class='fa fa-underline'></i></button>
+            (click)="triggerCommand('underline')" [disabled]="htmlMode"><i class='fa fa-underline'></i></button>
     <button id="strikeThrough" type="button" title="Strikethrough" class="angular-editor-button"
-            (click)="triggerCommand('strikeThrough')"><i class='fa fa-strikethrough'></i></button>
+            (click)="triggerCommand('strikeThrough')" [disabled]="htmlMode"><i class='fa fa-strikethrough'></i></button>
     <button id="subscript" type="button" title="Subscript" class="angular-editor-button"
-            (click)="triggerCommand('subscript')"><i class='fa fa-subscript'></i></button>
+            (click)="triggerCommand('subscript')" [disabled]="htmlMode"><i class='fa fa-subscript'></i></button>
     <button id="superscript" type="button" title="Superscript" class="angular-editor-button"
-            (click)="triggerCommand('superscript')"><i class='fa fa-superscript'></i></button>
+            (click)="triggerCommand('superscript')" [disabled]="htmlMode"><i class='fa fa-superscript'></i></button>
 
   </div>
   <div class="angular-toolbar-set">
-    <button id="justifyLeft" type="button" title="Justify Left" class="angular-editor-button" (click)="triggerCommand('justifyLeft')"><i
+    <button id="justifyLeft" type="button" title="Justify Left" class="angular-editor-button" (click)="triggerCommand('justifyLeft')" [disabled]="htmlMode"><i
       class='fa fa-align-left'></i></button>
     <button id="justifyCenter" type="button" title="Justify Center" class="angular-editor-button"
-            (click)="triggerCommand('justifyCenter')"><i class='fa fa-align-center'></i></button>
-    <button id="justifyRight" type="button" title="Justify Right" class="angular-editor-button" (click)="triggerCommand('justifyRight')">
+            (click)="triggerCommand('justifyCenter')" [disabled]="htmlMode"><i class='fa fa-align-center'></i></button>
+    <button id="justifyRight" type="button" title="Justify Right" class="angular-editor-button" (click)="triggerCommand('justifyRight')" [disabled]="htmlMode">
       <i class='fa fa-align-right'></i></button>
-    <button id="justifyFull" type="button" title="Justify Full" class="angular-editor-button" (click)="triggerCommand('justifyFull')"><i
+    <button id="justifyFull" type="button" title="Justify Full" class="angular-editor-button" (click)="triggerCommand('justifyFull')" [disabled]="htmlMode"><i
       class='fa fa-align-justify'></i></button>
   </div>
   <div class="angular-toolbar-set">
-    <button id="indent" type="button" title="Indent" class="angular-editor-button" (click)="triggerCommand('indent')"><i
+    <button id="indent" type="button" title="Indent" class="angular-editor-button" (click)="triggerCommand('indent')" [disabled]="htmlMode"><i
       class='fa fa-indent'></i></button>
-    <button id="outdent" type="button" title="Outdent" class="angular-editor-button" (click)="triggerCommand('outdent')"><i
+    <button id="outdent" type="button" title="Outdent" class="angular-editor-button" (click)="triggerCommand('outdent')" [disabled]="htmlMode"><i
       class='fa fa-outdent'></i></button>
   </div>
   <div class="angular-toolbar-set">
     <button id="insertUnorderedList" type="button" title="Unordered List" class="angular-editor-button"
-            (click)="triggerCommand('insertUnorderedList')"><i class='fa fa-list-ul'></i></button>
+            (click)="triggerCommand('insertUnorderedList')" [disabled]="htmlMode"><i class='fa fa-list-ul'></i></button>
     <button id="insertOrderedList" type="button" title="Ordered List" class="angular-editor-button"
-            (click)="triggerCommand('insertOrderedList')"><i class='fa fa-list-ol'></i></button>
+            (click)="triggerCommand('insertOrderedList')" [disabled]="htmlMode"><i class='fa fa-list-ol'></i></button>
   </div>
   <div class="angular-toolbar-set">
     <label for="heading" class="block-label"></label>
-      <select title="Formatting" id="heading" class="select-heading" [(ngModel)]="block" (change)="triggerCommand(block)">
+      <select title="Formatting" id="heading" class="select-heading" [(ngModel)]="block" (change)="triggerCommand(block)" [disabled]="htmlMode">
         <optgroup label="Formatting"></optgroup>
         <option class="h1" value="h1">Heading 1</option>
         <option class="h2" value="h2">Heading 2</option>
@@ -59,30 +59,30 @@
       </select>
   </div>
   <div class="angular-toolbar-set">
-    <div title="Text Color" class="color-picker-wrapper foreground">
+    <div id="foregroundColorPickerWrapper" title="Text Color" class="color-picker-wrapper foreground">
       <label for="foregroundColorPicker" class="color-label"><i class="fa fa-font"></i></label>
-      <input #foregroundColor type="color" id="foregroundColorPicker" class="color-picker foreground" (change)="insertColor(foregroundColor.value, 'textColor')">
+      <input #foregroundColor type="color" id="foregroundColorPicker" class="color-picker foreground" (change)="insertColor(foregroundColor.value, 'textColor')" [disabled]="htmlMode">
     </div>
-    <div title="Background Color" class="color-picker-wrapper">
+    <div id="backgroundColorPickerWrapper" title="Background Color" class="color-picker-wrapper">
       <label for="backgroundColorPicker" class="color-label background"><i class="fa fa-font"></i></label>
-      <input #backgroundColor type="color" id="backgroundColorPicker" class="color-picker background" (change)="insertColor(backgroundColor.value, 'backgroundColor')">
+      <input #backgroundColor type="color" id="backgroundColorPicker" class="color-picker background" (change)="insertColor(backgroundColor.value, 'backgroundColor')" [disabled]="htmlMode">
     </div>
   </div>
   <div class="angular-toolbar-set">
     <button id="link" type="button" class="angular-editor-button" (click)="insertUrl()"
-            title="Insert Link">
+            title="Insert Link" [disabled]="htmlMode">
       <i class="fa fa-link"></i>
     </button>
     <button type="button" class="angular-editor-button" (click)="triggerCommand('unlink')"
-            title="Unlink">
+            title="Unlink" [disabled]="htmlMode">
       <i class="fa fa-chain-broken"></i>
     </button>
     <button type="button" title="Horizontal Line" class="angular-editor-button"
-            (click)="triggerCommand('insertHorizontalRule')"><i class="fa fa-minus"></i></button>
+            (click)="triggerCommand('insertHorizontalRule')" [disabled]="htmlMode"><i class="fa fa-minus"></i></button>
   </div>
   <div class="angular-toolbar-set">
     <button type="button" title="Clear Formatting" class="angular-editor-button"
-            (click)="triggerCommand('removeFormat')"><i class='fa fa-eraser'></i></button>
+            (click)="triggerCommand('removeFormat')" [disabled]="htmlMode"><i class='fa fa-remove'></i></button>
   </div>
   <div class="angular-toolbar-set">
     <button id="toggleEditorMode" type="button" title="HTML Code" class="angular-editor-button"

@@ -12,7 +12,7 @@ export interface AngularEditorConfig {
   defaultParagraphSeparator?: string;
 }
 
-export const angularEditorConfig = {
+export const angularEditorConfig: AngularEditorConfig = {
   editable: true,
   spellcheck: true,
   height: 'auto',

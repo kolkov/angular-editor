@@ -9,6 +9,8 @@ import {AngularEditorService} from "./angular-editor.service";
 
 export class AngularEditorToolbarComponent {
 
+  htmlMode = false;
+
   block: string = 'default';
 
   tagMap = {
@@ -102,6 +104,20 @@ export class AngularEditorToolbarComponent {
       this._renderer.addClass(toggleEditorModeButton, "active");
     } else {
       this._renderer.removeClass(toggleEditorModeButton, "active");
+    }
+    this.htmlMode = m;
+    this.disableColorPicker();
+  }
+
+  disableColorPicker(){
+    const foregroundColorPickerWrapper = document.getElementById("foregroundColorPickerWrapper");
+    const backgroundColorPickerWrapper = document.getElementById("backgroundColorPickerWrapper");
+    if (this.htmlMode) {
+      this._renderer.addClass(foregroundColorPickerWrapper, "disabled");
+      this._renderer.addClass(backgroundColorPickerWrapper, "disabled");
+    } else {
+      this._renderer.removeClass(foregroundColorPickerWrapper, "disabled");
+      this._renderer.removeClass(backgroundColorPickerWrapper, "disabled");
     }
   }
 }
