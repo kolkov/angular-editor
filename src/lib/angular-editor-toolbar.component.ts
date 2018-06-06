@@ -13,6 +13,7 @@ export class AngularEditorToolbarComponent {
 
   block: string = 'default';
   fontName: string = 'Arial';
+  fontSize: string = '5';
 
   tagMap = {
     BLOCKQUOTE: "indent",
@@ -97,9 +98,21 @@ export class AngularEditorToolbarComponent {
     this.execute.emit("");
   }
 
-  /** set font Name/family */
+  /**
+   * set font Name/family
+   * @param fontName string
+   */
   setFontName(fontName: string): void {
     this.editorService.setFontName(fontName);
+    this.execute.emit("");
+  }
+
+  /**
+   * set font Size
+   * @param fontSize string
+   *  */
+  setFontSize(fontSize: string): void {
+    this.editorService.setFontSize(fontSize);
     this.execute.emit("");
   }
 
