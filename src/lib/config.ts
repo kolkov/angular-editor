@@ -11,6 +11,7 @@ export interface AngularEditorConfig {
   placeholder?: string,
   defaultParagraphSeparator?: string;
   defaultFontName?: string;
+  defaultFontSize?: '1' | '2' | '3' | '4' | '5' | '6' | '7' |string;
 }
 
 export const angularEditorConfig: AngularEditorConfig = {
@@ -25,5 +26,6 @@ export const angularEditorConfig: AngularEditorConfig = {
   showToolbar: true,
   placeholder: 'Enter text here...',
   defaultParagraphSeparator: '',
-  defaultFontName: ''
+  defaultFontName: '',
+  defaultFontSize: '',
 };

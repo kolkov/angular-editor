@@ -59,6 +59,12 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     if (this.config.defaultFontName) {
       this.onEditorFocus();
       this.editorService.setFontName(this.config.defaultFontName);
+      this.editorToolbar.fontName = this.config.defaultFontName;
+    }
+    if (this.config.defaultFontSize) {
+      this.onEditorFocus();
+      this.editorService.setFontSize(this.config.defaultFontSize);
+      this.editorToolbar.fontSize = this.config.defaultFontSize;
     }
   }
 

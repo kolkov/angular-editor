@@ -79,6 +79,21 @@
     </select>
   </div>
   <div class="angular-toolbar-set">
+    <label for="fontSizeSelector" class="block-label"></label>
+    <select title="Font Size" id="fontSizeSelector" class="select-font-size" [(ngModel)]="fontSize"
+            (change)="setFontSize(fontSize)"
+            [disabled]="htmlMode">
+      <optgroup label="Font Sizing"></optgroup>
+      <option class="size1" value="1">1</option>
+      <option class="size2" value="2">2</option>
+      <option class="size3" value="3">3</option>
+      <option class="size4" value="4">4</option>
+      <option class="size5" value="5">5</option>
+      <option class="size6" value="6">6</option>
+      <option class="size7" value="7">7</option>
+    </select>
+  </div>
+  <div class="angular-toolbar-set">
     <div id="foregroundColorPickerWrapper" title="Text Color" class="color-picker-wrapper foreground">
       <label for="foregroundColorPicker" class="color-label"><i class="fa fa-font"></i></label>
       <input #foregroundColor type="color" id="foregroundColorPicker" class="color-picker foreground"

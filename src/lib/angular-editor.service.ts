@@ -65,6 +65,14 @@ export class AngularEditorService {
   }
 
   /**
+   * Set font size
+   * @param fontSize string
+   */
+  setFontSize(fontSize: string) {
+    document.execCommand("fontSize", false, fontSize);
+  }
+
+  /**
    * Create raw HTML
    * @param html HTML string
    */
