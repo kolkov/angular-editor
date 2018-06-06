@@ -1,5 +1,5 @@
 import {
-  AfterViewInit,
+  AfterContentInit,
   Component,
   EventEmitter,
   forwardRef,
@@ -26,7 +26,7 @@ import {AngularEditorService} from "./angular-editor.service";
     }
   ]
 })
-export class AngularEditorComponent implements OnInit, ControlValueAccessor, AfterViewInit {
+export class AngularEditorComponent implements OnInit, ControlValueAccessor, AfterContentInit {
 
   private onChange: (value: string) => void;
   private onTouched: () => void;
@@ -55,16 +55,16 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     }
   }
 
-  ngAfterViewInit() {
+  ngAfterContentInit() {
     if (this.config.defaultFontName) {
+      this.editorToolbar.fontName = this.config.defaultFontName;
       this.onEditorFocus();
       this.editorService.setFontName(this.config.defaultFontName);
-      this.editorToolbar.fontName = this.config.defaultFontName;
     }
     if (this.config.defaultFontSize) {
+      this.editorToolbar.fontSize = this.config.defaultFontSize;
       this.onEditorFocus();
       this.editorService.setFontSize(this.config.defaultFontSize);
-      this.editorToolbar.fontSize = this.config.defaultFontSize;
     }
   }
 
