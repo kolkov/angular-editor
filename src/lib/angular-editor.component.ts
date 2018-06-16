@@ -35,7 +35,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
   modeVisual = true;
   showPlaceholder = false;
-
+  @Input() id = '';
   @Input() config: AngularEditorConfig = angularEditorConfig;
 
   @Output() html;
@@ -50,6 +50,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   }
 
   ngOnInit() {
+    this.editorToolbar.id = this.id;
     if (this.config.defaultParagraphSeparator) {
       document.execCommand("defaultParagraphSeparator", false, "p");
     }
@@ -114,7 +115,6 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
         this.togglePlaceholder(this.showPlaceholder);
       }
     }
-
     return;
   }
 
@@ -183,6 +183,17 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       this.showPlaceholder = false;
     }
     return;
+  }
+
+  /**
+   * Implements disabled state for this element
+   *
+   * @param isDisabled
+   */
+  setDisabledState(isDisabled: boolean): void {
+    const div = this.textArea.nativeElement;
+    const action = isDisabled ? 'addClass' : 'removeClass';
+    this._renderer[action](div, 'disabled');
   }
 
   /**

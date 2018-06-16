@@ -9,6 +9,7 @@ import {AngularEditorService} from "./angular-editor.service";
 
 export class AngularEditorToolbarComponent {
 
+  id = '';
   htmlMode = false;
 
   block: string = 'default';
@@ -43,7 +44,7 @@ export class AngularEditorToolbarComponent {
   triggerButtons() {
     this.buttons.forEach(e => {
       let result = document.queryCommandState(e);
-      let elementById = document.getElementById(e);
+      let elementById = document.getElementById(e + '-' + this.id);
       if (result) {
         this._renderer.addClass(elementById, "active");
       } else {
@@ -70,7 +71,7 @@ export class AngularEditorToolbarComponent {
     });
 
     Object.keys(this.tagMap).map(e => {
-      let elementById = document.getElementById(this.tagMap[e]);
+      let elementById = document.getElementById(this.tagMap[e] + '-' + this.id);
 
       let node = nodes.find(x => x.nodeName == e);
 
@@ -121,7 +122,7 @@ export class AngularEditorToolbarComponent {
    * @param m boolean
    */
   setEditorMode(m: boolean) {
-    const toggleEditorModeButton = document.getElementById("toggleEditorMode");
+    const toggleEditorModeButton = document.getElementById("toggleEditorMode" + '-' + this.id);
     if (m) {
       this._renderer.addClass(toggleEditorModeButton, "active");
     } else {
