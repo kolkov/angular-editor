@@ -113,6 +113,11 @@
             title="Unlink" [disabled]="htmlMode">
       <i class="fa fa-chain-broken"></i>
     </button>
+    <input
+      style="display: none"
+      type="file" (change)="onFileChanged($event)"
+      #fileInput>
+    <button type="button" class="angular-editor-button" (click)="fileInput.click()" title="Insert Image" [disabled]="htmlMode"><i class="fa fa-image"></i></button>
     <button type="button" title="Horizontal Line" class="angular-editor-button"
             (click)="triggerCommand('insertHorizontalRule')" [disabled]="htmlMode"><i class="fa fa-minus"></i></button>
   </div>

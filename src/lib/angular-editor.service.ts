@@ -1,4 +1,10 @@
 import {Injectable} from '@angular/core';
+import {HttpClient, HttpEvent} from "@angular/common/http";
+import {Observable} from "rxjs";
+
+export interface UploadResponse {
+  imageUrl: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -7,8 +13,9 @@ export class AngularEditorService {
 
   savedSelection: Range | null;
   selectedText: string;
+  uploadUrl: string;
 
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
   /**
@@ -135,5 +142,29 @@ export class AngularEditorService {
     }
 
     return true;
+  }
+
+  /**
+   * Upload file to uploadUrl
+   * @param file
+   */
+  uploadImage(file: File): Observable<HttpEvent<UploadResponse>>{
+
+      const uploadData: FormData = new FormData();
+
+      uploadData.append('file', file, file.name);
+
+      return this.http.post<UploadResponse>(this.uploadUrl, uploadData, {
+        reportProgress: true,
+        observe: 'events',
+      });
+  }
+
+  /**
+   * Insert image with Url
+   * @param imageUrl
+   */
+  insertImage(imageUrl: string){
+    document.execCommand('insertImage', false, imageUrl);
   }
 }

@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Output, Renderer2} from "@angular/core";
-import {AngularEditorService} from "./angular-editor.service";
+import {AngularEditorService, UploadResponse} from "./angular-editor.service";
+import {Observable} from "rxjs";
+import {HttpEvent, HttpResponse} from "@angular/common/http";
 
 @Component({
   selector: 'angular-editor-toolbar',
@@ -8,7 +10,6 @@ import {AngularEditorService} from "./angular-editor.service";
 })
 
 export class AngularEditorToolbarComponent {
-
   id = '';
   htmlMode = false;
 
@@ -145,5 +146,17 @@ export class AngularEditorToolbarComponent {
       this._renderer.removeClass(foregroundColorPickerWrapper, "disabled");
       this._renderer.removeClass(backgroundColorPickerWrapper, "disabled");
     }
+  }
+
+  /**
+   * Upload image when file is selected
+   */
+  onFileChanged(event) {
+    const file = event.target.files[0];
+    this.editorService.uploadImage(file).subscribe(event => {
+      if (event instanceof HttpResponse) {
+        this.editorService.insertImage(event.body.imageUrl)
+      }
+    });
   }
 }

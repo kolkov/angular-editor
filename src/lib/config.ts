@@ -12,6 +12,7 @@ export interface AngularEditorConfig {
   defaultParagraphSeparator?: string;
   defaultFontName?: string;
   defaultFontSize?: '1' | '2' | '3' | '4' | '5' | '6' | '7' |string;
+  uploadUrl?: string;
 }
 
 export const angularEditorConfig: AngularEditorConfig = {
@@ -28,4 +29,5 @@ export const angularEditorConfig: AngularEditorConfig = {
   defaultParagraphSeparator: '',
   defaultFontName: '',
   defaultFontSize: '',
+  uploadUrl: 'v1/image',
 };
