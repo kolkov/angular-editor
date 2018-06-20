@@ -22,10 +22,11 @@ npm install @kolkov/angular-editor --save
 Import `angular-editor` module
 
 ```typescript
+import { HttpClientModule} from '@angular/common/http';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
-  imports: [ AngularEditorModule ]
+  imports: [ HttpClientModule, AngularEditorModule ]
 })
 ```
 
@@ -62,7 +63,8 @@ editorConfig: AngularEditorConfig = {
     height: '25rem',
     minHeight: '5rem',
     placeholder: 'Enter text here...',
-    translate: 'no'
+    translate: 'no',
+    uploadUrl: 'v1/images', // if needed
   };
 ```
 
