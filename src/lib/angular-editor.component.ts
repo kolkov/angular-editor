@@ -51,6 +51,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
   ngOnInit() {
     this.editorToolbar.id = this.id;
+    this.editorService.uploadUrl = this.config.uploadUrl;
     if (this.config.defaultParagraphSeparator) {
       document.execCommand("defaultParagraphSeparator", false, "p");
     }
