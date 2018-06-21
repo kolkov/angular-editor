@@ -69,10 +69,10 @@
   </div>
   <div class="angular-toolbar-set">
     <label [for]="'fontSelector-'+id" class="block-label"></label>
-    <select title="Font Name" [id]="'fontSelector-'+id" class="select-heading" [(ngModel)]="fontName"
+    <select title="Font Name" [id]="'fontSelector-'+id" class="select-font" [(ngModel)]="fontName"
             (change)="setFontName(fontName)"
             [disabled]="htmlMode">
-      <optgroup label="Formatting"></optgroup>
+      <optgroup label="Font Name"></optgroup>
       <option class="arial" value="Arial">Arial</option>
       <option class="calibri" value="Calibri">Calibri</option>
       <option class="comic-sans-ms" value="Comic Sans MS">Comic Sans MS</option>
