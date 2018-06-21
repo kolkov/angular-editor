@@ -50,6 +50,19 @@ a {
         background-color: #f5f5f5;
         pointer-events: none;
         cursor: not-allowed;
+        > .color-label {
+
+          pointer-events: none;
+          cursor: not-allowed;
+          &.foreground {
+            :after {
+              background: #555555;
+            }
+          }
+          &.background {
+            background: #555555;
+          }
+        }
       }
 
       &.active {
