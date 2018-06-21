@@ -258,8 +258,8 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     }
 
     let a = userSelection.focusNode;
-    let els = [];
-    while (a && a.id != 'editor') {
+    const els = [];
+    while (a && a.id !== 'editor') {
       els.unshift(a);
       a = a.parentNode;
     }

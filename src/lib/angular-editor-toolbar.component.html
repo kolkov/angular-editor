@@ -7,11 +7,10 @@
   </div>
   <div class="angular-toolbar-set">
     <button [id]="'bold-'+id" type="button" title="Bold" class="angular-editor-button" (click)="triggerCommand('bold')"
-            [disabled]="htmlMode"><i
-      class='fa fa-bold'></i></button>
-    <button [id]="'italic-'+id" type="button" title="Italic" class="angular-editor-button" (click)="triggerCommand('italic')"
-            [disabled]="htmlMode"><i
-      class='fa fa-italic'></i></button>
+            [disabled]="htmlMode"><i class='fa fa-bold'></i></button>
+    <button [id]="'italic-'+id" type="button" title="Italic" class="angular-editor-button"
+            (click)="triggerCommand('italic')"
+            [disabled]="htmlMode"><i class='fa fa-italic'></i></button>
     <button [id]="'underline-'+id" type="button" title="Underline" class="angular-editor-button"
             (click)="triggerCommand('underline')" [disabled]="htmlMode"><i class='fa fa-underline'></i></button>
     <button [id]="'strikeThrough-'+id" type="button" title="Strikethrough" class="angular-editor-button"
@@ -35,10 +34,12 @@
       class='fa fa-align-justify'></i></button>
   </div>
   <div class="angular-toolbar-set">
-    <button [id]="'indent-'+id" type="button" title="Indent" class="angular-editor-button" (click)="triggerCommand('indent')"
+    <button [id]="'indent-'+id" type="button" title="Indent" class="angular-editor-button"
+            (click)="triggerCommand('indent')"
             [disabled]="htmlMode"><i
       class='fa fa-indent'></i></button>
-    <button [id]="'outdent-'+id" type="button" title="Outdent" class="angular-editor-button" (click)="triggerCommand('outdent')"
+    <button [id]="'outdent-'+id" type="button" title="Outdent" class="angular-editor-button"
+            (click)="triggerCommand('outdent')"
             [disabled]="htmlMode"><i
       class='fa fa-outdent'></i></button>
   </div>
@@ -50,7 +51,8 @@
   </div>
   <div class="angular-toolbar-set">
     <label [for]="'heading-'+id" class="block-label"></label>
-    <select title="Formatting" [id]="'heading-'+id" class="select-heading" [(ngModel)]="block" (change)="triggerCommand(block)"
+    <select title="Formatting" [id]="'heading-'+id" class="select-heading" [(ngModel)]="block"
+            (change)="triggerCommand(block)"
             [disabled]="htmlMode">
       <optgroup label="Formatting"></optgroup>
       <option class="h1" value="h1">Heading 1</option>
@@ -117,7 +119,8 @@
       style="display: none"
       type="file" (change)="onFileChanged($event)"
       #fileInput>
-    <button type="button" class="angular-editor-button" (click)="fileInput.click()" title="Insert Image" [disabled]="htmlMode"><i class="fa fa-image"></i></button>
+    <button type="button" class="angular-editor-button" (click)="fileInput.click()" title="Insert Image"
+            [disabled]="htmlMode"><i class="fa fa-image"></i></button>
     <button type="button" title="Horizontal Line" class="angular-editor-button"
             (click)="triggerCommand('insertHorizontalRule')" [disabled]="htmlMode"><i class="fa fa-minus"></i></button>
   </div>
