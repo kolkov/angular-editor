@@ -23,7 +23,7 @@ export class AngularEditorService {
    * @param command string from triggerCommand
    */
   executeCommand(command: string) {
-    if (command == 'h1' || command == 'h2' || command == 'h3' || command == 'h4' || command == 'h5' || command == 'h6' || command == 'p' || command == 'pre') {
+    if (command === 'h1' || command === 'h2' || command === 'h3' || command === 'h4' || command === 'h5' || command === 'h6' || command === 'p' || command === 'pre') {
       document.execCommand('formatBlock', false, command);
     }
 
@@ -124,7 +124,7 @@ export class AngularEditorService {
         sel.addRange(this.savedSelection);
         return true;
       } else if (document.getSelection /*&& this.savedSelection.select*/) {
-        //this.savedSelection.select();
+        // this.savedSelection.select();
         return true;
       }
     } else {
@@ -148,23 +148,23 @@ export class AngularEditorService {
    * Upload file to uploadUrl
    * @param file
    */
-  uploadImage(file: File): Observable<HttpEvent<UploadResponse>>{
+  uploadImage(file: File): Observable<HttpEvent<UploadResponse>> {
 
-      const uploadData: FormData = new FormData();
+    const uploadData: FormData = new FormData();
 
-      uploadData.append('file', file, file.name);
+    uploadData.append('file', file, file.name);
 
-      return this.http.post<UploadResponse>(this.uploadUrl, uploadData, {
-        reportProgress: true,
-        observe: 'events',
-      });
+    return this.http.post<UploadResponse>(this.uploadUrl, uploadData, {
+      reportProgress: true,
+      observe: 'events',
+    });
   }
 
   /**
    * Insert image with Url
    * @param imageUrl
    */
-  insertImage(imageUrl: string){
+  insertImage(imageUrl: string) {
     document.execCommand('insertImage', false, imageUrl);
   }
 }

@@ -13,9 +13,9 @@ export class AngularEditorToolbarComponent {
   id = '';
   htmlMode = false;
 
-  block: string = 'default';
-  fontName: string = 'Arial';
-  fontSize: string = '5';
+  block = 'default';
+  fontName = 'Arial';
+  fontSize = '5';
 
   tagMap = {
     BLOCKQUOTE: "indent",
@@ -23,7 +23,8 @@ export class AngularEditorToolbarComponent {
   };
   select = ["H1", "H2", "H3", "H4", "H5", "H6", "P", "PRE", "DIV"];
 
-  buttons = ["bold", "italic", "underline", "strikeThrough", "subscript", "superscript", "justifyLeft", "justifyCenter", "justifyRight", "justifyFull", "indent", "outdent", "insertUnorderedList", "insertOrderedList", "link"];
+  buttons = ["bold", "italic", "underline", "strikeThrough", "subscript", "superscript", "justifyLeft", "justifyCenter",
+    "justifyRight", "justifyFull", "indent", "outdent", "insertUnorderedList", "insertOrderedList", "link"];
 
   @Output() execute: EventEmitter<string> = new EventEmitter<string>();
 
@@ -44,8 +45,8 @@ export class AngularEditorToolbarComponent {
    */
   triggerButtons() {
     this.buttons.forEach(e => {
-      let result = document.queryCommandState(e);
-      let elementById = document.getElementById(e + '-' + this.id);
+      const result = document.queryCommandState(e);
+      const elementById = document.getElementById(e + '-' + this.id);
       if (result) {
         this._renderer.addClass(elementById, "active");
       } else {
@@ -60,23 +61,23 @@ export class AngularEditorToolbarComponent {
   triggerBlocks(nodes: Node[]) {
     let found = false;
     this.select.forEach(y => {
-      let node = nodes.find(x => x.nodeName == y);
-      if (node != undefined && y == node.nodeName) {
-        if (found == false) {
+      const node = nodes.find(x => x.nodeName === y);
+      if (node !== undefined && y === node.nodeName) {
+        if (found === false) {
           this.block = node.nodeName.toLowerCase();
           found = true;
         }
-      } else if (found == false) {
+      } else if (found === false) {
         this.block = 'default';
       }
     });
 
     Object.keys(this.tagMap).map(e => {
-      let elementById = document.getElementById(this.tagMap[e] + '-' + this.id);
+      const elementById = document.getElementById(this.tagMap[e] + '-' + this.id);
 
-      let node = nodes.find(x => x.nodeName == e);
+      const node = nodes.find(x => x.nodeName === e);
 
-      if (node != undefined && e == node.nodeName) {
+      if (node !== undefined && e === node.nodeName) {
         this._renderer.addClass(elementById, "active");
       } else {
         this._renderer.removeClass(elementById, "active");
@@ -89,7 +90,7 @@ export class AngularEditorToolbarComponent {
    */
   insertUrl() {
     const url = prompt("Insert URL link", 'http:\/\/');
-    if (url && url != '' && url != 'http://') {
+    if (url && url !== '' && url !== 'http://') {
       this.editorService.createLink(url);
     }
   }
@@ -130,22 +131,6 @@ export class AngularEditorToolbarComponent {
       this._renderer.removeClass(toggleEditorModeButton, "active");
     }
     this.htmlMode = m;
-    this.disableColorPicker();
-  }
-
-  /**
-   * Disable color picker
-   */
-  disableColorPicker() {
-    const foregroundColorPickerWrapper = document.getElementById("foregroundColorPickerWrapper");
-    const backgroundColorPickerWrapper = document.getElementById("backgroundColorPickerWrapper");
-    if (this.htmlMode) {
-      this._renderer.addClass(foregroundColorPickerWrapper, "disabled");
-      this._renderer.addClass(backgroundColorPickerWrapper, "disabled");
-    } else {
-      this._renderer.removeClass(foregroundColorPickerWrapper, "disabled");
-      this._renderer.removeClass(backgroundColorPickerWrapper, "disabled");
-    }
   }
 
   /**
@@ -153,9 +138,9 @@ export class AngularEditorToolbarComponent {
    */
   onFileChanged(event) {
     const file = event.target.files[0];
-    this.editorService.uploadImage(file).subscribe(event => {
-      if (event instanceof HttpResponse) {
-        this.editorService.insertImage(event.body.imageUrl)
+    this.editorService.uploadImage(file).subscribe(e => {
+      if (e instanceof HttpResponse) {
+        this.editorService.insertImage(e.body.imageUrl);
       }
     });
   }
