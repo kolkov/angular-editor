@@ -12,7 +12,6 @@ a {
   resize: vertical;
   outline: none;
 }
-
 .angular-toolbar {
   font: 100 14px/15px Roboto, Arial, sans-serif;
   background-color: #f5f5f5;
@@ -27,31 +26,26 @@ a {
     vertical-align: middle;
     border: 1px solid #ddd;
     margin-bottom: 3px;
-    //line-height: 29.97px;
     .angular-editor-button {
       background-color: transparent;
       padding: 0.4rem;
       min-width: 2.0rem;
       float: left;
       border: 0 solid #ddd;
-
       &:hover {
         cursor: pointer;
         background-color: #f1f1f1;
         transition: 0.2s ease;
       }
-
       &:focus,
       &.focus {
         outline: 0;
       }
-
       &:disabled {
         background-color: #f5f5f5;
         pointer-events: none;
         cursor: not-allowed;
         > .color-label {
-
           pointer-events: none;
           cursor: not-allowed;
           &.foreground {
@@ -64,7 +58,6 @@ a {
           }
         }
       }
-
       &.active {
         background: #fff5b9;
         &:hover {
@@ -72,103 +65,56 @@ a {
         }
       }
     }
-    .select-heading {
-       font-size: 11px;
-       width: 90px;
-       vertical-align: middle;
-       background-color: transparent;
-       border: none;
-       border-radius: 5px;
-       outline: none;
-       padding: 6.9px;
-       cursor: pointer;
-       optgroup {
-         font-size: 12px;
-         background-color: #f4f4f4;
-         padding: 5px;
-       }
-       option {
-         border: 1px solid;
-         background-color: white;
-       }
-       .default {
-         font-size: 16px;
-       }
-       .h1 {
-         font-size: 24px;
-       }
-       .h2 {
-         font-size: 20px;
-       }
-       .h3 {
-         font-size: 16px;
-       }
-       .h4 {
-         font-size: 15px;
-       }
-       .h5 {
-         font-size: 14px;
-       }
-       .h6 {
-         font-size: 13px;
-       }
-       .div {
-         font-size: 12px;
-       }
-       .pre {
-         font-size: 12px;
-       }
-       &:disabled {
-         background-color: #f5f5f5;
-         pointer-events: none;
-         cursor: not-allowed;
-       }
-       &:hover {
-         cursor: pointer;
-         background-color: #f1f1f1;
-         transition: 0.2s ease;
-       }
-     }
-
-    .select-font-size {
+    select{
       font-size: 11px;
-      width: 50px;
+      width: 90px;
       vertical-align: middle;
       background-color: transparent;
-      border: none;
+      border: 0.5px solid rgba(255, 255, 255, 0);
       border-radius: 5px;
       outline: none;
-      padding: 6.9px;
+      padding: 0.4rem;
       cursor: pointer;
-      optgroup {
-        font-size: 12px;
-        background-color: #f4f4f4;
-        padding: 5px;
-      }
-      option {
-        border: 1px solid;
-        background-color: white;
-      }
-      .size1 {
-        font-size: 10px;
-      }
-      .size2 {
-        font-size: 12px;
-      }
-      .size3 {
-        font-size: 14px;
-      }
-      .size4 {
-        font-size: 16px;
-      }
-      .size5 {
-        font-size: 18px;
-      }
-      .size6 {
-        font-size: 20px;
-      }
-      .size7 {
-        font-size: 24px;
+    }
+    .select-heading {
+      width: 90px;
+      @supports not( -moz-appearance:none ) {
+        optgroup {
+          font-size: 12px;
+          background-color: #f4f4f4;
+          padding: 5px;
+        }
+        option {
+          border: 1px solid;
+          background-color: white;
+        }
+        .default {
+          font-size: 16px;
+        }
+        .h1 {
+          font-size: 24px;
+        }
+        .h2 {
+          font-size: 20px;
+        }
+        .h3 {
+          font-size: 16px;
+        }
+        .h4 {
+          font-size: 15px;
+        }
+        .h5 {
+          font-size: 14px;
+        }
+        .h6 {
+          font-size: 13px;
+        }
+        .div {
+          font-size: 12px;
+        }
+        .pre {
+          font-size: 12px;
+        }
       }
       &:disabled {
         background-color: #f5f5f5;
@@ -181,7 +127,75 @@ a {
         transition: 0.2s ease;
       }
     }
-
+    .select-font {
+      width: 90px;
+      @supports not( -moz-appearance:none ) {
+        optgroup {
+          font-size: 12px;
+          background-color: #f4f4f4;
+          padding: 5px;
+        }
+        option {
+          border: 1px solid;
+          background-color: white;
+        }
+      }
+      &:disabled {
+        background-color: #f5f5f5;
+        pointer-events: none;
+        cursor: not-allowed;
+      }
+      &:hover {
+        cursor: pointer;
+        background-color: #f1f1f1;
+        transition: 0.2s ease;
+      }
+    }
+    .select-font-size {
+      width: 50px;
+      @supports not( -moz-appearance:none ) {
+        optgroup {
+          font-size: 12px;
+          background-color: #f4f4f4;
+          padding: 5px;
+        }
+        option {
+          border: 1px solid;
+          background-color: white;
+        }
+        .size1 {
+          font-size: 10px;
+        }
+        .size2 {
+          font-size: 12px;
+        }
+        .size3 {
+          font-size: 14px;
+        }
+        .size4 {
+          font-size: 16px;
+        }
+        .size5 {
+          font-size: 18px;
+        }
+        .size6 {
+          font-size: 20px;
+        }
+        .size7 {
+          font-size: 24px;
+        }
+      }
+      &:disabled {
+        background-color: #f5f5f5;
+        pointer-events: none;
+        cursor: not-allowed;
+      }
+      &:hover {
+        cursor: pointer;
+        background-color: #f1f1f1;
+        transition: 0.2s ease;
+      }
+    }
     .color-label {
       position: relative;
       cursor: pointer;
@@ -208,5 +222,3 @@ a {
     }
   }
 }
-
-
