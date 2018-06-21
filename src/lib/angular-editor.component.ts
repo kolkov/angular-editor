@@ -75,8 +75,9 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    * @param command string from triggerCommand
    */
   executeCommand(command: string) {
-    if (command == 'toggleEditorMode') this.toggleEditorMode(this.modeVisual);
-    else if (command != '') {
+    if (command === 'toggleEditorMode') {
+      this.toggleEditorMode(this.modeVisual);
+    } else if (command !== '') {
       this.editorService.executeCommand(command);
       this.exec();
     }
@@ -204,7 +205,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    */
   toggleEditorMode(bToSource: boolean) {
     let oContent: any;
-    let editableElement = this.textArea.nativeElement;
+    const editableElement = this.textArea.nativeElement;
 
     if (bToSource) {
       oContent = document.createTextNode(editableElement.innerHTML);
@@ -242,7 +243,6 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     }
     this.editorToolbar.setEditorMode(!this.modeVisual);
   }
-
 
   /**
    * toggles editor buttons when cursor moved or positioning

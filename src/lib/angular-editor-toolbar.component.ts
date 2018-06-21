@@ -131,22 +131,6 @@ export class AngularEditorToolbarComponent {
       this._renderer.removeClass(toggleEditorModeButton, "active");
     }
     this.htmlMode = m;
-    this.disableColorPicker();
-  }
-
-  /**
-   * Disable color picker
-   */
-  disableColorPicker() {
-    const foregroundColorPickerWrapper = document.getElementById("foregroundColorPickerWrapper");
-    const backgroundColorPickerWrapper = document.getElementById("backgroundColorPickerWrapper");
-    if (this.htmlMode) {
-      this._renderer.addClass(foregroundColorPickerWrapper, "disabled");
-      this._renderer.addClass(backgroundColorPickerWrapper, "disabled");
-    } else {
-      this._renderer.removeClass(foregroundColorPickerWrapper, "disabled");
-      this._renderer.removeClass(backgroundColorPickerWrapper, "disabled");
-    }
   }
 
   /**
@@ -154,9 +138,9 @@ export class AngularEditorToolbarComponent {
    */
   onFileChanged(event) {
     const file = event.target.files[0];
-    this.editorService.uploadImage(file).subscribe(event => {
-      if (event instanceof HttpResponse) {
-        this.editorService.insertImage(event.body.imageUrl);
+    this.editorService.uploadImage(file).subscribe(e => {
+      if (e instanceof HttpResponse) {
+        this.editorService.insertImage(e.body.imageUrl);
       }
     });
   }

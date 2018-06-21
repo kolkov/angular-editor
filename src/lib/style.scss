@@ -169,43 +169,16 @@ a {
       }
     }
 
-    input[type="color"] {
-      opacity: 0;
-      width: 0;
-      height: 0;
-      border: none;
+    .color-label {
+      position: relative;
       cursor: pointer;
     }
-
-    .color-picker-wrapper {
-      float: left;
-      min-width: 1.4rem;
-      padding: 6.15px;
-      cursor: pointer;
-      .color-label {
-        position: relative;
-        cursor: pointer;
-        margin-left: 5px;
-      }
-      .background {
-        font-size: smaller;
-        background: #1b1b1b;
-        color: white;
-        padding: 3px;
-      }
-      &.disabled {
-        background-color: #f5f5f5;
-        pointer-events: none;
-        cursor: not-allowed;
-        color: #5e5e5e;
-      }
-      &:hover {
-        cursor: pointer;
-        background-color: #f1f1f1;
-        transition: 0.2s ease;
-      }
+    .background {
+      font-size: smaller;
+      background: #1b1b1b;
+      color: white;
+      padding: 3px;
     }
-
     .foreground {
       :after {
         position: absolute;
@@ -222,3 +195,5 @@ a {
     }
   }
 }
+
+

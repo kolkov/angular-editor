@@ -95,16 +95,18 @@
     </select>
   </div>
   <div class="angular-toolbar-set">
-    <div id="foregroundColorPickerWrapper" title="Text Color" class="color-picker-wrapper foreground">
-      <label [for]="'foregroundColorPicker-'+id" class="color-label"><i class="fa fa-font"></i></label>
-      <input #foregroundColor type="color" [id]="'foregroundColorPicker-'+id" class="color-picker foreground"
-             (change)="insertColor(foregroundColor.value, 'textColor')" [disabled]="htmlMode">
-    </div>
-    <div id="backgroundColorPickerWrapper" title="Background Color" class="color-picker-wrapper">
-      <label for="backgroundColorPicker" class="color-label background"><i class="fa fa-font"></i></label>
-      <input #backgroundColor type="color" id="backgroundColorPicker" class="color-picker background"
-             (change)="insertColor(backgroundColor.value, 'backgroundColor')" [disabled]="htmlMode">
-    </div>
+    <input
+      style="display: none"
+      type="color" (change)="insertColor(fgInput.value, 'textColor')"
+      #fgInput>
+    <button [id]="'foregroundColorPicker-'+id" type="button" class="angular-editor-button" (click)="fgInput.click()" title="Text Color"
+            [disabled]="htmlMode"><span class="color-label foreground"><i class="fa fa-font"></i></span></button>
+    <input
+      style="display: none"
+      type="color" (change)="insertColor(bgInput.value, 'backgroundColor')"
+      #bgInput>
+    <button [id]="'backgroundColorPicker-'+id" type="button" class="angular-editor-button" (click)="bgInput.click()" title="Background Color"
+            [disabled]="htmlMode"><span class="color-label background"><i class="fa fa-font"></i></span></button>
   </div>
   <div class="angular-toolbar-set">
     <button [id]="'link-'+id" type="button" class="angular-editor-button" (click)="insertUrl()"
