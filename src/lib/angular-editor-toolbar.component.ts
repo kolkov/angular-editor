@@ -21,6 +21,7 @@ export class AngularEditorToolbarComponent {
     BLOCKQUOTE: "indent",
     A: "link"
   };
+
   select = ["H1", "H2", "H3", "H4", "H5", "H6", "P", "PRE", "DIV"];
 
   buttons = ["bold", "italic", "underline", "strikeThrough", "subscript", "superscript", "justifyLeft", "justifyCenter",
