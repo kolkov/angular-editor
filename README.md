@@ -53,7 +53,7 @@ if you using more than one editor on same page set `id` property
 where
 
 ```typescript
-import { AngularEditorConfig } from 'angular-editor';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 ...
 
