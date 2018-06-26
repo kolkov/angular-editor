@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Output, Renderer2} from "@angular/core";
-import {AngularEditorService, UploadResponse} from "./angular-editor.service";
-import {Observable} from "rxjs";
-import {HttpEvent, HttpResponse} from "@angular/common/http";
+import {Component, EventEmitter, Inject, Output, Renderer2} from "@angular/core";
+import {AngularEditorService} from "./angular-editor.service";
+import {HttpResponse} from "@angular/common/http";
+import {DOCUMENT} from "@angular/common";
 
 @Component({
   selector: 'angular-editor-toolbar',
@@ -29,7 +29,8 @@ export class AngularEditorToolbarComponent {
 
   @Output() execute: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private _renderer: Renderer2, private editorService: AngularEditorService) {
+  constructor(private _renderer: Renderer2,
+              private editorService: AngularEditorService, @Inject(DOCUMENT) private _document: any) {
   }
 
   /**
@@ -46,8 +47,8 @@ export class AngularEditorToolbarComponent {
    */
   triggerButtons() {
     this.buttons.forEach(e => {
-      const result = document.queryCommandState(e);
-      const elementById = document.getElementById(e + '-' + this.id);
+      const result = this._document.queryCommandState(e);
+      const elementById = this._document.getElementById(e + '-' + this.id);
       if (result) {
         this._renderer.addClass(elementById, "active");
       } else {
@@ -74,7 +75,7 @@ export class AngularEditorToolbarComponent {
     });
 
     Object.keys(this.tagMap).map(e => {
-      const elementById = document.getElementById(this.tagMap[e] + '-' + this.id);
+      const elementById = this._document.getElementById(this.tagMap[e] + '-' + this.id);
 
       const node = nodes.find(x => x.nodeName === e);
 
@@ -125,7 +126,7 @@ export class AngularEditorToolbarComponent {
    * @param m boolean
    */
   setEditorMode(m: boolean) {
-    const toggleEditorModeButton = document.getElementById("toggleEditorMode" + '-' + this.id);
+    const toggleEditorModeButton = this._document.getElementById("toggleEditorMode" + '-' + this.id);
     if (m) {
       this._renderer.addClass(toggleEditorModeButton, "active");
     } else {

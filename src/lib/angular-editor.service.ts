@@ -1,6 +1,7 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {HttpClient, HttpEvent} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {DOCUMENT} from "@angular/common";
 
 export interface UploadResponse {
   imageUrl: string;
@@ -15,7 +16,7 @@ export class AngularEditorService {
   selectedText: string;
   uploadUrl: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, @Inject(DOCUMENT) private _document: any) {
   }
 
   /**
@@ -24,10 +25,10 @@ export class AngularEditorService {
    */
   executeCommand(command: string) {
     if (command === 'h1' || command === 'h2' || command === 'h3' || command === 'h4' || command === 'h5' || command === 'h6' || command === 'p' || command === 'pre') {
-      document.execCommand('formatBlock', false, command);
+      this._document.execCommand('formatBlock', false, command);
     }
 
-    document.execCommand(command, false, null);
+    this._document.execCommand(command, false, null);
     return;
   }
 
@@ -37,7 +38,7 @@ export class AngularEditorService {
    */
   createLink(url: string) {
     if (!url.includes("http")) {
-      document.execCommand('createlink', false, url);
+      this._document.execCommand('createlink', false, url);
     } else {
       const newUrl = '<a href="' + url + '" target="_blank">' + this.selectedText + '</a>';
       this.insertHtml(newUrl);
@@ -54,9 +55,9 @@ export class AngularEditorService {
     const restored = this.restoreSelection();
     if (restored) {
       if (where === 'textColor') {
-        document.execCommand('foreColor', false, color);
+        this._document.execCommand('foreColor', false, color);
       } else {
-        document.execCommand('hiliteColor', false, color);
+        this._document.execCommand('hiliteColor', false, color);
       }
     }
 
@@ -68,7 +69,7 @@ export class AngularEditorService {
    * @param fontName string
    */
   setFontName(fontName: string) {
-    document.execCommand("fontName", false, fontName);
+    this._document.execCommand("fontName", false, fontName);
   }
 
   /**
@@ -76,7 +77,7 @@ export class AngularEditorService {
    * @param fontSize string
    */
   setFontSize(fontSize: string) {
-    document.execCommand("fontSize", false, fontSize);
+    this._document.execCommand("fontSize", false, fontSize);
   }
 
   /**
@@ -85,7 +86,7 @@ export class AngularEditorService {
    */
   private insertHtml(html: string): void {
 
-    const isHTMLInserted = document.execCommand('insertHTML', false, html);
+    const isHTMLInserted = this._document.execCommand('insertHTML', false, html);
 
     if (!isHTMLInserted) {
       throw new Error('Unable to perform the operation');
@@ -104,7 +105,7 @@ export class AngularEditorService {
         this.savedSelection = sel.getRangeAt(0);
         this.selectedText = sel.toString();
       }
-    } else if (document.getSelection && document.createRange) {
+    } else if (this._document.getSelection && this._document.createRange) {
       this.savedSelection = document.createRange();
     } else {
       this.savedSelection = null;
@@ -123,7 +124,7 @@ export class AngularEditorService {
         sel.removeAllRanges();
         sel.addRange(this.savedSelection);
         return true;
-      } else if (document.getSelection /*&& this.savedSelection.select*/) {
+      } else if (this._document.getSelection /*&& this.savedSelection.select*/) {
         // this.savedSelection.select();
         return true;
       }
@@ -165,6 +166,10 @@ export class AngularEditorService {
    * @param imageUrl
    */
   insertImage(imageUrl: string) {
-    document.execCommand('insertImage', false, imageUrl);
+    this._document.execCommand('insertImage', false, imageUrl);
+  }
+
+  setDefaultParagraphSeparator(separator: string) {
+    this._document.execCommand("defaultParagraphSeparator", false, separator);
   }
 }

@@ -3,6 +3,7 @@ import {
   Component,
   EventEmitter,
   forwardRef,
+  Inject,
   Input,
   OnInit,
   Output,
@@ -13,6 +14,7 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {AngularEditorConfig, angularEditorConfig} from "./config";
 import {AngularEditorToolbarComponent} from "./angular-editor-toolbar.component";
 import {AngularEditorService} from "./angular-editor.service";
+import {DOCUMENT} from "@angular/common";
 
 @Component({
   selector: 'angular-editor',
@@ -46,14 +48,14 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
   @Output() viewMode = new EventEmitter<boolean>();
 
-  constructor(private _renderer: Renderer2, private editorService: AngularEditorService) {
+  constructor(private _renderer: Renderer2, private editorService: AngularEditorService, @Inject(DOCUMENT) private _document: any) {
   }
 
   ngOnInit() {
     this.editorToolbar.id = this.id;
     this.editorService.uploadUrl = this.config.uploadUrl;
     if (this.config.defaultParagraphSeparator) {
-      document.execCommand("defaultParagraphSeparator", false, "p");
+      this.editorService.setDefaultParagraphSeparator(this.config.defaultParagraphSeparator);
     }
   }
 
@@ -113,7 +115,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
     if (typeof this.onChange === 'function') {
       this.onChange(html);
-      if ((!html || html === '<br>' || html === '') != this.showPlaceholder) {
+      if ((!html || html === '<br>' || html === '') !== this.showPlaceholder) {
         this.togglePlaceholder(this.showPlaceholder);
       }
     }
@@ -208,12 +210,12 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     const editableElement = this.textArea.nativeElement;
 
     if (bToSource) {
-      oContent = document.createTextNode(editableElement.innerHTML);
+      oContent = this._document.createTextNode(editableElement.innerHTML);
       editableElement.innerHTML = '';
 
-      const oPre = document.createElement('pre');
+      const oPre = this._document.createElement('pre');
       oPre.setAttribute("style", "margin: 0; outline: none;");
-      const oCode = document.createElement('code');
+      const oCode = this._document.createElement('code');
       editableElement.contentEditable = false;
       oCode.id = "sourceText";
       oCode.setAttribute("style", "white-space: pre-wrap; word-break: keep-all; margin: 0; outline: none; background-color: #fff5b9;");
@@ -222,16 +224,16 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       oPre.appendChild(oCode);
       editableElement.appendChild(oPre);
 
-      document.execCommand("defaultParagraphSeparator", false, "div");
+      this._document.execCommand("defaultParagraphSeparator", false, "div");
 
       this.modeVisual = false;
       this.viewMode.emit(false);
       oCode.focus();
     } else {
-      if (document.all) {
+      if (this._document.all) {
         editableElement.innerHTML = editableElement.innerText;
       } else {
-        oContent = document.createRange();
+        oContent = this._document.createRange();
         oContent.selectNodeContents(editableElement.firstChild);
         editableElement.innerHTML = oContent.toString();
       }
