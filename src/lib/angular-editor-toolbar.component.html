@@ -1,11 +1,11 @@
-<div class="angular-toolbar">
-  <div class="angular-toolbar-set">
+<div class="angular-editor-toolbar">
+  <div class="angular-editor-toolbar-set">
     <button type="button" title="Undo" class="angular-editor-button" (click)="triggerCommand('undo')"><i
       class='fa fa-undo'></i></button>
     <button type="button" title="Redo" class="angular-editor-button" (click)="triggerCommand('redo')"><i
       class='fa fa-repeat'></i></button>
   </div>
-  <div class="angular-toolbar-set">
+  <div class="angular-editor-toolbar-set">
     <button [id]="'bold-'+id" type="button" title="Bold" class="angular-editor-button" (click)="triggerCommand('bold')"
             [disabled]="htmlMode"><i class='fa fa-bold'></i></button>
     <button [id]="'italic-'+id" type="button" title="Italic" class="angular-editor-button"
@@ -20,7 +20,7 @@
     <button [id]="'superscript-'+id" type="button" title="Superscript" class="angular-editor-button"
             (click)="triggerCommand('superscript')" [disabled]="htmlMode"><i class='fa fa-superscript'></i></button>
   </div>
-  <div class="angular-toolbar-set">
+  <div class="angular-editor-toolbar-set">
     <button [id]="'justifyLeft-'+id" type="button" title="Justify Left" class="angular-editor-button"
             (click)="triggerCommand('justifyLeft')" [disabled]="htmlMode"><i
       class='fa fa-align-left'></i></button>
@@ -33,7 +33,7 @@
             (click)="triggerCommand('justifyFull')" [disabled]="htmlMode"><i
       class='fa fa-align-justify'></i></button>
   </div>
-  <div class="angular-toolbar-set">
+  <div class="angular-editor-toolbar-set">
     <button [id]="'indent-'+id" type="button" title="Indent" class="angular-editor-button"
             (click)="triggerCommand('indent')"
             [disabled]="htmlMode"><i
@@ -43,13 +43,13 @@
             [disabled]="htmlMode"><i
       class='fa fa-outdent'></i></button>
   </div>
-  <div class="angular-toolbar-set">
+  <div class="angular-editor-toolbar-set">
     <button [id]="'insertUnorderedList-'+id" type="button" title="Unordered List" class="angular-editor-button"
             (click)="triggerCommand('insertUnorderedList')" [disabled]="htmlMode"><i class='fa fa-list-ul'></i></button>
     <button [id]="'insertOrderedList-'+id" type="button" title="Ordered List" class="angular-editor-button"
             (click)="triggerCommand('insertOrderedList')" [disabled]="htmlMode"><i class='fa fa-list-ol'></i></button>
   </div>
-  <div class="angular-toolbar-set">
+  <div class="angular-editor-toolbar-set">
     <label [for]="'heading-'+id" class="block-label"></label>
     <select title="Formatting" [id]="'heading-'+id" class="select-heading" [(ngModel)]="block"
             (change)="triggerCommand(block)"
@@ -67,7 +67,7 @@
       <option class="default" value="default">Default</option>
     </select>
   </div>
-  <div class="angular-toolbar-set">
+  <div class="angular-editor-toolbar-set">
     <label [for]="'fontSelector-'+id" class="block-label"></label>
     <select title="Font Name" [id]="'fontSelector-'+id" class="select-font" [(ngModel)]="fontName"
             (change)="setFontName(fontName)"
@@ -79,7 +79,7 @@
       <option class="times-new-roman" value="Times New Roman">Times New Roman</option>
     </select>
   </div>
-  <div class="angular-toolbar-set">
+  <div class="angular-editor-toolbar-set">
     <label [for]="'fontSizeSelector-'+id" class="block-label"></label>
     <select title="Font Size" [id]="'fontSizeSelector-'+id" class="select-font-size" [(ngModel)]="fontSize"
             (change)="setFontSize(fontSize)"
@@ -94,7 +94,7 @@
       <option class="size7" value="7">7</option>
     </select>
   </div>
-  <div class="angular-toolbar-set">
+  <div class="angular-editor-toolbar-set">
     <input
       style="display: none"
       type="color" (change)="insertColor(fgInput.value, 'textColor')"
@@ -108,7 +108,7 @@
     <button [id]="'backgroundColorPicker-'+id" type="button" class="angular-editor-button" (click)="bgInput.click()" title="Background Color"
             [disabled]="htmlMode"><span class="color-label background"><i class="fa fa-font"></i></span></button>
   </div>
-  <div class="angular-toolbar-set">
+  <div class="angular-editor-toolbar-set">
     <button [id]="'link-'+id" type="button" class="angular-editor-button" (click)="insertUrl()"
             title="Insert Link" [disabled]="htmlMode">
       <i class="fa fa-link"></i>
@@ -126,11 +126,11 @@
     <button type="button" title="Horizontal Line" class="angular-editor-button"
             (click)="triggerCommand('insertHorizontalRule')" [disabled]="htmlMode"><i class="fa fa-minus"></i></button>
   </div>
-  <div class="angular-toolbar-set">
+  <div class="angular-editor-toolbar-set">
     <button type="button" title="Clear Formatting" class="angular-editor-button"
             (click)="triggerCommand('removeFormat')" [disabled]="htmlMode"><i class='fa fa-remove'></i></button>
   </div>
-  <div class="angular-toolbar-set">
+  <div class="angular-editor-toolbar-set">
     <button [id]="'toggleEditorMode-'+id" type="button" title="HTML Code" class="angular-editor-button"
             (click)="triggerCommand('toggleEditorMode')"><i class='fa fa-code'></i></button>
   </div>
