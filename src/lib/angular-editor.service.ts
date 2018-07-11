@@ -2,6 +2,7 @@ import {Inject, Injectable} from '@angular/core';
 import {HttpClient, HttpEvent} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {DOCUMENT} from "@angular/common";
+import {CustomClass} from "./config";
 
 export interface UploadResponse {
   imageUrl: string;
@@ -171,5 +172,11 @@ export class AngularEditorService {
 
   setDefaultParagraphSeparator(separator: string) {
     this._document.execCommand("defaultParagraphSeparator", false, separator);
+  }
+
+  createCustomClass(customClass: CustomClass) {
+    const tagName = customClass.tag ? customClass.tag : 'span';
+    const newTag = '<' + tagName + ' class="' + customClass.class + '">' + this.selectedText + '</' + tagName + '>';
+    this.insertHtml(newTag);
   }
 }

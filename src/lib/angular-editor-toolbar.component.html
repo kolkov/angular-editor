@@ -108,6 +108,16 @@
     <button [id]="'backgroundColorPicker-'+id" type="button" class="angular-editor-button" (click)="bgInput.click()" title="Background Color"
             [disabled]="htmlMode"><span class="color-label background"><i class="fa fa-font"></i></span></button>
   </div>
+  <div *ngIf="customClasses" class="angular-editor-toolbar-set">
+    <label [for]="'customClassSelector-'+id" class="block-label"></label>
+    <select title="Custom Style" [id]="'customClassSelector-'+id" class="select-custom-style" [(ngModel)]="customClassId"
+            (change)="setCustomClass(customClassId)"
+            [disabled]="htmlMode">
+      <optgroup label="Custom Class"></optgroup>
+      <option class="" value=-1>Clear Class</option>
+      <option *ngFor="let item of customClasses; let i = index" [class]="item.class" [value]="i">{{item.name}}</option>
+    </select>
+  </div>
   <div class="angular-editor-toolbar-set">
     <button [id]="'link-'+id" type="button" class="angular-editor-button" (click)="insertUrl()"
             title="Insert Link" [disabled]="htmlMode">
