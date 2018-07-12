@@ -33,6 +33,15 @@ a {
       min-width: 2.0rem;
       float: left;
       border: 0 solid #ddd;
+      &:first-child {
+        border-radius: 5px 0 0 5px;
+      }
+      &:last-child {
+        border-radius: 0 5px 5px 0;
+      }
+      &:first-child:last-child {
+        border-radius: 5px;
+      }
       &:hover {
         cursor: pointer;
         background-color: #f1f1f1;
