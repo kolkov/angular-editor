@@ -1,3 +1,9 @@
+export interface CustomClass {
+  name: string;
+  class: string;
+  tag?: string;
+}
+
 export interface AngularEditorConfig {
   editable?: boolean;
   spellcheck?: boolean;
@@ -13,6 +19,7 @@ export interface AngularEditorConfig {
   defaultFontName?: string;
   defaultFontSize?: '1' | '2' | '3' | '4' | '5' | '6' | '7' |string;
   uploadUrl?: string;
+  customStyles?: CustomClass[];
 }
 
 export const angularEditorConfig: AngularEditorConfig = {

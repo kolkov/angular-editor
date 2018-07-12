@@ -2,6 +2,7 @@ import {Component, EventEmitter, Inject, Output, Renderer2} from "@angular/core"
 import {AngularEditorService} from "./angular-editor.service";
 import {HttpResponse} from "@angular/common/http";
 import {DOCUMENT} from "@angular/common";
+import {CustomClass} from "./config";
 
 @Component({
   selector: 'angular-editor-toolbar',
@@ -16,6 +17,9 @@ export class AngularEditorToolbarComponent {
   block = 'default';
   fontName = 'Arial';
   fontSize = '5';
+
+  customClassId = -1;
+  customClasses: CustomClass[];
 
   tagMap = {
     BLOCKQUOTE: "indent",
@@ -74,11 +78,26 @@ export class AngularEditorToolbarComponent {
       }
     });
 
+    found = false;
+    this.customClasses.forEach((y, index) => {
+      const node = nodes.find(x => {
+        if (x instanceof Element) {
+          return x.className === y.class;
+        }
+      });
+      if (node !== undefined) {
+        if (found === false) {
+          this.customClassId = index;
+          found = true;
+        }
+      } else if (found === false) {
+        this.customClassId = -1;
+      }
+    });
+
     Object.keys(this.tagMap).map(e => {
       const elementById = this._document.getElementById(this.tagMap[e] + '-' + this.id);
-
       const node = nodes.find(x => x.nodeName === e);
-
       if (node !== undefined && e === node.nodeName) {
         this._renderer.addClass(elementById, "active");
       } else {
@@ -145,5 +164,9 @@ export class AngularEditorToolbarComponent {
         this.editorService.insertImage(e.body.imageUrl);
       }
     });
+  }
+
+  setCustomClass(classId: number) {
+    this.editorService.createCustomClass(this.customClasses[classId]);
   }
 }
