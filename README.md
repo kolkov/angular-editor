@@ -1,13 +1,12 @@
 # AngularEditor
 A simple native wysiwyg editor for Angular 6+
 
-## Getting Started
-
 ## Demo
 Demo is here [demo][demo]
 
 Working code for this demo at stackblitz [example](https://stackblitz.com/edit/angular-editor-wysiwyg)
 
+## Getting Started
 
 ### Installation
 
@@ -65,6 +64,21 @@ editorConfig: AngularEditorConfig = {
     placeholder: 'Enter text here...',
     translate: 'no',
     uploadUrl: 'v1/images', // if needed
+    customClasses: [ // optional
+      {
+        name: "quote",
+        class: "quote",
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1",
+      },
+    ]
   };
 ```
 
