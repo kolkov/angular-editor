@@ -13,6 +13,9 @@
     "angular",
     "editor",
     "native",
-    "wysiwyg"
+    "wysiwyg",
+    "angular-editor",
+    "angular-wysiwyg-editor",
+    "wysiwyg-editor"
   ]
 }
