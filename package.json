@@ -1,6 +1,6 @@
 {
   "name": "@kolkov/angular-editor",
-  "version": "0.10.0",
+  "version": "0.10.2",
   "author": "Andrey Kolkov <a.kolkov@gmail.com>",
   "repository": "https://github.com/kolkov/angular-editor",
   "license": "MIT",
@@ -13,6 +13,9 @@
     "angular",
     "editor",
     "native",
-    "wysiwyg"
+    "wysiwyg",
+    "angular-editor",
+    "angular-wysiwyg-editor",
+    "wysiwyg-editor"
   ]
 }
