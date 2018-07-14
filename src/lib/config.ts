@@ -19,7 +19,7 @@ export interface AngularEditorConfig {
   defaultFontName?: string;
   defaultFontSize?: '1' | '2' | '3' | '4' | '5' | '6' | '7' |string;
   uploadUrl?: string;
-  customStyles?: CustomClass[];
+  customClasses?: CustomClass[];
 }
 
 export const angularEditorConfig: AngularEditorConfig = {
