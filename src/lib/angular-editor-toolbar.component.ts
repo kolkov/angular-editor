@@ -13,6 +13,7 @@ import {CustomClass} from "./config";
 export class AngularEditorToolbarComponent {
   id = '';
   htmlMode = false;
+  showToolbar = true;
 
   block = 'default';
   fontName = 'Arial';
