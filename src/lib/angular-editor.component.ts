@@ -53,8 +53,11 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
   ngOnInit() {
     this.editorToolbar.id = this.id;
-    this.editorToolbar.customClasses = this.config.customStyles;
+    this.editorToolbar.customClasses = this.config.customClasses;
     this.editorService.uploadUrl = this.config.uploadUrl;
+    if (this.config.showToolbar !== undefined) {
+      this.editorToolbar.showToolbar = this.config.showToolbar;
+    }
     if (this.config.defaultParagraphSeparator) {
       this.editorService.setDefaultParagraphSeparator(this.config.defaultParagraphSeparator);
     }
@@ -150,7 +153,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    */
   writeValue(value: any): void {
 
-    if ((!value || value === '<br>' || value === '') != this.showPlaceholder) {
+    if ((!value || value === '<br>' || value === '') !== this.showPlaceholder) {
       this.togglePlaceholder(this.showPlaceholder);
     }
 
