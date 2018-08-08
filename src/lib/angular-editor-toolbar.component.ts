@@ -51,6 +51,9 @@ export class AngularEditorToolbarComponent {
    * highlight editor buttons when cursor moved or positioning
    */
   triggerButtons() {
+    if (!this.showToolbar) {
+      return;
+    }
     this.buttons.forEach(e => {
       const result = this._document.queryCommandState(e);
       const elementById = this._document.getElementById(e + '-' + this.id);
@@ -66,6 +69,9 @@ export class AngularEditorToolbarComponent {
    * trigger highlight editor buttons when cursor moved or positioning in block
    */
   triggerBlocks(nodes: Node[]) {
+    if (!this.showToolbar) {
+      return;
+    }
     let found = false;
     this.select.forEach(y => {
       const node = nodes.find(x => x.nodeName === y);
