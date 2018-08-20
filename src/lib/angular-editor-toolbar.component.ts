@@ -86,21 +86,23 @@ export class AngularEditorToolbarComponent {
     });
 
     found = false;
-    this.customClasses.forEach((y, index) => {
-      const node = nodes.find(x => {
-        if (x instanceof Element) {
-          return x.className === y.class;
+    if (this.customClasses) {
+      this.customClasses.forEach((y, index) => {
+        const node = nodes.find(x => {
+          if (x instanceof Element) {
+            return x.className === y.class;
+          }
+        });
+        if (node !== undefined) {
+          if (found === false) {
+            this.customClassId = index;
+            found = true;
+          }
+        } else if (found === false) {
+          this.customClassId = -1;
         }
       });
-      if (node !== undefined) {
-        if (found === false) {
-          this.customClassId = index;
-          found = true;
-        }
-      } else if (found === false) {
-        this.customClassId = -1;
-      }
-    });
+    }
 
     Object.keys(this.tagMap).map(e => {
       const elementById = this._document.getElementById(this.tagMap[e] + '-' + this.id);
