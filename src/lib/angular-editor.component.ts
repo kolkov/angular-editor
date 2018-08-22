@@ -48,6 +48,12 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
   @Output() viewMode = new EventEmitter<boolean>();
 
+  /** emits `blur` event when focused out from the textarea */
+  @Output() blur: EventEmitter<string> = new EventEmitter<string>();
+
+  /** emits `focus` event when focused in to the textarea */
+  @Output() focus: EventEmitter<string> = new EventEmitter<string>();
+
   constructor(private _renderer: Renderer2, private editorService: AngularEditorService, @Inject(DOCUMENT) private _document: any) {
   }
 
@@ -92,6 +98,17 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     return;
   }
 
+  /**
+   * focus event
+   */
+  onTextAreaFocus(): void {
+    this.focus.emit('focus');
+    return;
+  }
+
+  /**
+   * blur event
+   */
   onTextAreaBlur() {
     /**
      * save selection if focussed out
@@ -101,6 +118,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     if (typeof this.onTouched === 'function') {
       this.onTouched();
     }
+    this.blur.emit('blur');
     return;
   }
 
