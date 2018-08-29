@@ -9,6 +9,7 @@ export interface AngularEditorConfig {
   spellcheck?: boolean;
   height?: 'auto' | string;
   minHeight?: '0' | string;
+  maxHeight?: 'auto' | string;
   width?: 'auto' | string;
   minWidth?: '0' | string;
   translate?: 'yes' | 'now' | string;
@@ -27,6 +28,7 @@ export const angularEditorConfig: AngularEditorConfig = {
   spellcheck: true,
   height: 'auto',
   minHeight: '0',
+  maxHeight: 'auto',
   width: 'auto',
   minWidth: '0',
   translate: 'yes',

@@ -5,7 +5,7 @@
   <div class="angular-editor-wrapper" #editorWrapper>
     <div #editor id="editor" class="angular-editor-textarea" [attr.contenteditable]="config.editable"
          [attr.translate]="config.translate"
-         [attr.spellcheck]="config.spellcheck" [style.height]="config.height" [style.minHeight]="config.minHeight"
+         [attr.spellcheck]="config.spellcheck" [style.height]="config.height" [style.minHeight]="config.minHeight" [style.maxHeight]="config.maxHeight"
          (input)="onContentChange($event.target.innerHTML)" (focus)="onTextAreaFocus()" (blur)="onTextAreaBlur()" (click)="exec()" (keyup)="exec()">
     </div>
     <span class="angular-editor-placeholder">{{ placeholder || config['placeholder'] }}</span>
