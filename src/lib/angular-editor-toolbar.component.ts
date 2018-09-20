@@ -168,11 +168,13 @@ export class AngularEditorToolbarComponent {
    */
   onFileChanged(event) {
     const file = event.target.files[0];
-    this.editorService.uploadImage(file).subscribe(e => {
-      if (e instanceof HttpResponse) {
-        this.editorService.insertImage(e.body.imageUrl);
+      if(file.type.includes("image/")){
+        this.editorService.uploadImage(file).subscribe(e => {
+          if (e instanceof HttpResponse) {
+            this.editorService.insertImage(e.body.imageUrl);
+          }
+        });
       }
-    });
   }
 
   setCustomClass(classId: number) {
