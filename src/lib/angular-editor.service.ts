@@ -17,6 +17,7 @@ export class AngularEditorService {
   selectedText: string;
   uploadUrl: string;
 
+
   constructor(private http: HttpClient, @Inject(DOCUMENT) private _document: any) {
   }
 
@@ -25,12 +26,12 @@ export class AngularEditorService {
    * @param command string from triggerCommand
    */
   executeCommand(command: string) {
-    if (command === 'h1' || command === 'h2' || command === 'h3' || command === 'h4' || command === 'h5' || command === 'h6' || command === 'p' || command === 'pre') {
+    const commands = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'pre'];
+    if (commands.includes(command)) {
       this._document.execCommand('formatBlock', false, command);
     }
 
     this._document.execCommand(command, false, null);
-    return;
   }
 
   /**
