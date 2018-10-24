@@ -61,8 +61,6 @@ export class AngularEditorService {
         this._document.execCommand('hiliteColor', false, color);
       }
     }
-
-    return;
   }
 
   /**
@@ -92,8 +90,6 @@ export class AngularEditorService {
     if (!isHTMLInserted) {
       throw new Error('Unable to perform the operation');
     }
-
-    return;
   }
 
   /**

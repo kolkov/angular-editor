@@ -95,7 +95,6 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     }
 
     this.onEditorFocus();
-    return;
   }
 
   /**
@@ -103,7 +102,6 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    */
   onTextAreaFocus(): void {
     this.focus.emit('focus');
-    return;
   }
 
   /**
@@ -119,7 +117,6 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       this.onTouched();
     }
     this.blur.emit('blur');
-    return;
   }
 
   /**
@@ -141,7 +138,6 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
         this.togglePlaceholder(this.showPlaceholder);
       }
     }
-    return;
   }
 
   /**
@@ -208,7 +204,6 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       this._renderer.removeClass(this.editorWrapper.nativeElement, 'show-placeholder');
       this.showPlaceholder = false;
     }
-    return;
   }
 
   /**

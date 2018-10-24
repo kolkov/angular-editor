@@ -44,7 +44,6 @@ export class AngularEditorToolbarComponent {
    */
   triggerCommand(command: string) {
     this.execute.emit(command);
-    return;
   }
 
   /**
@@ -168,7 +167,7 @@ export class AngularEditorToolbarComponent {
    */
   onFileChanged(event) {
     const file = event.target.files[0];
-      if(file.type.includes("image/")){
+      if (file.type.includes("image/")) {
         this.editorService.uploadImage(file).subscribe(e => {
           if (e instanceof HttpResponse) {
             this.editorService.insertImage(e.body.imageUrl);
