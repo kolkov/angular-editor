@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Inject, Output, Renderer2} from "@angular/core";
+import {Component, ElementRef, EventEmitter, Inject, Output, Renderer2, ViewChild} from "@angular/core";
 import {AngularEditorService} from "./angular-editor.service";
 import {HttpResponse} from "@angular/common/http";
 import {DOCUMENT} from "@angular/common";
@@ -33,6 +33,8 @@ export class AngularEditorToolbarComponent {
     "justifyRight", "justifyFull", "indent", "outdent", "insertUnorderedList", "insertOrderedList", "link"];
 
   @Output() execute: EventEmitter<string> = new EventEmitter<string>();
+
+  @ViewChild('fileInput') myInputFile: ElementRef;
 
   constructor(private _renderer: Renderer2,
               private editorService: AngularEditorService, @Inject(DOCUMENT) private _document: any) {
@@ -171,11 +173,22 @@ export class AngularEditorToolbarComponent {
         this.editorService.uploadImage(file).subscribe(e => {
           if (e instanceof HttpResponse) {
             this.editorService.insertImage(e.body.imageUrl);
+            this.fileReset();
           }
         });
       }
   }
 
+  /**
+   * Reset Input
+   */
+  fileReset() {
+    this.myInputFile.nativeElement.value = "";
+  }
+
+  /**
+   * Set custom class
+   */
   setCustomClass(classId: number) {
     this.editorService.createCustomClass(this.customClasses[classId]);
   }
