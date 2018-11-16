@@ -2,7 +2,7 @@ import {Component, ElementRef, EventEmitter, Inject, Output, Renderer2, ViewChil
 import {AngularEditorService} from "./angular-editor.service";
 import {HttpResponse} from "@angular/common/http";
 import {DOCUMENT} from "@angular/common";
-import {CustomClass} from "./config";
+import {CustomClass, Font} from "./config";
 
 @Component({
   selector: 'angular-editor-toolbar',
@@ -16,8 +16,10 @@ export class AngularEditorToolbarComponent {
   showToolbar = true;
 
   block = 'default';
-  fontName = 'Arial';
+  defaultFontId;
+  fontId = 0;
   fontSize = '5';
+  fonts: Font[];
 
   customClassId = -1;
   customClasses: CustomClass[];
@@ -87,6 +89,25 @@ export class AngularEditorToolbarComponent {
     });
 
     found = false;
+    if (this.fonts) {
+      this.fonts.forEach((y, index) => {
+        const node = nodes.find(x => {
+          if (x instanceof HTMLFontElement) {
+            return x.face === y.name;
+          }
+        });
+        if (node !== undefined) {
+          if (found === false) {
+            this.fontId = index;
+            found = true;
+          }
+        } else if (found === false) {
+          this.fontId = this.defaultFontId;
+        }
+      });
+    }
+
+    found = false;
     if (this.customClasses) {
       this.customClasses.forEach((y, index) => {
         const node = nodes.find(x => {
@@ -134,10 +155,10 @@ export class AngularEditorToolbarComponent {
 
   /**
    * set font Name/family
-   * @param fontName string
+   * @param fontId number
    */
-  setFontName(fontName: string): void {
-    this.editorService.setFontName(fontName);
+  setFontName(fontId: number): void {
+    this.editorService.setFontName(this.fonts[fontId].name);
     this.execute.emit("");
   }
 

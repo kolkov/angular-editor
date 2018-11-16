@@ -69,14 +69,15 @@
   </div>
   <div class="angular-editor-toolbar-set">
     <label [for]="'fontSelector-'+id" class="block-label"></label>
-    <select title="Font Name" [id]="'fontSelector-'+id" class="select-font" [(ngModel)]="fontName"
-            (change)="setFontName(fontName)"
+    <select title="Font Name" [id]="'fontSelector-'+id" class="select-font" [(ngModel)]="fontId"
+            (change)="setFontName(fontId)"
             [disabled]="htmlMode" tabindex="-1">
       <optgroup label="Font Name"></optgroup>
-      <option class="arial" value="Arial">Arial</option>
+      <option *ngFor="let item of fonts; let i = index" [class]="item.class" [value]="i">{{item.name}}</option>
+     <!-- <option class="arial" value="Arial">Arial</option>
       <option class="calibri" value="Calibri">Calibri</option>
       <option class="comic-sans-ms" value="Comic Sans MS">Comic Sans MS</option>
-      <option class="times-new-roman" value="Times New Roman">Times New Roman</option>
+      <option class="times-new-roman" value="Times New Roman">Times New Roman</option>-->
     </select>
   </div>
   <div class="angular-editor-toolbar-set">

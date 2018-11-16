@@ -59,6 +59,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
   ngOnInit() {
     this.editorToolbar.id = this.id;
+    this.editorToolbar.fonts = this.config.fonts ? this.config.fonts : angularEditorConfig.fonts;
     this.editorToolbar.customClasses = this.config.customClasses;
     this.editorService.uploadUrl = this.config.uploadUrl;
     if (this.config.showToolbar !== undefined) {
@@ -71,7 +72,10 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
   ngAfterContentInit() {
     if (this.config.defaultFontName) {
-      this.editorToolbar.fontName = this.config.defaultFontName;
+      this.editorToolbar.defaultFontId = this.config.defaultFontName ? this.editorToolbar.fonts.findIndex(x => {
+        return x.name === this.config.defaultFontName;
+      }) : 0;
+      this.editorToolbar.fontId = this.editorToolbar.defaultFontId;
       this.onEditorFocus();
       this.editorService.setFontName(this.config.defaultFontName);
     }
