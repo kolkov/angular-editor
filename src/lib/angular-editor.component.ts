@@ -107,7 +107,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   /**
    * blur event
    */
-  onTextAreaBlur() {
+  onTextAreaBlur(event: FocusEvent) {
     /**
      * save selection if focussed out
      */
@@ -116,7 +116,10 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     if (typeof this.onTouched === 'function') {
       this.onTouched();
     }
-    this.blur.emit('blur');
+    console.log(event);
+    if (event.relatedTarget != null && (event.relatedTarget as HTMLElement).parentElement.className !== 'angular-editor-toolbar-set') {
+      this.blur.emit('blur');
+    }
   }
 
   /**
