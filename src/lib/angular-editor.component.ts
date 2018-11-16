@@ -116,7 +116,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     if (typeof this.onTouched === 'function') {
       this.onTouched();
     }
-    console.log(event);
+
     if (event.relatedTarget != null && (event.relatedTarget as HTMLElement).parentElement.className !== 'angular-editor-toolbar-set') {
       this.blur.emit('blur');
     }
