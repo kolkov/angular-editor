@@ -172,7 +172,7 @@ export class AngularEditorService {
   }
 
   createCustomClass(customClass: CustomClass) {
-    const newTag = this.selectedText;
+    let newTag = this.selectedText;
     if(customClass){
       const tagName = customClass.tag ? customClass.tag : 'span';
       newTag = '<' + tagName + ' class="' + customClass.class + '">' + this.selectedText + '</' + tagName + '>';
