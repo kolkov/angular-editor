@@ -1,57 +1,57 @@
 <div class="angular-editor-toolbar" *ngIf="showToolbar">
   <div class="angular-editor-toolbar-set">
-    <button type="button" title="Undo" class="angular-editor-button" (click)="triggerCommand('undo')" tabindex="-1"><i
+    <button type="button" title="{{'WYSIWYG.UNDO' | translate }}" class="angular-editor-button" (click)="triggerCommand('undo')" tabindex="-1"><i
       class='fa fa-undo'></i></button>
-    <button type="button" title="Redo" class="angular-editor-button" (click)="triggerCommand('redo')" tabindex="-1"><i
+    <button type="button" title="{{'WYSIWYG.RED0' | translate }}" class="angular-editor-button" (click)="triggerCommand('redo')" tabindex="-1"><i
       class='fa fa-repeat'></i></button>
   </div>
   <div class="angular-editor-toolbar-set">
-    <button [id]="'bold-'+id" type="button" title="Bold" class="angular-editor-button" (click)="triggerCommand('bold')"
+    <button [id]="'bold-'+id" type="button" title="{{'WYSIWYG.BOLD' | translate }}" class="angular-editor-button" (click)="triggerCommand('bold')"
             [disabled]="htmlMode" tabindex="-1"><i class='fa fa-bold'></i></button>
-    <button [id]="'italic-'+id" type="button" title="Italic" class="angular-editor-button"
+    <button [id]="'italic-'+id" type="button" title="{{'WYSIWYG.ITALIC' | translate }}" class="angular-editor-button"
             (click)="triggerCommand('italic')"
             [disabled]="htmlMode" tabindex="-1"><i class='fa fa-italic'></i></button>
-    <button [id]="'underline-'+id" type="button" title="Underline" class="angular-editor-button"
+    <button [id]="'underline-'+id" type="button" title="{{'WYSIWYG.UNDERLINE' | translate }}" class="angular-editor-button"
             (click)="triggerCommand('underline')" [disabled]="htmlMode" tabindex="-1"><i class='fa fa-underline'></i></button>
-    <button [id]="'strikeThrough-'+id" type="button" title="Strikethrough" class="angular-editor-button"
+    <button [id]="'strikeThrough-'+id" type="button" title="{{'WYSIWYG.STRIKETHROUGH' | translate }}" class="angular-editor-button"
             (click)="triggerCommand('strikeThrough')" [disabled]="htmlMode" tabindex="-1"><i class='fa fa-strikethrough'></i></button>
-    <button [id]="'subscript-'+id" type="button" title="Subscript" class="angular-editor-button"
+    <button [id]="'subscript-'+id" type="button" title="{{'WYSIWYG.SUBSCRIPT' | translate }}" class="angular-editor-button"
             (click)="triggerCommand('subscript')" [disabled]="htmlMode" tabindex="-1"><i class='fa fa-subscript'></i></button>
-    <button [id]="'superscript-'+id" type="button" title="Superscript" class="angular-editor-button"
+    <button [id]="'superscript-'+id" type="button" title="{{'WYSIWYG.SUPERSCRIPT' | translate }}" class="angular-editor-button"
             (click)="triggerCommand('superscript')" [disabled]="htmlMode" tabindex="-1"><i class='fa fa-superscript'></i></button>
   </div>
   <div class="angular-editor-toolbar-set">
-    <button [id]="'justifyLeft-'+id" type="button" title="Justify Left" class="angular-editor-button"
+    <button [id]="'justifyLeft-'+id" type="button" title="{{'WYSIWYG.JUSTIFY_LEFT' | translate }}" class="angular-editor-button"
             (click)="triggerCommand('justifyLeft')" [disabled]="htmlMode" tabindex="-1"><i
       class='fa fa-align-left'></i></button>
-    <button [id]="'justifyCenter-'+id" type="button" title="Justify Center" class="angular-editor-button"
+    <button [id]="'justifyCenter-'+id" type="button" title="{{'WYSIWYG.JUSTIFY_CENTER' | translate }}" class="angular-editor-button"
             (click)="triggerCommand('justifyCenter')" [disabled]="htmlMode" tabindex="-1"><i class='fa fa-align-center'></i></button>
-    <button [id]="'justifyRight-'+id" type="button" title="Justify Right" class="angular-editor-button"
+    <button [id]="'justifyRight-'+id" type="button" title="{{'WYSIWYG.JUSTIFY_RIGHT' | translate }}" class="angular-editor-button"
             (click)="triggerCommand('justifyRight')" [disabled]="htmlMode" tabindex="-1">
       <i class='fa fa-align-right'></i></button>
-    <button [id]="'justifyFull-'+id" type="button" title="Justify Full" class="angular-editor-button"
+    <button [id]="'justifyFull-'+id" type="button" title="{{'WYSIWYG.JUSTIFY_FULL' | translate }}" class="angular-editor-button"
             (click)="triggerCommand('justifyFull')" [disabled]="htmlMode" tabindex="-1"><i
       class='fa fa-align-justify'></i></button>
   </div>
   <div class="angular-editor-toolbar-set">
-    <button [id]="'indent-'+id" type="button" title="Indent" class="angular-editor-button"
+    <button [id]="'indent-'+id" type="button" title="{{'WYSIWYG.INDENT' | translate }}" class="angular-editor-button"
             (click)="triggerCommand('indent')"
             [disabled]="htmlMode" tabindex="-1"><i
       class='fa fa-indent'></i></button>
-    <button [id]="'outdent-'+id" type="button" title="Outdent" class="angular-editor-button"
+    <button [id]="'outdent-'+id" type="button" title="{{'WYSIWYG.OUTDENT' | translate }}" class="angular-editor-button"
             (click)="triggerCommand('outdent')"
             [disabled]="htmlMode" tabindex="-1"><i
       class='fa fa-outdent'></i></button>
   </div>
   <div class="angular-editor-toolbar-set">
-    <button [id]="'insertUnorderedList-'+id" type="button" title="Unordered List" class="angular-editor-button"
+    <button [id]="'insertUnorderedList-'+id" type="button" title="{{'WYSIWYG.UNORDERED_LIST' | translate }}" class="angular-editor-button"
             (click)="triggerCommand('insertUnorderedList')" [disabled]="htmlMode" tabindex="-1"><i class='fa fa-list-ul'></i></button>
-    <button [id]="'insertOrderedList-'+id" type="button" title="Ordered List" class="angular-editor-button"
+    <button [id]="'insertOrderedList-'+id" type="button" title="{{'WYSIWYG.ORDERED_LIST' | translate }}" class="angular-editor-button"
             (click)="triggerCommand('insertOrderedList')" [disabled]="htmlMode" tabindex="-1"><i class='fa fa-list-ol'></i></button>
   </div>
   <div class="angular-editor-toolbar-set">
     <label [for]="'heading-'+id" class="block-label" tabindex="-1"></label>
-    <select title="Formatting" [id]="'heading-'+id" class="select-heading" [(ngModel)]="block"
+    <select title="{{'WYSIWYG.FORMATTING' | translate }}" [id]="'heading-'+id" class="select-heading" [(ngModel)]="block"
             (change)="triggerCommand(block)"
             [disabled]="htmlMode"  tabindex="-1">
       <optgroup label="Formatting"></optgroup>
@@ -69,7 +69,7 @@
   </div>
   <div class="angular-editor-toolbar-set">
     <label [for]="'fontSelector-'+id" class="block-label"></label>
-    <select title="Font Name" [id]="'fontSelector-'+id" class="select-font" [(ngModel)]="fontId"
+    <select title="{{'WYSIWYG.FONT_NAME' | translate }}" [id]="'fontSelector-'+id" class="select-font" [(ngModel)]="fontId"
             (change)="setFontName(fontId)"
             [disabled]="htmlMode" tabindex="-1">
       <optgroup label="Font Name"></optgroup>
@@ -82,7 +82,7 @@
   </div>
   <div class="angular-editor-toolbar-set">
     <label [for]="'fontSizeSelector-'+id" class="block-label"></label>
-    <select title="Font Size" [id]="'fontSizeSelector-'+id" class="select-font-size" [(ngModel)]="fontSize"
+    <select title="{{'WYSIWYG.FONT_SIZE' | translate }}" [id]="'fontSizeSelector-'+id" class="select-font-size" [(ngModel)]="fontSize"
             (change)="setFontSize(fontSize)"
             [disabled]="htmlMode" tabindex="-1">
       <optgroup label="Font Sizing"></optgroup>
@@ -100,13 +100,13 @@
       style="display: none"
       type="color" (change)="insertColor(fgInput.value, 'textColor')"
       #fgInput>
-    <button [id]="'foregroundColorPicker-'+id" type="button" class="angular-editor-button" (click)="fgInput.click()" title="Text Color"
+    <button [id]="'foregroundColorPicker-'+id" type="button" class="angular-editor-button" (click)="fgInput.click()" title="{{'WYSIWYG.TEXT_COLOR' | translate }}"
             [disabled]="htmlMode" tabindex="-1"><span class="color-label foreground"><i class="fa fa-font"></i></span></button>
     <input
       style="display: none"
       type="color" (change)="insertColor(bgInput.value, 'backgroundColor')"
       #bgInput>
-    <button [id]="'backgroundColorPicker-'+id" type="button" class="angular-editor-button" (click)="bgInput.click()" title="Background Color"
+    <button [id]="'backgroundColorPicker-'+id" type="button" class="angular-editor-button" (click)="bgInput.click()" title="{{'WYSIWYG.BACKGROUND_COLOR' | translate }}"
             [disabled]="htmlMode" tabindex="-1"><span class="color-label background"><i class="fa fa-font"></i></span></button>
   </div>
   <div *ngIf="customClasses" class="angular-editor-toolbar-set">
@@ -121,11 +121,11 @@
   </div>
   <div class="angular-editor-toolbar-set">
     <button [id]="'link-'+id" type="button" class="angular-editor-button" (click)="insertUrl()"
-            title="Insert Link" [disabled]="htmlMode" tabindex="-1">
+            title="{{'WYSIWYG.INSERT_LINK' | translate }}" [disabled]="htmlMode" tabindex="-1">
       <i class="fa fa-link"></i>
     </button>
     <button type="button" class="angular-editor-button" (click)="triggerCommand('unlink')"
-            title="Unlink" [disabled]="htmlMode" tabindex="-1">
+            title="{{'WYSIWYG.UNLINK' | translate }}" [disabled]="htmlMode" tabindex="-1">
       <i class="fa fa-chain-broken"></i>
     </button>
     <input
@@ -135,15 +135,15 @@
       #fileInput>
     <button type="button" class="angular-editor-button" (click)="fileInput.click()" title="Insert Image"
             [disabled]="htmlMode" tabindex="-1"><i class="fa fa-image"></i></button>
-    <button type="button" title="Horizontal Line" class="angular-editor-button"
+    <button type="button" title="{{'WYSIWYG.HORIZONTAL_LINE' | translate }}" class="angular-editor-button"
             (click)="triggerCommand('insertHorizontalRule')" [disabled]="htmlMode" tabindex="-1"><i class="fa fa-minus"></i></button>
   </div>
   <div class="angular-editor-toolbar-set">
-    <button type="button" title="Clear Formatting" class="angular-editor-button"
+    <button type="button" title="{{'WYSIWYG.CLEAR_FORMATTING' | translate }}" class="angular-editor-button"
             (click)="triggerCommand('removeFormat')" [disabled]="htmlMode" tabindex="-1"><i class='fa fa-remove'></i></button>
   </div>
   <div class="angular-editor-toolbar-set">
-    <button [id]="'toggleEditorMode-'+id" type="button" title="HTML Code" class="angular-editor-button"
+    <button [id]="'toggleEditorMode-'+id" type="button" title="{{'WYSIWYG.HTML_CODE' | translate }}" class="angular-editor-button"
             (click)="triggerCommand('toggleEditorMode')" tabindex="-1"><i class='fa fa-code'></i></button>
   </div>
 </div>
