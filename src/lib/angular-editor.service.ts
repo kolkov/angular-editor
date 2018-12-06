@@ -172,8 +172,12 @@ export class AngularEditorService {
   }
 
   createCustomClass(customClass: CustomClass) {
-    const tagName = customClass.tag ? customClass.tag : 'span';
-    const newTag = '<' + tagName + ' class="' + customClass.class + '">' + this.selectedText + '</' + tagName + '>';
+    let newTag = this.selectedText;
+    if(customClass){
+      const tagName = customClass.tag ? customClass.tag : 'span';
+      newTag = '<' + tagName + ' class="' + customClass.class + '">' + this.selectedText + '</' + tagName + '>';
+    }
+    
     this.insertHtml(newTag);
   }
 }
