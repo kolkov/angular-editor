@@ -1,8 +1,8 @@
 import {Inject, Injectable} from '@angular/core';
-import {HttpClient, HttpEvent} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {DOCUMENT} from "@angular/common";
-import {CustomClass} from "./config";
+import {HttpClient, HttpEvent} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {DOCUMENT} from '@angular/common';
+import {CustomClass} from './config';
 
 export interface UploadResponse {
   imageUrl: string;
@@ -39,10 +39,10 @@ export class AngularEditorService {
    * @param url string from UI prompt
    */
   createLink(url: string) {
-    if (!url.includes("http")) {
+    if (!url.includes('http')) {
       this._document.execCommand('createlink', false, url);
     } else {
-      const newUrl = '<a href="' + url + '" target="_blank">' + this.selectedText + '</a>';
+      const newUrl = `<a href='${url}' target='_blank'>${this.selectedText}</a>`;
       this.insertHtml(newUrl);
     }
   }
@@ -69,7 +69,7 @@ export class AngularEditorService {
    * @param fontName string
    */
   setFontName(fontName: string) {
-    this._document.execCommand("fontName", false, fontName);
+    this._document.execCommand('fontName', false, fontName);
   }
 
   /**
@@ -77,7 +77,7 @@ export class AngularEditorService {
    * @param fontSize string
    */
   setFontSize(fontSize: string) {
-    this._document.execCommand("fontSize", false, fontSize);
+    this._document.execCommand('fontSize', false, fontSize);
   }
 
   /**
@@ -167,17 +167,52 @@ export class AngularEditorService {
     this._document.execCommand('insertImage', false, imageUrl);
   }
 
+  insertVideo(videoUrl: string) {
+    if (videoUrl.match('www.youtube.com')) {
+      this.insertYouTubeVideoTag(videoUrl);
+    }
+    if (videoUrl.match('vimeo.com')) {
+      this.insertVimeoVideoTag(videoUrl);
+    }
+  }
+
   setDefaultParagraphSeparator(separator: string) {
-    this._document.execCommand("defaultParagraphSeparator", false, separator);
+    this._document.execCommand('defaultParagraphSeparator', false, separator);
   }
 
   createCustomClass(customClass: CustomClass) {
     let newTag = this.selectedText;
-    if(customClass){
+    if (customClass) {
       const tagName = customClass.tag ? customClass.tag : 'span';
-      newTag = '<' + tagName + ' class="' + customClass.class + '">' + this.selectedText + '</' + tagName + '>';
+      newTag = `<${tagName} class='${customClass.class}'>${this.selectedText}</${tagName}>`;
     }
-    
     this.insertHtml(newTag);
+  }
+
+  private insertYouTubeVideoTag(videoUrl: string): void {
+    const id = videoUrl.split('v=')[1];
+    const imageUrl = `https://img.youtube.com/vi/${id}/0.jpg`;
+    const thumbnail = `
+      <div style='position: relative'>
+        <img style='position: absolute; left:200px; top:140px'
+             src="https://img.icons8.com/color/96/000000/youtube-play.png"
+        <a href='${videoUrl}' target='_blank'>
+          <img src="${imageUrl}" alt="click to watch"/>
+        </a>
+      </div>`;
+    this.insertHtml(thumbnail);
+  }
+
+  private insertVimeoVideoTag(videoUrl: string): void {
+    const sub = this.http.get<any>(`https://vimeo.com/api/oembed.json?url=${videoUrl}`).subscribe(data => {
+      const imageUrl = data.thumbnail_url_with_play_button;
+      const thumbnail = `<div>
+        <a href='${videoUrl}' target='_blank'>
+          <img src="${imageUrl}" alt="${data.title}"/>
+        </a>
+      </div>`;
+      this.insertHtml(thumbnail);
+      sub.unsubscribe();
+    });
   }
 }

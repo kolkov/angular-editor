@@ -135,6 +135,8 @@
       #fileInput>
     <button type="button" class="angular-editor-button" (click)="fileInput.click()" title="Insert Image"
             [disabled]="htmlMode" tabindex="-1"><i class="fa fa-image"></i></button>
+    <button type="button" class="angular-editor-button" (click)="insertVideo()" title="Insert Vedio"
+            [disabled]="htmlMode" tabindex="-1"><i class="fa fa-video-camera"></i></button>
     <button type="button" title="Horizontal Line" class="angular-editor-button"
             (click)="triggerCommand('insertHorizontalRule')" [disabled]="htmlMode" tabindex="-1"><i class="fa fa-minus"></i></button>
   </div>
