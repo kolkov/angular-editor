@@ -192,7 +192,7 @@ export class AngularEditorToolbarComponent {
   onFileChanged(event) {
     const file = event.target.files[0];
       if (file.type.includes("image/")) {
-        if(this.uploadUrl.length > 0){
+        if(this.uploadUrl){
             this.editorService.uploadImage(file).subscribe(e => {
               if (e instanceof HttpResponse) {
                 this.editorService.insertImage(e.body.imageUrl);
