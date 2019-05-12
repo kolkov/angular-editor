@@ -1,0 +1,24 @@
+{
+  "name": "@kolkov/angular-editor",
+  "version": "0.13.1",
+  "author": "Andrey Kolkov <a.kolkov@gmail.com>",
+  "repository": "https://github.com/kolkov/angular-editor",
+  "license": "MIT",
+  "private": false,
+  "peerDependencies": {
+    "@angular/common": ">6.0.0",
+    "@angular/core": ">6.0.0",
+    "@angular/forms": ">6.0.0",
+    "@angular/platform-browser": ">6.0.0",
+    "rxjs": "^6.x.x"
+  },
+  "keywords": [
+    "angular",
+    "editor",
+    "native",
+    "wysiwyg",
+    "angular-editor",
+    "angular-wysiwyg-editor",
+    "wysiwyg-editor"
+  ]
+}

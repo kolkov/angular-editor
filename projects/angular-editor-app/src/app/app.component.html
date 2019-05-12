@@ -1,0 +1,12 @@
+<div class="container">
+  <h1>Editor</h1>
+  <angular-editor [(ngModel)]="htmlContent" (ngModelChange)="onChange($event)"></angular-editor>
+
+  <!--<div *ngIf="htmlContent" class="htmlblock block">-->
+  <h6>HTML Output</h6>
+  <div class="html">
+    {{ htmlContent }}
+  </div>
+  <!--</div>-->
+</div>
+
