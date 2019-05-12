@@ -23,7 +23,7 @@ export interface AngularEditorConfig {
   placeholder?: string;
   defaultParagraphSeparator?: string;
   defaultFontName?: string;
-  defaultFontSize?: '1' | '2' | '3' | '4' | '5' | '6' | '7' |string;
+  defaultFontSize?: '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | string;
   uploadUrl?: string;
   fonts?: Font[];
   customClasses?: CustomClass[];
@@ -47,6 +47,8 @@ export const angularEditorConfig: AngularEditorConfig = {
   fonts: [
     {class: 'arial', name: 'Arial'},
     {class: 'times-new-roman', name: 'Times New Roman'},
+    {class: 'calibri', name: 'Calibri'},
+    {class: 'comic-sans-ms', name: 'Comic Sans MS'}
   ],
   uploadUrl: 'v1/image',
 };
