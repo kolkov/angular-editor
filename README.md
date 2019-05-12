@@ -10,7 +10,7 @@ Working code for this demo at stackblitz [example](https://stackblitz.com/edit/a
 
 ### Installation
 
-Install via [npm][npm] package manager
+Install via [npm][npm] package manager 
 
 ```bash
 npm install @kolkov/angular-editor --save
