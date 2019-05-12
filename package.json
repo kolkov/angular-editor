@@ -10,8 +10,9 @@
     "e2e": "ng e2e",
     "build and watch angular-editor": "ng build angular-editor --watch",
     "prod build angular-editor": "ng build --prod angular-editor",
-    "publish angular-editor": "npm publish ./dist/angular-editor",
-    "test angular-editor": "ng test angular-editor"
+    "publish angular-editor": "npm run copy && npm publish ./dist/angular-editor",
+    "test angular-editor": "ng test angular-editor",
+    "copy": "copy \"./README.md\" \"dist/angular-editor/\""
   },
   "private": true,
   "dependencies": {
