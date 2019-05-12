@@ -23,6 +23,7 @@ export class AngularEditorToolbarComponent {
 
   customClassId = -1;
   customClasses: CustomClass[];
+  uploadUrl:string;
 
   tagMap = {
     BLOCKQUOTE: "indent",
@@ -191,12 +192,20 @@ export class AngularEditorToolbarComponent {
   onFileChanged(event) {
     const file = event.target.files[0];
       if (file.type.includes("image/")) {
-        this.editorService.uploadImage(file).subscribe(e => {
-          if (e instanceof HttpResponse) {
-            this.editorService.insertImage(e.body.imageUrl);
-            this.fileReset();
+        if(this.uploadUrl){
+            this.editorService.uploadImage(file).subscribe(e => {
+              if (e instanceof HttpResponse) {
+                this.editorService.insertImage(e.body.imageUrl);
+                this.fileReset();
+              }
+            });
+        } else{
+          var reader = new FileReader();
+          reader.onload = (_event) => {
+            this.editorService.insertImage(_event.target['result']);
           }
-        });
+          reader.readAsDataURL(file);
+        }
       }
   }
 
