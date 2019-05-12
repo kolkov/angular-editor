@@ -1,0 +1,152 @@
+<div class="angular-editor-toolbar" *ngIf="showToolbar">
+  <div class="angular-editor-toolbar-set">
+    <button type="button" title="Undo" class="angular-editor-button" (click)="triggerCommand('undo')" tabindex="-1"><i
+      class='fa fa-undo'></i></button>
+    <button type="button" title="Redo" class="angular-editor-button" (click)="triggerCommand('redo')" tabindex="-1"><i
+      class='fa fa-repeat'></i></button>
+  </div>
+  <div class="angular-editor-toolbar-set">
+    <button [id]="'bold-'+id" type="button" title="Bold" class="angular-editor-button" (click)="triggerCommand('bold')"
+            [disabled]="htmlMode" tabindex="-1"><i class='fa fa-bold'></i></button>
+    <button [id]="'italic-'+id" type="button" title="Italic" class="angular-editor-button"
+            (click)="triggerCommand('italic')"
+            [disabled]="htmlMode" tabindex="-1"><i class='fa fa-italic'></i></button>
+    <button [id]="'underline-'+id" type="button" title="Underline" class="angular-editor-button"
+            (click)="triggerCommand('underline')" [disabled]="htmlMode" tabindex="-1"><i class='fa fa-underline'></i></button>
+    <button [id]="'strikeThrough-'+id" type="button" title="Strikethrough" class="angular-editor-button"
+            (click)="triggerCommand('strikeThrough')" [disabled]="htmlMode" tabindex="-1"><i class='fa fa-strikethrough'></i></button>
+    <button [id]="'subscript-'+id" type="button" title="Subscript" class="angular-editor-button"
+            (click)="triggerCommand('subscript')" [disabled]="htmlMode" tabindex="-1"><i class='fa fa-subscript'></i></button>
+    <button [id]="'superscript-'+id" type="button" title="Superscript" class="angular-editor-button"
+            (click)="triggerCommand('superscript')" [disabled]="htmlMode" tabindex="-1"><i class='fa fa-superscript'></i></button>
+  </div>
+  <div class="angular-editor-toolbar-set">
+    <button [id]="'justifyLeft-'+id" type="button" title="Justify Left" class="angular-editor-button"
+            (click)="triggerCommand('justifyLeft')" [disabled]="htmlMode" tabindex="-1"><i
+      class='fa fa-align-left'></i></button>
+    <button [id]="'justifyCenter-'+id" type="button" title="Justify Center" class="angular-editor-button"
+            (click)="triggerCommand('justifyCenter')" [disabled]="htmlMode" tabindex="-1"><i class='fa fa-align-center'></i></button>
+    <button [id]="'justifyRight-'+id" type="button" title="Justify Right" class="angular-editor-button"
+            (click)="triggerCommand('justifyRight')" [disabled]="htmlMode" tabindex="-1">
+      <i class='fa fa-align-right'></i></button>
+    <button [id]="'justifyFull-'+id" type="button" title="Justify Full" class="angular-editor-button"
+            (click)="triggerCommand('justifyFull')" [disabled]="htmlMode" tabindex="-1"><i
+      class='fa fa-align-justify'></i></button>
+  </div>
+  <div class="angular-editor-toolbar-set">
+    <button [id]="'indent-'+id" type="button" title="Indent" class="angular-editor-button"
+            (click)="triggerCommand('indent')"
+            [disabled]="htmlMode" tabindex="-1"><i
+      class='fa fa-indent'></i></button>
+    <button [id]="'outdent-'+id" type="button" title="Outdent" class="angular-editor-button"
+            (click)="triggerCommand('outdent')"
+            [disabled]="htmlMode" tabindex="-1"><i
+      class='fa fa-outdent'></i></button>
+  </div>
+  <div class="angular-editor-toolbar-set">
+    <button [id]="'insertUnorderedList-'+id" type="button" title="Unordered List" class="angular-editor-button"
+            (click)="triggerCommand('insertUnorderedList')" [disabled]="htmlMode" tabindex="-1"><i class='fa fa-list-ul'></i></button>
+    <button [id]="'insertOrderedList-'+id" type="button" title="Ordered List" class="angular-editor-button"
+            (click)="triggerCommand('insertOrderedList')" [disabled]="htmlMode" tabindex="-1"><i class='fa fa-list-ol'></i></button>
+  </div>
+  <div class="angular-editor-toolbar-set">
+    <label [for]="'heading-'+id" class="block-label" tabindex="-1"></label>
+    <select title="Formatting" [id]="'heading-'+id" class="select-heading" [(ngModel)]="block"
+            (change)="triggerCommand(block)"
+            [disabled]="htmlMode"  tabindex="-1">
+      <optgroup label="Formatting"></optgroup>
+      <option class="h1" value="h1">Heading 1</option>
+      <option class="h2" value="h2">Heading 2</option>
+      <option class="h3" value="h3">Heading 3</option>
+      <option class="h4" value="h4">Heading 4</option>
+      <option class="h5" value="h5">Heading 5</option>
+      <option class="h6" value="h6">Heading 6</option>
+      <option class="p" value="p">Paragraph</option>
+      <option class="pre" value="pre">Predefined</option>
+      <option class="div" value="div">Standard</option>
+      <option class="default" value="default">Default</option>
+    </select>
+  </div>
+  <div class="angular-editor-toolbar-set">
+    <label [for]="'fontSelector-'+id" class="block-label"></label>
+    <select title="Font Name" [id]="'fontSelector-'+id" class="select-font" [(ngModel)]="fontId"
+            (change)="setFontName(fontId)"
+            [disabled]="htmlMode" tabindex="-1">
+      <optgroup label="Font Name"></optgroup>
+      <option *ngFor="let item of fonts; let i = index" [class]="item.class" [value]="i">{{item.name}}</option>
+     <!-- <option class="arial" value="Arial">Arial</option>
+      <option class="calibri" value="Calibri">Calibri</option>
+      <option class="comic-sans-ms" value="Comic Sans MS">Comic Sans MS</option>
+      <option class="times-new-roman" value="Times New Roman">Times New Roman</option>-->
+    </select>
+  </div>
+  <div class="angular-editor-toolbar-set">
+    <label [for]="'fontSizeSelector-'+id" class="block-label"></label>
+    <select title="Font Size" [id]="'fontSizeSelector-'+id" class="select-font-size" [(ngModel)]="fontSize"
+            (change)="setFontSize(fontSize)"
+            [disabled]="htmlMode" tabindex="-1">
+      <optgroup label="Font Sizing"></optgroup>
+      <option class="size1" value="1">1</option>
+      <option class="size2" value="2">2</option>
+      <option class="size3" value="3">3</option>
+      <option class="size4" value="4">4</option>
+      <option class="size5" value="5">5</option>
+      <option class="size6" value="6">6</option>
+      <option class="size7" value="7">7</option>
+      <option class="size8" value="8">8</option>
+      <option class="size9" value="9">9</option>
+      <option class="size10" value="10">10</option>
+    </select>
+  </div>
+  <div class="angular-editor-toolbar-set">
+    <input
+      style="display: none"
+      type="color" (change)="insertColor(fgInput.value, 'textColor')"
+      #fgInput>
+    <button [id]="'foregroundColorPicker-'+id" type="button" class="angular-editor-button" (click)="fgInput.click()" title="Text Color"
+            [disabled]="htmlMode" tabindex="-1"><span class="color-label foreground"><i class="fa fa-font"></i></span></button>
+    <input
+      style="display: none"
+      type="color" (change)="insertColor(bgInput.value, 'backgroundColor')"
+      #bgInput>
+    <button [id]="'backgroundColorPicker-'+id" type="button" class="angular-editor-button" (click)="bgInput.click()" title="Background Color"
+            [disabled]="htmlMode" tabindex="-1"><span class="color-label background"><i class="fa fa-font"></i></span></button>
+  </div>
+  <div *ngIf="customClasses" class="angular-editor-toolbar-set">
+    <label [for]="'customClassSelector-'+id" class="block-label"></label>
+    <select title="Custom Style" [id]="'customClassSelector-'+id" class="select-custom-style" [(ngModel)]="customClassId"
+            (change)="setCustomClass(customClassId)"
+            [disabled]="htmlMode" tabindex="-1">
+      <optgroup label="Custom Class"></optgroup>
+      <option class="" value=-1>Clear Class</option>
+      <option *ngFor="let item of customClasses; let i = index" [class]="item.class" [value]="i">{{item.name}}</option>
+    </select>
+  </div>
+  <div class="angular-editor-toolbar-set">
+    <button [id]="'link-'+id" type="button" class="angular-editor-button" (click)="insertUrl()"
+            title="Insert Link" [disabled]="htmlMode" tabindex="-1">
+      <i class="fa fa-link"></i>
+    </button>
+    <button type="button" class="angular-editor-button" (click)="triggerCommand('unlink')"
+            title="Unlink" [disabled]="htmlMode" tabindex="-1">
+      <i class="fa fa-chain-broken"></i>
+    </button>
+    <input
+      style="display: none"
+      accept="image/*"
+      type="file" (change)="onFileChanged($event)"
+      #fileInput>
+    <button type="button" class="angular-editor-button" (click)="fileInput.click()" title="Insert Image"
+            [disabled]="htmlMode" tabindex="-1"><i class="fa fa-image"></i></button>
+    <button type="button" title="Horizontal Line" class="angular-editor-button"
+            (click)="triggerCommand('insertHorizontalRule')" [disabled]="htmlMode" tabindex="-1"><i class="fa fa-minus"></i></button>
+  </div>
+  <div class="angular-editor-toolbar-set">
+    <button type="button" title="Clear Formatting" class="angular-editor-button"
+            (click)="triggerCommand('removeFormat')" [disabled]="htmlMode" tabindex="-1"><i class='fa fa-remove'></i></button>
+  </div>
+  <div class="angular-editor-toolbar-set">
+    <button [id]="'toggleEditorMode-'+id" type="button" title="HTML Code" class="angular-editor-button"
+            (click)="triggerCommand('toggleEditorMode')" tabindex="-1"><i class='fa fa-code'></i></button>
+  </div>
+</div>

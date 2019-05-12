@@ -1,0 +1,63 @@
+@import "style";
+
+.angular-editor {
+  position: relative;
+
+  ::ng-deep [contenteditable=true]:empty:before {
+    content: attr(placeholder);
+    // display: block; // for firefox
+    color: #868e96;
+    opacity: 1;
+  }
+
+  .angular-editor-wrapper {
+    position: relative;
+
+    .angular-editor-textarea {
+      min-height: 5rem;
+      padding: 0.5rem 0.8rem 1rem 0.8rem;
+      border: 1px solid #ddd;
+      background-color: transparent;
+      overflow-x: hidden;
+      overflow-y: auto;
+      z-index: 2;
+      position: relative;
+
+      &:focus,
+      &.focus {
+        outline: 0;
+      }
+
+      ::ng-deep blockquote {
+        margin-left: 1rem;
+        border-left: 0.2em solid #dfe2e5;
+        padding-left: 0.5rem;
+      }
+    }
+
+    ::ng-deep p {
+      margin-bottom: 0;
+    }
+
+    .angular-editor-placeholder {
+      display: none;
+      position: absolute;
+      top: 0;
+      padding: 0.5rem 0.8rem 1rem 0.9rem;
+      z-index: 1;
+      color: #6c757d;
+      opacity: 0.75;
+    }
+
+    &.show-placeholder {
+      .angular-editor-placeholder {
+        display: block;
+      }
+    }
+    &.disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+}

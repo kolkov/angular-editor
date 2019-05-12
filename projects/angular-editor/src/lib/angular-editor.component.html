@@ -1,0 +1,13 @@
+<div (focus)="onEditorFocus()" class="angular-editor" id="angularEditor" [style.width]="config.width"
+     [style.minWidth]="config.minWidth">
+  <angular-editor-toolbar #editorToolbar (execute)="executeCommand($event)"></angular-editor-toolbar>
+
+  <div class="angular-editor-wrapper" #editorWrapper>
+    <div #editor id="editor" class="angular-editor-textarea" [attr.contenteditable]="config.editable"
+         [attr.translate]="config.translate"
+         [attr.spellcheck]="config.spellcheck" [style.height]="config.height" [style.minHeight]="config.minHeight" [style.maxHeight]="config.maxHeight"
+         (input)="onContentChange($event.target.innerHTML)" (focus)="onTextAreaFocus()" (blur)="onTextAreaBlur($event)" (click)="exec()" (keyup)="exec()">
+    </div>
+    <span class="angular-editor-placeholder">{{ placeholder || config['placeholder'] }}</span>
+  </div>
+</div>
