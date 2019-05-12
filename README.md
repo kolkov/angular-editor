@@ -1,5 +1,5 @@
 # AngularEditor
-A simple native wysiwyg editor for Angular 6+, 7+
+A simple native wysiwyg editor for Angular 6+, 7+, 8+
 
 ## Demo
 Demo is here [demo][demo]
