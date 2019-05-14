@@ -1,15 +1,15 @@
 {
   "name": "@kolkov/angular-editor",
-  "version": "0.13.1",
+  "version": "0.14.5",
   "author": "Andrey Kolkov <a.kolkov@gmail.com>",
   "repository": "https://github.com/kolkov/angular-editor",
   "license": "MIT",
   "private": false,
   "peerDependencies": {
-    "@angular/common": ">6.0.0",
-    "@angular/core": ">6.0.0",
-    "@angular/forms": ">6.0.0",
-    "@angular/platform-browser": ">6.0.0",
+    "@angular/common": ">=6.0.0 <9",
+    "@angular/core": ">=6.0.0 <9",
+    "@angular/forms": ">=6.0.0 <9",
+    "@angular/platform-browser": ">=6.0.0 <9",
     "rxjs": "^6.x.x"
   },
   "keywords": [

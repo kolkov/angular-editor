@@ -9,31 +9,31 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build and watch angular-editor": "ng build angular-editor --watch",
-    "prod build angular-editor": "ng build --prod angular-editor",
-    "publish angular-editor": "npm publish ./dist/angular-editor",
-    "test angular-editor": "ng test angular-editor"
+    "publish angular-editor": "npm run copy && npm publish ./dist/angular-editor",
+    "test angular-editor": "ng test angular-editor",
+    "copy": "copy \"./README.md\" \"dist/angular-editor/\""
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~8.0.0-rc.3",
-    "@angular/common": "~8.0.0-rc.3",
-    "@angular/compiler": "~8.0.0-rc.3",
-    "@angular/core": "~8.0.0-rc.3",
-    "@angular/forms": "~8.0.0-rc.3",
-    "@angular/platform-browser": "~8.0.0-rc.3",
-    "@angular/platform-browser-dynamic": "~8.0.0-rc.3",
-    "@angular/router": "~8.0.0-rc.3",
-    "rxjs": "~6.5.2",
+    "@angular/animations": "^6.0.1",
+    "@angular/common": "^6.0.1",
+    "@angular/compiler": "^6.0.1",
+    "@angular/core": "^6.0.1",
+    "@angular/forms": "^6.0.1",
+    "@angular/platform-browser": "^6.0.1",
+    "@angular/platform-browser-dynamic": "^6.0.1",
+    "@angular/router": "^6.0.1",
+    "rxjs": "~6.2.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.0",
     "font-awesome": "^4.7.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.800.0-rc.3",
-    "@angular-devkit/build-ng-packagr": "~0.800.0-rc.3",
-    "@angular/cli": "~8.0.0-rc.3",
-    "@angular/compiler-cli": "~8.0.0-rc.3",
-    "@angular/language-service": "~8.0.0-rc.3",
+    "@angular-devkit/build-angular": "^0.13.8",
+    "@angular-devkit/build-ng-packagr": "^0.13.8",
+    "@angular/cli": "^6.0.8",
+    "@angular/compiler-cli": "^7.2.15",
+    "@angular/language-service": "^7.2.15",
     "@types/node": "~8.9.4",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
@@ -50,6 +50,6 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.4.3"
+    "typescript": "~3.2.4"
   }
 }

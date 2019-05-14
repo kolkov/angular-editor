@@ -19,6 +19,7 @@ a {
   font-size: 0.8rem;
   padding: 0.2rem;
   border: 1px solid #ddd;
+
   .angular-editor-toolbar-set {
     display: inline-block;
     border-radius: 5px;
@@ -27,54 +28,67 @@ a {
     vertical-align: middle;
     border: 1px solid #ddd;
     margin-bottom: 3px;
+
     .angular-editor-button {
       background-color: transparent;
       padding: 0.4rem;
       min-width: 2.0rem;
       float: left;
       border: 0 solid #ddd;
+
       &:first-child {
         border-radius: 5px 0 0 5px;
       }
+
       &:last-child {
         border-radius: 0 5px 5px 0;
       }
+
       &:first-child:last-child {
         border-radius: 5px;
       }
+
       &:hover {
         cursor: pointer;
         background-color: #f1f1f1;
         transition: 0.2s ease;
       }
+
       &:focus,
       &.focus {
         outline: 0;
       }
+
       &:disabled {
         background-color: #f5f5f5;
         pointer-events: none;
         cursor: not-allowed;
+
         > .color-label {
           pointer-events: none;
           cursor: not-allowed;
+
           &.foreground {
             :after {
               background: #555555;
             }
           }
+
           &.background {
             background: #555555;
           }
         }
       }
+
       &.active {
         background: #fff5b9;
+
         &:hover {
           background-color: #fffa98;
         }
       }
     }
+
     select {
       font-size: 11px;
       width: 90px;
@@ -86,6 +100,7 @@ a {
       padding: 0.4rem;
       cursor: pointer;
     }
+
     .select-heading {
       width: 90px;
       @supports not( -moz-appearance:none ) {
@@ -126,17 +141,20 @@ a {
           font-size: 12px;
         }
       }
+
       &:disabled {
         background-color: #f5f5f5;
         pointer-events: none;
         cursor: not-allowed;
       }
+
       &:hover {
         cursor: pointer;
         background-color: #f1f1f1;
         transition: 0.2s ease;
       }
     }
+
     .select-font {
       width: 90px;
       @supports not( -moz-appearance:none ) {
@@ -150,17 +168,20 @@ a {
           background-color: white;
         }
       }
+
       &:disabled {
         background-color: #f5f5f5;
         pointer-events: none;
         cursor: not-allowed;
       }
+
       &:hover {
         cursor: pointer;
         background-color: #f1f1f1;
         transition: 0.2s ease;
       }
     }
+
     .select-font-size {
       width: 50px;
       @supports not( -moz-appearance:none ) {
@@ -192,30 +213,44 @@ a {
           font-size: 20px;
         }
         .size7 {
+          font-size: 22px;
+        }
+        .size8 {
           font-size: 24px;
         }
+        .size9 {
+          font-size: 26px;
+        }
+        .size10 {
+          font-size: 28px;
+        }
       }
+
       &:disabled {
         background-color: #f5f5f5;
         pointer-events: none;
         cursor: not-allowed;
       }
+
       &:hover {
         cursor: pointer;
         background-color: #f1f1f1;
         transition: 0.2s ease;
       }
     }
+
     .color-label {
       position: relative;
       cursor: pointer;
     }
+
     .background {
       font-size: smaller;
       background: #1b1b1b;
       color: white;
       padding: 3px;
     }
+
     .foreground {
       :after {
         position: absolute;

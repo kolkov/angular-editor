@@ -1,5 +1,5 @@
 # AngularEditor
-A simple native wysiwyg editor for Angular 6+, 7+
+A simple native wysiwyg editor for Angular 6+, 7+, 8+
 
 ## Demo
 Demo is here [demo][demo]
@@ -10,7 +10,7 @@ Working code for this demo at stackblitz [example](https://stackblitz.com/edit/a
 
 ### Installation
 
-Install via [npm][npm] package manager
+Install via [npm][npm] package manager 
 
 ```bash
 npm install @kolkov/angular-editor --save
