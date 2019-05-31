@@ -5,6 +5,9 @@
   "repository": "https://github.com/kolkov/angular-editor",
   "license": "MIT",
   "private": false,
+  "bugs": {
+    "url": "https://github.com/kolkov/angular-editor/issues"
+  },
   "peerDependencies": {
     "@angular/common": ">=6.0.0 <9",
     "@angular/core": ">=6.0.0 <9",
