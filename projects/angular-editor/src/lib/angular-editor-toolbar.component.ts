@@ -1,8 +1,8 @@
-import {Component, ElementRef, EventEmitter, Inject, Output, Renderer2, ViewChild} from "@angular/core";
-import {AngularEditorService} from "./angular-editor.service";
-import {HttpResponse} from "@angular/common/http";
-import {DOCUMENT} from "@angular/common";
-import {CustomClass, Font} from "./config";
+import {Component, ElementRef, EventEmitter, Inject, Output, Renderer2, ViewChild} from '@angular/core';
+import {AngularEditorService} from './angular-editor.service';
+import {HttpResponse} from '@angular/common/http';
+import {DOCUMENT} from '@angular/common';
+import {CustomClass, Font} from './config';
 
 @Component({
   selector: 'angular-editor-toolbar',
@@ -23,17 +23,17 @@ export class AngularEditorToolbarComponent {
 
   customClassId = -1;
   customClasses: CustomClass[];
-  uploadUrl:string;
+  uploadUrl: string;
 
   tagMap = {
-    BLOCKQUOTE: "indent",
-    A: "link"
+    BLOCKQUOTE: 'indent',
+    A: 'link'
   };
 
-  select = ["H1", "H2", "H3", "H4", "H5", "H6", "P", "PRE", "DIV"];
+  select = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P', 'PRE', 'DIV'];
 
-  buttons = ["bold", "italic", "underline", "strikeThrough", "subscript", "superscript", "justifyLeft", "justifyCenter",
-    "justifyRight", "justifyFull", "indent", "outdent", "insertUnorderedList", "insertOrderedList", "link"];
+  buttons = ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'justifyLeft', 'justifyCenter',
+    'justifyRight', 'justifyFull', 'indent', 'outdent', 'insertUnorderedList', 'insertOrderedList', 'link'];
 
   @Output() execute: EventEmitter<string> = new EventEmitter<string>();
 
@@ -62,9 +62,9 @@ export class AngularEditorToolbarComponent {
       const result = this._document.queryCommandState(e);
       const elementById = this._document.getElementById(e + '-' + this.id);
       if (result) {
-        this._renderer.addClass(elementById, "active");
+        this._renderer.addClass(elementById, 'active');
       } else {
-        this._renderer.removeClass(elementById, "active");
+        this._renderer.removeClass(elementById, 'active');
       }
     });
   }
@@ -131,9 +131,9 @@ export class AngularEditorToolbarComponent {
       const elementById = this._document.getElementById(this.tagMap[e] + '-' + this.id);
       const node = nodes.find(x => x.nodeName === e);
       if (node !== undefined && e === node.nodeName) {
-        this._renderer.addClass(elementById, "active");
+        this._renderer.addClass(elementById, 'active');
       } else {
-        this._renderer.removeClass(elementById, "active");
+        this._renderer.removeClass(elementById, 'active');
       }
     });
   }
@@ -142,7 +142,7 @@ export class AngularEditorToolbarComponent {
    * insert URL link
    */
   insertUrl() {
-    const url = prompt("Insert URL link", 'http:\/\/');
+    const url = prompt('Insert URL link', 'http:\/\/');
     if (url && url !== '' && url !== 'http://') {
       this.editorService.createLink(url);
     }
@@ -151,7 +151,7 @@ export class AngularEditorToolbarComponent {
   /** insert color */
   insertColor(color: string, where: string) {
     this.editorService.insertColor(color, where);
-    this.execute.emit("");
+    this.execute.emit('');
   }
 
   /**
@@ -160,7 +160,7 @@ export class AngularEditorToolbarComponent {
    */
   setFontName(fontId: number): void {
     this.editorService.setFontName(this.fonts[fontId].name);
-    this.execute.emit("");
+    this.execute.emit('');
   }
 
   /**
@@ -169,7 +169,7 @@ export class AngularEditorToolbarComponent {
    *  */
   setFontSize(fontSize: string): void {
     this.editorService.setFontSize(fontSize);
-    this.execute.emit("");
+    this.execute.emit('');
   }
 
   /**
@@ -177,11 +177,11 @@ export class AngularEditorToolbarComponent {
    * @param m boolean
    */
   setEditorMode(m: boolean) {
-    const toggleEditorModeButton = this._document.getElementById("toggleEditorMode" + '-' + this.id);
+    const toggleEditorModeButton = this._document.getElementById('toggleEditorMode' + '-' + this.id);
     if (m) {
-      this._renderer.addClass(toggleEditorModeButton, "active");
+      this._renderer.addClass(toggleEditorModeButton, 'active');
     } else {
-      this._renderer.removeClass(toggleEditorModeButton, "active");
+      this._renderer.removeClass(toggleEditorModeButton, 'active');
     }
     this.htmlMode = m;
   }
@@ -191,19 +191,19 @@ export class AngularEditorToolbarComponent {
    */
   onFileChanged(event) {
     const file = event.target.files[0];
-      if (file.type.includes("image/")) {
-        if(this.uploadUrl){
+    if (file.type.includes('image/')) {
+        if (this.uploadUrl) {
             this.editorService.uploadImage(file).subscribe(e => {
               if (e instanceof HttpResponse) {
                 this.editorService.insertImage(e.body.imageUrl);
                 this.fileReset();
               }
             });
-        } else{
-          var reader = new FileReader();
+        } else {
+          const reader = new FileReader();
           reader.onload = (_event) => {
             this.editorService.insertImage(_event.target['result']);
-          }
+          };
           reader.readAsDataURL(file);
         }
       }
@@ -213,7 +213,7 @@ export class AngularEditorToolbarComponent {
    * Reset Input
    */
   fileReset() {
-    this.myInputFile.nativeElement.value = "";
+    this.myInputFile.nativeElement.value = '';
   }
 
   /**

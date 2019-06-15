@@ -252,7 +252,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       const oCode = this._document.createElement('code');
       editableElement.contentEditable = false;
       oCode.id = 'sourceText';
-      oCode.setAttribute('style', 'white-space: pre-wrap; word-break: keep-all; margin: 0; outline: none; background-color: #fff5b9;');
+      oCode.setAttribute('style', 'display:block; white-space: pre-wrap; word-break: keep-all; margin: 0; outline: none; background-color: #fff5b9;');
       oCode.contentEditable = 'true';
       oCode.placeholder = 'test';
       oCode.appendChild(oContent);
