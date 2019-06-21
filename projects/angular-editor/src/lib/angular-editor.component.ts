@@ -155,7 +155,6 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   onContentChange(html: string): void {
 
     if (typeof this.onChange === 'function') {
-      console.log('config sanitize', this.config.sanitize);
       this.onChange(this.config.sanitize || this.config.sanitize == undefined? this._domSanitizer.sanitize(SecurityContext.HTML, html) : html);
       if ((!html || html === '<br>' || html === '') !== this.showPlaceholder) {
         this.togglePlaceholder(this.showPlaceholder);
