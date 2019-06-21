@@ -15,6 +15,8 @@ import {AngularEditorConfig, angularEditorConfig} from './config';
 import {AngularEditorToolbarComponent} from './angular-editor-toolbar.component';
 import {AngularEditorService} from './angular-editor.service';
 import {DOCUMENT} from '@angular/common';
+import {DomSanitizer} from '@angular/platform-browser';
+import { SecurityContext } from '@angular/core';
 
 @Component({
   selector: 'angular-editor',
@@ -54,7 +56,10 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   /** emits `focus` event when focused in to the textarea */
   @Output() focus: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private _renderer: Renderer2, private editorService: AngularEditorService, @Inject(DOCUMENT) private _document: any) {
+  constructor(private _renderer: Renderer2,
+    private editorService: AngularEditorService,
+    @Inject(DOCUMENT) private _document: any,
+    private _domSanitizer: DomSanitizer) {
   }
 
   ngOnInit() {
@@ -150,7 +155,8 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   onContentChange(html: string): void {
 
     if (typeof this.onChange === 'function') {
-      this.onChange(html);
+      console.log('config sanitize', this.config.sanitize);
+      this.onChange(this.config.sanitize || this.config.sanitize == undefined? this._domSanitizer.sanitize(SecurityContext.HTML, html) : html);
       if ((!html || html === '<br>' || html === '') !== this.showPlaceholder) {
         this.togglePlaceholder(this.showPlaceholder);
       }
