@@ -127,7 +127,7 @@
             title="Insert Link" [disabled]="htmlMode" tabindex="-1">
       <i class="fa fa-link"></i>
     </button>
-    <button type="button" class="angular-editor-button" (click)="triggerCommand('unlink')"
+    <button [id]="'unlink-'+id" type="button" class="angular-editor-button" (click)="triggerCommand('unlink')"
             title="Unlink" [disabled]="htmlMode" tabindex="-1">
       <i class="fa fa-chain-broken"></i>
     </button>
@@ -136,13 +136,13 @@
       accept="image/*"
       type="file" (change)="onFileChanged($event)"
       #fileInput>
-    <button type="button" class="angular-editor-button" (click)="fileInput.click()" title="Insert Image"
+    <button [id]="'insertImage-'+id" type="button" class="angular-editor-button" (click)="fileInput.click()" title="Insert Image"
             [disabled]="htmlMode" tabindex="-1"><i class="fa fa-image"></i></button>
-    <button type="button" title="Horizontal Line" class="angular-editor-button"
+    <button [id]="'insertHorizontalRule-'+id" type="button" title="Horizontal Line" class="angular-editor-button"
             (click)="triggerCommand('insertHorizontalRule')" [disabled]="htmlMode" tabindex="-1"><i class="fa fa-minus"></i></button>
   </div>
   <div class="angular-editor-toolbar-set">
-    <button type="button" title="Clear Formatting" class="angular-editor-button"
+    <button [id]="'clearFormatting-'+id" type="button" title="Clear Formatting" class="angular-editor-button"
             (click)="triggerCommand('removeFormat')" [disabled]="htmlMode" tabindex="-1"><i class='fa fa-remove'></i></button>
   </div>
   <div class="angular-editor-toolbar-set">
