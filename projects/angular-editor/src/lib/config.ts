@@ -27,6 +27,7 @@ export interface AngularEditorConfig {
   uploadUrl?: string;
   fonts?: Font[];
   customClasses?: CustomClass[];
+  sanitize?: boolean;
 }
 
 export const angularEditorConfig: AngularEditorConfig = {
@@ -51,4 +52,5 @@ export const angularEditorConfig: AngularEditorConfig = {
     {class: 'comic-sans-ms', name: 'Comic Sans MS'}
   ],
   uploadUrl: 'v1/image',
+  sanitize: true,
 };
