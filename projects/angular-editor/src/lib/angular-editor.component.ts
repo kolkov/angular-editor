@@ -33,12 +33,11 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   private onChange: (value: string) => void;
   private onTouched: () => void;
 
-  placeholder: boolean;
-
   modeVisual = true;
   showPlaceholder = false;
   @Input() id = '';
   @Input() config: AngularEditorConfig = angularEditorConfig;
+  @Input() placeholder = '';
 
   @Output() html;
 
