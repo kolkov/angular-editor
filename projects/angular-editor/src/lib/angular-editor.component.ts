@@ -298,8 +298,8 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     this.editorToolbar.triggerButtons();
 
     let userSelection;
-    if (window.getSelection) {
-      userSelection = window.getSelection();
+    if (this._document.getSelection) {
+      userSelection = this._document.getSelection();
     }
 
     let a = userSelection.focusNode;
