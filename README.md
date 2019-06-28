@@ -84,6 +84,42 @@ editorConfig: AngularEditorConfig = {
 
 For `ngModel` to work, you must import `FormsModule` from `@angular/forms`, or for `formControlName`, you must import `ReactiveFormsModule` from `@angular/forms`
 
+## What's included
+
+Within the download you'll find the following directories and files. You'll see something like this:
+
+```
+angular-editor/
+└── projects/
+    ├── angular-editor/
+    └── angular-editor-app/
+```
+`angular-editor/` - library
+
+`angular-editor-app/` - demo application
+
+## Documentation
+
+The documentation for the AngularEditor is hosted at our website [AngularEditor](https://angular-editor.kolkov.ru/)
+
+## Contributing
+
+Please read through our [contributing guidelines](https://github.com/kolkov/angular-editor/blob/master/CONTRIBUTING.md). Included are directions for opening issues, coding standards, and notes on development.
+
+Editor preferences are available in the [editor config](https://github.com/kolkov/angular-editor/blob/master/.editorconfig) for easy use in common text editors. Read more and download plugins at <http://editorconfig.org>.
+
+## Versioning
+
+For transparency into our release cycle and in striving to maintain backward compatibility, AngularEditor is maintained under [the Semantic Versioning guidelines](http://semver.org/).
+
+See [the Releases section of our project](https://github.com/kolkov/angular-editor/releases) for changelogs for each release version.
+
+## Creators
+
+**Andrey Kolkov**
+
+* <https://github.com/kolkov>
+
 [npm]: https://www.npmjs.com/
 [demo]: https://angular-editor-wysiwyg.stackblitz.io/
 [example]: https://stackblitz.com/edit/angular-editor-wysiwyg
