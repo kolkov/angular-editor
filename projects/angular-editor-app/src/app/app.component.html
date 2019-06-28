@@ -1,12 +1,14 @@
 <div class="container">
-  <h1>Editor</h1>
-  <angular-editor [(ngModel)]="htmlContent" (ngModelChange)="onChange($event)"></angular-editor>
+  <h1>Angular Editor</h1>
+  <angular-editor id="editor1" [(ngModel)]="htmlContent1" [config]="config" (ngModelChange)="onChange($event)"></angular-editor>
 
   <!--<div *ngIf="htmlContent" class="htmlblock block">-->
   <h6>HTML Output</h6>
   <div class="html">
-    {{ htmlContent }}
+    {{ htmlContent1 }}
   </div>
   <!--</div>-->
+
+  <angular-editor id="editor2" [(ngModel)]="htmlContent2" [config]="config" (ngModelChange)="onChange($event)"></angular-editor>
 </div>
 

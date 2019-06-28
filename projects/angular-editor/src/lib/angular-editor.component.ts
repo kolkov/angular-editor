@@ -10,16 +10,18 @@ import {
   Renderer2,
   ViewChild
 } from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {AngularEditorConfig, angularEditorConfig} from "./config";
-import {AngularEditorToolbarComponent} from "./angular-editor-toolbar.component";
-import {AngularEditorService} from "./angular-editor.service";
-import {DOCUMENT} from "@angular/common";
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {AngularEditorConfig, angularEditorConfig} from './config';
+import {AngularEditorToolbarComponent} from './angular-editor-toolbar.component';
+import {AngularEditorService} from './angular-editor.service';
+import {DOCUMENT} from '@angular/common';
+import {DomSanitizer} from '@angular/platform-browser';
+import { SecurityContext } from '@angular/core';
 
 @Component({
   selector: 'angular-editor',
-  templateUrl: "./angular-editor.component.html",
-  styleUrls: ["./angular-editor.component.scss"],
+  templateUrl: './angular-editor.component.html',
+  styleUrls: ['./angular-editor.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -33,12 +35,11 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   private onChange: (value: string) => void;
   private onTouched: () => void;
 
-  placeholder: boolean;
-
   modeVisual = true;
   showPlaceholder = false;
   @Input() id = '';
   @Input() config: AngularEditorConfig = angularEditorConfig;
+  @Input() placeholder = '';
 
   @Output() html;
 
@@ -54,7 +55,10 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   /** emits `focus` event when focused in to the textarea */
   @Output() focus: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private _renderer: Renderer2, private editorService: AngularEditorService, @Inject(DOCUMENT) private _document: any) {
+  constructor(private _renderer: Renderer2,
+    private editorService: AngularEditorService,
+    @Inject(DOCUMENT) private _document: any,
+    private _domSanitizer: DomSanitizer) {
   }
 
   ngOnInit() {
@@ -95,14 +99,13 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    * @param command string from triggerCommand
    */
   executeCommand(command: string) {
+    this.onEditorFocus();
     if (command === 'toggleEditorMode') {
       this.toggleEditorMode(this.modeVisual);
     } else if (command !== '') {
       this.editorService.executeCommand(command);
       this.exec();
     }
-
-    this.onEditorFocus();
   }
 
   /**
@@ -134,7 +137,13 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    *  focus the text area when the editor is focussed
    */
   onEditorFocus() {
-    this.textArea.nativeElement.focus();
+    if (this.modeVisual) {
+      this.textArea.nativeElement.focus();
+    } else {
+      const sourceText = this._document.getElementById('sourceText');
+      // sourceText.textContent = '1';
+      sourceText.focus();
+    }
   }
 
   /**
@@ -144,7 +153,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   onContentChange(html: string): void {
 
     if (typeof this.onChange === 'function') {
-      this.onChange(html);
+      this.onChange(this.config.sanitize || this.config.sanitize == undefined? this._domSanitizer.sanitize(SecurityContext.HTML, html) : html);
       if ((!html || html === '<br>' || html === '') !== this.showPlaceholder) {
         this.togglePlaceholder(this.showPlaceholder);
       }
@@ -242,17 +251,18 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       editableElement.innerHTML = '';
 
       const oPre = this._document.createElement('pre');
-      oPre.setAttribute("style", "margin: 0; outline: none;");
+      oPre.setAttribute('style', 'margin: 0; outline: none;');
       const oCode = this._document.createElement('code');
       editableElement.contentEditable = false;
-      oCode.id = "sourceText";
-      oCode.setAttribute("style", "white-space: pre-wrap; word-break: keep-all; margin: 0; outline: none; background-color: #fff5b9;");
+      oCode.id = 'sourceText';
+      oCode.setAttribute('style', 'display:block; white-space: pre-wrap; word-break: keep-all; margin: 0; outline: none; background-color: #fff5b9;');
       oCode.contentEditable = 'true';
+      oCode.placeholder = 'test';
       oCode.appendChild(oContent);
       oPre.appendChild(oCode);
       editableElement.appendChild(oPre);
 
-      this._document.execCommand("defaultParagraphSeparator", false, "div");
+      this._document.execCommand('defaultParagraphSeparator', false, 'div');
 
       this.modeVisual = false;
       this.viewMode.emit(false);
