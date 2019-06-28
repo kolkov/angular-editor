@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
   htmlContent1 = '';
   htmlContent2 = '';
 
-  config: AngularEditorConfig = {
+  config1: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
     minHeight: '5rem',
@@ -21,6 +21,32 @@ export class AppComponent implements OnInit {
     translate: 'no',
     sanitize: false,
     toolbarPosition: 'top',
+    customClasses: [
+      {
+        name: 'quote',
+        class: 'quote',
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
+      },
+    ]
+  };
+
+  config2: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    minHeight: '5rem',
+    maxHeight: '15rem',
+    placeholder: 'Enter text here...',
+    translate: 'no',
+    sanitize: false,
+    toolbarPosition: 'bottom',
     customClasses: [
       {
         name: 'quote',
