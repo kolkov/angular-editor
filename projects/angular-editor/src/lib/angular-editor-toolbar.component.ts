@@ -19,6 +19,7 @@ export class AngularEditorToolbarComponent {
   defaultFontId;
   fontId = 0;
   fontSize = '5';
+  fontColour;
   fonts: Font[];
 
   customClassId = -1;
@@ -137,6 +138,9 @@ export class AngularEditorToolbarComponent {
         this._renderer.removeClass(elementById, 'active');
       }
     });
+
+    this.fontColour = this._document.queryCommandValue('ForeColor');
+    this.fontSize = this._document.queryCommandValue('FontSize');
   }
 
   /**
@@ -215,7 +219,7 @@ export class AngularEditorToolbarComponent {
         } else {
           const reader = new FileReader();
           reader.onload = (_event) => {
-            this.editorService.insertImage(_event.target['result']);
+            this.editorService.insertImage(_event.target.result);
           };
           reader.readAsDataURL(file);
         }
