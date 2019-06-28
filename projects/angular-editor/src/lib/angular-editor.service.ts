@@ -180,4 +180,40 @@ export class AngularEditorService {
 
     this.insertHtml(newTag);
   }
+
+  insertVideo(videoUrl: string) {
+    if (videoUrl.match('www.youtube.com')) {
+      this.insertYouTubeVideoTag(videoUrl);
+    }
+    if (videoUrl.match('vimeo.com')) {
+      this.insertVimeoVideoTag(videoUrl);
+    }
+  }
+
+  private insertYouTubeVideoTag(videoUrl: string): void {
+    const id = videoUrl.split('v=')[1];
+    const imageUrl = `https://img.youtube.com/vi/${id}/0.jpg`;
+    const thumbnail = `
+      <div style='position: relative'>
+        <img style='position: absolute; left:200px; top:140px'
+             src="https://img.icons8.com/color/96/000000/youtube-play.png"
+        <a href='${videoUrl}' target='_blank'>
+          <img src="${imageUrl}" alt="click to watch"/>
+        </a>
+      </div>`;
+    this.insertHtml(thumbnail);
+  }
+
+  private insertVimeoVideoTag(videoUrl: string): void {
+    const sub = this.http.get<any>(`https://vimeo.com/api/oembed.json?url=${videoUrl}`).subscribe(data => {
+      const imageUrl = data.thumbnail_url_with_play_button;
+      const thumbnail = `<div>
+        <a href='${videoUrl}' target='_blank'>
+          <img src="${imageUrl}" alt="${data.title}"/>
+        </a>
+      </div>`;
+      this.insertHtml(thumbnail);
+      sub.unsubscribe();
+    });
+  }
 }

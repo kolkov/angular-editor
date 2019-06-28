@@ -142,11 +142,23 @@ export class AngularEditorToolbarComponent {
    * insert URL link
    */
   insertUrl() {
-    const url = prompt('Insert URL link', 'http:\/\/');
-    if (url && url !== '' && url !== 'http://') {
+    const url = prompt('Insert URL link', 'https:\/\/');
+    if (url && url !== '' && url !== 'https://') {
       this.editorService.createLink(url);
     }
   }
+
+  /**
+   * insert Video link
+   */
+  insertVideo() {
+    this.execute.emit('');
+    const url = prompt('Insert Video link', `https://`);
+    if (url && url !== '' && url !== `https://`) {
+      this.editorService.insertVideo(url);
+    }
+  }
+
 
   /** insert color */
   insertColor(color: string, where: string) {
