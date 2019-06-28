@@ -14,7 +14,7 @@ export class AngularEditorToolbarComponent {
   id = '';
   htmlMode = false;
   showToolbar = true;
-
+  linkSelected = false;
   block = 'default';
   defaultFontId;
   fontId = 0;
@@ -76,6 +76,7 @@ export class AngularEditorToolbarComponent {
     if (!this.showToolbar) {
       return;
     }
+    this.linkSelected = nodes.findIndex(x => x.nodeName === 'A') > -1;
     let found = false;
     this.select.forEach(y => {
       const node = nodes.find(x => x.nodeName === y);
