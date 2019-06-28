@@ -99,14 +99,13 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    * @param command string from triggerCommand
    */
   executeCommand(command: string) {
+    this.onEditorFocus();
     if (command === 'toggleEditorMode') {
       this.toggleEditorMode(this.modeVisual);
     } else if (command !== '') {
       this.editorService.executeCommand(command);
       this.exec();
     }
-
-    this.onEditorFocus();
   }
 
   /**
