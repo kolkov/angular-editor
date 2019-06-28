@@ -29,9 +29,13 @@ export class AngularEditorService {
     const commands = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'pre'];
     if (commands.includes(command)) {
       this._document.execCommand('formatBlock', false, command);
+      return;
     }
-
-    this._document.execCommand(command, false, null);
+    if (command === 'default') {
+      this.removeSelectedElements('h1,h2,h3,h4,h5,h6,p,pre');
+    } else {
+      this._document.execCommand(command, false, null);
+    }
   }
 
   /**
@@ -97,8 +101,8 @@ export class AngularEditorService {
    * save selection when the editor is focussed out
    */
   saveSelection(): any {
-    if (window.getSelection) {
-      const sel = window.getSelection();
+    if (this._document.getSelection) {
+      const sel = this._document.getSelection();
       if (sel.getRangeAt && sel.rangeCount) {
         this.savedSelection = sel.getRangeAt(0);
         this.selectedText = sel.toString();
@@ -117,8 +121,8 @@ export class AngularEditorService {
    */
   restoreSelection(): boolean {
     if (this.savedSelection) {
-      if (window.getSelection) {
-        const sel = window.getSelection();
+      if (this._document.getSelection) {
+        const sel = this._document.getSelection();
         sel.removeAllRanges();
         sel.addRange(this.savedSelection);
         return true;
@@ -134,9 +138,9 @@ export class AngularEditorService {
   /** check any slection is made or not */
   private checkSelection(): any {
 
-    const slectedText = this.savedSelection.toString();
+    const selectedText = this.savedSelection.toString();
 
-    if (slectedText.length === 0) {
+    if (selectedText.length === 0) {
       throw new Error('No Selection Made');
     }
 
@@ -214,6 +218,84 @@ export class AngularEditorService {
       </div>`;
       this.insertHtml(thumbnail);
       sub.unsubscribe();
+    });
+  }
+
+  nextNode(node) {
+    if (node.hasChildNodes()) {
+      return node.firstChild;
+    } else {
+      while (node && !node.nextSibling) {
+        node = node.parentNode;
+      }
+      if (!node) {
+        return null;
+      }
+      return node.nextSibling;
+    }
+  }
+
+  getRangeSelectedNodes(range, includePartiallySelectedContainers) {
+    let node = range.startContainer;
+    const endNode = range.endContainer;
+    let rangeNodes = [];
+
+    // Special case for a range that is contained within a single node
+    if (node === endNode) {
+      rangeNodes = [node];
+    } else {
+      // Iterate nodes until we hit the end container
+      while (node && node !== endNode) {
+        rangeNodes.push( node = this.nextNode(node) );
+      }
+
+      // Add partially selected nodes at the start of the range
+      node = range.startContainer;
+      while (node && node !== range.commonAncestorContainer) {
+        rangeNodes.unshift(node);
+        node = node.parentNode;
+      }
+    }
+
+    // Add ancestors of the range container, if required
+    if (includePartiallySelectedContainers) {
+      node = range.commonAncestorContainer;
+      while (node) {
+        rangeNodes.push(node);
+        node = node.parentNode;
+      }
+    }
+
+    return rangeNodes;
+  }
+
+  getSelectedNodes() {
+    const nodes = [];
+    if (this._document.getSelection) {
+      const sel = this._document.getSelection();
+      for (let i = 0, len = sel.rangeCount; i < len; ++i) {
+        nodes.push.apply(nodes, this.getRangeSelectedNodes(sel.getRangeAt(i), true));
+      }
+    }
+    return nodes;
+  }
+
+  replaceWithOwnChildren(el) {
+    const parent = el.parentNode;
+    while (el.hasChildNodes()) {
+      parent.insertBefore(el.firstChild, el);
+    }
+    parent.removeChild(el);
+  }
+
+  removeSelectedElements(tagNames) {
+    const tagNamesArray = tagNames.toLowerCase().split(',');
+    this.getSelectedNodes().forEach((node) => {
+      if (node.nodeType === 1 &&
+        tagNamesArray.indexOf(node.tagName.toLowerCase()) > -1) {
+        // Remove the node and replace it with its children
+        this.replaceWithOwnChildren(node);
+      }
     });
   }
 }
