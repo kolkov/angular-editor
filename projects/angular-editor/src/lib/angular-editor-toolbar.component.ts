@@ -219,7 +219,7 @@ export class AngularEditorToolbarComponent {
         } else {
           const reader = new FileReader();
           reader.onload = (_event) => {
-            this.editorService.insertImage(_event.target.result);
+            this.editorService.insertImage(_event.target['result']);
           };
           reader.readAsDataURL(file);
         }
