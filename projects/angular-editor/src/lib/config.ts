@@ -28,6 +28,7 @@ export interface AngularEditorConfig {
   fonts?: Font[];
   customClasses?: CustomClass[];
   sanitize?: boolean;
+  toolbarPosition?: 'top' | 'bottom';
 }
 
 export const angularEditorConfig: AngularEditorConfig = {
@@ -53,4 +54,5 @@ export const angularEditorConfig: AngularEditorConfig = {
   ],
   uploadUrl: 'v1/image',
   sanitize: true,
+  toolbarPosition: 'top',
 };

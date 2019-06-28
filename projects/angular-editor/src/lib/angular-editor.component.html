@@ -1,6 +1,6 @@
 <div (focus)="onEditorFocus()" class="angular-editor" id="angularEditor" [style.width]="config.width"
      [style.minWidth]="config.minWidth">
-  <angular-editor-toolbar #editorToolbar (execute)="executeCommand($event)"></angular-editor-toolbar>
+  <angular-editor-toolbar *ngIf="config.toolbarPosition === 'top' " #editorToolbar (execute)="executeCommand($event)"></angular-editor-toolbar>
 
   <div class="angular-editor-wrapper" #editorWrapper>
     <div #editor id="editor" class="angular-editor-textarea" [attr.contenteditable]="config.editable"
@@ -10,4 +10,5 @@
     </div>
     <span class="angular-editor-placeholder">{{ placeholder || config['placeholder'] }}</span>
   </div>
+  <angular-editor-toolbar *ngIf="config.toolbarPosition === 'bottom'" #editorToolbar (execute)="executeCommand($event)"></angular-editor-toolbar>
 </div>

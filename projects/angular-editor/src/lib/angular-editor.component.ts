@@ -1,5 +1,5 @@
 import {
-  AfterContentInit,
+  AfterViewInit, ChangeDetectorRef,
   Component,
   EventEmitter,
   forwardRef,
@@ -30,7 +30,7 @@ import { SecurityContext } from '@angular/core';
     }
   ]
 })
-export class AngularEditorComponent implements OnInit, ControlValueAccessor, AfterContentInit {
+export class AngularEditorComponent implements OnInit, ControlValueAccessor, AfterViewInit {
 
   private onChange: (value: string) => void;
   private onTouched: () => void;
@@ -58,15 +58,12 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   constructor(private _renderer: Renderer2,
     private editorService: AngularEditorService,
     @Inject(DOCUMENT) private _document: any,
-    private _domSanitizer: DomSanitizer) {
+    private _domSanitizer: DomSanitizer,
+              private cdRef: ChangeDetectorRef) {
   }
 
   ngOnInit() {
-    this.editorToolbar.id = this.id;
-    this.editorToolbar.fonts = this.config.fonts ? this.config.fonts : angularEditorConfig.fonts;
-    this.editorToolbar.customClasses = this.config.customClasses;
-    this.editorToolbar.uploadUrl = this.config.uploadUrl;
-    this.editorService.uploadUrl = this.config.uploadUrl;
+    this.config.toolbarPosition = this.config.toolbarPosition ? this.config.toolbarPosition : angularEditorConfig.toolbarPosition;
     if (this.config.showToolbar !== undefined) {
       this.editorToolbar.showToolbar = this.config.showToolbar;
     }
@@ -75,7 +72,13 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     }
   }
 
-  ngAfterContentInit() {
+  ngAfterViewInit() {
+    this.editorToolbar.id = this.id;
+
+    this.editorToolbar.fonts = this.config.fonts ? this.config.fonts : angularEditorConfig.fonts;
+    this.editorToolbar.customClasses = this.config.customClasses;
+    this.editorToolbar.uploadUrl = this.config.uploadUrl;
+    this.editorService.uploadUrl = this.config.uploadUrl;
     if (this.config.defaultFontName) {
       this.editorToolbar.defaultFontId = this.config.defaultFontName ? this.editorToolbar.fonts.findIndex(x => {
         return x.name === this.config.defaultFontName;
@@ -92,6 +95,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       this.onEditorFocus();
       this.editorService.setFontSize(this.config.defaultFontSize);
     }
+    this.cdRef.detectChanges();
   }
 
   /**
@@ -153,7 +157,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   onContentChange(html: string): void {
 
     if (typeof this.onChange === 'function') {
-      this.onChange(this.config.sanitize || this.config.sanitize == undefined? this._domSanitizer.sanitize(SecurityContext.HTML, html) : html);
+      this.onChange(this.config.sanitize || this.config.sanitize === undefined ? this._domSanitizer.sanitize(SecurityContext.HTML, html) : html);
       if ((!html || html === '<br>' || html === '') !== this.showPlaceholder) {
         this.togglePlaceholder(this.showPlaceholder);
       }
@@ -255,7 +259,8 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       const oCode = this._document.createElement('code');
       editableElement.contentEditable = false;
       oCode.id = 'sourceText';
-      oCode.setAttribute('style', 'display:block; white-space: pre-wrap; word-break: keep-all; margin: 0; outline: none; background-color: #fff5b9;');
+      oCode.setAttribute('style', 'display:block; white-space: pre-wrap; word-break:' +
+        ' keep-all; margin: 0; outline: none; background-color: #fff5b9;');
       oCode.contentEditable = 'true';
       oCode.placeholder = 'test';
       oCode.appendChild(oContent);
