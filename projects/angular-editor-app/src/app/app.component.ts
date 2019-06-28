@@ -9,7 +9,8 @@ import {AngularEditorConfig} from 'angular-editor';
 export class AppComponent implements OnInit {
   title = 'app';
 
-  htmlContent = '';
+  htmlContent1 = '';
+  htmlContent2 = '';
 
   config: AngularEditorConfig = {
     editable: true,
@@ -18,25 +19,26 @@ export class AppComponent implements OnInit {
     maxHeight: '15rem',
     placeholder: 'Enter text here...',
     translate: 'no',
-    /*customClasses: [
+    sanitize: false,
+    customClasses: [
       {
-        name: "quote",
-        class: "quote",
+        name: 'quote',
+        class: 'quote',
       },
       {
         name: 'redText',
         class: 'redText'
       },
       {
-        name: "titleText",
-        class: "titleText",
-        tag: "h1",
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
       },
-    ]*/
+    ]
   };
 
   ngOnInit() {
-    console.log(this.htmlContent);
+    console.log(this.htmlContent1);
   }
 
   onChange(event) {
