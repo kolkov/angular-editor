@@ -17,7 +17,6 @@ export class AngularEditorService {
   selectedText: string;
   uploadUrl: string;
 
-
   constructor(private http: HttpClient, @Inject(DOCUMENT) private _document: any) {
   }
 
@@ -31,11 +30,7 @@ export class AngularEditorService {
       this._document.execCommand('formatBlock', false, command);
       return;
     }
-    if (command === 'default') {
-      this.removeSelectedElements('h1,h2,h3,h4,h5,h6,p,pre');
-    } else {
-      this._document.execCommand(command, false, null);
-    }
+    this._document.execCommand(command, false, null);
   }
 
   /**

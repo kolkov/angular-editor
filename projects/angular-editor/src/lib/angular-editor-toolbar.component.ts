@@ -164,7 +164,6 @@ export class AngularEditorToolbarComponent {
     }
   }
 
-
   /** insert color */
   insertColor(color: string, where: string) {
     this.editorService.insertColor(color, where);
@@ -183,7 +182,7 @@ export class AngularEditorToolbarComponent {
   /**
    * set font Size
    * @param fontSize string
-   *  */
+   */
   setFontSize(fontSize: string): void {
     this.editorService.setFontSize(fontSize);
     this.execute.emit('');

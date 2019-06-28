@@ -107,7 +107,12 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     if (command === 'toggleEditorMode') {
       this.toggleEditorMode(this.modeVisual);
     } else if (command !== '') {
-      this.editorService.executeCommand(command);
+      if (command === 'default') {
+        this.editorService.removeSelectedElements('h1,h2,h3,h4,h5,h6,p,pre');
+        this.onContentChange(this.textArea.nativeElement.innerHTML);
+      } else {
+        this.editorService.executeCommand(command);
+      }
       this.exec();
     }
   }
