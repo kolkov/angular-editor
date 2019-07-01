@@ -55,12 +55,13 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   /** emits `focus` event when focused in to the textarea */
   @Output() focus: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private _renderer: Renderer2,
+  constructor(
+    private _renderer: Renderer2,
     private editorService: AngularEditorService,
     @Inject(DOCUMENT) private _document: any,
     private _domSanitizer: DomSanitizer,
-              private cdRef: ChangeDetectorRef) {
-  }
+    private cdRef: ChangeDetectorRef
+  ) { }
 
   ngOnInit() {
     this.config.toolbarPosition = this.config.toolbarPosition ? this.config.toolbarPosition : angularEditorConfig.toolbarPosition;
@@ -298,6 +299,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    * toggles editor buttons when cursor moved or positioning
    *
    * Send a node array from the contentEditable of the editor
+   * setTimeout used for execute 'saveSelection' method in next event loop iteration
    */
   exec() {
     this.editorToolbar.triggerButtons();
@@ -305,6 +307,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     let userSelection;
     if (this._document.getSelection) {
       userSelection = this._document.getSelection();
+      setTimeout(this.editorService.saveSelection, 1e2);
     }
 
     let a = userSelection.focusNode;

@@ -17,8 +17,10 @@ export class AngularEditorService {
   selectedText: string;
   uploadUrl: string;
 
-  constructor(private http: HttpClient, @Inject(DOCUMENT) private _document: any) {
-  }
+  constructor(
+    private http: HttpClient,
+    @Inject(DOCUMENT) private _document: any
+  ) { }
 
   /**
    * Executed command from editor header buttons exclude toggleEditorMode
@@ -95,7 +97,7 @@ export class AngularEditorService {
   /**
    * save selection when the editor is focussed out
    */
-  saveSelection(): any {
+  public saveSelection = (): void => {
     if (this._document.getSelection) {
       const sel = this._document.getSelection();
       if (sel.getRangeAt && sel.rangeCount) {
@@ -110,9 +112,9 @@ export class AngularEditorService {
   }
 
   /**
-   * restore selection when the editor is focussed in
+   * restore selection when the editor is focused in
    *
-   * saved selection when the editor is focussed out
+   * saved selection when the editor is focused out
    */
   restoreSelection(): boolean {
     if (this.savedSelection) {
