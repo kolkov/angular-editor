@@ -126,6 +126,13 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   }
 
   /**
+   * @description fires when cursor leaves textarea
+   */
+  public onTextAreaMouseOut(event: MouseEvent): void {
+    this.editorService.saveSelection();
+  }
+
+  /**
    * blur event
    */
   onTextAreaBlur(event: FocusEvent) {
