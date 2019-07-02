@@ -55,12 +55,13 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   /** emits `focus` event when focused in to the textarea */
   @Output() focus: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private _renderer: Renderer2,
+  constructor(
+    private _renderer: Renderer2,
     private editorService: AngularEditorService,
     @Inject(DOCUMENT) private _document: any,
     private _domSanitizer: DomSanitizer,
-              private cdRef: ChangeDetectorRef) {
-  }
+    private cdRef: ChangeDetectorRef
+  ) { }
 
   ngOnInit() {
     this.config.toolbarPosition = this.config.toolbarPosition ? this.config.toolbarPosition : angularEditorConfig.toolbarPosition;
@@ -125,13 +126,20 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   }
 
   /**
+   * @description fires when cursor leaves textarea
+   */
+  public onTextAreaMouseOut(event: MouseEvent): void {
+    this.editorService.saveSelection();
+  }
+
+  /**
    * blur event
    */
   onTextAreaBlur(event: FocusEvent) {
     /**
      * save selection if focussed out
      */
-    this.editorService.saveSelection();
+    this.editorService.executeInNextQueueIteration(this.editorService.saveSelection);
 
     if (typeof this.onTouched === 'function') {
       this.onTouched();
@@ -305,6 +313,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     let userSelection;
     if (this._document.getSelection) {
       userSelection = this._document.getSelection();
+      this.editorService.executeInNextQueueIteration(this.editorService.saveSelection);
     }
 
     let a = userSelection.focusNode;

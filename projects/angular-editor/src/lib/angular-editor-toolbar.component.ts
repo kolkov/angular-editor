@@ -40,9 +40,15 @@ export class AngularEditorToolbarComponent {
 
   @ViewChild('fileInput') myInputFile: ElementRef;
 
-  constructor(private _renderer: Renderer2,
-              private editorService: AngularEditorService, @Inject(DOCUMENT) private _document: any) {
+  public get isLinkButtonDisabled(): boolean {
+    return this.htmlMode || !Boolean(this.editorService.selectedText);
   }
+
+  constructor(
+    private _renderer: Renderer2,
+    private editorService: AngularEditorService,
+    @Inject(DOCUMENT) private _document: any
+  ) { }
 
   /**
    * Trigger command from editor header buttons

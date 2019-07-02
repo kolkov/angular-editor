@@ -121,7 +121,7 @@
   </div>
   <div class="angular-editor-toolbar-set">
     <button [id]="'link-'+id" type="button" class="angular-editor-button" (click)="insertUrl()"
-            title="Insert Link" [disabled]="htmlMode" tabindex="-1">
+            title="Insert Link" [disabled]="isLinkButtonDisabled" tabindex="-1">
       <i class="fa fa-link"></i>
     </button>
     <button [id]="'unlink-'+id" type="button" class="angular-editor-button" (click)="triggerCommand('unlink')"
