@@ -132,6 +132,13 @@ export class AngularEditorService {
     }
   }
 
+  /**
+   * setTimeout used for execute 'saveSelection' method in next event loop iteration
+   */
+  public executeInNextQueueIteration(callbackFn: (...args: any) => any, timeout = 1e2): void {
+    setTimeout(callbackFn, timeout);
+  }
+
   /** check any slection is made or not */
   private checkSelection(): any {
 

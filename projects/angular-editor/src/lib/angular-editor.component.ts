@@ -139,7 +139,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     /**
      * save selection if focussed out
      */
-    this.editorService.saveSelection();
+    this.editorService.executeInNextQueueIteration(this.editorService.saveSelection);
 
     if (typeof this.onTouched === 'function') {
       this.onTouched();
@@ -306,7 +306,6 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    * toggles editor buttons when cursor moved or positioning
    *
    * Send a node array from the contentEditable of the editor
-   * setTimeout used for execute 'saveSelection' method in next event loop iteration
    */
   exec() {
     this.editorToolbar.triggerButtons();
@@ -314,7 +313,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     let userSelection;
     if (this._document.getSelection) {
       userSelection = this._document.getSelection();
-      setTimeout(this.editorService.saveSelection, 1e2);
+      this.editorService.executeInNextQueueIteration(this.editorService.saveSelection);
     }
 
     let a = userSelection.focusNode;
