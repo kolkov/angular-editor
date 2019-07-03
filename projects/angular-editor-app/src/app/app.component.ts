@@ -71,4 +71,8 @@ export class AppComponent implements OnInit {
   onChange(event) {
     console.log('changed');
   }
+
+  onBlur(event) {
+    console.log('blur ' + event);
+  }
 }

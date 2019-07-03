@@ -1,6 +1,6 @@
 <div class="container">
   <h1>Angular Editor</h1>
-  <angular-editor id="editor1" [(ngModel)]="htmlContent1" [config]="config1" (ngModelChange)="onChange($event)"></angular-editor>
+  <angular-editor id="editor1" [(ngModel)]="htmlContent1" [config]="config1" (ngModelChange)="onChange($event)" (blur)="onBlur($event)"></angular-editor>
 
   <!--<div *ngIf="htmlContent" class="htmlblock block">-->
   <h6>HTML Output</h6>

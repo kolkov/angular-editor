@@ -146,7 +146,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     }
 
     if (event.relatedTarget != null && (event.relatedTarget as HTMLElement).parentElement.className !== 'angular-editor-toolbar-set') {
-      this.blur.emit('blur');
+    this.blur.emit('blur');
     }
   }
 
