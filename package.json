@@ -1,6 +1,6 @@
 {
   "name": "angular-editor",
-  "version": "0.15.4",
+  "version": "0.16.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -11,7 +11,7 @@
     "build and watch angular-editor": "ng build angular-editor --watch",
     "publish angular-editor": "npm run copy && npm publish ./dist/angular-editor",
     "test angular-editor": "ng test angular-editor",
-    "copy": "cpx \"./README.md ./CHANGELOG.md ./LICENSE\" \"dist/angular-editor/\"",
+    "copy": "cpx ./README.md dist/angular-editor",
     "test-ci": "ng test angular-editor --code-coverage --watch=false --browsers=ChromeHeadless && cat ./coverage/angular-editor/lcov.info | coveralls"
   },
   "private": true,
