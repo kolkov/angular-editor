@@ -23,3 +23,14 @@ script:
   - npm run test-ci
   - codecov
   - ng build angular-editor
+before_deploy:
+  - cd dist/angular-editor
+deploy:
+  provider: npm
+  email: a.kolkov@gmail.com
+  skip_cleanup: true
+  api_key:
+    secure: XXX
+  on:
+    tags: true
+    repo: @kolkov/angular-editor
