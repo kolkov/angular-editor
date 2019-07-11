@@ -11,7 +11,7 @@
     "build and watch angular-editor": "ng build angular-editor --watch",
     "publish angular-editor": "npm run copy && npm publish ./dist/angular-editor",
     "test angular-editor": "ng test angular-editor",
-    "copy": "copy \"./README.md\" \"dist/angular-editor/\"",
+    "copy": "cpx \"./README.md ./CHANGELOG.md ./LICENSE\" \"dist/angular-editor/\"",
     "test-ci": "ng test angular-editor --code-coverage --watch=false --browsers=ChromeHeadless && cat ./coverage/angular-editor/lcov.info | coveralls"
   },
   "private": true,
@@ -40,7 +40,7 @@
     "@types/node": "~8.9.4",
     "codelyzer": "^5.0.0",
     "coveralls": "^3.0.4",
-    "jest": "^24.8.0",
+    "cpx": "^1.5.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.1.0",
