@@ -11,7 +11,8 @@
     "build and watch angular-editor": "ng build angular-editor --watch",
     "publish angular-editor": "npm run copy && npm publish ./dist/angular-editor",
     "test angular-editor": "ng test angular-editor",
-    "copy": "copy \"./README.md\" \"dist/angular-editor/\""
+    "copy": "copy \"./README.md\" \"dist/angular-editor/\"",
+    "test-ci": "ng test angular-editor --watch=false --code-coverage && cat ./coverage/lcov.info | coveralls"
   },
   "private": true,
   "dependencies": {
@@ -34,11 +35,11 @@
     "@angular/cli": "^7.3.9",
     "@angular/compiler-cli": "^7.2.15",
     "@angular/language-service": "^7.2.15",
-    "@types/node": "~8.9.4",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
-    "tsickle": ">=0.35.0",
+    "@types/node": "~8.9.4",
     "codelyzer": "^5.0.0",
+    "coveralls": "^3.0.4",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.1.0",
@@ -49,6 +50,7 @@
     "ng-packagr": "^5.1.0",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
+    "tsickle": ">=0.35.0",
     "tslint": "~5.15.0",
     "typescript": "~3.2.4"
   }

@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/kolkov/angular-editor.svg?branch=master)](https://travis-ci.org/kolkov/angular-editor)
 [![npm](https://img.shields.io/npm/dw/@kolkov/angular-editor.svg)](https://www.npmjs.com/package/@kolkov/angular-editor)
 [![](https://data.jsdelivr.com/v1/package/npm/@kolkov/angular-editor/badge?style=rounded)](https://www.jsdelivr.com/package/npm/@kolkov/angular-editor)
+[![Coverage Status](https://coveralls.io/repos/github/kolkov/angular-editor/badge.svg?branch=master)](https://coveralls.io/github/kolkov/angular-editor?branch=master)
 
 # AngularEditor
 A simple native WYSIWYG editor for Angular 6+, 7+, 8+
