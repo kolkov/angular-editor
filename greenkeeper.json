@@ -1,0 +1,10 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "package.json",
+        "projects/angular-editor/package.json"
+      ]
+    }
+  }
+}
