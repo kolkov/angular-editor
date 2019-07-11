@@ -64,10 +64,6 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   ) { }
 
   ngOnInit() {
-    this.config.toolbarPosition = this.config.toolbarPosition ? this.config.toolbarPosition : angularEditorConfig.toolbarPosition;
-    if (this.config.showToolbar !== undefined) {
-      this.editorToolbar.showToolbar = this.config.showToolbar;
-    }
     if (this.config.defaultParagraphSeparator) {
       this.editorService.setDefaultParagraphSeparator(this.config.defaultParagraphSeparator);
     }
@@ -75,7 +71,10 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
   ngAfterViewInit() {
     this.editorToolbar.id = this.id;
-
+    this.config.toolbarPosition = this.config.toolbarPosition ? this.config.toolbarPosition : angularEditorConfig.toolbarPosition;
+    if (this.config.showToolbar !== undefined) {
+      this.editorToolbar.showToolbar = this.config.showToolbar;
+    }
     this.editorToolbar.fonts = this.config.fonts ? this.config.fonts : angularEditorConfig.fonts;
     this.editorToolbar.customClasses = this.config.customClasses;
     this.editorToolbar.uploadUrl = this.config.uploadUrl;

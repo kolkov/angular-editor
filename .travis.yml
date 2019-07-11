@@ -3,9 +3,18 @@ node_js:
   - "9"
 dist: trusty
 sudo: required
+addons:
+  chrome: stable
 branches:
   only:
     - master
+cache:
+  directories:
+    - node_modules
+before_install:
+  - npm update
+install:
+  - npm install
 before_script:
   - npm install -g @angular/cli
 script:

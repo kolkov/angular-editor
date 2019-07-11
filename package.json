@@ -12,7 +12,7 @@
     "publish angular-editor": "npm run copy && npm publish ./dist/angular-editor",
     "test angular-editor": "ng test angular-editor",
     "copy": "copy \"./README.md\" \"dist/angular-editor/\"",
-    "test-ci": "ng test angular-editor --watch=false --code-coverage && cat ./coverage/lcov.info | coveralls"
+    "test-ci": "ng test angular-editor --watch=false --browsers=ChromeHeadless --code-coverage && cat ./coverage/lcov.info | coveralls"
   },
   "private": true,
   "dependencies": {
@@ -40,6 +40,7 @@
     "@types/node": "~8.9.4",
     "codelyzer": "^5.0.0",
     "coveralls": "^3.0.4",
+    "jest": "^24.8.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.1.0",
