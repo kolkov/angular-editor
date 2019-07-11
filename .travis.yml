@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "9"
+  - "10"
 dist: trusty
 sudo: required
 addons:
@@ -17,7 +17,9 @@ install:
   - npm install
 before_script:
   - npm install -g @angular/cli
+  - npm install -g codecov
 script:
 #  - ng lint
   - npm run test-ci
+  - codecov
   - ng build angular-editor

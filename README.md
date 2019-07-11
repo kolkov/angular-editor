@@ -6,6 +6,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/kolkov/angular-editor/badge.svg?branch=master)](https://coveralls.io/github/kolkov/angular-editor?branch=master)
 [![dependencies Status](https://david-dm.org/kolkov/angular-editor/status.svg)](https://david-dm.org/kolkov/angular-editor)
 [![devDependencies Status](https://david-dm.org/kolkov/angular-editor/dev-status.svg)](https://david-dm.org/kolkov/angular-editor?type=dev)
+[![codecov](https://codecov.io/gh/kolkov/angular-editor/branch/master/graph/badge.svg)](https://codecov.io/gh/kolkov/angular-editor)
 
 # AngularEditor
 A simple native WYSIWYG editor for Angular 6+, 7+, 8+
