@@ -33,4 +33,4 @@ deploy:
     secure: XXX
   on:
     tags: true
-    repo: @kolkov/angular-editor
+    repo: kolkov/angular-editor
