@@ -29,8 +29,7 @@ deploy:
   provider: npm
   email: a.kolkov@gmail.com
   skip_cleanup: true
-  api_key:
-    secure: XXX
+  api_key: $NPM_TOKEN
   on:
     tags: true
     repo: kolkov/angular-editor
