@@ -1,3 +1,4 @@
+# AngularEditor
 [![npm version](https://badge.fury.io/js/%40kolkov%2Fangular-editor.svg)](https://badge.fury.io/js/%40kolkov%2Fangular-editor)
 [![demo](https://img.shields.io/badge/demo-StackBlitz-blueviolet.svg)](https://stackblitz.com/edit/angular-editor-wysiwyg)
 [![Build Status](https://travis-ci.org/kolkov/angular-editor.svg?branch=master)](https://travis-ci.org/kolkov/angular-editor)
@@ -8,7 +9,6 @@
 [![devDependencies Status](https://david-dm.org/kolkov/angular-editor/dev-status.svg)](https://david-dm.org/kolkov/angular-editor?type=dev)
 [![codecov](https://codecov.io/gh/kolkov/angular-editor/branch/master/graph/badge.svg)](https://codecov.io/gh/kolkov/angular-editor)
 
-# AngularEditor
 A simple native WYSIWYG editor for Angular 6+, 7+, 8+
 
 ## Demo
