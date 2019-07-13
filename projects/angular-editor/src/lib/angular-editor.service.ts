@@ -139,7 +139,7 @@ export class AngularEditorService {
     setTimeout(callbackFn, timeout);
   }
 
-  /** check any slection is made or not */
+  /** check any selection is made or not */
   private checkSelection(): any {
 
     const selectedText = this.savedSelection.toString();
@@ -147,7 +147,6 @@ export class AngularEditorService {
     if (selectedText.length === 0) {
       throw new Error('No Selection Made');
     }
-
     return true;
   }
 
@@ -185,7 +184,6 @@ export class AngularEditorService {
       const tagName = customClass.tag ? customClass.tag : 'span';
       newTag = '<' + tagName + ' class="' + customClass.class + '">' + this.selectedText + '</' + tagName + '>';
     }
-
     this.insertHtml(newTag);
   }
 

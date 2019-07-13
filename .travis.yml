@@ -22,7 +22,7 @@ script:
 #  - ng lint
   - npm run test-ci
   - codecov
-  - npm run bild:lib
+  - npm run build:lib
 before_deploy:
   - cd dist/angular-editor
 deploy:
