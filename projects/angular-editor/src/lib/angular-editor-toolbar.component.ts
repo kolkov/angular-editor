@@ -45,9 +45,9 @@ export class AngularEditorToolbarComponent {
   }
 
   constructor(
-    private _renderer: Renderer2,
+    private r: Renderer2,
     private editorService: AngularEditorService,
-    @Inject(DOCUMENT) private _document: any
+    @Inject(DOCUMENT) private doc: any
   ) { }
 
   /**
@@ -66,12 +66,12 @@ export class AngularEditorToolbarComponent {
       return;
     }
     this.buttons.forEach(e => {
-      const result = this._document.queryCommandState(e);
-      const elementById = this._document.getElementById(e + '-' + this.id);
+      const result = this.doc.queryCommandState(e);
+      const elementById = this.doc.getElementById(e + '-' + this.id);
       if (result) {
-        this._renderer.addClass(elementById, 'active');
+        this.r.addClass(elementById, 'active');
       } else {
-        this._renderer.removeClass(elementById, 'active');
+        this.r.removeClass(elementById, 'active');
       }
     });
   }
@@ -136,17 +136,17 @@ export class AngularEditorToolbarComponent {
     }
 
     Object.keys(this.tagMap).map(e => {
-      const elementById = this._document.getElementById(this.tagMap[e] + '-' + this.id);
+      const elementById = this.doc.getElementById(this.tagMap[e] + '-' + this.id);
       const node = nodes.find(x => x.nodeName === e);
       if (node !== undefined && e === node.nodeName) {
-        this._renderer.addClass(elementById, 'active');
+        this.r.addClass(elementById, 'active');
       } else {
-        this._renderer.removeClass(elementById, 'active');
+        this.r.removeClass(elementById, 'active');
       }
     });
 
-    this.fontColour = this._document.queryCommandValue('ForeColor');
-    this.fontSize = this._document.queryCommandValue('FontSize');
+    this.fontColour = this.doc.queryCommandValue('ForeColor');
+    this.fontSize = this.doc.queryCommandValue('FontSize');
   }
 
   /**
@@ -199,11 +199,11 @@ export class AngularEditorToolbarComponent {
    * @param m boolean
    */
   setEditorMode(m: boolean) {
-    const toggleEditorModeButton = this._document.getElementById('toggleEditorMode' + '-' + this.id);
+    const toggleEditorModeButton = this.doc.getElementById('toggleEditorMode' + '-' + this.id);
     if (m) {
-      this._renderer.addClass(toggleEditorModeButton, 'active');
+      this.r.addClass(toggleEditorModeButton, 'active');
     } else {
-      this._renderer.removeClass(toggleEditorModeButton, 'active');
+      this.r.removeClass(toggleEditorModeButton, 'active');
     }
     this.htmlMode = m;
   }
@@ -223,8 +223,8 @@ export class AngularEditorToolbarComponent {
             });
         } else {
           const reader = new FileReader();
-          reader.onload = (_event) => {
-            this.editorService.insertImage(_event.target['result']);
+          reader.onload = (e) => {
+            this.editorService.insertImage(e.target['result']);
           };
           reader.readAsDataURL(file);
         }
