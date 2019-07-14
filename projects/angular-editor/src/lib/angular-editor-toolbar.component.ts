@@ -17,9 +17,11 @@ export class AngularEditorToolbarComponent {
   linkSelected = false;
   block = 'default';
   defaultFontId;
-  fontId = 0;
+  fontName;
   fontSize = '5';
-  fontColour;
+  foreColour;
+  backColor;
+
   fonts: Font[];
 
   customClassId = -1;
@@ -97,7 +99,7 @@ export class AngularEditorToolbarComponent {
       }
     });
 
-    found = false;
+    /*found = false;
     if (this.fonts) {
       this.fonts.forEach((y, index) => {
         const node = nodes.find(x => {
@@ -114,7 +116,7 @@ export class AngularEditorToolbarComponent {
           this.fontId = this.defaultFontId;
         }
       });
-    }
+    }*/
 
     found = false;
     if (this.customClasses) {
@@ -145,8 +147,10 @@ export class AngularEditorToolbarComponent {
       }
     });
 
-    this.fontColour = this.doc.queryCommandValue('ForeColor');
+    this.foreColour = this.doc.queryCommandValue('ForeColor');
     this.fontSize = this.doc.queryCommandValue('FontSize');
+    this.fontName = this.doc.queryCommandValue('FontName').replace(/"/g, '');
+    this.backColor = this.doc.queryCommandValue('backColor');
   }
 
   /**
@@ -178,10 +182,10 @@ export class AngularEditorToolbarComponent {
 
   /**
    * set font Name/family
-   * @param fontId number
+   * @param foreColor string
    */
-  setFontName(fontId: number): void {
-    this.editorService.setFontName(this.fonts[fontId].name);
+  setFontName(foreColor: string): void {
+    this.editorService.setFontName(foreColor);
     this.execute.emit('');
   }
 

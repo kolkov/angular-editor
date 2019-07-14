@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
     translate: 'no',
     sanitize: false,
     toolbarPosition: 'top',
+    defaultFontName: 'Arial',
     customClasses: [
       {
         name: 'quote',
