@@ -5,9 +5,6 @@ dist: trusty
 sudo: required
 addons:
   chrome: stable
-branches:
-  only:
-    - master
 cache:
   directories:
     - node_modules
