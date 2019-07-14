@@ -19,7 +19,7 @@ before_script:
   - npm install -g @angular/cli
   - npm install -g codecov
 script:
-#  - ng lint
+  - npm run lint:lib
   - npm run test-ci
   - codecov
   - npm run build:lib

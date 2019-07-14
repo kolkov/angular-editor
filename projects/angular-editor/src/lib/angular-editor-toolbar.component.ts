@@ -99,25 +99,6 @@ export class AngularEditorToolbarComponent {
       }
     });
 
-    /*found = false;
-    if (this.fonts) {
-      this.fonts.forEach((y, index) => {
-        const node = nodes.find(x => {
-          if (x instanceof HTMLFontElement) {
-            return x.face === y.name;
-          }
-        });
-        if (node !== undefined) {
-          if (found === false) {
-            this.fontId = index;
-            found = true;
-          }
-        } else if (found === false) {
-          this.fontId = this.defaultFontId;
-        }
-      });
-    }*/
-
     found = false;
     if (this.customClasses) {
       this.customClasses.forEach((y, index) => {
@@ -227,8 +208,9 @@ export class AngularEditorToolbarComponent {
             });
         } else {
           const reader = new FileReader();
-          reader.onload = (e) => {
-            this.editorService.insertImage(e.target['result']);
+          reader.onload = (e: ProgressEvent) => {
+            const fr = e.currentTarget as FileReader;
+            this.editorService.insertImage(fr.result.toString());
           };
           reader.readAsDataURL(file);
         }

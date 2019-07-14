@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build --prod",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint:lib": "ng lint angular-editor",
     "e2e": "ng e2e",
     "build-watch:lib": "ng build angular-editor --watch",
     "build:lib": "ng build angular-editor",

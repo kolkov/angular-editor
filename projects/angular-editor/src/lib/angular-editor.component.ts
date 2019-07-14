@@ -50,9 +50,11 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   @Output() viewMode = new EventEmitter<boolean>();
 
   /** emits `blur` event when focused out from the textarea */
+    // tslint:disable-next-line:no-output-native
   @Output() blur: EventEmitter<string> = new EventEmitter<string>();
 
   /** emits `focus` event when focused in to the textarea */
+    // tslint:disable-next-line:no-output-native
   @Output() focus: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(
@@ -153,7 +155,6 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       this.textArea.nativeElement.focus();
     } else {
       const sourceText = this.doc.getElementById('sourceText');
-      // sourceText.textContent = '1';
       sourceText.focus();
     }
   }
@@ -271,7 +272,6 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       oCode.setAttribute('style', 'display:block; white-space: pre-wrap; word-break:' +
         ' keep-all; margin: 0; outline: none; background-color: #fff5b9;');
       oCode.contentEditable = 'true';
-      // oCode.placeholder = 'test';
       oCode.appendChild(oContent);
       oPre.appendChild(oCode);
       editableElement.appendChild(oPre);
