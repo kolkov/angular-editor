@@ -2,7 +2,7 @@ import {
   AfterViewInit, Attribute, ChangeDetectorRef,
   Component,
   EventEmitter,
-  forwardRef,
+  forwardRef, HostBinding,
   Inject,
   Input,
   OnInit,
@@ -58,6 +58,8 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   /** emits `focus` event when focused in to the textarea */
     // tslint:disable-next-line:no-output-native
   @Output() focus: EventEmitter<string> = new EventEmitter<string>();
+
+  @HostBinding('attr.tabindex') tabindex = -1;
 
   constructor(
     private r: Renderer2,
