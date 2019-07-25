@@ -2,7 +2,7 @@ import {
   AfterViewInit, Attribute, ChangeDetectorRef,
   Component,
   EventEmitter,
-  forwardRef, HostBinding,
+  forwardRef, HostBinding, HostListener,
   Inject,
   Input,
   OnInit,
@@ -60,6 +60,9 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   @Output() focus: EventEmitter<string> = new EventEmitter<string>();
 
   @HostBinding('attr.tabindex') tabindex = -1;
+  @HostListener('focus') onFocus() {
+    this.onEditorFocus();
+  }
 
   constructor(
     private r: Renderer2,
