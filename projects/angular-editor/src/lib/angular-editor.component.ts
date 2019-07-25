@@ -1,5 +1,5 @@
 import {
-  AfterViewInit, ChangeDetectorRef,
+  AfterViewInit, Attribute, ChangeDetectorRef,
   Component,
   EventEmitter,
   forwardRef,
@@ -37,9 +37,11 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
   modeVisual = true;
   showPlaceholder = false;
+  disabled = false;
   @Input() id = '';
   @Input() config: AngularEditorConfig = angularEditorConfig;
   @Input() placeholder = '';
+  @Input() tabIndex: number | null;
 
   @Output() html;
 
@@ -62,8 +64,12 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     private editorService: AngularEditorService,
     @Inject(DOCUMENT) private doc: any,
     private sanitizer: DomSanitizer,
-    private cdRef: ChangeDetectorRef
-  ) { }
+    private cdRef: ChangeDetectorRef,
+    @Attribute('tabindex') defaultTabIndex: string
+  ) {
+    const parsedTabIndex = Number(defaultTabIndex);
+    this.tabIndex = (parsedTabIndex || parsedTabIndex === 0) ? parsedTabIndex : null;
+  }
 
   ngOnInit() {
     if (this.config.defaultParagraphSeparator) {
@@ -249,6 +255,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     const div = this.textArea.nativeElement;
     const action = isDisabled ? 'addClass' : 'removeClass';
     this.r[action](div, 'disabled');
+    this.disabled = isDisabled;
   }
 
   /**
