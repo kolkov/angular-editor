@@ -175,11 +175,11 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    * @param html html string from contenteditable
    */
   onContentChange(html: string): void {
-
+    if ((!html || html === '<br>')) { html = ''; }
     if (typeof this.onChange === 'function') {
       this.onChange(this.config.sanitize || this.config.sanitize === undefined ?
         this.sanitizer.sanitize(SecurityContext.HTML, html) : html);
-      if ((!html || html === '<br>' || html === '') !== this.showPlaceholder) {
+      if ((!html) !== this.showPlaceholder) {
         this.togglePlaceholder(this.showPlaceholder);
       }
     }

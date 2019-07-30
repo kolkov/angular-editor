@@ -8,7 +8,14 @@
     {{ htmlContent1 }}
   </div>
   <!--</div>-->
-
-  <angular-editor id="editor2" [(ngModel)]="htmlContent2" [config]="config2" (ngModelChange)="onChange($event)"></angular-editor>
+  <form [formGroup]="form">
+    <angular-editor id="editor2" formControlName="signature" [config]="config2" (ngModelChange)="onChange2($event)"></angular-editor>
+  </form>
+  <p>
+    Form Value:: {{ form.value.signature }}
+  </p>
+  <p>
+    Form Status: {{ form.status }}
+  </p>
 </div>
 
