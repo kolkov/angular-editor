@@ -1,7 +1,7 @@
 {
   "name": "@kolkov/angular-editor",
-  "version": "0.17.3",
-  "description": "A simple native WYSIWYG editor for Angular 6+, 7+, 8+. Rich text editor component for Angular.",
+  "version": "0.18.0",
+  "description": "A simple native WYSIWYG editor for Angular 6+, 7+, 8+. Rich Text editor component for Angular.",
   "author": "Andrey Kolkov <a.kolkov@gmail.com>",
   "repository": "https://github.com/kolkov/angular-editor",
   "license": "MIT",
