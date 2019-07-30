@@ -138,7 +138,15 @@ export class AngularEditorToolbarComponent {
    * insert URL link
    */
   insertUrl() {
-    const url = prompt('Insert URL link', 'https:\/\/');
+    let url = 'https:\/\/';
+    const selection = this.editorService.savedSelection;
+    if (selection && selection.commonAncestorContainer.parentElement.nodeName === 'A') {
+      const parent = selection.commonAncestorContainer.parentElement as HTMLAnchorElement;
+      if (parent.href !== '') {
+        url = parent.href;
+      }
+    }
+    url = prompt('Insert URL link', url);
     if (url && url !== '' && url !== 'https://') {
       this.editorService.createLink(url);
     }
