@@ -85,7 +85,7 @@ export class AngularEditorService {
    * Create raw HTML
    * @param html HTML string
    */
-  private insertHtml(html: string): void {
+  insertHtml(html: string): void {
 
     const isHTMLInserted = this.doc.execCommand('insertHTML', false, html);
 

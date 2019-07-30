@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
     maxHeight: '15rem',
     placeholder: 'Enter text here...',
     translate: 'no',
-    sanitize: false,
+    sanitize: true,
     toolbarPosition: 'bottom',
     customClasses: [
       {

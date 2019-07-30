@@ -3,16 +3,15 @@
   <angular-editor id="editor1" [(ngModel)]="htmlContent1" [config]="config1" (ngModelChange)="onChange($event)" (blur)="onBlur($event)"></angular-editor>
 
   <!--<div *ngIf="htmlContent" class="htmlblock block">-->
-  <h6>HTML Output</h6>
-  <div class="html">
-    {{ htmlContent1 }}
-  </div>
+  <p class="html">
+    HTML Output:  {{ htmlContent1 }}
+  </p>
   <!--</div>-->
   <form [formGroup]="form">
     <angular-editor id="editor2" formControlName="signature" [config]="config2" (ngModelChange)="onChange2($event)"></angular-editor>
   </form>
   <p>
-    Form Value:: {{ form.value.signature }}
+    Form Value: {{ form.value.signature }}
   </p>
   <p>
     Form Status: {{ form.status }}
