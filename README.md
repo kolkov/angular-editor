@@ -9,7 +9,7 @@
 [![devDependencies Status](https://david-dm.org/kolkov/angular-editor/dev-status.svg)](https://david-dm.org/kolkov/angular-editor?type=dev)
 [![codecov](https://codecov.io/gh/kolkov/angular-editor/branch/master/graph/badge.svg)](https://codecov.io/gh/kolkov/angular-editor)
 
-A simple native WYSIWYG editor for Angular 6+, 7+, 8+
+A simple native WYSIWYG editor for Angular 6+, 7+, 8+. Rich Text editor element for Angular.
 
 ## Demo
 Demo is here [demo][demo]
@@ -68,15 +68,26 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 config: AngularEditorConfig = {
     editable: true,
-    spellcheck: true,
-    minHeight: '5rem',
-    maxHeight: '15rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    sanitize: false,
-    toolbarPosition: 'top',
-    defaultFontName: 'Arial',
-    customClasses: [
+      spellcheck: true,
+      height: 'auto',
+      minHeight: '0',
+      maxHeight: 'auto',
+      width: 'auto',
+      minWidth: '0',
+      translate: 'yes',
+      enableToolbar: true,
+      showToolbar: true,
+      placeholder: 'Enter text here...',
+      defaultParagraphSeparator: '',
+      defaultFontName: '',
+      defaultFontSize: '',
+      fonts: [
+        {class: 'arial', name: 'Arial'},
+        {class: 'times-new-roman', name: 'Times New Roman'},
+        {class: 'calibri', name: 'Calibri'},
+        {class: 'comic-sans-ms', name: 'Comic Sans MS'}
+      ],
+      customClasses: [
       {
         name: 'quote',
         class: 'quote',
@@ -90,8 +101,11 @@ config: AngularEditorConfig = {
         class: 'titleText',
         tag: 'h1',
       },
-    ]
-  };
+    ],
+    uploadUrl: 'v1/image',
+    sanitize: true,
+    toolbarPosition: 'top',
+};
 ```
 
 For `ngModel` to work, you must import `FormsModule` from `@angular/forms`, or for `formControlName`, you must import `ReactiveFormsModule` from `@angular/forms`
