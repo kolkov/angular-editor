@@ -1,4 +1,4 @@
-<div (focus)="onEditorFocus()" class="angular-editor" #angularEditor [style.width]="config.width"
+<div (focus)="focus()" class="angular-editor" #angularEditor [style.width]="config.width"
      [style.minWidth]="config.minWidth">
   <angular-editor-toolbar *ngIf="config.toolbarPosition === 'top' " #editorToolbar
                           (execute)="executeCommand($event)"></angular-editor-toolbar>

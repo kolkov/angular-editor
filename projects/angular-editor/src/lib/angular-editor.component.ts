@@ -17,6 +17,7 @@ import {AngularEditorService} from './angular-editor.service';
 import {DOCUMENT} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
 import { SecurityContext } from '@angular/core';
+import {isDefined} from './utils';
 
 @Component({
   selector: 'angular-editor',
@@ -38,6 +39,8 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   modeVisual = true;
   showPlaceholder = false;
   disabled = false;
+  focused: boolean;
+
   @Input() id = '';
   @Input() config: AngularEditorConfig = angularEditorConfig;
   @Input() placeholder = '';
@@ -52,16 +55,16 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   @Output() viewMode = new EventEmitter<boolean>();
 
   /** emits `blur` event when focused out from the textarea */
-    // tslint:disable-next-line:no-output-native
-  @Output() blur: EventEmitter<string> = new EventEmitter<string>();
+    // tslint:disable-next-line:no-output-native no-output-rename
+  @Output('blur') blurEvent: EventEmitter<string> = new EventEmitter<string>();
 
   /** emits `focus` event when focused in to the textarea */
-    // tslint:disable-next-line:no-output-native
-  @Output() focus: EventEmitter<string> = new EventEmitter<string>();
+    // tslint:disable-next-line:no-output-rename no-output-native
+  @Output('focus') focusEvent: EventEmitter<string> = new EventEmitter<string>();
 
   @HostBinding('attr.tabindex') tabindex = -1;
   @HostListener('focus') onFocus() {
-    this.onEditorFocus();
+    this.focus();
   }
 
   constructor(
@@ -70,7 +73,8 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     @Inject(DOCUMENT) private doc: any,
     private sanitizer: DomSanitizer,
     private cdRef: ChangeDetectorRef,
-    @Attribute('tabindex') defaultTabIndex: string
+    @Attribute('tabindex') defaultTabIndex: string,
+    @Attribute('autofocus') private autoFocus: any,
   ) {
     const parsedTabIndex = Number(defaultTabIndex);
     this.tabIndex = (parsedTabIndex || parsedTabIndex === 0) ? parsedTabIndex : null;
@@ -83,6 +87,9 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   }
 
   ngAfterViewInit() {
+    if (isDefined(this.autoFocus)) {
+      this.focus();
+    }
     this.editorToolbar.id = this.id;
     this.config.toolbarPosition = this.config.toolbarPosition ? this.config.toolbarPosition : angularEditorConfig.toolbarPosition;
     if (this.config.showToolbar !== undefined) {
@@ -94,14 +101,12 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     this.editorService.uploadUrl = this.config.uploadUrl;
     if (this.config.defaultFontName) {
       this.editorToolbar.fontName = this.config.defaultFontName;
-      this.onEditorFocus();
       this.editorService.setFontName(this.config.defaultFontName);
     } else {
       this.editorToolbar.fontName = 'Times New Roman';
     }
     if (this.config.defaultFontSize) {
       this.editorToolbar.fontSize = this.config.defaultFontSize;
-      this.onEditorFocus();
       this.editorService.setFontSize(this.config.defaultFontSize);
     }
     this.cdRef.detectChanges();
@@ -112,7 +117,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    * @param command string from triggerCommand
    */
   executeCommand(command: string) {
-    this.onEditorFocus();
+    this.focus();
     if (command === 'toggleEditorMode') {
       this.toggleEditorMode(this.modeVisual);
     } else if (command !== '') {
@@ -130,7 +135,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    * focus event
    */
   onTextAreaFocus(): void {
-    this.focus.emit('focus');
+    this.focusEvent.emit('focus');
   }
 
   /**
@@ -154,14 +159,14 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     }
 
     if (event.relatedTarget != null && (event.relatedTarget as HTMLElement).parentElement.className !== 'angular-editor-toolbar-set') {
-    this.blur.emit('blur');
+    this.blurEvent.emit('blur');
     }
   }
 
   /**
    *  focus the text area when the editor is focussed
    */
-  onEditorFocus() {
+  focus() {
     if (this.modeVisual) {
       this.textArea.nativeElement.focus();
     } else {
@@ -332,5 +337,4 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     }
     this.editorToolbar.triggerBlocks(els);
   }
-
 }
