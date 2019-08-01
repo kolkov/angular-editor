@@ -1,13 +1,18 @@
 import {
-  AfterViewInit, Attribute, ChangeDetectorRef,
+  AfterViewInit,
+  Attribute,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
-  forwardRef, HostBinding, HostListener,
+  forwardRef,
+  HostBinding,
+  HostListener,
   Inject,
   Input,
   OnInit,
   Output,
   Renderer2,
+  SecurityContext,
   ViewChild
 } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
@@ -16,7 +21,6 @@ import {AngularEditorToolbarComponent} from './angular-editor-toolbar.component'
 import {AngularEditorService} from './angular-editor.service';
 import {DOCUMENT} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
-import { SecurityContext } from '@angular/core';
 import {isDefined} from './utils';
 
 @Component({
@@ -63,6 +67,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   @Output('focus') focusEvent: EventEmitter<string> = new EventEmitter<string>();
 
   @HostBinding('attr.tabindex') tabindex = -1;
+
   @HostListener('focus') onFocus() {
     this.focus();
   }
@@ -90,25 +95,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     if (isDefined(this.autoFocus)) {
       this.focus();
     }
-    this.editorToolbar.id = this.id;
-    this.config.toolbarPosition = this.config.toolbarPosition ? this.config.toolbarPosition : angularEditorConfig.toolbarPosition;
-    if (this.config.showToolbar !== undefined) {
-      this.editorToolbar.showToolbar = this.config.showToolbar;
-    }
-    this.editorToolbar.fonts = this.config.fonts ? this.config.fonts : angularEditorConfig.fonts;
-    this.editorToolbar.customClasses = this.config.customClasses;
-    this.editorToolbar.uploadUrl = this.config.uploadUrl;
-    this.editorService.uploadUrl = this.config.uploadUrl;
-    if (this.config.defaultFontName) {
-      this.editorToolbar.fontName = this.config.defaultFontName;
-      this.editorService.setFontName(this.config.defaultFontName);
-    } else {
-      this.editorToolbar.fontName = 'Times New Roman';
-    }
-    if (this.config.defaultFontSize) {
-      this.editorToolbar.fontSize = this.config.defaultFontSize;
-      this.editorService.setFontSize(this.config.defaultFontSize);
-    }
+    this.configure();
     this.cdRef.detectChanges();
   }
 
@@ -135,6 +122,10 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    * focus event
    */
   onTextAreaFocus(): void {
+    if (this.focused) {
+      return;
+    }
+    this.focused = true;
     this.focusEvent.emit('focus');
   }
 
@@ -159,19 +150,21 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     }
 
     if (event.relatedTarget != null && (event.relatedTarget as HTMLElement).parentElement.className !== 'angular-editor-toolbar-set') {
-    this.blurEvent.emit('blur');
+      this.blurEvent.emit('blur');
+      this.focused = false;
     }
   }
 
   /**
-   *  focus the text area when the editor is focussed
+   *  focus the text area when the editor is focused
    */
   focus() {
     if (this.modeVisual) {
       this.textArea.nativeElement.focus();
     } else {
-      const sourceText = this.doc.getElementById('sourceText');
+      const sourceText = this.doc.getElementById('sourceText' + this.id);
       sourceText.focus();
+      this.focused = true;
     }
   }
 
@@ -180,7 +173,9 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    * @param html html string from contenteditable
    */
   onContentChange(html: string): void {
-    if ((!html || html === '<br>')) { html = ''; }
+    if ((!html || html === '<br>')) {
+      html = '';
+    }
     if (typeof this.onChange === 'function') {
       this.onChange(this.config.sanitize || this.config.sanitize === undefined ?
         this.sanitizer.sanitize(SecurityContext.HTML, html) : html);
@@ -285,11 +280,13 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       oPre.setAttribute('style', 'margin: 0; outline: none;');
       const oCode = this.doc.createElement('code');
       editableElement.contentEditable = false;
-      oCode.id = 'sourceText';
+      oCode.id = 'sourceText' + this.id;
       oCode.setAttribute('style', 'display:block; white-space: pre-wrap; word-break:' +
         ' keep-all; margin: 0; outline: none; background-color: #fff5b9;');
       oCode.contentEditable = 'true';
       oCode.appendChild(oContent);
+      this.r.listen(oCode, 'focus', () => this.onTextAreaFocus());
+      this.r.listen(oCode, 'blur', (event) => this.onTextAreaBlur(event));
       oPre.appendChild(oCode);
       editableElement.appendChild(oPre);
 
@@ -336,5 +333,27 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       a = a.parentNode;
     }
     this.editorToolbar.triggerBlocks(els);
+  }
+
+  private configure() {
+    this.editorToolbar.id = this.id;
+    this.config.toolbarPosition = this.config.toolbarPosition ? this.config.toolbarPosition : angularEditorConfig.toolbarPosition;
+    if (this.config.showToolbar !== undefined) {
+      this.editorToolbar.showToolbar = this.config.showToolbar;
+    }
+    this.editorToolbar.fonts = this.config.fonts ? this.config.fonts : angularEditorConfig.fonts;
+    this.editorToolbar.customClasses = this.config.customClasses;
+    this.editorToolbar.uploadUrl = this.config.uploadUrl;
+    this.editorService.uploadUrl = this.config.uploadUrl;
+    if (this.config.defaultFontName) {
+      this.editorToolbar.fontName = this.config.defaultFontName;
+      this.editorService.setFontName(this.config.defaultFontName);
+    } else {
+      this.editorToolbar.fontName = 'Times New Roman';
+    }
+    if (this.config.defaultFontSize) {
+      this.editorToolbar.fontSize = this.config.defaultFontSize;
+      this.editorService.setFontSize(this.config.defaultFontSize);
+    }
   }
 }
