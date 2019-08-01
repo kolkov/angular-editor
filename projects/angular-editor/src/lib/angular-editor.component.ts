@@ -45,6 +45,9 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   disabled = false;
   focused: boolean;
 
+  focusInstance: any;
+  blurInstance: any;
+
   @Input() id = '';
   @Input() config: AngularEditorConfig = angularEditorConfig;
   @Input() placeholder = '';
@@ -273,23 +276,29 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     const editableElement = this.textArea.nativeElement;
 
     if (bToSource) {
-      oContent = this.doc.createTextNode(editableElement.innerHTML);
-      editableElement.innerHTML = '';
+      oContent = this.r.createText(editableElement.innerHTML);
+      this.r.setProperty(editableElement, 'innerHTML', '');
 
-      const oPre = this.doc.createElement('pre');
-      oPre.setAttribute('style', 'margin: 0; outline: none;');
-      const oCode = this.doc.createElement('code');
-      editableElement.contentEditable = false;
-      oCode.id = 'sourceText' + this.id;
-      oCode.setAttribute('style', 'display:block; white-space: pre-wrap; word-break:' +
-        ' keep-all; margin: 0; outline: none; background-color: #fff5b9;');
-      oCode.contentEditable = 'true';
-      oCode.appendChild(oContent);
-      this.r.listen(oCode, 'focus', () => this.onTextAreaFocus());
-      this.r.listen(oCode, 'blur', (event) => this.onTextAreaBlur(event));
-      oPre.appendChild(oCode);
-      editableElement.appendChild(oPre);
+      const oPre = this.r.createElement('pre');
+      this.r.setStyle(oPre, 'margin', '0'); // .setAttribute('style', ': 0; outline: none;');
+      this.r.setStyle(oPre, 'outline', 'none');
+      const oCode = this.r.createElement('code');
+      this.r.setProperty(editableElement, 'contentEditable', false); // .contentEditable = false;
+      this.r.setProperty(oCode, 'id', 'sourceText' + this.id);
+      this.r.setStyle(oCode, 'display', 'block');
+      this.r.setStyle(oCode, 'white-space', 'pre-wrap');
+      this.r.setStyle(oCode, 'word-break', 'keep-all');
+      this.r.setStyle(oCode, 'outline', 'none');
+      this.r.setStyle(oCode, 'margin', '0');
+      this.r.setStyle(oCode, 'background-color', '#fff5b9');
+      this.r.setProperty(oCode, 'contentEditable', true);
+      this.r.appendChild(oCode, oContent);
+      this.focusInstance = this.r.listen(oCode, 'focus', () => this.onTextAreaFocus());
+      this.blurInstance = this.r.listen(oCode, 'blur', (event) => this.onTextAreaBlur(event));
+      this.r.appendChild(oPre, oCode);
+      this.r.appendChild(editableElement, oPre);
 
+      // ToDo move to service
       this.doc.execCommand('defaultParagraphSeparator', false, 'div');
 
       this.modeVisual = false;
@@ -297,13 +306,13 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       oCode.focus();
     } else {
       if (this.doc.querySelectorAll) {
-        editableElement.innerHTML = editableElement.innerText;
+        this.r.setProperty(editableElement, 'innerHTML', editableElement.innerText);
       } else {
         oContent = this.doc.createRange();
         oContent.selectNodeContents(editableElement.firstChild);
-        editableElement.innerHTML = oContent.toString();
+        this.r.setProperty(editableElement, 'innerHTML', oContent.toString());
       }
-      editableElement.contentEditable = true;
+      this.r.setProperty(editableElement, 'contentEditable', true);
       this.modeVisual = true;
       this.viewMode.emit(true);
       this.onContentChange(editableElement.innerHTML);
