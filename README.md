@@ -9,7 +9,7 @@
 [![devDependencies Status](https://david-dm.org/kolkov/angular-editor/dev-status.svg)](https://david-dm.org/kolkov/angular-editor?type=dev)
 [![codecov](https://codecov.io/gh/kolkov/angular-editor/branch/master/graph/badge.svg)](https://codecov.io/gh/kolkov/angular-editor)
 
-A simple native WYSIWYG editor for Angular 6+, 7+, 8+. Rich Text editor element for Angular.
+A simple native WYSIWYG editor for Angular 6+, 7+, 8+. Rich Text editor component for Angular.
 
 ## Demo
 Demo is here [demo][demo]
