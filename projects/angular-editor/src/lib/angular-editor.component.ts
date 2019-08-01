@@ -8,7 +8,7 @@ import {
   HostBinding,
   HostListener,
   Inject,
-  Input,
+  Input, OnDestroy,
   OnInit,
   Output,
   Renderer2,
@@ -35,7 +35,7 @@ import {isDefined} from './utils';
     }
   ]
 })
-export class AngularEditorComponent implements OnInit, ControlValueAccessor, AfterViewInit {
+export class AngularEditorComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnDestroy {
 
   private onChange: (value: string) => void;
   private onTouched: () => void;
@@ -278,12 +278,13 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     if (bToSource) {
       oContent = this.r.createText(editableElement.innerHTML);
       this.r.setProperty(editableElement, 'innerHTML', '');
+      this.r.setProperty(editableElement, 'contentEditable', false);
 
       const oPre = this.r.createElement('pre');
-      this.r.setStyle(oPre, 'margin', '0'); // .setAttribute('style', ': 0; outline: none;');
+      this.r.setStyle(oPre, 'margin', '0');
       this.r.setStyle(oPre, 'outline', 'none');
+
       const oCode = this.r.createElement('code');
-      this.r.setProperty(editableElement, 'contentEditable', false); // .contentEditable = false;
       this.r.setProperty(oCode, 'id', 'sourceText' + this.id);
       this.r.setStyle(oCode, 'display', 'block');
       this.r.setStyle(oCode, 'white-space', 'pre-wrap');
@@ -364,5 +365,10 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       this.editorToolbar.fontSize = this.config.defaultFontSize;
       this.editorService.setFontSize(this.config.defaultFontSize);
     }
+  }
+
+  ngOnDestroy() {
+    this.blurInstance();
+    this.focusInstance();
   }
 }
