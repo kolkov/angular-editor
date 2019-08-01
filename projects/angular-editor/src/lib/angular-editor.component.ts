@@ -8,7 +8,8 @@ import {
   HostBinding,
   HostListener,
   Inject,
-  Input, OnDestroy,
+  Input,
+  OnDestroy,
   OnInit,
   Output,
   Renderer2,
@@ -219,7 +220,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       this.togglePlaceholder(this.showPlaceholder);
     }
 
-    if (value === null || value === undefined || value === '' || value === '<br>') {
+    if (value === undefined || value === '' || value === '<br>') {
       value = null;
     }
 
