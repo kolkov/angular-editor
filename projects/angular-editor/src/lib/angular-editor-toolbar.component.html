@@ -111,8 +111,8 @@
             (change)="setCustomClass(customClassId)"
             [disabled]="htmlMode" tabindex="-1">
       <optgroup label="Custom Class"></optgroup>
-      <option class="" value=-1>Clear Class</option>
-      <option *ngFor="let item of customClasses; let i = index" [class]="item.class" [value]="i">{{item.name}}</option>
+      <option class="" [ngValue]="-1">Clear Class</option>
+      <option *ngFor="let item of customClasses; let i = index" [class]="item.class" [ngValue]="i">{{item.name}}</option>
     </select>
   </div>
   <div class="angular-editor-toolbar-set">

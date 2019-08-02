@@ -236,6 +236,10 @@ export class AngularEditorToolbarComponent {
    * Set custom class
    */
   setCustomClass(classId: number) {
-    this.editorService.createCustomClass(this.customClasses[classId]);
+    if (classId === -1) {
+      this.execute.emit('clear');
+    } else {
+      this.editorService.createCustomClass(this.customClasses[classId]);
+    }
   }
 }

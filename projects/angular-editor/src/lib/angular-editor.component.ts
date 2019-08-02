@@ -112,7 +112,10 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     if (command === 'toggleEditorMode') {
       this.toggleEditorMode(this.modeVisual);
     } else if (command !== '') {
-      if (command === 'default') {
+      if (command === 'clear') {
+        this.editorService.removeSelectedElements(this.getCustomTags());
+        this.onContentChange(this.textArea.nativeElement.innerHTML);
+      } else if (command === 'default') {
         this.editorService.removeSelectedElements('h1,h2,h3,h4,h5,h6,p,pre');
         this.onContentChange(this.textArea.nativeElement.innerHTML);
       } else {
@@ -366,6 +369,18 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       this.editorToolbar.fontSize = this.config.defaultFontSize;
       this.editorService.setFontSize(this.config.defaultFontSize);
     }
+  }
+
+  getCustomTags() {
+    const tags = ['span'];
+    this.config.customClasses.forEach(x => {
+      if (x.tag !== undefined) {
+        if (!tags.includes(x.tag)) {
+          tags.push(x.tag);
+        }
+      }
+    });
+    return tags.join(',');
   }
 
   ngOnDestroy() {
