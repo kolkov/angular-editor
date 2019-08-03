@@ -66,7 +66,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 ...
 
-config: AngularEditorConfig = {
+editorConfig: AngularEditorConfig = {
     editable: true,
       spellcheck: true,
       height: 'auto',
