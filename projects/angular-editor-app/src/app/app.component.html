@@ -5,12 +5,9 @@
   <br><br>
   <angular-editor id="editor1" [(ngModel)]="htmlContent1" [config]="config1" (ngModelChange)="onChange($event)"
                   (blur)="onBlur($event)"></angular-editor>
-
-  <!--<div *ngIf="htmlContent" class="htmlblock block">-->
   <p class="html">
     HTML Output:  {{ htmlContent1 }}
   </p>
-  <!--</div>-->
   <form [formGroup]="form">
     <angular-editor autofocus="true" id="editor2" formControlName="signature" [config]="config2" (ngModelChange)="onChange2($event)"></angular-editor>
   </form>

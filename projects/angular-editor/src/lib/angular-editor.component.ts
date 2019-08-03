@@ -44,7 +44,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   modeVisual = true;
   showPlaceholder = false;
   disabled = false;
-  focused: boolean;
+  focused = false;
 
   focusInstance: any;
   blurInstance: any;
@@ -64,15 +64,16 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
   /** emits `blur` event when focused out from the textarea */
     // tslint:disable-next-line:no-output-native no-output-rename
-  @Output('blur') blurEvent: EventEmitter<string> = new EventEmitter<string>();
+  @Output('blur') blurEvent: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
 
   /** emits `focus` event when focused in to the textarea */
     // tslint:disable-next-line:no-output-rename no-output-native
-  @Output('focus') focusEvent: EventEmitter<string> = new EventEmitter<string>();
+  @Output('focus') focusEvent: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
 
   @HostBinding('attr.tabindex') tabindex = -1;
 
-  @HostListener('focus') onFocus() {
+  @HostListener('focus')
+  onFocus() {
     this.focus();
   }
 
@@ -128,12 +129,13 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   /**
    * focus event
    */
-  onTextAreaFocus(): void {
+  onTextAreaFocus(event: FocusEvent): void {
     if (this.focused) {
+      event.stopPropagation();
       return;
     }
     this.focused = true;
-    this.focusEvent.emit('focus');
+    this.focusEvent.emit(event);
   }
 
   /**
@@ -157,7 +159,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     }
 
     if (event.relatedTarget != null && (event.relatedTarget as HTMLElement).parentElement.className !== 'angular-editor-toolbar-set') {
-      this.blurEvent.emit('blur');
+      this.blurEvent.emit(event);
       this.focused = false;
     }
   }
@@ -298,7 +300,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       this.r.setStyle(oCode, 'background-color', '#fff5b9');
       this.r.setProperty(oCode, 'contentEditable', true);
       this.r.appendChild(oCode, oContent);
-      this.focusInstance = this.r.listen(oCode, 'focus', () => this.onTextAreaFocus());
+      this.focusInstance = this.r.listen(oCode, 'focus', () => this.onTextAreaFocus(null));
       this.blurInstance = this.r.listen(oCode, 'blur', (event) => this.onTextAreaBlur(event));
       this.r.appendChild(oPre, oCode);
       this.r.appendChild(editableElement, oPre);
@@ -384,7 +386,11 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   }
 
   ngOnDestroy() {
-    this.blurInstance();
-    this.focusInstance();
+    if (this.blurInstance) {
+      this.blurInstance();
+    }
+    if (this.focusInstance) {
+      this.focusInstance();
+    }
   }
 }

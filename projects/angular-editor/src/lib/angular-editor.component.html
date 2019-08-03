@@ -1,4 +1,4 @@
-<div (focus)="focus()" class="angular-editor" #angularEditor [style.width]="config.width"
+<div class="angular-editor" #angularEditor [style.width]="config.width"
      [style.minWidth]="config.minWidth">
   <angular-editor-toolbar *ngIf="config.toolbarPosition === 'top' " #editorToolbar
                           (execute)="executeCommand($event)"></angular-editor-toolbar>
@@ -10,7 +10,7 @@
          [attr.spellcheck]="config.spellcheck" [style.height]="config.height" [style.minHeight]="config.minHeight"
          [style.maxHeight]="config.maxHeight"
          (input)="onContentChange($event.target.innerHTML)"
-         (focus)="onTextAreaFocus()"
+         (focus)="onTextAreaFocus($event)"
          (blur)="onTextAreaBlur($event)"
          (click)="exec()"
          (keyup)="exec()"

@@ -1,6 +1,6 @@
 {
   "name": "@kolkov/angular-editor",
-  "version": "0.18.3",
+  "version": "0.18.4",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
