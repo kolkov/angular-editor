@@ -3,7 +3,7 @@ import {
   ElementRef,
   EventEmitter,
   forwardRef,
-  HostBinding, HostListener,
+  HostListener,
   Input,
   OnInit,
   Output,
@@ -70,12 +70,20 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
   }
 
   toggleOpen(event: MouseEvent) {
-    event.stopPropagation();
+    // event.stopPropagation();
     if (this.disabled) {
       return;
     }
     this.opened = !this.opened;
   }
+
+  @HostListener('document:click', ['$event'])
+    onClick($event: MouseEvent) {
+      if (!this.elRef.nativeElement.contains($event.target)) {
+        this.close();
+      }
+  }
+
 
   close() {
     this.opened = false;
@@ -86,12 +94,17 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
   }
 
   writeValue(value) {
+    let index = 0;
     if (!value || typeof value !== 'string') {
       return;
     }
-    const selectedEl = this.options.find(el => el.value === value);
+    const selectedEl = this.options.find((el, i) => {
+      index = i;
+      return el.value === value;
+    });
     if (selectedEl) {
       this.selectedOption = selectedEl;
+      this.optionId = index;
       this.onChange(this.selectedOption.value);
       this.changeEvent.emit(this.selectedOption.value);
     }
