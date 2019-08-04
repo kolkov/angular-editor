@@ -131,6 +131,9 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
 
   @HostListener('keydown', ['$event'])
   handleKeyDown($event: KeyboardEvent) {
+    if (!this.opened) {
+      return;
+    }
     // console.log($event.key);
     // if (KeyCode[$event.key]) {
     switch ($event.key) {
