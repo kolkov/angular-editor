@@ -131,7 +131,7 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
 
   @HostListener('keydown', ['$event'])
   handleKeyDown($event: KeyboardEvent) {
-    console.log($event.key);
+    // console.log($event.key);
     // if (KeyCode[$event.key]) {
     switch ($event.key) {
         case 'ArrowDown':
@@ -149,7 +149,7 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
         case 'Tab':
           this._handleTab($event);
           break;
-        case 'Esc':
+        case 'Escape':
           this.close();
           $event.preventDefault();
           break;
