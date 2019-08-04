@@ -7,7 +7,7 @@
     </svg>
   </button>
   <span class="ae-picker-options">
-    <button tabindex="0" role="button" class="ae-picker-item"
+    <button tabindex="-1" role="button" class="ae-picker-item"
           *ngFor="let item of options; let i = index"
           [ngClass]="{'selected': item.value === value, 'focused': i === optionId}"
           (click)="optionSelect(item, $event)">
