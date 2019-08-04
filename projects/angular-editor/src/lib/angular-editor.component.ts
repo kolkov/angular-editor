@@ -85,7 +85,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     private sanitizer: DomSanitizer,
     private cdRef: ChangeDetectorRef,
     @Attribute('tabindex') defaultTabIndex: string,
-    @Attribute('autofocus') private autoFocus: any,
+    @Attribute('autofocus') private autoFocus: any
   ) {
     const parsedTabIndex = Number(defaultTabIndex);
     this.tabIndex = (parsedTabIndex || parsedTabIndex === 0) ? parsedTabIndex : null;
@@ -365,9 +365,11 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     this.editorToolbar.fonts = fonts.map(x => {
       return {label: x.name, value: x.name};
     });
-    this.editorToolbar.customClasses = this.config.customClasses;
-    this.editorToolbar.customClassList = this.config.customClasses.map((x, i) => ({label: x.name, value: i.toString()}));
-    this.editorToolbar.customClassList.unshift({label: 'Clear Class', value: '-1'});
+    if (this.config.customClasses) {
+      this.editorToolbar.customClasses = this.config.customClasses;
+      this.editorToolbar.customClassList = this.config.customClasses.map((x, i) => ({label: x.name, value: i.toString()}));
+      this.editorToolbar.customClassList.unshift({label: 'Clear Class', value: '-1'});
+    }
     this.editorToolbar.uploadUrl = this.config.uploadUrl;
     this.editorService.uploadUrl = this.config.uploadUrl;
     if (this.config.defaultFontName) {
