@@ -3,6 +3,7 @@ import {AngularEditorService} from './angular-editor.service';
 import {HttpResponse} from '@angular/common/http';
 import {DOCUMENT} from '@angular/common';
 import {CustomClass, Font} from './config';
+import {SelectOption} from './ae-select/ae-select.component';
 
 @Component({
   selector: 'angular-editor-toolbar',
@@ -18,14 +19,76 @@ export class AngularEditorToolbarComponent {
   block = 'default';
   defaultFontId;
   fontName;
-  fontSize = '5';
+  fontSize = '3';
   foreColour;
   backColor;
 
-  fonts: Font[];
+  headings: SelectOption[] = [
+    {
+      label: 'Heading 1',
+      value: 'h1',
+    },
+    {
+      label: 'Heading 2',
+      value: 'h2',
+    },
+    {
+      label: 'Heading 3',
+      value: 'h3',
+    },
+    {
+      label: 'Heading 4',
+      value: 'h4',
+    },
+    {
+      label: 'Heading 5',
+      value: 'h5',
+    },
+    {
+      label: 'Heading 6',
+      value: 'h6',
+    },
+    {
+      label: 'Heading 7',
+      value: 'h7',
+    }
+  ];
+
+  fonts: SelectOption[] = [{label: '', value: ''}];
+  fontSizes: SelectOption[] = [
+    {
+      label: '1',
+      value: '1',
+    },
+    {
+      label: '2',
+      value: '2',
+    },
+    {
+      label: '3',
+      value: '3',
+    },
+    {
+      label: '4',
+      value: '4',
+    },
+    {
+      label: '5',
+      value: '5',
+    },
+    {
+      label: '6',
+      value: '6',
+    },
+    {
+      label: '7',
+      value: '7',
+    }
+  ];
 
   customClassId = -1;
   customClasses: CustomClass[];
+  customClassList: SelectOption[] = [{label: '', value: ''}];
   uploadUrl: string;
 
   tagMap = {
@@ -50,7 +113,8 @@ export class AngularEditorToolbarComponent {
     private r: Renderer2,
     private editorService: AngularEditorService,
     @Inject(DOCUMENT) private doc: any
-  ) { }
+  ) {
+  }
 
   /**
    * Trigger command from editor header buttons

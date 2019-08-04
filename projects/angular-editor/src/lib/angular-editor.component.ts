@@ -23,6 +23,7 @@ import {AngularEditorService} from './angular-editor.service';
 import {DOCUMENT} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
 import {isDefined} from './utils';
+import {last} from 'rxjs/operators';
 
 @Component({
   selector: 'angular-editor',
@@ -158,9 +159,12 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       this.onTouched();
     }
 
-    if (event.relatedTarget != null && (event.relatedTarget as HTMLElement).parentElement.className !== 'angular-editor-toolbar-set') {
-      this.blurEvent.emit(event);
-      this.focused = false;
+    if (event.relatedTarget !== null) {
+      const parent = (event.relatedTarget as HTMLElement).parentElement;
+      if (!parent.classList.contains('angular-editor-toolbar-set') && !parent.classList.contains('ae-picker')) {
+        this.blurEvent.emit(event);
+        this.focused = false;
+      }
     }
   }
 
@@ -300,7 +304,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       this.r.setStyle(oCode, 'background-color', '#fff5b9');
       this.r.setProperty(oCode, 'contentEditable', true);
       this.r.appendChild(oCode, oContent);
-      this.focusInstance = this.r.listen(oCode, 'focus', () => this.onTextAreaFocus(null));
+      this.focusInstance = this.r.listen(oCode, 'focus', (event) => this.onTextAreaFocus(event));
       this.blurInstance = this.r.listen(oCode, 'blur', (event) => this.onTextAreaBlur(event));
       this.r.appendChild(oPre, oCode);
       this.r.appendChild(editableElement, oPre);
@@ -357,8 +361,12 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     if (this.config.showToolbar !== undefined) {
       this.editorToolbar.showToolbar = this.config.showToolbar;
     }
-    this.editorToolbar.fonts = this.config.fonts ? this.config.fonts : angularEditorConfig.fonts;
+    const fonts = this.config.fonts ? this.config.fonts : angularEditorConfig.fonts;
+    this.editorToolbar.fonts = fonts.map(x => {
+      return {label: x.name, value: x.name};
+    });
     this.editorToolbar.customClasses = this.config.customClasses;
+    this.editorToolbar.customClassList = this.config.customClasses.map((x, i) => ({label: x.name, value: i.toString()}));
     this.editorToolbar.uploadUrl = this.config.uploadUrl;
     this.editorService.uploadUrl = this.config.uploadUrl;
     if (this.config.defaultFontName) {
