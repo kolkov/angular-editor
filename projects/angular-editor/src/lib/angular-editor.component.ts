@@ -367,6 +367,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     });
     this.editorToolbar.customClasses = this.config.customClasses;
     this.editorToolbar.customClassList = this.config.customClasses.map((x, i) => ({label: x.name, value: i.toString()}));
+    this.editorToolbar.customClassList.unshift({label: 'Clear Class', value: '-1'});
     this.editorToolbar.uploadUrl = this.config.uploadUrl;
     this.editorService.uploadUrl = this.config.uploadUrl;
     if (this.config.defaultFontName) {

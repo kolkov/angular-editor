@@ -51,6 +51,26 @@ export class AngularEditorToolbarComponent {
     {
       label: 'Heading 7',
       value: 'h7',
+    },
+    {
+      label: 'Paragraph',
+      value: 'p',
+    },
+    {
+      label: 'Heading 7',
+      value: 'h7',
+    },
+    {
+      label: 'Predefined',
+      value: 'pre'
+    },
+    {
+      label: 'Standard',
+      value: 'div'
+    },
+    {
+      label: 'default',
+      value: 'default'
     }
   ];
 
@@ -299,11 +319,11 @@ export class AngularEditorToolbarComponent {
   /**
    * Set custom class
    */
-  setCustomClass(classId: number) {
-    if (classId === -1) {
+  setCustomClass(classId: string) {
+    if (classId === '-1') {
       this.execute.emit('clear');
     } else {
-      this.editorService.createCustomClass(this.customClasses[classId]);
+      this.editorService.createCustomClass(this.customClasses[+classId]);
     }
   }
 }
