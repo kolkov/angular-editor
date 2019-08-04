@@ -106,7 +106,7 @@ export class AngularEditorToolbarComponent {
     }
   ];
 
-  customClassId = -1;
+  customClassId = '-1';
   customClasses: CustomClass[];
   customClassList: SelectOption[] = [{label: '', value: ''}];
   uploadUrl: string;
@@ -193,11 +193,11 @@ export class AngularEditorToolbarComponent {
         });
         if (node !== undefined) {
           if (found === false) {
-            this.customClassId = index;
+            this.customClassId = index.toString();
             found = true;
           }
         } else if (found === false) {
-          this.customClassId = -1;
+          this.customClassId = '-1';
         }
       });
     }
