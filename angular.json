@@ -8,6 +8,11 @@
       "root": "projects/angular-editor",
       "sourceRoot": "projects/angular-editor/src",
       "prefix": "lib",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -40,7 +45,11 @@
     },
     "angular-editor-app": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "projects/angular-editor-app",
       "sourceRoot": "projects/angular-editor-app/src",
       "prefix": "app",
@@ -55,7 +64,8 @@
             "tsConfig": "projects/angular-editor-app/tsconfig.app.json",
             "assets": [
               "projects/angular-editor-app/src/favicon.ico",
-              "projects/angular-editor-app/src/assets"
+              "projects/angular-editor-app/src/assets",
+
             ],
             "styles": [
               "projects/angular-editor-app/src/styles.scss"
@@ -149,6 +159,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "angular-editor-app"
 }

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AngularEditorConfig} from 'angular-editor';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,8 @@ import {AngularEditorConfig} from 'angular-editor';
 })
 export class AppComponent implements OnInit {
   title = 'app';
+
+  form: FormGroup;
 
   htmlContent1 = '';
   htmlContent2 = '';
@@ -21,6 +24,7 @@ export class AppComponent implements OnInit {
     translate: 'no',
     sanitize: false,
     toolbarPosition: 'top',
+    defaultFontName: 'Arial',
     customClasses: [
       {
         name: 'quote',
@@ -45,7 +49,7 @@ export class AppComponent implements OnInit {
     maxHeight: '15rem',
     placeholder: 'Enter text here...',
     translate: 'no',
-    sanitize: false,
+    sanitize: true,
     toolbarPosition: 'bottom',
     customClasses: [
       {
@@ -64,7 +68,12 @@ export class AppComponent implements OnInit {
     ]
   };
 
+  constructor(private formBuilder: FormBuilder) {}
+
   ngOnInit() {
+    this.form = this.formBuilder.group({
+      signature: ['test2', Validators.required]
+    });
     console.log(this.htmlContent1);
   }
 
@@ -74,5 +83,9 @@ export class AppComponent implements OnInit {
 
   onBlur(event) {
     console.log('blur ' + event);
+  }
+
+  onChange2(event) {
+    console.warn(this.form.value);
   }
 }

@@ -20,12 +20,12 @@
       background-color: transparent;
       overflow-x: hidden;
       overflow-y: auto;
-      z-index: 2;
+      // z-index: 2;
       position: relative;
-
+      // pointer-events: none;
       &:focus,
       &.focus {
-        outline: 0;
+       // outline: 0;
       }
 
       ::ng-deep blockquote {
@@ -44,7 +44,7 @@
       position: absolute;
       top: 0;
       padding: 0.5rem 0.8rem 1rem 0.9rem;
-      z-index: 1;
+      // z-index: 1;
       color: #6c757d;
       opacity: 0.75;
     }

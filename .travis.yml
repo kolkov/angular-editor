@@ -1,0 +1,35 @@
+language: node_js
+node_js:
+  - "10"
+dist: trusty
+sudo: required
+addons:
+  chrome: stable
+cache:
+  directories:
+    - node_modules
+before_install:
+  - npm update
+install:
+  - npm install
+before_script:
+  - npm install -g @angular/cli
+  - npm install -g codecov
+script:
+  - npm run lint:lib
+  - npm run test-ci
+  - codecov
+  - npm run build:lib
+before_deploy:
+  - npm run copy:readme
+  - npm run copy:changelog
+  - npm run copy:license
+  - cd dist/angular-editor
+deploy:
+  provider: npm
+  email: a.kolkov@gmail.com
+  skip_cleanup: true
+  api_key: $NPM_TOKEN
+  on:
+    tags: true
+    repo: kolkov/angular-editor
