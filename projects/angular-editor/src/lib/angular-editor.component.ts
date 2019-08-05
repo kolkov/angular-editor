@@ -97,8 +97,22 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       this.editorService.setFontSize(this.config.defaultFontSize);
     }
     this.cdRef.detectChanges();
+    this.initializeOnEditorChange();
   }
 
+  /*
+  * initialize MutationObserver on the editor instead of use the (input) event, for support EDGE and IE
+  * */
+  initializeOnEditorChange() {
+    const observer = new MutationObserver(() => {
+      this.onContentChange(this.textArea.nativeElement.innerHTML);
+    });
+    observer.observe(this.textArea.nativeElement, {
+      childList: true,
+      characterData: true,
+      subtree: true,
+    });
+  }
   /**
    * Executed command from editor header buttons
    * @param command string from triggerCommand
