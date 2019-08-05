@@ -184,7 +184,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    * @param fn a function
    */
   registerOnChange(fn: any): void {
-    this.onChange = fn;
+    this.onChange = e => fn(e === '<br>' ? '' : e);
   }
 
   /**
