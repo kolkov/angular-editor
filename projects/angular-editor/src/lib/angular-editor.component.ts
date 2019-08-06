@@ -4,7 +4,7 @@ import {
   EventEmitter,
   forwardRef,
   Inject,
-  Input,
+  Input, OnDestroy,
   OnInit,
   Output,
   Renderer2,
@@ -30,10 +30,11 @@ import { SecurityContext } from '@angular/core';
     }
   ]
 })
-export class AngularEditorComponent implements OnInit, ControlValueAccessor, AfterViewInit {
+export class AngularEditorComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnDestroy {
 
   private onChange: (value: string) => void;
   private onTouched: () => void;
+  private observer: MutationObserver;
 
   modeVisual = true;
   showPlaceholder = false;
@@ -100,14 +101,18 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     this.initializeOnEditorChange();
   }
 
+  ngOnDestroy(): void {
+    thsi.observer.disconnect();
+  }
+
   /*
   * initialize MutationObserver on the editor instead of use the (input) event, for support EDGE and IE
   * */
   initializeOnEditorChange() {
-    const observer = new MutationObserver(() => {
+    this.observer = new MutationObserver(() => {
       this.onContentChange(this.textArea.nativeElement.innerHTML);
     });
-    observer.observe(this.textArea.nativeElement, {
+    this.observer.observe(this.textArea.nativeElement, {
       childList: true,
       characterData: true,
       subtree: true,
