@@ -1,91 +1,111 @@
-import {Component, OnInit} from '@angular/core';
-import {AngularEditorConfig} from 'angular-editor';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {
+    Component,
+    OnInit,
+} from '@angular/core';
+import {
+    FormBuilder,
+    FormGroup,
+    Validators,
+} from '@angular/forms';
+
+import { AngularEditorConfig } from '../../../angular-editor/src/lib/config';
+import { AngularEditorToolbarConfig } from '../../../angular-editor/src/lib/toolbar-config';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: [ './app.component.scss' ]
 })
 export class AppComponent implements OnInit {
-  title = 'app';
+    title = 'app';
 
-  form: FormGroup;
+    form: FormGroup;
 
-  htmlContent1 = '';
-  htmlContent2 = '';
+    htmlContent1 = '';
+    htmlContent2 = '';
 
-  config1: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
-    minHeight: '5rem',
-    maxHeight: '15rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    sanitize: false,
-    toolbarPosition: 'top',
-    defaultFontName: 'Arial',
-    customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
-    ]
-  };
+    config1: AngularEditorConfig = {
+        editable: true,
+        spellcheck: true,
+        minHeight: '5rem',
+        maxHeight: '15rem',
+        placeholder: 'Enter text here...',
+        translate: 'no',
+        sanitize: false,
+        toolbarPosition: 'top',
+        defaultFontName: 'Arial',
 
-  config2: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
-    minHeight: '5rem',
-    maxHeight: '15rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    sanitize: true,
-    toolbarPosition: 'bottom',
-    customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
-    ]
-  };
+    };
 
-  constructor(private formBuilder: FormBuilder) {}
+    config2: AngularEditorConfig = {
+        editable: true,
+        spellcheck: true,
+        minHeight: '5rem',
+        maxHeight: '15rem',
+        placeholder: 'Enter text here...',
+        translate: 'no',
+        sanitize: true,
+        toolbarPosition: 'bottom',
 
-  ngOnInit() {
-    this.form = this.formBuilder.group({
-      signature: ['test2', Validators.required]
-    });
-    console.log(this.htmlContent1);
-  }
+    };
 
-  onChange(event) {
-    console.log('changed');
-  }
+    testInput = "<h3><b>Testheadline</b></h3><div><h3><span>This is a test with:</span></h3></div><div><div><div><ul><li>An unordered list</li><li>A Headline</li></ul></div></div></div>";
 
-  onBlur(event) {
-    console.log('blur ' + event);
-  }
+    toolbarConfig: AngularEditorToolbarConfig = {
+        showStrikeThrough: false,
+        showSubscript: false,
+        showSuperscript: false,
+        showJustifyOptions: false,
+        showFontSelect: false,
+        showFontSizeOptions: false,
+        showColorOptions: false,
+        showCustomClassesSelect: false,
+        showInsertImage: false,
+        showInsertVideo: false,
+        showHorizontalRule: false,
+        showToggleEditorMode: false,
+        // showClearFormat: false,
+        headings: [
+            {
+                label: 'Überschrift 1',
+                value: 'h1',
+            },
+            {
+                label: 'Überschrift 2',
+                value: 'h2',
+            },
+            {
+                label: 'Überschrift 3',
+                value: 'h3',
+            },
+            {
+                label: 'Standard',
+                value: 'default'
+            },
+        ],
+    };
 
-  onChange2(event) {
-    console.warn(this.form.value);
-  }
+    constructor(private formBuilder: FormBuilder) { }
+
+    ngOnInit() {
+        this.form = this.formBuilder.group({
+            signature: [ 'test2', Validators.required ]
+        });
+    }
+
+    onChange(event) {
+        console.log('changed');
+    }
+
+    onBlur(event) {
+        console.log('blur ' + event);
+    }
+
+    onChange2(event) {
+        console.warn(this.form.value);
+    }
+
+    onChange3(event) {
+        this.testInput = event;
+    }
 }

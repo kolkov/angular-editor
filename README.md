@@ -20,7 +20,7 @@ Working code for this demo at stackblitz [example](https://stackblitz.com/edit/a
 
 ### Installation
 
-Install via [npm][npm] package manager 
+Install via [npm][npm] package manager
 
 ```bash
 npm install @kolkov/angular-editor --save
@@ -109,6 +109,33 @@ editorConfig: AngularEditorConfig = {
 ```
 
 For `ngModel` to work, you must import `FormsModule` from `@angular/forms`, or for `formControlName`, you must import `ReactiveFormsModule` from `@angular/forms`
+
+## AngularEditorToolbarConfig
+
+You can hide toolbar elements by setting an option to false. All options are `true` by default.
+
+```typescript
+const exampleToolbarConfig: AngularEditorToolbarConfig = {
+    showUndoRedoOptions: false,
+    showStrikeThrough: false,
+    showSubscript: false,
+    showSuperscript: false,
+    showJustifyOptions: false,
+    showFontSelect: false,
+    showFontSizeOptions: false,
+    showColorOptions: false,
+    showCustomClassesSelect: false,
+    showInsertImage: false,
+    showInserVideo: false,
+    showHorizontalRule: false,
+    showClearFormat: false,
+    showToggleEditorMode: false,
+}
+```
+
+```html
+<angular-editor [toolbarConfig]="exampleToolbarConfig"></angular-editor>
+```
 
 ## What's included
 
