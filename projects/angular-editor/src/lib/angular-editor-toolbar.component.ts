@@ -2,7 +2,7 @@ import {Component, ElementRef, EventEmitter, Inject, Output, Renderer2, ViewChil
 import {AngularEditorService} from './angular-editor.service';
 import {HttpResponse} from '@angular/common/http';
 import {DOCUMENT} from '@angular/common';
-import {CustomClass, Font} from './config';
+import {CustomClass} from './config';
 import {SelectOption} from './ae-select/ae-select.component';
 
 @Component({
@@ -17,7 +17,6 @@ export class AngularEditorToolbarComponent {
   showToolbar = true;
   linkSelected = false;
   block = 'default';
-  defaultFontId;
   fontName;
   fontSize = '3';
   foreColour;
@@ -123,7 +122,7 @@ export class AngularEditorToolbarComponent {
 
   @Output() execute: EventEmitter<string> = new EventEmitter<string>();
 
-  @ViewChild('fileInput') myInputFile: ElementRef;
+  @ViewChild('fileInput', {static: true}) myInputFile: ElementRef;
 
   public get isLinkButtonDisabled(): boolean {
     return this.htmlMode || !Boolean(this.editorService.selectedText);

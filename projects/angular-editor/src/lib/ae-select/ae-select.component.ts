@@ -54,7 +54,7 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
   // tslint:disable-next-line:no-output-native no-output-rename
   @Output('change') changeEvent = new EventEmitter();
 
-  @ViewChild('labelButton') labelButton: ElementRef;
+  @ViewChild('labelButton', {static: true}) labelButton: ElementRef;
 
   constructor(private elRef: ElementRef, private r: Renderer2) { }
 

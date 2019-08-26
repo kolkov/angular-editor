@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
     placeholder: 'Enter text here...',
     translate: 'no',
     sanitize: false,
-    toolbarPosition: 'top',
+    // toolbarPosition: 'top',
     defaultFontName: 'Arial',
     customClasses: [
       {

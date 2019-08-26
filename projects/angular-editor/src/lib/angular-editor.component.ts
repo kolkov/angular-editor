@@ -2,7 +2,7 @@ import {
   AfterViewInit,
   Attribute,
   ChangeDetectorRef,
-  Component,
+  Component, ElementRef,
   EventEmitter,
   forwardRef,
   HostBinding,
@@ -23,7 +23,6 @@ import {AngularEditorService} from './angular-editor.service';
 import {DOCUMENT} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
 import {isDefined} from './utils';
-import {last} from 'rxjs/operators';
 
 @Component({
   selector: 'angular-editor',
@@ -57,9 +56,9 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
   @Output() html;
 
-  @ViewChild('editor') textArea: any;
-  @ViewChild('editorWrapper') editorWrapper: any;
-  @ViewChild('editorToolbar') editorToolbar: AngularEditorToolbarComponent;
+  @ViewChild('editor', {static: true}) textArea: ElementRef;
+  @ViewChild('editorWrapper', {static: true}) editorWrapper: ElementRef;
+  @ViewChild('editorToolbar', {static: false}) editorToolbar: AngularEditorToolbarComponent;
 
   @Output() viewMode = new EventEmitter<boolean>();
 
@@ -92,6 +91,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   }
 
   ngOnInit() {
+    this.config.toolbarPosition = this.config.toolbarPosition ? this.config.toolbarPosition : angularEditorConfig.toolbarPosition;
     if (this.config.defaultParagraphSeparator) {
       this.editorService.setDefaultParagraphSeparator(this.config.defaultParagraphSeparator);
     }
@@ -357,7 +357,6 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
   private configure() {
     this.editorToolbar.id = this.id;
-    this.config.toolbarPosition = this.config.toolbarPosition ? this.config.toolbarPosition : angularEditorConfig.toolbarPosition;
     if (this.config.showToolbar !== undefined) {
       this.editorToolbar.showToolbar = this.config.showToolbar;
     }
