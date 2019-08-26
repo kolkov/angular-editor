@@ -25,6 +25,13 @@ Install via [npm][npm] package manager
 ```bash
 npm install @kolkov/angular-editor --save
 ```
+### Versions
+
+1.x.x and above - for Angular v8.x.x
+
+0.18.4 and above - for Angular v7.x.x
+
+0.15.x - for Angular v6.x.x 
 
 ### Usage
 
