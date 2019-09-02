@@ -4,7 +4,7 @@ import {
   EventEmitter,
   forwardRef,
   Inject,
-  Input,
+  Input, OnDestroy,
   OnInit,
   Output,
   Renderer2,
@@ -30,7 +30,7 @@ import { SecurityContext } from '@angular/core';
     }
   ]
 })
-export class AngularEditorComponent implements OnInit, ControlValueAccessor, AfterViewInit {
+export class AngularEditorComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnDestroy {
 
   private onChange: (value: string) => void;
   private onTouched: () => void;
@@ -54,6 +54,20 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
   /** emits `focus` event when focused in to the textarea */
   @Output() focus: EventEmitter<string> = new EventEmitter<string>();
+
+  /*
+     * MutationObserver IE11 fallback (as opposed to input event for modern browsers).
+     * When mutation removes a tag, i.e. delete is pressed on the last remaining character
+     * inside a tag — callback is triggered before the DOM is actually changed, therefore
+     * setTimeout is used
+     */
+  private observer = new MutationObserver(() => {
+    setTimeout(() => {
+      this.onChange(
+          this.textArea.nativeElement.innerHTML
+      );
+    });
+  });
 
   constructor(
     private _renderer: Renderer2,
@@ -168,7 +182,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    * @param html html string from contenteditable
    */
   onContentChange(html: string): void {
-
+    this.observer.disconnect();
     if (typeof this.onChange === 'function') {
       this.onChange(this.config.sanitize || this.config.sanitize === undefined ? this._domSanitizer.sanitize(SecurityContext.HTML, html) : html);
       if ((!html || html === '<br>' || html === '') !== this.showPlaceholder) {
@@ -325,4 +339,11 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     this.editorToolbar.triggerBlocks(els);
   }
 
+  /*
+       * Disconnect MutationObserver IE11 fallback on destroy
+       */
+  ngOnDestroy() {
+    this.observer.disconnect();
+  }
 }
+
