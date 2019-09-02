@@ -49,6 +49,20 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   focusInstance: any;
   blurInstance: any;
 
+  /*
+     * MutationObserver IE11 fallback (as opposed to input event for modern browsers).
+     * When mutation removes a tag, i.e. delete is pressed on the last remaining character
+     * inside a tag — callback is triggered before the DOM is actually changed, therefore
+     * setTimeout is used
+     */
+  private observer = new MutationObserver(() => {
+    setTimeout(() => {
+      this.onChange(
+        this.textArea.nativeElement.innerHTML
+      );
+    });
+  });
+
   @Input() id = '';
   @Input() config: AngularEditorConfig = angularEditorConfig;
   @Input() placeholder = '';
@@ -182,6 +196,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    * @param html html string from contenteditable
    */
   onContentChange(html: string): void {
+    this.observer.disconnect();
     if ((!html || html === '<br>')) {
       html = '';
     }
@@ -386,6 +401,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   }
 
   ngOnDestroy() {
+    this.observer.disconnect();
     if (this.blurInstance) {
       this.blurInstance();
     }
