@@ -5,12 +5,22 @@ a {
   cursor: pointer;
 }
 
-#editor {
+.angular-editor-textarea {
   min-height: 150px;
   overflow: auto;
   margin-top: 5px;
   resize: vertical;
-  outline: none;
+  &:after {
+    content:"";
+    position: absolute;
+    bottom: 0;
+    right:0;
+    display:block;
+    width:8px;
+    height:8px;
+    cursor: nwse-resize;
+    background-color: rgba(255,255,255,0.5)
+  }
 }
 
 .angular-editor-toolbar {
