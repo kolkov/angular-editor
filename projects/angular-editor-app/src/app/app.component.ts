@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
     translate: 'no',
     sanitize: false,
     // toolbarPosition: 'top',
+    outline: false,
     defaultFontName: 'Arial',
     customClasses: [
       {

@@ -9,6 +9,7 @@
          [attr.translate]="config.translate"
          [attr.spellcheck]="config.spellcheck" [style.height]="config.height" [style.minHeight]="config.minHeight"
          [style.maxHeight]="config.maxHeight"
+         [style.outline]="config.outline === false ? 'none': undefined"
          (input)="onContentChange($event.target.innerHTML)"
          (focus)="onTextAreaFocus($event)"
          (blur)="onTextAreaBlur($event)"

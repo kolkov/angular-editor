@@ -29,6 +29,7 @@ export interface AngularEditorConfig {
   customClasses?: CustomClass[];
   sanitize?: boolean;
   toolbarPosition?: 'top' | 'bottom';
+  outline?: boolean;
 }
 
 export const angularEditorConfig: AngularEditorConfig = {
@@ -55,4 +56,5 @@ export const angularEditorConfig: AngularEditorConfig = {
   uploadUrl: 'v1/image',
   sanitize: true,
   toolbarPosition: 'top',
+  outline: true,
 };
