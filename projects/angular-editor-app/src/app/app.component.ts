@@ -24,8 +24,10 @@ export class AppComponent implements OnInit {
     translate: 'no',
     sanitize: false,
     // toolbarPosition: 'top',
-    outline: false,
-    defaultFontName: 'Arial',
+    outline: true,
+    defaultFontName: 'Comic Sans MS',
+    defaultFontSize: '5',
+    // showToolbar: false,
     customClasses: [
       {
         name: 'quote',
@@ -52,6 +54,8 @@ export class AppComponent implements OnInit {
     translate: 'no',
     sanitize: true,
     toolbarPosition: 'bottom',
+    defaultFontName: 'Comic Sans MS',
+    defaultFontSize: '5',
     customClasses: [
       {
         name: 'quote',
@@ -73,7 +77,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      signature: ['test2', Validators.required]
+      signature: ['', Validators.required]
     });
     console.log(this.htmlContent1);
   }
