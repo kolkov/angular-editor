@@ -50,22 +50,6 @@
             (click)="triggerCommand('insertOrderedList')" [disabled]="htmlMode" tabindex="-1"><i class='fa fa-list-ol'></i></button>
   </div>
   <div class="angular-editor-toolbar-set">
-   <!-- <label [for]="'heading-'+id" class="block-label" tabindex="-1"></label>
-    <select title="Formatting" [id]="'heading-'+id" class="select-heading" [(ngModel)]="block"
-            (change)="triggerCommand(block)"
-            [disabled]="htmlMode"  tabindex="-1">
-      <optgroup label="Formatting"></optgroup>
-      <option class="h1" value="h1">Heading 1</option>
-      <option class="h2" value="h2">Heading 2</option>
-      <option class="h3" value="h3">Heading 3</option>
-      <option class="h4" value="h4">Heading 4</option>
-      <option class="h5" value="h5">Heading 5</option>
-      <option class="h6" value="h6">Heading 6</option>
-      <option class="p" value="p">Paragraph</option>
-      <option class="pre" value="pre">Predefined</option>
-      <option class="div" value="div">Standard</option>
-      <option class="default" value="default">Default</option>
-    </select>-->
 
     <ae-select class="select-heading" [options]="headings"
                [(ngModel)]="block"
@@ -74,13 +58,6 @@
                tabindex="-1"></ae-select>
   </div>
   <div class="angular-editor-toolbar-set">
-   <!-- <label [for]="'fontSelector-'+id" class="block-label"></label>
-    <select title="Font Name" [id]="'fontSelector-'+id" class="select-font" [(ngModel)]="fontName"
-            (change)="setFontName(fontName)"
-            [disabled]="htmlMode" tabindex="-1">
-      <optgroup label="Font Name"></optgroup>
-      <option *ngFor="let item of fonts" [class]="item.class" [value]="item.name">{{item.name}}</option>
-    </select>-->
 
     <ae-select class="select-font" [options]="fonts"
                [(ngModel)]="fontName"
@@ -89,19 +66,6 @@
                tabindex="-1"></ae-select>
   </div>
   <div class="angular-editor-toolbar-set">
-    <!--<label [for]="'fontSizeSelector-'+id" class="block-label"></label>
-    <select title="Font Size" [id]="'fontSizeSelector-'+id" class="select-font-size" [(ngModel)]="fontSize"
-            (change)="setFontSize(fontSize)"
-            [disabled]="htmlMode" tabindex="-1">
-      <optgroup label="Font Sizing"></optgroup>
-      <option class="size1" value="1">1</option>
-      <option class="size2" value="2">2</option>
-      <option class="size3" value="3">3</option>
-      <option class="size4" value="4">4</option>
-      <option class="size5" value="5">5</option>
-      <option class="size6" value="6">6</option>
-      <option class="size7" value="7">7</option>
-    </select>-->
 
     <ae-select class="select-font-size" [options]="fontSizes"
                [(ngModel)]="fontSize"
@@ -124,15 +88,7 @@
     <button [id]="'backgroundColorPicker-'+id" type="button" class="angular-editor-button" (click)="bgInput.click()" title="Background Color"
             [disabled]="htmlMode" tabindex="-1"><span class="color-label background"><i class="fa fa-font"></i></span></button>
   </div>
-  <div *ngIf="customClasses" class="angular-editor-toolbar-set">
-   <!-- <label [for]="'customClassSelector-'+id" class="block-label"></label>
-    <select title="Custom Style" [id]="'customClassSelector-'+id" class="select-custom-style" [(ngModel)]="customClassId"
-            (change)="setCustomClass(customClassId)"
-            [disabled]="htmlMode" tabindex="-1">
-      <optgroup label="Custom Class"></optgroup>
-      <option class="" [ngValue]="-1">Clear Class</option>
-      <option *ngFor="let item of customClasses; let i = index" [class]="item.class" [ngValue]="i">{{item.name}}</option>
-    </select>-->
+  <div *ngIf="_customClasses" class="angular-editor-toolbar-set">
 
     <ae-select class="select-custom-style" [options]="customClassList"
                [(ngModel)]="customClassId"

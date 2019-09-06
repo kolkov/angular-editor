@@ -2,7 +2,8 @@ import {
   AfterViewInit,
   Attribute,
   ChangeDetectorRef,
-  Component, ElementRef,
+  Component,
+  ElementRef,
   EventEmitter,
   forwardRef,
   HostBinding,
@@ -45,6 +46,8 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   showPlaceholder = false;
   disabled = false;
   focused = false;
+  touched = false;
+  changed = false;
 
   focusInstance: any;
   blurInstance: any;
@@ -92,17 +95,12 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
   ngOnInit() {
     this.config.toolbarPosition = this.config.toolbarPosition ? this.config.toolbarPosition : angularEditorConfig.toolbarPosition;
-    if (this.config.defaultParagraphSeparator) {
-      this.editorService.setDefaultParagraphSeparator(this.config.defaultParagraphSeparator);
-    }
   }
 
   ngAfterViewInit() {
     if (isDefined(this.autoFocus)) {
       this.focus();
     }
-    this.configure();
-    this.cdRef.detectChanges();
   }
 
   /**
@@ -137,6 +135,12 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     }
     this.focused = true;
     this.focusEvent.emit(event);
+    if (!this.touched || !this.changed) {
+      this.editorService.executeInNextQueueIteration(() => {
+        this.configure();
+        this.touched = true;
+      });
+    }
   }
 
   /**
@@ -196,6 +200,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
         this.togglePlaceholder(this.showPlaceholder);
       }
     }
+    this.changed = true;
   }
 
   /**
@@ -356,31 +361,23 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   }
 
   private configure() {
-    this.editorToolbar.id = this.id;
-    if (this.config.showToolbar !== undefined) {
-      this.editorToolbar.showToolbar = this.config.showToolbar;
-    }
-    const fonts = this.config.fonts ? this.config.fonts : angularEditorConfig.fonts;
-    this.editorToolbar.fonts = fonts.map(x => {
-      return {label: x.name, value: x.name};
-    });
-    if (this.config.customClasses) {
-      this.editorToolbar.customClasses = this.config.customClasses;
-      this.editorToolbar.customClassList = this.config.customClasses.map((x, i) => ({label: x.name, value: i.toString()}));
-      this.editorToolbar.customClassList.unshift({label: 'Clear Class', value: '-1'});
-    }
-    this.editorToolbar.uploadUrl = this.config.uploadUrl;
     this.editorService.uploadUrl = this.config.uploadUrl;
+    if (this.config.defaultParagraphSeparator) {
+      this.editorService.setDefaultParagraphSeparator(this.config.defaultParagraphSeparator);
+    }
     if (this.config.defaultFontName) {
-      this.editorToolbar.fontName = this.config.defaultFontName;
       this.editorService.setFontName(this.config.defaultFontName);
-    } else {
-      this.editorToolbar.fontName = 'Times New Roman';
     }
     if (this.config.defaultFontSize) {
-      this.editorToolbar.fontSize = this.config.defaultFontSize;
       this.editorService.setFontSize(this.config.defaultFontSize);
     }
+  }
+
+  getFonts() {
+    const fonts = this.config.fonts ? this.config.fonts : angularEditorConfig.fonts;
+    return fonts.map(x => {
+      return {label: x.name, value: x.name};
+    });
   }
 
   getCustomTags() {
