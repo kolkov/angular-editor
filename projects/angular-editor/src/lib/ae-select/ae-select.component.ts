@@ -64,7 +64,9 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
 
   optionSelect(option: SelectOption, event: MouseEvent) {
     event.stopPropagation();
-    this.writeValue(option.value);
+    this.setValue(option.value);
+    this.onChange(this.selectedOption.value);
+    this.changeEvent.emit(this.selectedOption.value);
     this.onTouched();
     this.opened = false;
   }
@@ -94,10 +96,14 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
   }
 
   writeValue(value) {
-    let index = 0;
     if (!value || typeof value !== 'string') {
       return;
     }
+    this.setValue(value);
+  }
+
+  setValue(value) {
+    let index = 0;
     const selectedEl = this.options.find((el, i) => {
       index = i;
       return el.value === value;
@@ -105,8 +111,6 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
     if (selectedEl) {
       this.selectedOption = selectedEl;
       this.optionId = index;
-      this.onChange(this.selectedOption.value);
-      this.changeEvent.emit(this.selectedOption.value);
     }
   }
 
