@@ -12,9 +12,7 @@ import {SelectOption} from './ae-select/ae-select.component';
 })
 
 export class AngularEditorToolbarComponent {
-  // id = '';
   htmlMode = false;
-  // showToolbar = true;
   linkSelected = false;
   block = 'default';
   fontName = 'Times New Roman';
