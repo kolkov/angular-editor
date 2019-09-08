@@ -202,7 +202,7 @@ export class AngularEditorService {
     const thumbnail = `
       <div style='position: relative'>
         <img style='position: absolute; left:200px; top:140px'
-             src="https://img.icons8.com/color/96/000000/youtube-play.png"
+             src="https://img.icons8.com/color/96/000000/youtube-play.png"/>
         <a href='${videoUrl}' target='_blank'>
           <img src="${imageUrl}" alt="click to watch"/>
         </a>
