@@ -15,7 +15,7 @@
     "copy:readme": "cpx README.md dist/angular-editor",
     "copy:changelog": "cpx CHANGELOG.md dist/kolkov/ngx-metrika",
     "copy:license": "cpx LICENSE dist/kolkov/ngx-metrika",
-    "test-ci": "ng test angular-editor --browsers=ChromeHeadless"
+    "test-ci": "ng test angular-editor --watch=false --browsers=ChromeHeadless"
   },
   "private": true,
   "dependencies": {
