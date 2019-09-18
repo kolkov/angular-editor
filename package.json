@@ -6,12 +6,16 @@
     "start": "ng serve",
     "build": "ng build --prod",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint:lib": "ng lint angular-editor",
     "e2e": "ng e2e",
-    "build and watch angular-editor": "ng build angular-editor --watch",
-    "publish angular-editor": "npm run copy && npm publish ./dist/angular-editor",
-    "test angular-editor": "ng test angular-editor",
-    "copy": "copy \"./README.md\" \"dist/angular-editor/\""
+    "build-watch:lib": "ng build angular-editor --watch",
+    "test:lib": "ng test angular-editor",
+    "build:lib": "ng build angular-editor",
+    "publish:lib": "npm run copy && npm run copy:changelog && npm run copy:license && npm publish ./dist/angular-editor",
+    "copy:readme": "cpx README.md dist/angular-editor",
+    "copy:changelog": "cpx CHANGELOG.md dist/kolkov/ngx-metrika",
+    "copy:license": "cpx LICENSE dist/kolkov/ngx-metrika",
+    "test-ci": "ng test angular-editor --code-coverage --watch=false --browsers=ChromeHeadless && cat ./coverage/angular-editor/lcov.info | coveralls"
   },
   "private": true,
   "dependencies": {
