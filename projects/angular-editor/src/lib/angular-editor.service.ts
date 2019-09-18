@@ -19,6 +19,7 @@ export class AngularEditorService {
 
   constructor(
     private http: HttpClient,
+    // tslint:disable-next-line:variable-name
     @Inject(DOCUMENT) private _document: any
   ) { }
 
@@ -139,7 +140,7 @@ export class AngularEditorService {
     setTimeout(callbackFn, timeout);
   }
 
-  /** check any slection is made or not */
+  /** check any selection is made or not */
   private checkSelection(): any {
 
     const selectedText = this.savedSelection.toString();
@@ -153,7 +154,7 @@ export class AngularEditorService {
 
   /**
    * Upload file to uploadUrl
-   * @param file
+   * file
    */
   uploadImage(file: File): Observable<HttpEvent<UploadResponse>> {
 
@@ -169,7 +170,7 @@ export class AngularEditorService {
 
   /**
    * Insert image with Url
-   * @param imageUrl
+   * imageUrl
    */
   insertImage(imageUrl: string) {
     this._document.execCommand('insertImage', false, imageUrl);
@@ -204,7 +205,7 @@ export class AngularEditorService {
     const thumbnail = `
       <div style='position: relative'>
         <img style='position: absolute; left:200px; top:140px'
-             src="https://img.icons8.com/color/96/000000/youtube-play.png"
+             src="https://img.icons8.com/color/96/000000/youtube-play.png"/>
         <a href='${videoUrl}' target='_blank'>
           <img src="${imageUrl}" alt="click to watch"/>
         </a>
