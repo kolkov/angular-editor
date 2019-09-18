@@ -30,6 +30,7 @@ deploy:
   email: a.kolkov@gmail.com
   skip_cleanup: true
   api_key: $NPM_TOKEN
+  tag: latest
   on:
     tags: true
     repo: kolkov/angular-editor
