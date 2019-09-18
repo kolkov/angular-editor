@@ -38,6 +38,7 @@ export class AngularEditorToolbarComponent {
 
   @Output() execute: EventEmitter<string> = new EventEmitter<string>();
 
+  // @ts-ignore
   @ViewChild('fileInput') myInputFile: ElementRef;
 
   public get isLinkButtonDisabled(): boolean {
@@ -45,8 +46,10 @@ export class AngularEditorToolbarComponent {
   }
 
   constructor(
+    // tslint:disable-next-line:variable-name
     private _renderer: Renderer2,
     private editorService: AngularEditorService,
+    // tslint:disable-next-line:variable-name
     @Inject(DOCUMENT) private _document: any
   ) { }
 
@@ -223,8 +226,9 @@ export class AngularEditorToolbarComponent {
             });
         } else {
           const reader = new FileReader();
-          reader.onload = (_event) => {
-            this.editorService.insertImage(_event.target['result']);
+          reader.onload = (e: ProgressEvent) => {
+            const fr = e.currentTarget as FileReader;
+            this.editorService.insertImage(fr.result.toString());
           };
           reader.readAsDataURL(file);
         }

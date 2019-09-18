@@ -18,6 +18,7 @@ import {DOCUMENT} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
 import { SecurityContext } from '@angular/core';
 
+
 @Component({
   selector: 'angular-editor',
   templateUrl: './angular-editor.component.html',
@@ -43,16 +44,21 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
   @Output() html;
 
+  // @ts-ignore
   @ViewChild('editor') textArea: any;
+  // @ts-ignore
   @ViewChild('editorWrapper') editorWrapper: any;
+  // @ts-ignore
   @ViewChild('editorToolbar') editorToolbar: AngularEditorToolbarComponent;
 
   @Output() viewMode = new EventEmitter<boolean>();
 
   /** emits `blur` event when focused out from the textarea */
+    // tslint:disable-next-line:no-output-native
   @Output() blur: EventEmitter<string> = new EventEmitter<string>();
 
   /** emits `focus` event when focused in to the textarea */
+    // tslint:disable-next-line:no-output-native
   @Output() focus: EventEmitter<string> = new EventEmitter<string>();
 
   /*
@@ -70,9 +76,12 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   });
 
   constructor(
+    // tslint:disable-next-line:variable-name
     private _renderer: Renderer2,
     private editorService: AngularEditorService,
+    // tslint:disable-next-line:variable-name
     @Inject(DOCUMENT) private _document: any,
+    // tslint:disable-next-line:variable-name
     private _domSanitizer: DomSanitizer,
     private cdRef: ChangeDetectorRef
   ) { }
@@ -184,7 +193,8 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   onContentChange(html: string): void {
     this.observer.disconnect();
     if (typeof this.onChange === 'function') {
-      this.onChange(this.config.sanitize || this.config.sanitize === undefined ? this._domSanitizer.sanitize(SecurityContext.HTML, html) : html);
+      this.onChange(this.config.sanitize ||
+      this.config.sanitize === undefined ? this._domSanitizer.sanitize(SecurityContext.HTML, html) : html);
       if ((!html || html === '<br>' || html === '') !== this.showPlaceholder) {
         this.togglePlaceholder(this.showPlaceholder);
       }
@@ -260,7 +270,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   /**
    * Implements disabled state for this element
    *
-   * @param isDisabled
+   * isDisabled
    */
   setDisabledState(isDisabled: boolean): void {
     const div = this.textArea.nativeElement;
