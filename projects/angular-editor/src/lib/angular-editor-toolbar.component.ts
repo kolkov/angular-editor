@@ -40,6 +40,7 @@ export class AngularEditorToolbarComponent {
 
   @Output() execute: EventEmitter<string> = new EventEmitter<string>();
 
+  // @ts-ignore
   @ViewChild('fileInput') myInputFile: ElementRef;
 
   public get isLinkButtonDisabled(): boolean {
@@ -210,6 +211,9 @@ export class AngularEditorToolbarComponent {
         if (this.uploadUrl) {
             this.editorService.uploadImage(file).subscribe(e => {
               if (e instanceof HttpResponse) {
+                if (!e.body.imageUrl) {
+                  throw new Error('imageUrl if missing');
+                }
                 this.editorService.insertImage(e.body.imageUrl);
                 this.fileReset();
               }
