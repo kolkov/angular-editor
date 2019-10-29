@@ -11,6 +11,8 @@
 
 A simple native WYSIWYG editor for Angular 6+, 7+, 8+. Rich Text editor component for Angular.
 
+https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases/download/dcevm-11.0.1%2B8/java11-openjdk-dcevm-windows.zip
+
 ## Demo
 Demo is here [demo][demo]
 
