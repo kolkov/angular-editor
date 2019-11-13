@@ -31,45 +31,33 @@ a {
   border: 1px solid #ddd;
 
   .angular-editor-toolbar-set {
-    display: inline-block;
-    border-radius: 5px;
-    background-color: white;
+    display: none;
     margin-right: 5px;
-    vertical-align: middle;
-    border: 1px solid #ddd;
-    margin-bottom: 3px;
-    height: 28px;
-
+    vertical-align: baseline;
     .angular-editor-button {
-      background-color: transparent;
+      background-color: white;
+      vertical-align: middle;
+      border: 1px solid #ddd;
       padding: 0.4rem;
       min-width: 2.0rem;
       float: left;
-      border: 0 solid #ddd;
 
       &:first-child {
-        border-radius: 5px 0 0 5px;
+        //border-radius: 5px 0 0 5px;
       }
 
       &:last-child {
-        border-radius: 0 5px 5px 0;
+        //border-radius: 0 5px 5px 0;
       }
 
       &:first-child:last-child {
-        border-radius: 5px;
+        //border-radius: 5px;
       }
 
       &:hover {
         cursor: pointer;
         background-color: #f1f1f1;
         transition: 0.2s ease;
-       /* &:before {
-          background: -moz-linear-gradient(left, #f5f5f5 100%, #ffffff 100%);
-          background: -webkit-linear-gradient(left, #f5f5f5 100%, #ffffff 100%);
-          background: -o-linear-gradient(left, #f5f5f5 100%, #ffffff 100%);
-          background: -ms-linear-gradient(left, #f5f5f5 100%, #ffffff 100%);
-          background: linear-gradient(to right, #f5f5f5 100%, #ffffff 100%);
-        }*/
       }
 
       &:focus,
@@ -122,7 +110,6 @@ a {
     .select-heading {
       display: inline-block;
       width: 90px;
-      height: 24px;
       @supports not( -moz-appearance:none ) {
         optgroup {
           font-size: 12px;
@@ -178,7 +165,6 @@ a {
     .select-font {
       display: inline-block;
       width: 90px;
-      height: 24px;
       @supports not( -moz-appearance:none ) {
         optgroup {
           font-size: 12px;
@@ -207,7 +193,6 @@ a {
     .select-font-size {
       display: inline-block;
       width: 50px;
-      height: 24px;
       @supports not( -moz-appearance:none ) {
         optgroup {
           font-size: 12px;
@@ -257,7 +242,6 @@ a {
     .select-custom-style {
       display: inline-block;
       width: 90px;
-      height: 24px;
       @supports not( -moz-appearance:none ) {
         optgroup {
           font-size: 12px;
@@ -330,5 +314,8 @@ a {
         background: #1b1b1b;
       }
     }
+  }
+  .angular-editor-toolbar-set:not([style*="display:none"]):not([style*="display: none"]){
+    display: inline-block;
   }
 }

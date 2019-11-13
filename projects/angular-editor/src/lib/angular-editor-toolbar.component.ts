@@ -67,7 +67,6 @@ export class AngularEditorToolbarComponent {
     }
   ];
 
-  // fonts: SelectOption[] = [{label: '', value: ''}];
   fontSizes: SelectOption[] = [
     {
       label: '1',
@@ -142,6 +141,8 @@ export class AngularEditorToolbarComponent {
       this.fontSize = value;
     }
   }
+
+  @Input() hiddenButtons: string[][];
 
   @Output() execute: EventEmitter<string> = new EventEmitter<string>();
 
@@ -347,5 +348,24 @@ export class AngularEditorToolbarComponent {
     } else {
       this.editorService.createCustomClass(this._customClasses[+classId]);
     }
+  }
+
+  isButtonHidden(name: string): boolean {
+    if (!name) {
+      return false;
+    }
+    if (!(this.hiddenButtons instanceof Array)) {
+      return false;
+    }
+    let result: any;
+    for (const arr of this.hiddenButtons) {
+      if (arr instanceof Array) {
+        result = arr.find(item => item === name);
+      }
+      if (result) {
+        break;
+      }
+    }
+    return result !== undefined;
   }
 }

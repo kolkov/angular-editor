@@ -28,6 +28,7 @@ export class AppComponent implements OnInit {
     defaultFontName: 'Comic Sans MS',
     defaultFontSize: '5',
     // showToolbar: false,
+    defaultParagraphSeparator: 'p',
     customClasses: [
       {
         name: 'quote',
@@ -42,6 +43,10 @@ export class AppComponent implements OnInit {
         class: 'titleText',
         tag: 'h1',
       },
+    ],
+    toolbarHiddenButtons: [
+      ['bold', 'italic'],
+      ['fontSize']
     ]
   };
 
@@ -56,6 +61,7 @@ export class AppComponent implements OnInit {
     toolbarPosition: 'bottom',
     defaultFontName: 'Comic Sans MS',
     defaultFontSize: '5',
+    defaultParagraphSeparator: 'p',
     customClasses: [
       {
         name: 'quote',

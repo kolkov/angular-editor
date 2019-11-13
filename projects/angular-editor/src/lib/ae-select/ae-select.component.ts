@@ -1,16 +1,19 @@
 import {
+  Attribute,
   Component,
   ElementRef,
   EventEmitter,
-  forwardRef,
+  forwardRef, HostBinding,
   HostListener,
   Input,
   OnInit,
   Output,
-  Renderer2, ViewChild,
+  Renderer2,
+  ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {isDefined} from '../utils';
 
 export interface SelectOption {
   label: string;
@@ -32,6 +35,8 @@ export interface SelectOption {
 })
 export class AeSelectComponent implements OnInit, ControlValueAccessor {
   @Input() options: SelectOption[] = [];
+  // tslint:disable-next-line:no-input-rename
+  @Input('hidden') isHidden: boolean;
 
   selectedOption: SelectOption;
   disabled = false;
@@ -47,19 +52,27 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
     return this.selectedOption.value;
   }
 
-  /*@HostBinding('class') get getClass() {
-    return 'ae-select';
-  }*/
+  @HostBinding('style.display') hidden = 'inline-block';
 
   // tslint:disable-next-line:no-output-native no-output-rename
   @Output('change') changeEvent = new EventEmitter();
 
   @ViewChild('labelButton', {static: true}) labelButton: ElementRef;
 
-  constructor(private elRef: ElementRef, private r: Renderer2) { }
+  constructor(private elRef: ElementRef,
+              private r: Renderer2,
+  ) {}
 
   ngOnInit() {
+    console.log(this.isHidden);
     this.selectedOption = this.options[0];
+    if (isDefined(this.isHidden) && this.isHidden) {
+      this.hide();
+    }
+  }
+
+  hide() {
+    this.hidden = 'none';
   }
 
   optionSelect(option: SelectOption, event: MouseEvent) {
@@ -80,12 +93,11 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
   }
 
   @HostListener('document:click', ['$event'])
-    onClick($event: MouseEvent) {
-      if (!this.elRef.nativeElement.contains($event.target)) {
-        this.close();
-      }
+  onClick($event: MouseEvent) {
+    if (!this.elRef.nativeElement.contains($event.target)) {
+      this.close();
+    }
   }
-
 
   close() {
     this.opened = false;
@@ -114,8 +126,10 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
     }
   }
 
-  onChange: any = () => { };
-  onTouched: any = () => { };
+  onChange: any = () => {
+  }
+  onTouched: any = () => {
+  }
 
   registerOnChange(fn) {
     this.onChange = fn;
@@ -141,32 +155,32 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
     // console.log($event.key);
     // if (KeyCode[$event.key]) {
     switch ($event.key) {
-        case 'ArrowDown':
-          this._handleArrowDown($event);
-          break;
-        case 'ArrowUp':
-          this._handleArrowUp($event);
-          break;
-        case 'Space':
-          this._handleSpace($event);
-          break;
-        case 'Enter':
-          this._handleEnter($event);
-          break;
-        case 'Tab':
-          this._handleTab($event);
-          break;
-        case 'Escape':
-          this.close();
-          $event.preventDefault();
-          break;
-        case 'Backspace':
-          this._handleBackspace();
-          break;
-      }
+      case 'ArrowDown':
+        this._handleArrowDown($event);
+        break;
+      case 'ArrowUp':
+        this._handleArrowUp($event);
+        break;
+      case 'Space':
+        this._handleSpace($event);
+        break;
+      case 'Enter':
+        this._handleEnter($event);
+        break;
+      case 'Tab':
+        this._handleTab($event);
+        break;
+      case 'Escape':
+        this.close();
+        $event.preventDefault();
+        break;
+      case 'Backspace':
+        this._handleBackspace();
+        break;
+    }
     // } else if ($event.key && $event.key.length === 1) {
-      // this._keyPress$.next($event.key.toLocaleLowerCase());
-   // }
+    // this._keyPress$.next($event.key.toLocaleLowerCase());
+    // }
   }
 
   _handleArrowDown($event) {

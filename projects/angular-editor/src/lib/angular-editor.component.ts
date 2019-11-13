@@ -400,4 +400,9 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       this.focusInstance();
     }
   }
+
+  filterStyles(html: string): string {
+    html = html.replace('position: fixed;', '');
+    return html;
+  }
 }

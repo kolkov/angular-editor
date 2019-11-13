@@ -30,6 +30,7 @@ export interface AngularEditorConfig {
   sanitize?: boolean;
   toolbarPosition?: 'top' | 'bottom';
   outline?: boolean;
+  toolbarHiddenButtons?: string[][];
 }
 
 export const angularEditorConfig: AngularEditorConfig = {
@@ -57,4 +58,12 @@ export const angularEditorConfig: AngularEditorConfig = {
   sanitize: true,
   toolbarPosition: 'top',
   outline: true,
+  /*toolbarHiddenButtons: [
+    ['bold', 'italic', 'underline', 'strikeThrough', 'superscript', 'subscript'],
+    ['heading', 'fontName', 'fontSize', 'color'],
+    ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'indent', 'outdent'],
+    ['cut', 'copy', 'delete', 'removeFormat', 'undo', 'redo'],
+    ['paragraph', 'blockquote', 'removeBlockquote', 'horizontalLine', 'orderedList', 'unorderedList'],
+    ['link', 'unlink', 'image', 'video']
+  ]*/
 };
