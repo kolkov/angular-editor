@@ -112,6 +112,10 @@ editorConfig: AngularEditorConfig = {
     uploadUrl: 'v1/image',
     sanitize: true,
     toolbarPosition: 'top',
+    toolbarHiddenButtons: [
+      ['bold', 'italic'],
+      ['fontSize']
+    ]
 };
 ```
 
