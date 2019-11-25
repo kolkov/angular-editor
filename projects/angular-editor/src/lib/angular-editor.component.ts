@@ -114,10 +114,10 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     } else if (command !== '') {
       if (command === 'clear') {
         this.editorService.removeSelectedElements(this.getCustomTags());
-        this.onContentChange(this.textArea.nativeElement.innerHTML);
+        this.onContentChange(this.textArea.nativeElement);
       } else if (command === 'default') {
         this.editorService.removeSelectedElements('h1,h2,h3,h4,h5,h6,p,pre');
-        this.onContentChange(this.textArea.nativeElement.innerHTML);
+        this.onContentChange(this.textArea.nativeElement);
       } else {
         this.editorService.executeCommand(command);
       }
@@ -187,9 +187,15 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
   /**
    * Executed from the contenteditable section while the input property changes
-   * @param html html string from contenteditable
+   * @param element html element from contenteditable
    */
-  onContentChange(html: string): void {
+  onContentChange(element: HTMLElement): void {
+    let html = '';
+    if (this.modeVisual) {
+      html = element.innerHTML;
+    } else {
+      html = element.innerText;
+    }
     if ((!html || html === '<br>')) {
       html = '';
     }
@@ -331,7 +337,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       this.r.setProperty(editableElement, 'contentEditable', true);
       this.modeVisual = true;
       this.viewMode.emit(true);
-      this.onContentChange(editableElement.innerHTML);
+      this.onContentChange(editableElement);
       editableElement.focus();
     }
     this.editorToolbar.setEditorMode(!this.modeVisual);
