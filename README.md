@@ -41,7 +41,7 @@ npm install @kolkov/angular-editor --save
 
 Import `angular-editor` module
 
-```typescript
+```js
 import { HttpClientModule} from '@angular/common/http';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 
@@ -67,15 +67,13 @@ if you using more than one editor on same page set `id` property
 ```html
 <angular-editor id="editor1" formControlName="htmlContent1" [config]="editorConfig"></angular-editor>
 <angular-editor id="editor2" formControlName="htmlContent2" [config]="editorConfig"></angular-editor>
-
 ```
 
 where
 
-```typescript
+```js
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 
-...
 
 editorConfig: AngularEditorConfig = {
     editable: true,
@@ -116,10 +114,74 @@ editorConfig: AngularEditorConfig = {
     uploadUrl: 'v1/image',
     sanitize: true,
     toolbarPosition: 'top',
+    toolbarHiddenButtons: [
+      ['bold', 'italic'],
+      ['fontSize']
+    ]
 };
 ```
-
 For `ngModel` to work, you must import `FormsModule` from `@angular/forms`, or for `formControlName`, you must import `ReactiveFormsModule` from `@angular/forms`
+
+## API
+### Inputs
+| Input  | Type | Default | Required | Description |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+| id | `string` | `-` | no | Id property when multiple editor used on same page |
+| [config] | `AngularEditorConfig` | `default config` | no | config for the editor |
+| placeholder | `string` | `-` | no | Set custom placeholder for input area |
+| tabIndex | `number` | `-` | no | Set Set tabindex on angular-editor |
+
+### Outputs
+
+| Output  | Description |
+| ------------- | ------------- |
+| (html)  | Output html |
+| (viewMode)  | Fired when switched visual and html source mode |
+| (blur)  | Fired when editor blur |
+| (focus)  | Fired when editor focus |
+
+### Methods
+ Name  | Description |
+| ------------- | ------------- |
+| focus  | Focuses the editor element |
+
+### Other
+ Name  | Type | Description |
+| ------------- | ------------- | ------------- |
+| AngularEditorConfig | configuration | Configuration for the AngularEditor component.|
+
+### Configuration
+
+| Input  | Type | Default | Required | Description |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+| editable  | `bolean` | `true` | no | Set editing enabled or not |
+| spellcheck  | `bolean` | `true` | no | Set spellchecking enabled or not |
+| translate  | `sting` | `yes` | no | Set translating enabled or not |
+| sanitize  | `bolean` | `true` | no | Set DOM sanitizing enabled or not |
+| height  | `string` | `auto` | no | Set height of the editor |
+| minHeight  | `string` | `0` | no | Set minimum height of the editor |
+| maxHeight  | `string` | `auto` | no | Set maximum height of the editor |
+| width  | `string` | `auto` | no | Set width of the editor |
+| minWidth  | `string` | `0` | no | Set minimum width of the editor |
+| enableToolbar  | `bolean` | `true` | no | Set toolbar enabled or not |
+| showToolbar  | `bolean` | `true` | no | Set toolbar visible or not |
+| toolbarPosition  | `string` | `top` | no | Set toolbar position top or bottom |
+| placeholder  | `string` | `-` | no | Set placeholder text |
+| defaultParagraphSeparator  | `string` | `-` | no | Set default paragraph separator such as `p` |
+| defaultFontName  | `string` | `-` | no | Set default font such as `Comic Sans MS` |
+| defaultFontSize  | `string` | `-` | no | Set default font size such as `1` - `7` |
+| uploadUrl  | `string` | `-` | no | Set image upload endpoint `https://api.exapple.com/v1/image/upload` |
+| fonts  | `Font[]` | `-` | no | Set array of available fonts  `[{name, class},...]` |
+| customClasses  | `CustomClass[]` | `-` | no | Set array of available fonts  `[{name, class, tag},...]` |
+| outline  | `bolean` | `true` | no | Set outline of the editor if in focus |
+| toolbarHiddenButtons  | `string[][]` | `-` | no | Set of the array of button names or elements to hide |
+
+```js
+toolbarHiddenButtons: [
+      ['bold', 'italic'],
+      ['fontSize']
+    ]
+```
 
 ## What's included
 
