@@ -32,7 +32,7 @@ npm install @kolkov/angular-editor --save
 ```
 ### Versions
 
-1.x.x and above - for Angular v8.x.x
+1.0.0 and above - for Angular v8.x.x
 
 0.18.4 and above - for Angular v7.x.x
 
