@@ -1,3 +1,7 @@
+<p align="center">
+  <img width="150px" src="https://github.com/kolkov/angular-editor/blob/master/docs/angular-editor-logo.svg?raw=true&sanitize=true" alt="AngularEditor logo"/>
+</p>
+
 # AngularEditor
 [![npm version](https://badge.fury.io/js/%40kolkov%2Fangular-editor.svg)](https://badge.fury.io/js/%40kolkov%2Fangular-editor)
 [![demo](https://img.shields.io/badge/demo-StackBlitz-blueviolet.svg)](https://stackblitz.com/edit/angular-editor-wysiwyg)
