@@ -13,12 +13,13 @@
 [![devDependencies Status](https://david-dm.org/kolkov/angular-editor/dev-status.svg)](https://david-dm.org/kolkov/angular-editor?type=dev)
 [![codecov](https://codecov.io/gh/kolkov/angular-editor/branch/master/graph/badge.svg)](https://codecov.io/gh/kolkov/angular-editor)
 
-A simple native WYSIWYG editor for Angular 6+, 7+, 8+. Rich Text editor component for Angular.
+A simple native WYSIWYG/Rich Text editor for Angular 6-8+
+
+![Nov-27-2019 17-26-29](https://user-images.githubusercontent.com/216412/69763434-259cd800-113b-11ea-918f-0565ebce0e48.gif)
+
 
 ## Demo
-Demo is here [demo][demo]
-
-Working code for this demo at stackblitz [example](https://stackblitz.com/edit/angular-editor-wysiwyg)
+[demo](https://angular-editor-wysiwyg.stackblitz.io/) | [See the code in StackBlitz](https://stackblitz.com/edit/angular-editor-wysiwyg).
 
 ## Getting Started
 
