@@ -219,6 +219,6 @@ See [the Releases section of our project](https://github.com/kolkov/angular-edit
 
 * <https://github.com/kolkov>
 
-[npm]: https://www.npmjs.com/
+[npm]: https://www.npmjs.com/package/@kolkov/angular-editor
 [demo]: https://angular-editor-wysiwyg.stackblitz.io/
 [example]: https://stackblitz.com/edit/angular-editor-wysiwyg
