@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="150px" src="https://github.com/kolkov/angular-editor/blob/master/docs/angular-editor-logo.svg?raw=true&sanitize=true" alt="AngularEditor logo"/>
+  <img width="150px" src="https://raw.githubusercontent.com/kolkov/angular-editor/master/docs/angular-editor-logo.svg?raw=true&sanitize=true" alt="AngularEditor logo"/>
 </p>
 
 # AngularEditor
