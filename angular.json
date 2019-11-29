@@ -168,11 +168,8 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "customWebpackConfig": {
-              "path": "./projects/elements/elements-webpack.config.js"
-            },
             "outputPath": "projects/elements/dist/tmp",
             "index": "projects/elements/src/index.html",
             "main": "projects/elements/src/main.ts",

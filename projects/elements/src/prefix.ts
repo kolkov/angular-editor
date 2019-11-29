@@ -1,1 +1,1 @@
-export const PREFIX = 'my';
+export const PREFIX = '';

@@ -17,7 +17,7 @@
     "copy:changelog": "cpx CHANGELOG.md dist/kolkov/angular-editor",
     "copy:license": "cpx LICENSE dist/kolkov/angular-editor",
     "test-ci": "ng test angular-editor --code-coverage --watch=false --browsers=ChromeHeadless && cat ./coverage/angular-editor/lcov.info | coveralls",
-    "elements:build": "ng run elements:build:production --aot --main=projects/elements/src/angular-editor-component/compile.ts && npm run emements:cat && npm run elements:copy",
+    "elements:build": "ng run elements:build --aot --main=projects/elements/src/angular-editor-component/compile.ts && npm run emements:cat && npm run elements:copy",
     "emements:cat": "cat projects/elements/dist/tmp/runtime-es2015.js projects/elements/dist/tmp/main-es2015.js > projects/elements/dist/tmp/angular-editor.js",
     "elements:copy": "cpx projects/elements/dist/tmp/angular-editor.js components/"
   },
