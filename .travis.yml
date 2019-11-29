@@ -24,6 +24,7 @@ before_deploy:
   - npm run copy:readme
   - npm run copy:changelog
   - npm run copy:license
+  - npm run elements:build
   - cd dist/angular-editor
 deploy:
   provider: npm

@@ -16,18 +16,24 @@
     "copy:readme": "cpx README.md dist/angular-editor",
     "copy:changelog": "cpx CHANGELOG.md dist/kolkov/angular-editor",
     "copy:license": "cpx LICENSE dist/kolkov/angular-editor",
-    "test-ci": "ng test angular-editor --code-coverage --watch=false --browsers=ChromeHeadless && cat ./coverage/angular-editor/lcov.info | coveralls"
+    "test-ci": "ng test angular-editor --code-coverage --watch=false --browsers=ChromeHeadless && cat ./coverage/angular-editor/lcov.info | coveralls",
+    "elements:build": "ng run elements:build:production --aot --main=projects/elements/src/angular-editor-component/compile.ts && npm run emements:cat && npm run elements:copy",
+    "emements:cat": "cat projects/elements/dist/tmp/runtime-es2015.js projects/elements/dist/tmp/main-es2015.js > projects/elements/dist/tmp/angular-editor.js",
+    "elements:copy": "cpx projects/elements/dist/tmp/angular-editor.js components/"
   },
   "private": true,
   "dependencies": {
+    "@angular-builders/custom-webpack": "^8.4.0",
     "@angular/animations": "^8.2.3",
     "@angular/common": "^8.2.3",
     "@angular/compiler": "^8.2.3",
     "@angular/core": "^8.2.3",
+    "@angular/elements": "^8.2.3",
     "@angular/forms": "^8.2.3",
     "@angular/platform-browser": "^8.2.3",
     "@angular/platform-browser-dynamic": "^8.2.3",
     "@angular/router": "^8.2.3",
+    "document-register-element": "^1.7.2",
     "font-awesome": "^4.7.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
@@ -57,6 +63,7 @@
     "ts-node": "~8.5.0",
     "tsickle": "~0.37.0",
     "tslint": "~5.20.1",
-    "typescript": "~3.5.3"
+    "typescript": "~3.5.3",
+    "uuid": "^3.3.3"
   }
 }
