@@ -4,5 +4,6 @@ import { AngularEditorElementModule } from './angular-editor-component/angular-e
 
 enableProdMode();
 
-platformBrowserDynamic().bootstrapModule(AngularEditorElementModule)
+platformBrowserDynamic()
+  .bootstrapModule(AngularEditorElementModule)
   .catch(err => console.error(err));
