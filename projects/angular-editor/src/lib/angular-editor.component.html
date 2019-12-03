@@ -6,7 +6,7 @@
     <div #editor class="angular-editor-textarea" [attr.contenteditable]="config.editable"
          [attr.translate]="config.translate"
          [attr.spellcheck]="config.spellcheck" [style.height]="config.height" [style.minHeight]="config.minHeight" [style.maxHeight]="config.maxHeight"
-         (input)="onContentChange($event.target.innerHTML)"
+         (input)="onContentChange($event.target)"
          (focus)="onTextAreaFocus()"
          (blur)="onTextAreaBlur($event)"
          (click)="exec()"
