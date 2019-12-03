@@ -29,7 +29,7 @@
     "@angular/platform-browser-dynamic": "^7.2.15",
     "@angular/router": "^7.2.15",
     "font-awesome": "^4.7.0",
-    "rxjs": "~6.5.2",
+    "rxjs": "~6.5.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.29"
   },
@@ -52,7 +52,7 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
-    "ng-packagr": "^5.1.0",
+    "ng-packagr": "^5.7.1",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tsickle": ">=0.35.0",
