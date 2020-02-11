@@ -2,7 +2,6 @@ language: node_js
 node_js:
   - "10"
 dist: trusty
-sudo: required
 addons:
   chrome: stable
 cache:
@@ -29,8 +28,9 @@ deploy:
   provider: npm
   email: a.kolkov@gmail.com
   skip_cleanup: true
-  api_key: $NPM_TOKEN
+  api_token: $NPM_TOKEN
   tag: latest
+  edge: true
   on:
     tags: true
     repo: kolkov/angular-editor
