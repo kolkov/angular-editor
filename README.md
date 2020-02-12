@@ -12,6 +12,7 @@
 [![dependencies Status](https://david-dm.org/kolkov/angular-editor/status.svg)](https://david-dm.org/kolkov/angular-editor)
 [![devDependencies Status](https://david-dm.org/kolkov/angular-editor/dev-status.svg)](https://david-dm.org/kolkov/angular-editor?type=dev)
 [![codecov](https://codecov.io/gh/kolkov/angular-editor/branch/master/graph/badge.svg)](https://codecov.io/gh/kolkov/angular-editor)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/AndreyKolkov)
 
 A simple native WYSIWYG/Rich Text editor for Angular 6-8+
 
@@ -219,6 +220,10 @@ See [the Releases section of our project](https://github.com/kolkov/angular-edit
 **Andrey Kolkov**
 
 * <https://github.com/kolkov>
+
+## Donate
+
+If you like my work you can buy me a :beer: or :pizza: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/AndreyKolkov)
 
 [npm]: https://www.npmjs.com/package/@kolkov/angular-editor
 [demo]: https://angular-editor-wysiwyg.stackblitz.io/
