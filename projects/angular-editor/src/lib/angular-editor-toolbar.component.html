@@ -1,8 +1,10 @@
 <div class="angular-editor-toolbar" *ngIf="showToolbar">
   <div class="angular-editor-toolbar-set">
-    <button type="button" title="Undo" class="angular-editor-button" (click)="triggerCommand('undo')" tabindex="-1"><i
+    <button type="button" title="Undo" class="angular-editor-button" (click)="triggerCommand('undo')"
+            [hidden]="isButtonHidden('undo')" tabindex="-1"><i
       class='fa fa-undo'></i></button>
-    <button type="button" title="Redo" class="angular-editor-button" (click)="triggerCommand('redo')" tabindex="-1"><i
+    <button type="button" title="Redo" class="angular-editor-button" (click)="triggerCommand('redo')"
+            [hidden]="isButtonHidden('redo')" tabindex="-1"><i
       class='fa fa-repeat'></i></button>
   </div>
   <div class="angular-editor-toolbar-set">
