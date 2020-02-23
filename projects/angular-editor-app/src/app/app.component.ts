@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
     sanitize: false,
     // toolbarPosition: 'top',
     outline: true,
+    defaultValue : '<b>aaaa</b>',
     defaultFontName: 'Comic Sans MS',
     defaultFontSize: '5',
     // showToolbar: false,

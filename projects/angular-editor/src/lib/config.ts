@@ -21,6 +21,9 @@ export interface AngularEditorConfig {
   enableToolbar?: boolean;
   showToolbar?: boolean;
   placeholder?: string;
+  //CDELA defaultValue
+  defaultValue?: string;
+  //Fin CDELA defaultValue
   defaultParagraphSeparator?: string;
   defaultFontName?: string;
   defaultFontSize?: '1' | '2' | '3' | '4' | '5' | '6' | '7' | string;

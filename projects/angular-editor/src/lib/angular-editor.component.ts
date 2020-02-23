@@ -1,3 +1,8 @@
+/////////////
+// 2020/02/20
+// CDELA defaultValue
+// How to set a default value in text editor
+/////////////
 import {
   AfterViewInit,
   Attribute,
@@ -236,7 +241,12 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    */
   writeValue(value: any): void {
 
-    if ((!value || value === '<br>' || value === '') !== this.showPlaceholder) {
+    //CDELA DefaultValue
+    if (this.config.defaultValue && this.config.defaultValue != '' ) {
+      value = this.config.defaultValue;
+    }
+    //Fin CDELA DefaultValue
+    else if ((!value || value === '<br>' || value === '') !== this.showPlaceholder) {
       this.togglePlaceholder(this.showPlaceholder);
     }
 
