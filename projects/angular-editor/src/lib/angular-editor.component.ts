@@ -243,7 +243,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
     //CDELA DefaultValue
     if (this.config.defaultValue && this.config.defaultValue != '' ) {
-      value = this.config.defaultValue;
+       value = this.sanitizer.sanitize(SecurityContext.HTML, this.config.defaultValue);
     }
     //Fin CDELA DefaultValue
     else if ((!value || value === '<br>' || value === '') !== this.showPlaceholder) {
