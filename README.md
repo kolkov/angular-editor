@@ -225,7 +225,7 @@ See [the Releases section of our project](https://github.com/kolkov/angular-edit
 
 ## Donate
 
-If you like my work you can buy me a :beer: or :pizza: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/AndreyKolkov)
+If you like my work and I save your time you can buy me a :beer: or :pizza: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/AndreyKolkov)
 
 [npm]: https://www.npmjs.com/package/@kolkov/angular-editor
 [demo]: https://angular-editor-wysiwyg.stackblitz.io/
