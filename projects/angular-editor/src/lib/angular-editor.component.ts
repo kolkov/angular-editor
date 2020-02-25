@@ -368,6 +368,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
   private configure() {
     this.editorService.uploadUrl = this.config.uploadUrl;
+    this.editorService.uploadWithCredentials = this.config.uploadWithCredentials;
     if (this.config.defaultParagraphSeparator) {
       this.editorService.setDefaultParagraphSeparator(this.config.defaultParagraphSeparator);
     }
