@@ -182,9 +182,40 @@ For `ngModel` to work, you must import `FormsModule` from `@angular/forms`, or f
 
 ```js
 toolbarHiddenButtons: [
-      ['bold', 'italic'],
-      ['fontSize']
-    ]
+  [
+    'undo',
+    'redo',
+    'bold',
+    'italic',
+    'underline',
+    'strikeThrough',
+    'subscript',
+    'superscript',
+    'justifyLeft',
+    'justifyCenter',
+    'justifyRight',
+    'justifyFull',
+    'indent',
+    'outdent',
+    'insertUnorderedList',
+    'insertOrderedList',
+    'heading',
+    'fontName'
+  ],
+  [
+    'fontSize',
+    'textColor',
+    'backgroundColor',
+    'customClasses',
+    'link',
+    'unlink',
+    'insertImage',
+    'insertVideo',
+    'insertHorizontalRule',
+    'removeFormat',
+    'toggleEditorMode'
+  ]
+]
 ```
 
 ## What's included
