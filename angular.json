@@ -160,7 +160,7 @@
       }
     }
   },
-  "defaultProject": "angular-editor-app",
+  "defaultProject": "angular-editor",
   "cli": {
     "analytics": "fbddda2f-258b-4004-8062-d701809d0a1c"
   }
