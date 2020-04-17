@@ -29,7 +29,7 @@ export class AngularEditorService {
    */
   executeCommand(command: string) {
     const commands = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'pre'];
-    if (commands.includes(command)) {
+    if (commands.indexOf(command) > -1) {
       this.doc.execCommand('formatBlock', false, command);
       return;
     }
@@ -41,7 +41,7 @@ export class AngularEditorService {
    * @param url string from UI prompt
    */
   createLink(url: string) {
-    if (!url.includes('http')) {
+    if (!(url.indexOf('http') > -1)) {
       this.doc.execCommand('createlink', false, url);
     } else {
       const newUrl = '<a href="' + url + '" target="_blank">' + this.selectedText + '</a>';

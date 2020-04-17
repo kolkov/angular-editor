@@ -21,11 +21,10 @@
          [style.minHeight]="config.minHeight"
          [style.maxHeight]="config.maxHeight"
          [style.outline]="config.outline === false ? 'none': undefined"
-         (input)="onContentChange($event.target)"
          (focus)="onTextAreaFocus($event)"
          (blur)="onTextAreaBlur($event)"
          (click)="exec()"
-         (keyup)="exec()"
+         (keyup)="exec();onContentChange($event.target)"
          (mouseout)="onTextAreaMouseOut($event)"
     >
     </div>
