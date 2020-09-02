@@ -9,7 +9,6 @@ import {SelectOption} from './ae-select/ae-select.component';
   selector: 'angular-editor-toolbar',
   templateUrl: './angular-editor-toolbar.component.html',
   styleUrls: ['./angular-editor-toolbar.component.scss'],
-  providers: [AngularEditorService]
 })
 
 export class AngularEditorToolbarComponent {

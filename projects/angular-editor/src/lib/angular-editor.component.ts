@@ -34,8 +34,7 @@ import {isDefined} from './utils';
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => AngularEditorComponent),
       multi: true
-    },
-    AngularEditorService
+    }
   ]
 })
 export class AngularEditorComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnDestroy {
