@@ -26,5 +26,8 @@
     "wysiwyg-editor",
     "rich",
     "rich text editor"
-  ]
+  ],
+  "dependencies": {
+    "tslib": "^2.0.0"
+  }
 }
