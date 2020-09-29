@@ -10,11 +10,11 @@ import {
   Output,
   Renderer2,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {isDefined} from '../utils';
-
+import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 export interface SelectOption {
   label: string;
   value: string;
@@ -84,7 +84,7 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
   }
 
   toggleOpen(event: MouseEvent) {
-    // event.stopPropagation();
+    //event.stopPropagation();
     if (this.disabled) {
       return;
     }

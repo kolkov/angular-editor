@@ -1,16 +1,13 @@
-<span class="ae-font ae-picker" [ngClass]="{'ae-expanded':isOpen}">
-  <button [tabIndex]="-1" #labelButton tabindex="0" type="button" role="button" class="ae-picker-label" (click)="toggleOpen($event);">{{label}}
-    <svg viewBox="0 0 18 18">
-     <!-- <use x="0" y="0" xlink:href="../assets/icons.svg#hom"></use>-->
-      <polygon class="ae-stroke" points="7 11 9 13 11 11 7 11"></polygon>
-      <polygon class="ae-stroke" points="7 7 9 5 11 7 7 7"></polygon>
-    </svg>
+<span ngbDropdown class="ae-font ae-picker d-inline-block" [ngClass]="{'ae-expanded':isOpen}">
+  <button [tabIndex]="-1" #labelButton tabindex="0" type="button" role="button" class="ae-picker-label btn btn-light" (click)="toggleOpen($event);" ngbDropdownToggle>
+    {{label}}
   </button>
-  <span class="ae-picker-options">
+  <span class="ae-picker-options" ngbDropdownMenu>
     <button tabindex="-1" type="button" role="button" class="ae-picker-item"
           *ngFor="let item of options; let i = index"
           [ngClass]="{'selected': item.value === value, 'focused': i === optionId}"
-          (click)="optionSelect(item, $event)">
+          (click)="optionSelect(item, $event)"
+          ngbDropdownItem>
           {{item.label}}
     </button>
     <span class="dropdown-item" *ngIf="!options.length">No items for select</span>

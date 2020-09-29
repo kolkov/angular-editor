@@ -2,7 +2,6 @@
   &.ae-picker {
     color: #444;
     display: inline-block;
-    float: left;
     width: 100%;
     position: relative;
     vertical-align: middle;
@@ -18,22 +17,21 @@
     line-height: 26px;
     vertical-align: middle;
     font-size: 85%;
-    text-align: left;
+    text-align: center;
     background-color: white;
     min-width: 2rem;
-    float: left;
     border: 1px solid #ddd;
     text-overflow: clip;
     overflow: hidden;
     white-space: nowrap;
-    &:before {
-      content: '';
-      position: absolute;
-      right: 0; top: 0;
-      width: 20px;
-      height: 100%;
-      background: linear-gradient(to right, rgba(255, 255, 255,1), #ffffff 100%);
-    }
+    // &:before {
+    //   content: '';
+    //   position: absolute;
+    //   right: 0; top: 0;
+    //   width: 20px;
+    //   height: 100%;
+    //   background: linear-gradient(to right, rgba(255, 255, 255,1), #ffffff 100%);
+    // }
     &:focus {
       outline: none;
     }
@@ -53,24 +51,6 @@
         background: linear-gradient(to right, #f5f5f5 100%, #ffffff 100%);
       }
     }
-
-    svg {
-      position: absolute;
-      margin-top: -9px;
-      right: 0;
-      top: 50%;
-      width: 18px;
-      &:not(:root) {
-        overflow: hidden;
-      }
-      .ae-stroke {
-        fill: none;
-        stroke: #444;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        stroke-width: 2;
-      }
-    }
   }
   .ae-picker-options {
     background-color: #fff;
@@ -88,20 +68,20 @@
       padding-top: 5px;
       padding-left: 5px;
       z-index: 3;
-      text-align: left;
+      text-align: center;
       background-color: transparent;
       min-width: 2rem;
       width: 100%;
       border: 0 solid #ddd;
       &.selected {
         color: #06c;
-        background-color: #fff4c2;
+        background-color: #ffffff;
       }
       &.focused {
-        background-color: #fffa98;
+        background-color: #EBE9E8;
       }
       &:hover {
-        background-color: #fffa98;
+        background-color: #EBE9E8;
       }
     }
   }
