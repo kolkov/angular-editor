@@ -1,18 +1,18 @@
-import {NgModule} from '@angular/core';
-import {AngularEditorComponent} from './angular-editor.component';
-import {AngularEditorToolbarComponent} from './angular-editor-toolbar.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {CommonModule} from '@angular/common';
-import { AeSelectComponent } from './ae-select/ae-select.component';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faItalic, faBold, faSuperscript, faSubscript, faUnderline, faUndo, faAlignCenter, faAlignLeft, faAlignJustify, faAlignRight, faRedo, faStrikethrough, faIndent, faOutdent, faListOl, faListUl, faFont, faLink, faUnlink, faImage, faVideo, faMinus, faCode, faRemoveFormat } from '@fortawesome/free-solid-svg-icons';
-import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+import { faAlignCenter, faAlignJustify, faAlignLeft, faAlignRight, faBold, faCode, faFont, faImage, faIndent, faItalic, faLink, faListOl, faListUl, faMinus, faOutdent, faRedo, faRemoveFormat, faStrikethrough, faSubscript, faSuperscript, faUnderline, faUndo, faUnlink, faVideo } from '@fortawesome/free-solid-svg-icons';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { AeSelectComponent } from './ae-select/ae-select.component';
+import { AngularEditorToolbarComponent } from './angular-editor-toolbar.component';
+import { AngularEditorComponent } from './angular-editor.component';
 
 @NgModule({
   imports: [
-    CommonModule, FormsModule, ReactiveFormsModule,FontAwesomeModule,NgbPaginationModule, NgbAlertModule
+    CommonModule, FormsModule, ReactiveFormsModule, FontAwesomeModule, NgbDropdownModule
   ],
-  declarations: [AngularEditorComponent, AngularEditorToolbarComponent, AeSelectComponent,],
+  declarations: [AngularEditorComponent, AngularEditorToolbarComponent, AeSelectComponent],
   exports: [AngularEditorComponent, AngularEditorToolbarComponent]
 })
 export class AngularEditorModule {

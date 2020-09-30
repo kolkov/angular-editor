@@ -1,15 +1,13 @@
-<span ngbDropdown class="ae-font ae-picker d-inline-block" [ngClass]="{'ae-expanded':isOpen}">
-  <button [tabIndex]="-1" #labelButton tabindex="0" type="button" role="button" class="ae-picker-label btn btn-light" (click)="toggleOpen($event);" ngbDropdownToggle>
+<div ngbDropdown>
+  <button ngbDropdownToggle type="button" role="button" id="selectDropDown" class="btn btn-light">
     {{label}}
   </button>
-  <span class="ae-picker-options" ngbDropdownMenu>
-    <button tabindex="-1" type="button" role="button" class="ae-picker-item"
-          *ngFor="let item of options; let i = index"
-          [ngClass]="{'selected': item.value === value, 'focused': i === optionId}"
-          (click)="optionSelect(item, $event)"
-          ngbDropdownItem>
-          {{item.label}}
+  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+    <button ngbDropdownItem type="button" role="button" *ngFor="let item of options; let i = index"
+      (click)="optionSelect(item, $event)">
+      {{item.label}}
     </button>
-    <span class="dropdown-item" *ngIf="!options.length">No items for select</span>
-  </span>
-</span>
+    <div class="dropdown-item" *ngIf="!options.length">No items for select</div>
+  </div>
+</div>
+<!-- [ngClass]="{'selected': item.value === value, 'focused': i === optionId}" -->
