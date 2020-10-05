@@ -1,0 +1,8 @@
+.dropdown-item{
+
+    &.focused{
+        color: #16181b !important;
+        text-decoration: none !important;
+        background-color: #33c7ff !important;
+    }
+}
