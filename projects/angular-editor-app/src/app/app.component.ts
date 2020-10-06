@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {AngularEditorConfig} from 'angular-editor';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AngularEditorConfig } from 'angular-editor';
 
 @Component({
   selector: 'app-root',
@@ -47,7 +47,9 @@ export class AppComponent implements OnInit {
     toolbarHiddenButtons: [
       ['bold', 'italic'],
       ['fontSize']
-    ]
+    ],
+    toolbarBgClass: 'bg-dark',
+    toolbarBtnClass: 'btn btn-light btn-sm'
   };
 
   config2: AngularEditorConfig = {
@@ -79,7 +81,7 @@ export class AppComponent implements OnInit {
     ]
   };
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({

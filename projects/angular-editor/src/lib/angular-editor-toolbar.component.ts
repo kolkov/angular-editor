@@ -1,17 +1,16 @@
-import {Component, ElementRef, EventEmitter, Inject, Input, Output, Renderer2, ViewChild} from '@angular/core';
-import {AngularEditorService} from './angular-editor.service';
-import {HttpResponse} from '@angular/common/http';
-import {DOCUMENT} from '@angular/common';
-import {CustomClass} from './config';
-import {SelectOption} from './ae-select/ae-select.component';
+import { DOCUMENT } from '@angular/common';
+import { HttpResponse } from '@angular/common/http';
+import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
+import { SelectOption } from './ae-select/ae-select.component';
+import { AngularEditorService } from './angular-editor.service';
+import { CustomClass } from './config';
 
 @Component({
   selector: 'angular-editor-toolbar',
   templateUrl: './angular-editor-toolbar.component.html',
   styleUrls: ['./angular-editor-toolbar.component.scss'],
 })
-
-export class AngularEditorToolbarComponent {
+export class AngularEditorToolbarComponent implements OnInit {
   htmlMode = false;
   linkSelected = false;
   block = 'default';
@@ -101,7 +100,7 @@ export class AngularEditorToolbarComponent {
   customClassId = '-1';
   // tslint:disable-next-line:variable-name
   _customClasses: CustomClass[];
-  customClassList: SelectOption[] = [{label: '', value: ''}];
+  customClassList: SelectOption[] = [{ label: '', value: '' }];
   // uploadUrl: string;
 
   tagMap = {
@@ -113,18 +112,22 @@ export class AngularEditorToolbarComponent {
 
   buttons = ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'justifyLeft', 'justifyCenter',
     'justifyRight', 'justifyFull', 'indent', 'outdent', 'insertUnorderedList', 'insertOrderedList', 'link'];
+  activeButtons: string[];
 
   @Input() id: string;
   @Input() uploadUrl: string;
   @Input() showToolbar: boolean;
-  @Input() fonts: SelectOption[] = [{label: '', value: ''}];
+  @Input() fonts: SelectOption[] = [{ label: '', value: '' }];
+
+  @Input() toolbarBgClass: string;
+  @Input() toolbarBtnClass: string;
 
   @Input()
   set customClasses(classes: CustomClass[]) {
     if (classes) {
       this._customClasses = classes;
-      this.customClassList = this._customClasses.map((x, i) => ({label: x.name, value: i.toString()}));
-      this.customClassList.unshift({label: 'Clear Class', value: '-1'});
+      this.customClassList = this._customClasses.map((x, i) => ({ label: x.name, value: i.toString() }));
+      this.customClassList.unshift({ label: 'Clear Class', value: '-1' });
     }
   }
 
@@ -146,7 +149,7 @@ export class AngularEditorToolbarComponent {
 
   @Output() execute: EventEmitter<string> = new EventEmitter<string>();
 
-  @ViewChild('fileInput', {static: true}) myInputFile: ElementRef;
+  @ViewChild('fileInput', { static: true }) myInputFile: ElementRef;
 
   public get isLinkButtonDisabled(): boolean {
     return this.htmlMode || !Boolean(this.editorService.selectedText);
@@ -157,6 +160,12 @@ export class AngularEditorToolbarComponent {
     private editorService: AngularEditorService,
     @Inject(DOCUMENT) private doc: any
   ) {
+  }
+
+  ngOnInit() {
+    this.activeButtons = this.buttons.filter(it => !this.isButtonHidden(it));
+    this.toolbarBgClass = this.toolbarBgClass ? this.toolbarBgClass : '';
+    this.toolbarBtnClass = this.toolbarBtnClass ? this.toolbarBtnClass : 'btn btn-light';
   }
 
   /**
@@ -174,7 +183,7 @@ export class AngularEditorToolbarComponent {
     if (!this.showToolbar) {
       return;
     }
-    this.buttons.forEach(e => {
+    this.activeButtons.forEach(e => {
       const result = this.doc.queryCommandState(e);
       const elementById = this.doc.getElementById(e + '-' + this.id);
       if (result) {
@@ -314,22 +323,22 @@ export class AngularEditorToolbarComponent {
   onFileChanged(event) {
     const file = event.target.files[0];
     if (file.type.includes('image/')) {
-        if (this.uploadUrl) {
-            this.editorService.uploadImage(file).subscribe(e => {
-              if (e instanceof HttpResponse) {
-                this.editorService.insertImage(e.body.imageUrl);
-                event.srcElement.value = null;
-              }
-            });
-        } else {
-          const reader = new FileReader();
-          reader.onload = (e: ProgressEvent) => {
-            const fr = e.currentTarget as FileReader;
-            this.editorService.insertImage(fr.result.toString());
-          };
-          reader.readAsDataURL(file);
-        }
+      if (this.uploadUrl) {
+        this.editorService.uploadImage(file).subscribe(e => {
+          if (e instanceof HttpResponse) {
+            this.editorService.insertImage(e.body.imageUrl);
+            event.srcElement.value = null;
+          }
+        });
+      } else {
+        const reader = new FileReader();
+        reader.onload = (e: ProgressEvent) => {
+          const fr = e.currentTarget as FileReader;
+          this.editorService.insertImage(fr.result.toString());
+        };
+        reader.readAsDataURL(file);
       }
+    }
   }
 
   /**

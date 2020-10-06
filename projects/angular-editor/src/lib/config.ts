@@ -32,6 +32,8 @@ export interface AngularEditorConfig {
   toolbarPosition?: 'top' | 'bottom';
   outline?: boolean;
   toolbarHiddenButtons?: string[][];
+  toolbarBgClass?: string;
+  toolbarBtnClass?: string;
 }
 
 export const angularEditorConfig: AngularEditorConfig = {
@@ -50,10 +52,10 @@ export const angularEditorConfig: AngularEditorConfig = {
   defaultFontName: '',
   defaultFontSize: '',
   fonts: [
-    {class: 'arial', name: 'Arial'},
-    {class: 'times-new-roman', name: 'Times New Roman'},
-    {class: 'calibri', name: 'Calibri'},
-    {class: 'comic-sans-ms', name: 'Comic Sans MS'}
+    { class: 'arial', name: 'Arial' },
+    { class: 'times-new-roman', name: 'Times New Roman' },
+    { class: 'calibri', name: 'Calibri' },
+    { class: 'comic-sans-ms', name: 'Comic Sans MS' }
   ],
   uploadUrl: 'v1/image',
   uploadWithCredentials: false,

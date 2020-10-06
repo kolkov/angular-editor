@@ -1,81 +1,81 @@
-<div *ngIf="showToolbar">
+<div *ngIf="showToolbar" [class]="toolbarBgClass">
   <div class="btn-group m-1">
-    <button type="button" title="Undo" class="btn btn-light" (click)="triggerCommand('undo')"
+    <button type="button" title="Undo" [class]="toolbarBtnClass" (click)="triggerCommand('undo')"
       [hidden]="isButtonHidden('undo')" tabindex="-1">
       <fa-icon [icon]="['fas', 'undo']" [fixedWidth]="true"></fa-icon>
     </button>
-    <button type="button" title="Redo" class="btn btn-light" (click)="triggerCommand('redo')"
+    <button type="button" title="Redo" [class]="toolbarBtnClass" (click)="triggerCommand('redo')"
       [hidden]="isButtonHidden('redo')" tabindex="-1">
       <fa-icon [icon]="['fas', 'redo']" [fixedWidth]="true"></fa-icon>
     </button>
   </div>
   <div class="btn-group m-1">
-    <button [id]="'bold-'+id" type="button" title="Bold" class="btn btn-light" (click)="triggerCommand('bold')"
+    <button [id]="'bold-'+id" type="button" title="Bold" [class]="toolbarBtnClass" (click)="triggerCommand('bold')"
       [disabled]="htmlMode" *ngIf="!isButtonHidden('bold')" tabindex="-1">
       <fa-icon [icon]="['fas', 'bold']" [fixedWidth]="true"></fa-icon>
     </button>
-    <button [id]="'italic-'+id" type="button" title="Italic" class="btn btn-light" (click)="triggerCommand('italic')"
-      [disabled]="htmlMode" *ngIf="!isButtonHidden('italic')" tabindex="-1">
+    <button [id]="'italic-'+id" type="button" title="Italic" [class]="toolbarBtnClass"
+      (click)="triggerCommand('italic')" [disabled]="htmlMode" *ngIf="!isButtonHidden('italic')" tabindex="-1">
       <fa-icon [icon]="['fas', 'italic']" [fixedWidth]="true"></fa-icon>
     </button>
-    <button [id]="'underline-'+id" type="button" title="Underline" class="btn btn-light"
+    <button [id]="'underline-'+id" type="button" title="Underline" [class]="toolbarBtnClass"
       (click)="triggerCommand('underline')" [disabled]="htmlMode" [hidden]="isButtonHidden('underline')" tabindex="-1">
       <fa-icon [icon]="['fas', 'underline']" [fixedWidth]="true"></fa-icon>
     </button>
-    <button [id]="'strikeThrough-'+id" type="button" title="Strikethrough" class="btn btn-light"
+    <button [id]="'strikeThrough-'+id" type="button" title="Strikethrough" [class]="toolbarBtnClass"
       (click)="triggerCommand('strikeThrough')" [disabled]="htmlMode" [hidden]="isButtonHidden('strikeThrough')"
       tabindex="-1">
       <fa-icon [icon]="['fas', 'strikethrough']" [fixedWidth]="true"></fa-icon>
     </button>
-    <button [id]="'subscript-'+id" type="button" title="Subscript" class="btn btn-light"
+    <button [id]="'subscript-'+id" type="button" title="Subscript" [class]="toolbarBtnClass"
       (click)="triggerCommand('subscript')" [disabled]="htmlMode" [hidden]="isButtonHidden('subscript')" tabindex="-1">
       <fa-icon [icon]="['fas', 'subscript']" [fixedWidth]="true"></fa-icon>
     </button>
-    <button [id]="'superscript-'+id" type="button" title="Superscript" class="btn btn-light"
+    <button [id]="'superscript-'+id" type="button" title="Superscript" [class]="toolbarBtnClass"
       (click)="triggerCommand('superscript')" [disabled]="htmlMode" [hidden]="isButtonHidden('superscript')"
       tabindex="-1">
       <fa-icon [icon]="['fas', 'superscript']" [fixedWidth]="true"></fa-icon>
     </button>
   </div>
   <div class="btn-group m-1">
-    <button [id]="'justifyLeft-'+id" type="button" title="Justify Left" class="btn btn-light"
+    <button [id]="'justifyLeft-'+id" type="button" title="Justify Left" [class]="toolbarBtnClass"
       (click)="triggerCommand('justifyLeft')" [disabled]="htmlMode" [hidden]="isButtonHidden('justifyLeft')"
       tabindex="-1">
       <fa-icon [icon]="['fas', 'align-left']" [fixedWidth]="true"></fa-icon>
     </button>
-    <button [id]="'justifyCenter-'+id" type="button" title="Justify Center" class="btn btn-light"
+    <button [id]="'justifyCenter-'+id" type="button" title="Justify Center" [class]="toolbarBtnClass"
       (click)="triggerCommand('justifyCenter')" [disabled]="htmlMode" [hidden]="isButtonHidden('justifyCenter')"
       tabindex="-1">
       <fa-icon [icon]="['fas', 'align-center']" [fixedWidth]="true"></fa-icon>
     </button>
-    <button [id]="'justifyRight-'+id" type="button" title="Justify Right" class="btn btn-light"
+    <button [id]="'justifyRight-'+id" type="button" title="Justify Right" [class]="toolbarBtnClass"
       (click)="triggerCommand('justifyRight')" [disabled]="htmlMode" [hidden]="isButtonHidden('justifyRight')"
       tabindex="-1">
       <fa-icon [icon]="['fas', 'align-right']" [fixedWidth]="true"></fa-icon>
     </button>
-    <button [id]="'justifyFull-'+id" type="button" title="Justify Full" class="btn btn-light"
+    <button [id]="'justifyFull-'+id" type="button" title="Justify Full" [class]="toolbarBtnClass"
       (click)="triggerCommand('justifyFull')" [disabled]="htmlMode" [hidden]="isButtonHidden('justifyFull')"
       tabindex="-1">
       <fa-icon [icon]="['fas', 'align-justify']" [fixedWidth]="true"></fa-icon>
     </button>
   </div>
   <div class="btn-group m-1">
-    <button [id]="'indent-'+id" type="button" title="Indent" class="btn btn-light" (click)="triggerCommand('indent')"
-      [disabled]="htmlMode" [hidden]="isButtonHidden('indent')" tabindex="-1">
+    <button [id]="'indent-'+id" type="button" title="Indent" [class]="toolbarBtnClass"
+      (click)="triggerCommand('indent')" [disabled]="htmlMode" [hidden]="isButtonHidden('indent')" tabindex="-1">
       <fa-icon [icon]="['fas', 'indent']" [fixedWidth]="true"></fa-icon>
     </button>
-    <button [id]="'outdent-'+id" type="button" title="Outdent" class="btn btn-light" (click)="triggerCommand('outdent')"
-      [disabled]="htmlMode" [hidden]="isButtonHidden('outdent')" tabindex="-1">
+    <button [id]="'outdent-'+id" type="button" title="Outdent" [class]="toolbarBtnClass"
+      (click)="triggerCommand('outdent')" [disabled]="htmlMode" [hidden]="isButtonHidden('outdent')" tabindex="-1">
       <fa-icon [icon]="['fas', 'outdent']" [fixedWidth]="true"></fa-icon>
     </button>
   </div>
   <div class="btn-group m-1">
-    <button [id]="'insertUnorderedList-'+id" type="button" title="Unordered List" class="btn btn-light"
+    <button [id]="'insertUnorderedList-'+id" type="button" title="Unordered List" [class]="toolbarBtnClass"
       (click)="triggerCommand('insertUnorderedList')" [disabled]="htmlMode"
       [hidden]="isButtonHidden('insertUnorderedList')" tabindex="-1">
       <fa-icon [icon]="['fas', 'list-ul']" [fixedWidth]="true"></fa-icon>
     </button>
-    <button [id]="'insertOrderedList-'+id" type="button" title="Ordered List" class="btn btn-light"
+    <button [id]="'insertOrderedList-'+id" type="button" title="Ordered List" [class]="toolbarBtnClass"
       (click)="triggerCommand('insertOrderedList')" [disabled]="htmlMode" [hidden]="isButtonHidden('insertOrderedList')"
       tabindex="-1">
       <fa-icon [icon]="['fas', 'list-ol']" [fixedWidth]="true"></fa-icon>
@@ -98,16 +98,17 @@
   </div>
   <div class="btn-group m-1">
     <input style="display: none" type="color" (change)="insertColor(fgInput.value, 'textColor')" #fgInput>
-    <button [id]="'foregroundColorPicker-'+id" type="button" class="btn btn-light" (click)="fgInput.click()"
+    <button [id]="'foregroundColorPicker-'+id" type="button" [class]="toolbarBtnClass" (click)="fgInput.click()"
       title="Text Color" [disabled]="htmlMode" [hidden]="isButtonHidden('textColor')" tabindex="-1"><span
         class="color-label foreground">
         <fa-icon [icon]="['fas', 'font']" [fixedWidth]="true"></fa-icon>
       </span>
     </button>
     <input style="display: none" type="color" (change)="insertColor(bgInput.value, 'backgroundColor')" #bgInput>
-    <button [id]="'backgroundColorPicker-'+id" type="button" class="btn btn-light" (click)="bgInput.click()"
+    <button [id]="'backgroundColorPicker-'+id" type="button" [class]="toolbarBtnClass" (click)="bgInput.click()"
       title="Background Color" [disabled]="htmlMode" [hidden]="isButtonHidden('backgroundColor')" tabindex="-1"><span
-        class="color-label background"><fa-icon [icon]="['fas', 'highlighter']" [fixedWidth]="true"></fa-icon>
+        class="color-label background">
+        <fa-icon [icon]="['fas', 'highlighter']" [fixedWidth]="true"></fa-icon>
       </span>
     </button>
   </div>
@@ -117,38 +118,38 @@
       tabindex="-1"></ae-select>
   </div>
   <div class="btn-group m-1">
-    <button [id]="'link-'+id" type="button" class="btn btn-light" (click)="insertUrl()" title="Insert Link"
+    <button [id]="'link-'+id" type="button" [class]="toolbarBtnClass" (click)="insertUrl()" title="Insert Link"
       [disabled]="isLinkButtonDisabled" [hidden]="isButtonHidden('link')" tabindex="-1">
       <fa-icon [icon]="['fas', 'link']" [fixedWidth]="true"></fa-icon>
     </button>
-    <button [id]="'unlink-'+id" type="button" class="btn btn-light" (click)="triggerCommand('unlink')" title="Unlink"
-      [disabled]="htmlMode || !linkSelected" [hidden]="isButtonHidden('unlink')" tabindex="-1">
+    <button [id]="'unlink-'+id" type="button" [class]="toolbarBtnClass" (click)="triggerCommand('unlink')"
+      title="Unlink" [disabled]="htmlMode || !linkSelected" [hidden]="isButtonHidden('unlink')" tabindex="-1">
       <fa-icon [icon]="['fas', 'unlink']" [fixedWidth]="true"></fa-icon>
     </button>
     <input style="display: none" accept="image/*" type="file" (change)="onFileChanged($event)" #fileInput>
-    <button [id]="'insertImage-'+id" type="button" class="btn btn-light" (click)="fileInput.click()"
+    <button [id]="'insertImage-'+id" type="button" [class]="toolbarBtnClass" (click)="fileInput.click()"
       title="Insert Image" [disabled]="htmlMode" [hidden]="isButtonHidden('insertImage')" tabindex="-1">
       <fa-icon [icon]="['fas', 'image']" [fixedWidth]="true"></fa-icon>
     </button>
-    <button [id]="'insertVideo-'+id" type="button" class="btn btn-light" (click)="insertVideo()" title="Insert Video"
-      [disabled]="htmlMode" [hidden]="isButtonHidden('insertVideo')" tabindex="-1">
+    <button [id]="'insertVideo-'+id" type="button" [class]="toolbarBtnClass" (click)="insertVideo()"
+      title="Insert Video" [disabled]="htmlMode" [hidden]="isButtonHidden('insertVideo')" tabindex="-1">
       <fa-icon [icon]="['fas', 'video']" [fixedWidth]="true"></fa-icon>
     </button>
-    <button [id]="'insertHorizontalRule-'+id" type="button" title="Horizontal Line" class="btn btn-light"
+    <button [id]="'insertHorizontalRule-'+id" type="button" title="Horizontal Line" [class]="toolbarBtnClass"
       (click)="triggerCommand('insertHorizontalRule')" [disabled]="htmlMode"
       [hidden]="isButtonHidden('insertHorizontalRule')" tabindex="-1">
       <fa-icon [icon]="['fas', 'minus']" [fixedWidth]="true"></fa-icon>
     </button>
   </div>
   <div class="btn-group m-1">
-    <button [id]="'clearFormatting-'+id" type="button" title="Clear Formatting" class="btn btn-light"
+    <button [id]="'clearFormatting-'+id" type="button" title="Clear Formatting" [class]="toolbarBtnClass"
       (click)="triggerCommand('removeFormat')" [disabled]="htmlMode" [hidden]="isButtonHidden('removeFormat')"
       tabindex="-1">
       <fa-icon [icon]="['fas', 'remove-format']" [fixedWidth]="true"></fa-icon>
     </button>
   </div>
   <div class="btn-group m-1">
-    <button [id]="'toggleEditorMode-'+id" type="button" title="HTML Code" class="btn btn-light"
+    <button [id]="'toggleEditorMode-'+id" type="button" title="HTML Code" [class]="toolbarBtnClass"
       (click)="triggerCommand('toggleEditorMode')" [hidden]="isButtonHidden('toggleEditorMode')" tabindex="-1">
       <fa-icon [icon]="['fas', 'code']" [fixedWidth]="true"></fa-icon>
     </button>

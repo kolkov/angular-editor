@@ -2,7 +2,7 @@
 
 .angular-editor {
   position: relative;
-  background-color: gainsboro;
+  // background-color: gainsboro;
 
   ::ng-deep [contenteditable=true]:empty:before {
     content: attr(placeholder);
