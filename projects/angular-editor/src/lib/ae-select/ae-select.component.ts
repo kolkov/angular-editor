@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {isDefined} from '../utils';
-import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+
 export interface SelectOption {
   label: string;
   value: string;
@@ -37,6 +37,8 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
   @Input() options: SelectOption[] = [];
   // tslint:disable-next-line:no-input-rename
   @Input('hidden') isHidden: boolean;
+
+  @Input() selectBtnClass: string;
 
   selectedOption: SelectOption;
   disabled = false;

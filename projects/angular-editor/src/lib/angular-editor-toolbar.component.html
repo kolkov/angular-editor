@@ -83,37 +83,33 @@
   </div>
   <div class="btn-group m-1">
 
-    <ae-select class="select-heading" [options]="headings" [(ngModel)]="block" (change)="triggerCommand(block)"
+    <ae-select class="select-heading" [selectBtnClass]="toolbarBtnClass" [options]="headings" [(ngModel)]="block" (change)="triggerCommand(block)"
       [disabled]="htmlMode" [hidden]="isButtonHidden('heading')" tabindex="-1"></ae-select>
   </div>
   <div class="btn-group m-1">
 
-    <ae-select class="select-font" [options]="fonts" [(ngModel)]="fontName" (change)="setFontName(fontName)"
+    <ae-select class="select-font" [selectBtnClass]="toolbarBtnClass" [options]="fonts" [(ngModel)]="fontName" (change)="setFontName(fontName)"
       [disabled]="htmlMode" [hidden]="isButtonHidden('fontName')" tabindex="-1"></ae-select>
   </div>
   <div class="btn-group m-1">
-    <ae-select class="select-font-size" [options]="fontSizes" [(ngModel)]="fontSize" (change)="setFontSize(fontSize)"
+    <ae-select class="select-font-size" [selectBtnClass]="toolbarBtnClass" [options]="fontSizes" [(ngModel)]="fontSize" (change)="setFontSize(fontSize)"
       [hidden]="isButtonHidden('fontSize')" tabindex="-1">
     </ae-select>
   </div>
   <div class="btn-group m-1">
     <input style="display: none" type="color" (change)="insertColor(fgInput.value, 'textColor')" #fgInput>
     <button [id]="'foregroundColorPicker-'+id" type="button" [class]="toolbarBtnClass" (click)="fgInput.click()"
-      title="Text Color" [disabled]="htmlMode" [hidden]="isButtonHidden('textColor')" tabindex="-1"><span
-        class="color-label foreground">
-        <fa-icon [icon]="['fas', 'font']" [fixedWidth]="true"></fa-icon>
-      </span>
+      title="Text Color" [disabled]="htmlMode" [hidden]="isButtonHidden('textColor')" tabindex="-1">
+      <fa-icon [icon]="['fas', 'font']" [fixedWidth]="true"></fa-icon>
     </button>
     <input style="display: none" type="color" (change)="insertColor(bgInput.value, 'backgroundColor')" #bgInput>
     <button [id]="'backgroundColorPicker-'+id" type="button" [class]="toolbarBtnClass" (click)="bgInput.click()"
-      title="Background Color" [disabled]="htmlMode" [hidden]="isButtonHidden('backgroundColor')" tabindex="-1"><span
-        class="color-label background">
-        <fa-icon [icon]="['fas', 'highlighter']" [fixedWidth]="true"></fa-icon>
-      </span>
+      title="Background Color" [disabled]="htmlMode" [hidden]="isButtonHidden('backgroundColor')" tabindex="-1">
+      <fa-icon [icon]="['fas', 'highlighter']" [fixedWidth]="true"></fa-icon>
     </button>
   </div>
   <div *ngIf="_customClasses" class="btn-group m-1">
-    <ae-select class="select-custom-style" [options]="customClassList" [(ngModel)]="customClassId"
+    <ae-select class="select-custom-style" [selectBtnClass]="toolbarBtnClass" [options]="customClassList" [(ngModel)]="customClassId"
       (change)="setCustomClass(customClassId)" [disabled]="htmlMode" [hidden]="isButtonHidden('customClasses')"
       tabindex="-1"></ae-select>
   </div>

@@ -1,14 +1,12 @@
 .dropdown-item{
     &.focused{
         color: #16181b !important;
-        text-decoration: none !important;
-        background-color: lightskyblue !important;
-        border-color: lightblue;
+        background-color: #dae0e5;
+        border-color: #d3d9df;
     }
     &:active {
         color: #fff;
-        text-decoration: none;
-        background-color: lightblue;
-        border-color: transparent;
+        background-color: #dae0e5;
+        border-color: #d3d9df;
     }
 }

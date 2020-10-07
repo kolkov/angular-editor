@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
       ['fontSize']
     ],
     toolbarBgClass: 'bg-dark',
-    toolbarBtnClass: 'btn btn-light btn-sm'
+    toolbarBtnClass: 'btn btn-light btn-sm',
   };
 
   config2: AngularEditorConfig = {
