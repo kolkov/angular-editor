@@ -369,7 +369,8 @@ export class AngularEditorToolbarComponent implements OnInit {
       if (result) {
         break;
       }
-    }
+    }      
     return result !== undefined;
   }
+
 }

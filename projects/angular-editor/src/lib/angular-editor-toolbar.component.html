@@ -91,17 +91,17 @@
     <ae-select class="select-font" [selectBtnClass]="toolbarBtnClass" [options]="fonts" [(ngModel)]="fontName" (change)="setFontName(fontName)"
       [disabled]="htmlMode" [hidden]="isButtonHidden('fontName')" tabindex="-1"></ae-select>
   </div>
-  <div class="btn-group m-1">
+  <div [ngClass]="{'btn-group m-1' : !isButtonHidden('fontSize')}" [ngStyle]="{'display':'inline-block'}">
     <ae-select class="select-font-size" [selectBtnClass]="toolbarBtnClass" [options]="fontSizes" [(ngModel)]="fontSize" (change)="setFontSize(fontSize)"
       [hidden]="isButtonHidden('fontSize')" tabindex="-1">
     </ae-select>
   </div>
   <div class="btn-group m-1">
-    <input style="display: none" type="color" (change)="insertColor(fgInput.value, 'textColor')" #fgInput>
     <button [id]="'foregroundColorPicker-'+id" type="button" [class]="toolbarBtnClass" (click)="fgInput.click()"
       title="Text Color" [disabled]="htmlMode" [hidden]="isButtonHidden('textColor')" tabindex="-1">
       <fa-icon [icon]="['fas', 'font']" [fixedWidth]="true"></fa-icon>
     </button>
+    <input style="display: none" type="color" (change)="insertColor(fgInput.value, 'textColor')" #fgInput>
     <input style="display: none" type="color" (change)="insertColor(bgInput.value, 'backgroundColor')" #bgInput>
     <button [id]="'backgroundColorPicker-'+id" type="button" [class]="toolbarBtnClass" (click)="bgInput.click()"
       title="Background Color" [disabled]="htmlMode" [hidden]="isButtonHidden('backgroundColor')" tabindex="-1">
