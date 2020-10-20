@@ -20,7 +20,12 @@
             "tsConfig": "projects/angular-editor/tsconfig.lib.json",
             "project": "projects/angular-editor/ng-package.json"
           }
-        },
+        ,          "configurations": {
+            "production": {
+              "tsConfig": "projects/angular-editor/tsconfig.lib.prod.json"
+            }
+          }
+},
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -57,6 +62,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/angular-editor-app",
             "index": "projects/angular-editor-app/src/index.html",
             "main": "projects/angular-editor-app/src/main.ts",
@@ -93,6 +99,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
