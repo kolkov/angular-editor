@@ -1,3 +1,7 @@
+import { UploadResponse } from './angular-editor.service';
+import { HttpEvent } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
 export interface CustomClass {
   name: string;
   class: string;
@@ -25,6 +29,7 @@ export interface AngularEditorConfig {
   defaultFontName?: string;
   defaultFontSize?: '1' | '2' | '3' | '4' | '5' | '6' | '7' | string;
   uploadUrl?: string;
+  upload?: (file: File) => Observable<HttpEvent<UploadResponse>>;
   uploadWithCredentials?: boolean;
   fonts?: Font[];
   customClasses?: CustomClass[];

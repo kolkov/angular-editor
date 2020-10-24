@@ -114,6 +114,7 @@ editorConfig: AngularEditorConfig = {
       },
     ],
     uploadUrl: 'v1/image',
+    upload: (file: File) => { ... }
     uploadWithCredentials: false,
     sanitize: true,
     toolbarPosition: 'top',
@@ -174,6 +175,7 @@ For `ngModel` to work, you must import `FormsModule` from `@angular/forms`, or f
 | defaultFontName  | `string` | `-` | no | Set default font such as `Comic Sans MS` |
 | defaultFontSize  | `string` | `-` | no | Set default font size such as `1` - `7` |
 | uploadUrl  | `string` | `-` | no | Set image upload endpoint `https://api.exapple.com/v1/image/upload` |
+| upload  | `function` | `-` | no | Set image upload function |
 | uploadWithCredentials | `bolean` | `false` | no | Set passing or not credentials in the image upload call |
 | fonts  | `Font[]` | `-` | no | Set array of available fonts  `[{name, class},...]` |
 | customClasses  | `CustomClass[]` | `-` | no | Set array of available fonts  `[{name, class, tag},...]` |
