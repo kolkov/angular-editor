@@ -98,7 +98,7 @@
       style="display: none"
       type="color" (change)="insertColor(fgInput.value, 'textColor')"
       #fgInput>
-    <button [id]="'foregroundColorPicker-'+id" type="button" class="angular-editor-button" (click)="fgInput.click()"
+    <button [id]="'foregroundColorPicker-'+id" type="button" class="angular-editor-button" (click)="focus(); ; fgInput.click()"
             title="Text Color"
             [disabled]="htmlMode" [hidden]="isButtonHidden('textColor')" tabindex="-1"><span
       class="color-label foreground"><i class="fa fa-font"></i></span>
@@ -107,7 +107,7 @@
       style="display: none"
       type="color" (change)="insertColor(bgInput.value, 'backgroundColor')"
       #bgInput>
-    <button [id]="'backgroundColorPicker-'+id" type="button" class="angular-editor-button" (click)="bgInput.click()"
+    <button [id]="'backgroundColorPicker-'+id" type="button" class="angular-editor-button" (click)="focus(); ; bgInput.click()"
             title="Background Color"
             [disabled]="htmlMode" [hidden]="isButtonHidden('backgroundColor')" tabindex="-1"><span
       class="color-label background"><i class="fa fa-font"></i></span>
@@ -135,7 +135,7 @@
       accept="image/*"
       type="file" (change)="onFileChanged($event)"
       #fileInput>
-    <button [id]="'insertImage-'+id" type="button" class="angular-editor-button" (click)="fileInput.click()"
+    <button [id]="'insertImage-'+id" type="button" class="angular-editor-button" (click)="focus(); fileInput.click()"
             title="Insert Image"
             [disabled]="htmlMode" [hidden]="isButtonHidden('insertImage')" tabindex="-1"><i class="fa fa-image"></i>
     </button>

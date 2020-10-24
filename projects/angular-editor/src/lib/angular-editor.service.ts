@@ -8,9 +8,7 @@ export interface UploadResponse {
   imageUrl: string;
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AngularEditorService {
 
   savedSelection: Range | null;
