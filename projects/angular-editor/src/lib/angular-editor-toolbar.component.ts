@@ -8,7 +8,7 @@ import {SelectOption} from './ae-select/ae-select.component';
 @Component({
   selector: 'angular-editor-toolbar',
   templateUrl: './angular-editor-toolbar.component.html',
-  styleUrls: ['./angular-editor-toolbar.component.scss']
+  styleUrls: ['./angular-editor-toolbar.component.scss'],
 })
 
 export class AngularEditorToolbarComponent {
@@ -155,6 +155,7 @@ export class AngularEditorToolbarComponent {
   constructor(
     private r: Renderer2,
     private editorService: AngularEditorService,
+    private er: ElementRef,
     @Inject(DOCUMENT) private doc: any
   ) {
   }
@@ -318,7 +319,7 @@ export class AngularEditorToolbarComponent {
             this.editorService.uploadImage(file).subscribe(e => {
               if (e instanceof HttpResponse) {
                 this.editorService.insertImage(e.body.imageUrl);
-                this.fileReset();
+                event.srcElement.value = null;
               }
             });
         } else {
@@ -330,13 +331,6 @@ export class AngularEditorToolbarComponent {
           reader.readAsDataURL(file);
         }
       }
-  }
-
-  /**
-   * Reset Input
-   */
-  fileReset() {
-    this.myInputFile.nativeElement.value = '';
   }
 
   /**
@@ -367,5 +361,10 @@ export class AngularEditorToolbarComponent {
       }
     }
     return result !== undefined;
+  }
+
+  focus() {
+    this.execute.emit('focus');
+    console.log('focused');
   }
 }

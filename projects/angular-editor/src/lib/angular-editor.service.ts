@@ -8,14 +8,13 @@ export interface UploadResponse {
   imageUrl: string;
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AngularEditorService {
 
   savedSelection: Range | null;
   selectedText: string;
   uploadUrl: string;
+  uploadWithCredentials: boolean;
 
   constructor(
     private http: HttpClient,
@@ -163,6 +162,7 @@ export class AngularEditorService {
     return this.http.post<UploadResponse>(this.uploadUrl, uploadData, {
       reportProgress: true,
       observe: 'events',
+      withCredentials: this.uploadWithCredentials,
     });
   }
 
