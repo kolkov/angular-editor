@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {AngularEditorComponent} from './angular-editor.component';
 import {AngularEditorToolbarComponent} from './angular-editor-toolbar.component';
@@ -11,7 +11,7 @@ describe('AngularEditorComponent', () => {
   let component: AngularEditorComponent;
   let fixture: ComponentFixture<AngularEditorComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [ FormsModule, HttpClientModule],
       declarations: [AngularEditorComponent, AngularEditorToolbarComponent, AeSelectComponent]
