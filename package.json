@@ -1,6 +1,6 @@
 {
   "name": "@kolkov/angular-editor",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -13,7 +13,7 @@
     "test:lib": "ng test angular-editor",
     "build:lib": "ng build angular-editor",
     "build-prod:lib": "ng build angular-editor --prod",
-    "publish:lib": "npm run copy && npm run copy:changelog && npm run copy:license && npm publish ./dist/angular-editor --tag next",
+    "publish:lib": "npm run copy:readme && npm run copy:changelog && npm run copy:license && npm publish ./dist/angular-editor --tag next",
     "copy:readme": "cpx README.md dist/angular-editor",
     "copy:changelog": "cpx CHANGELOG.md dist/kolkov/angular-editor",
     "copy:license": "cpx LICENSE dist/kolkov/angular-editor",
