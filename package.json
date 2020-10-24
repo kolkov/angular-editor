@@ -12,6 +12,7 @@
     "build-watch:lib": "ng build angular-editor --watch",
     "test:lib": "ng test angular-editor",
     "build:lib": "ng build angular-editor",
+    "build-prod:lib": "ng build angular-editor --prod",
     "publish:lib": "npm run copy && npm run copy:changelog && npm run copy:license && npm publish ./dist/angular-editor --tag next",
     "copy:readme": "cpx README.md dist/angular-editor",
     "copy:changelog": "cpx CHANGELOG.md dist/kolkov/angular-editor",
