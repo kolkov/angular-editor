@@ -16,6 +16,9 @@
     "@angular/platform-browser": ">=8.0.0 <11",
     "rxjs": "^6.x.x"
   },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
   "keywords": [
     "angular",
     "editor",
