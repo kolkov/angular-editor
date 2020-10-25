@@ -231,9 +231,7 @@
       type="file"
       (change)="onFileChanged($event)"
       #fileInput>
-    <<<<<<< HEAD
-      <button
-      [id]="'insertImage-'+id"
+    <button [id]="'insertImage-'+id"
       type="button"
       class="angular-editor-button"
       (click)="focus(); fileInput.click()"
@@ -241,7 +239,6 @@
       [disabled]="htmlMode"
       [hidden]="isButtonHidden('insertImage')"
       tabindex="-1"><i class="fa fa-image"></i>
-      =======
       <button [id]="'insertImage-'+id"
         type="button"
         class="angular-editor-button"
@@ -250,7 +247,6 @@
         [disabled]="htmlMode"
         [hidden]="isButtonHidden('insertImage')"
         tabindex="-1"><i class="fa fa-image"></i>
-        >>>>>>> Fixed color picker popup position
       </button>
       <button [id]="'insertVideo-'+id"
         type="button"
