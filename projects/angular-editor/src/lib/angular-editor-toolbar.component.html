@@ -239,22 +239,23 @@
       [disabled]="htmlMode"
       [hidden]="isButtonHidden('insertImage')"
       tabindex="-1"><i class="fa fa-image"></i>
-      <button [id]="'insertVideo-'+id"
-        type="button"
-        class="angular-editor-button"
-        (click)="insertVideo()"
-        title="Insert Video"
-        [disabled]="htmlMode"
-        [hidden]="isButtonHidden('insertVideo')"
-        tabindex="-1"><i class="fa fa-video-camera"></i></button>
-      <button [id]="'insertHorizontalRule-'+id"
-        type="button"
-        title="Horizontal Line"
-        class="angular-editor-button"
-        (click)="triggerCommand('insertHorizontalRule')"
-        [disabled]="htmlMode"
-        [hidden]="isButtonHidden('insertHorizontalRule')"
-        tabindex="-1"><i class="fa fa-minus"></i></button>
+    </button>
+    <button [id]="'insertVideo-'+id"
+      type="button"
+      class="angular-editor-button"
+      (click)="insertVideo()"
+      title="Insert Video"
+      [disabled]="htmlMode"
+      [hidden]="isButtonHidden('insertVideo')"
+      tabindex="-1"><i class="fa fa-video-camera"></i></button>
+    <button [id]="'insertHorizontalRule-'+id"
+      type="button"
+      title="Horizontal Line"
+      class="angular-editor-button"
+      (click)="triggerCommand('insertHorizontalRule')"
+      [disabled]="htmlMode"
+      [hidden]="isButtonHidden('insertHorizontalRule')"
+      tabindex="-1"><i class="fa fa-minus"></i></button>
   </div>
   <div class="angular-editor-toolbar-set">
     <button [id]="'clearFormatting-'+id"
