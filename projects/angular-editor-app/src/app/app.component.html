@@ -5,7 +5,7 @@
   <label for="test_input">Test input </label>
   <input id="test_input">
   <br><br>
-  <angular-editor id="editor1" [(ngModel)]="htmlContent1" [config]="config1" (ngModelChange)="onChange($event)"
+  <angular-editor #editorRef id="editor1" [(ngModel)]="htmlContent1" [config]="config1" (ngModelChange)="onChange($event)" (onTextAreaMouseOut) ="onTextAreaMouseOut($event)"
                   (blur)="onBlur($event)"></angular-editor>
   <p class="html">
     HTML Output:  {{ htmlContent1 }}
@@ -19,5 +19,6 @@
   <p>
     Form Status: {{ form.status }}
   </p>
+  <a (click)="insertAtCursor()">Insert at cursor</a>
 </div>
 
