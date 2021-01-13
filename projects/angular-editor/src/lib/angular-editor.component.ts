@@ -157,6 +157,7 @@ export class AngularEditorComponent
    */
   public onTextAreaMouseOut(event: MouseEvent): void {
     this.editorService.saveSelection();
+    this.savedSelection = this.editorService.savedSelection;
   }
 
   /**
@@ -394,7 +395,6 @@ export class AngularEditorComponent
     }
     this.editorToolbar.triggerBlocks(els);
   }
-
   private configure() {
     this.editorService.uploadUrl = this.config.uploadUrl;
     this.editorService.uploadWithCredentials = this.config.uploadWithCredentials;
@@ -432,10 +432,26 @@ export class AngularEditorComponent
     return tags.join(",");
   }
   insert(value: string) {
-  
-    this.editorService.insertHtml("<p>helleo</p>");
+    this.focus();
+    let selection = window.getSelection();
+    //let range = document.createRange();
+    //range.setEndAfter(this.selectiedNode);
+    //selection.addRange(range);
+    //selection.setPosition(this.textArea.nativeElement, this.selectiedIndex);
+    // this.selectiedIndex += value.length;
+    selection.removeAllRanges();
+    selection.addRange(this.savedSelection);
+    this.editorService.insertHtml(value);
+    selection.setPosition(this.savedSelection.baseNode, 5);
+    // selection.removeAllRanges();
+    // let range = document.createRange();
+    // selection.setPosition(
+    //   this.textArea.nativeElement,
+    //   this.savedSelection.baseOffet
+    // );
+    // this.savedSelection = selection.getRangeAt(0);
   }
-
+  savedSelection;
   ngOnDestroy() {
     if (this.blurInstance) {
       this.blurInstance();

@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { AngularEditorConfig } from "angular-editor";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AngularEditorConfig } from "angular-editor";
 import { AngularEditorComponent } from "projects/angular-editor/src/public-api";
-import insertTextAtCursor from "insert-text-at-cursor";
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
@@ -98,10 +97,12 @@ export class AppComponent implements OnInit {
   onChange2(event) {
     console.warn(this.form.value);
   }
+  cnt = 0;
   insertAtCursor() {
     console.log(`insertAtCursors`);
-    this.editorRef.focus();
-    setTimeout(()=> this.editorRef.insert("dsfd"),2000);
+    //this.editorRef.focus();
+    this.editorRef.insert(`-${this.cnt}-`);
+    this.cnt++;
     //this.editorRef.insert("dsfd");
     //
   }

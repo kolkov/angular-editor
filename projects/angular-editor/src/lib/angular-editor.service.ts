@@ -83,7 +83,6 @@ export class AngularEditorService {
    */
   insertHtml(html: string): void {
     const isHTMLInserted = this.doc.execCommand("insertHTML", false, html);
-
     if (!isHTMLInserted) {
       throw new Error("Unable to perform the operation");
     }
