@@ -52,7 +52,7 @@ export class AngularEditorComponent
 
   focusInstance: any;
   blurInstance: any;
-
+  currentCursorSelection: Range;
   @Input() id = "";
   @Input() config: AngularEditorConfig = angularEditorConfig;
   @Input() placeholder = "";
@@ -157,7 +157,7 @@ export class AngularEditorComponent
    */
   public onTextAreaMouseOut(event: MouseEvent): void {
     this.editorService.saveSelection();
-    this.savedSelection = this.editorService.savedSelection;
+    this.currentCursorSelection = this.editorService.savedSelection;
   }
 
   /**
@@ -431,27 +431,15 @@ export class AngularEditorComponent
     });
     return tags.join(",");
   }
-  insert(value: string) {
-    this.focus();
+  insertTextAtCursor(text: string) {
     let selection = window.getSelection();
-    //let range = document.createRange();
-    //range.setEndAfter(this.selectiedNode);
-    //selection.addRange(range);
-    //selection.setPosition(this.textArea.nativeElement, this.selectiedIndex);
-    // this.selectiedIndex += value.length;
     selection.removeAllRanges();
-    selection.addRange(this.savedSelection);
-    this.editorService.insertHtml(value);
-    selection.setPosition(this.savedSelection.baseNode, 5);
-    // selection.removeAllRanges();
-    // let range = document.createRange();
-    // selection.setPosition(
-    //   this.textArea.nativeElement,
-    //   this.savedSelection.baseOffet
-    // );
-    // this.savedSelection = selection.getRangeAt(0);
+    selection.addRange(this.currentCursorSelection);
+    this.editorService.insertHtml(text);
+    this.editorService.saveSelection();
+    this.currentCursorSelection = this.editorService.savedSelection;
   }
-  savedSelection;
+
   ngOnDestroy() {
     if (this.blurInstance) {
       this.blurInstance();

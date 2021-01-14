@@ -98,13 +98,9 @@ export class AppComponent implements OnInit {
     console.warn(this.form.value);
   }
   cnt = 0;
-  insertAtCursor() {
-    console.log(`insertAtCursors`);
-    //this.editorRef.focus();
-    this.editorRef.insert(`-${this.cnt}-`);
+  insertTextAtCursor() {
+    this.editorRef.insertTextAtCursor(`{${this.cnt}}`);
     this.cnt++;
-    //this.editorRef.insert("dsfd");
-    //
   }
   onTextAreaMouseOut(event) {
     console.log(`onTextAreaMouseOut`);

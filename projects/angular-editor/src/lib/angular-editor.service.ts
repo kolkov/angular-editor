@@ -92,7 +92,6 @@ export class AngularEditorService {
    * save selection when the editor is focussed out
    */
   public saveSelection = (): void => {
-    console.log(this.doc.getSelection());
     if (this.doc.getSelection) {
       const sel = this.doc.getSelection();
       if (sel.getRangeAt && sel.rangeCount) {
