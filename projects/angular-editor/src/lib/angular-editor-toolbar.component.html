@@ -65,15 +65,7 @@
             [hidden]="isButtonHidden('insertOrderedList')" tabindex="-1"><i
       class='fa fa-list-ol'></i></button>
   </div>
-  <div class="angular-editor-toolbar-set">
-
-    <ae-select class="select-heading" [options]="headings"
-               [(ngModel)]="block"
-               (change)="triggerCommand(block)"
-               [disabled]="htmlMode"
-               [hidden]="isButtonHidden('heading')"
-               tabindex="-1"></ae-select>
-  </div>
+  
   <div class="angular-editor-toolbar-set">
 
     <ae-select class="select-font" [options]="fonts"
