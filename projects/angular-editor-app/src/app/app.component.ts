@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {AngularEditorConfig} from 'angular-editor';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AngularEditorConfig} from '../../../angular-editor/src/lib/config';
 
 @Component({
   selector: 'app-root',
