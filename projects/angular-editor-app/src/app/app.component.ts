@@ -29,6 +29,7 @@ export class AppComponent implements OnInit {
     defaultFontSize: '5',
     // showToolbar: false,
     defaultParagraphSeparator: 'p',
+	  uploadImageByUrl: true,
     customClasses: [
       {
         name: 'quote',

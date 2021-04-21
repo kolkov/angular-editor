@@ -30,6 +30,7 @@ export interface AngularEditorConfig {
   defaultFontSize?: '1' | '2' | '3' | '4' | '5' | '6' | '7' | string;
   uploadUrl?: string;
   upload?: (file: File) => Observable<HttpEvent<UploadResponse>>;
+  uploadImageByUrl?: boolean;
   uploadWithCredentials?: boolean;
   fonts?: Font[];
   customClasses?: CustomClass[];
@@ -61,6 +62,7 @@ export const angularEditorConfig: AngularEditorConfig = {
     {class: 'comic-sans-ms', name: 'Comic Sans MS'}
   ],
   uploadUrl: 'v1/image',
+  uploadImageByUrl: false,
   uploadWithCredentials: false,
   sanitize: true,
   toolbarPosition: 'top',
