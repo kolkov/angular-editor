@@ -119,6 +119,7 @@ export class AngularEditorToolbarComponent {
   @Input() uploadUrl: string;
   @Input() upload: (file: File) => Observable<HttpEvent<UploadResponse>>;
   @Input() showToolbar: boolean;
+  @Input() uploadImageByUrl: boolean;
   @Input() fonts: SelectOption[] = [{label: '', value: ''}];
 
   @Input()
@@ -259,6 +260,17 @@ export class AngularEditorToolbarComponent {
     url = prompt('Insert URL link', url);
     if (url && url !== '' && url !== 'https://') {
       this.editorService.createLink(url);
+    }
+  }
+
+  /**
+   * insert Video link
+   */
+  insertImageUrl() {
+    this.execute.emit('');
+    const url = prompt('Insert Image link', `https://`);
+    if (url && url !== '' && url !== `https://`) {
+      this.editorService.insertImage(url);
     }
   }
 

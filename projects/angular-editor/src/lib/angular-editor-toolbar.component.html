@@ -135,8 +135,8 @@
       accept="image/*"
       type="file" (change)="onFileChanged($event)"
       #fileInput>
-    <button [id]="'insertImage-'+id" type="button" class="angular-editor-button" (click)="focus(); fileInput.click()"
-            title="Insert Image"
+    <button [id]="'insertImage-'+id" type="button" class="angular-editor-button" 
+            title="Insert Image" (click)="uploadImageByUrl == true ? insertImageUrl() : fileInput.click(); focus()"
             [disabled]="htmlMode" [hidden]="isButtonHidden('insertImage')" tabindex="-1"><i class="fa fa-image"></i>
     </button>
     <button [id]="'insertVideo-'+id" type="button" class="angular-editor-button"
