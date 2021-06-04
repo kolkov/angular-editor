@@ -10,10 +10,10 @@
     "url": "https://github.com/kolkov/angular-editor/issues"
   },
   "peerDependencies": {
-    "@angular/common": ">=8.0.0 <=12",
-    "@angular/core": ">=8.0.0 <12",
-    "@angular/forms": ">=8.0.0 <12",
-    "@angular/platform-browser": ">=8.0.0 <12",
+    "@angular/common": ">=8.0.0 <3",
+    "@angular/core": ">=8.0.0 <13",
+    "@angular/forms": ">=8.0.0 <13",
+    "@angular/platform-browser": ">=8.0.0 <13",
     "rxjs": "^6.x.x"
   },
   "dependencies": {
