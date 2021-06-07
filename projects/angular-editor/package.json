@@ -10,7 +10,7 @@
     "url": "https://github.com/kolkov/angular-editor/issues"
   },
   "peerDependencies": {
-    "@angular/common": ">=8.0.0 <3",
+    "@angular/common": ">=8.0.0 <13",
     "@angular/core": ">=8.0.0 <13",
     "@angular/forms": ">=8.0.0 <13",
     "@angular/platform-browser": ">=8.0.0 <13",
