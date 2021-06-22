@@ -11,3 +11,15 @@
     transition: 0.2s ease;
   }
 }
+
+.color-picker {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 85%;
+  margin: 0;
+  padding: 0;
+}

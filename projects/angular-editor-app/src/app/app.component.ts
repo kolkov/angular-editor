@@ -1,5 +1,5 @@
+import { AngularEditorConfig } from './../../../angular-editor/src/lib/config';
 import {Component, OnInit} from '@angular/core';
-import {AngularEditorConfig} from 'angular-editor';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
@@ -47,7 +47,8 @@ export class AppComponent implements OnInit {
     toolbarHiddenButtons: [
       ['bold', 'italic'],
       ['fontSize']
-    ]
+    ],
+    defaultPickerColors: []
   };
 
   config2: AngularEditorConfig = {

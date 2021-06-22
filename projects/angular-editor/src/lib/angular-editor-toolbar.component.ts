@@ -154,6 +154,8 @@ export class AngularEditorToolbarComponent {
     return this.htmlMode || !Boolean(this.editorService.selectedText);
   }
 
+  @Input() defaultPickerColors: string[] = [];
+
   constructor(
     private r: Renderer2,
     private editorService: AngularEditorService,
