@@ -104,6 +104,15 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     }
   }
 
+  onPaste(event: ClipboardEvent){
+    if (this.config.rawPaste) {
+      event.preventDefault();
+      const text = event.clipboardData.getData('text/plain');
+      document.execCommand('insertHTML', false, text);
+      return text;
+    }
+  }
+
   /**
    * Executed command from editor header buttons
    * @param command string from triggerCommand
