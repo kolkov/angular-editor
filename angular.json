@@ -19,13 +19,13 @@
           "options": {
             "tsConfig": "projects/angular-editor/tsconfig.lib.json",
             "project": "projects/angular-editor/ng-package.json"
-          }
-        ,          "configurations": {
+          },
+          "configurations": {
             "production": {
               "tsConfig": "projects/angular-editor/tsconfig.lib.prod.json"
             }
           }
-},
+        },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -35,14 +35,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/angular-editor/tsconfig.lib.json",
-              "projects/angular-editor/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/angular-editor/**/*.ts",
+              "projects/angular-editor/**/*.html"
             ]
           }
         }
@@ -146,15 +143,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/angular-editor-app/tsconfig.app.json",
-              "projects/angular-editor-app/tsconfig.spec.json",
-              "projects/angular-editor-app/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/angular-editor-app/**/*.ts",
+              "projects/angular-editor-app/**/*.html"
             ]
           }
         },
@@ -175,6 +168,7 @@
   },
   "defaultProject": "angular-editor-app",
   "cli": {
-    "analytics": "fbddda2f-258b-4004-8062-d701809d0a1c"
+    "analytics": "fbddda2f-258b-4004-8062-d701809d0a1c",
+    "defaultCollection": "@angular-eslint/schematics"
   }
 }
