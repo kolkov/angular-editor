@@ -109,6 +109,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       event.preventDefault();
       const text = event.clipboardData.getData('text/plain');
       document.execCommand('insertHTML', false, text);
+      return text;
     }
   }
 
