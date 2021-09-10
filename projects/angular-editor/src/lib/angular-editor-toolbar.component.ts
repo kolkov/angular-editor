@@ -100,7 +100,7 @@ export class AngularEditorToolbarComponent {
   ];
 
   customClassId = '-1';
-  // tslint:disable-next-line:variable-name
+  // eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle, id-blacklist, id-match
   _customClasses: CustomClass[];
   customClassList: SelectOption[] = [{label: '', value: ''}];
   // uploadUrl: string;

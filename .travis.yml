@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "10"
+  - "14"
 dist: trusty
 addons:
   chrome: stable
@@ -18,7 +18,7 @@ script:
   - npm run lint:lib
   - npm run test-ci
   - codecov
-  - npm run build:lib
+  - npm run build-prod:lib
 before_deploy:
   - npm run copy:readme
   - npm run copy:changelog

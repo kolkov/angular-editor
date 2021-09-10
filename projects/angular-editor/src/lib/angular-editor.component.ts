@@ -67,11 +67,11 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   @Output() viewMode = new EventEmitter<boolean>();
 
   /** emits `blur` event when focused out from the textarea */
-    // tslint:disable-next-line:no-output-native no-output-rename
+    // eslint-disable-next-line @angular-eslint/no-output-native, @angular-eslint/no-output-rename
   @Output('blur') blurEvent: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
 
   /** emits `focus` event when focused in to the textarea */
-    // tslint:disable-next-line:no-output-rename no-output-native
+    // eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native
   @Output('focus') focusEvent: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
 
   @HostBinding('attr.tabindex') tabindex = -1;
@@ -101,6 +101,15 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   ngAfterViewInit() {
     if (isDefined(this.autoFocus)) {
       this.focus();
+    }
+  }
+
+  onPaste(event: ClipboardEvent){
+    if (this.config.rawPaste) {
+      event.preventDefault();
+      const text = event.clipboardData.getData('text/plain');
+      document.execCommand('insertHTML', false, text);
+      return text;
     }
   }
 

@@ -28,4 +28,22 @@ describe('AngularEditorComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should paste raw text', () => {
+    const htmlText = '<h1>Hello!</h1>';
+    const rawText = 'Hello!';
+    component.config.rawPaste = true;
+
+    const dataTransfer = new DataTransfer();
+
+    const clipboardEvent = new ClipboardEvent("paste", {
+      clipboardData: dataTransfer,
+    });
+    clipboardEvent.clipboardData.setData("text/plain", rawText);
+    clipboardEvent.clipboardData.setData("text/html", htmlText);
+
+    const outputRawText = component.onPaste(clipboardEvent);
+
+    expect(outputRawText).toEqual(rawText);
+  });
 });
