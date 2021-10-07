@@ -160,7 +160,7 @@ For `ngModel` to work, you must import `FormsModule` from `@angular/forms`, or f
 | ------------- | ------------- | ------------- | ------------- | ------------- |
 | editable  | `bolean` | `true` | no | Set editing enabled or not |
 | spellcheck  | `bolean` | `true` | no | Set spellchecking enabled or not |
-| translate  | `sting` | `yes` | no | Set translating enabled or not |
+| translate  | `string` | `yes` | no | Set translating enabled or not |
 | sanitize  | `bolean` | `true` | no | Set DOM sanitizing enabled or not |
 | height  | `string` | `auto` | no | Set height of the editor |
 | minHeight  | `string` | `0` | no | Set minimum height of the editor |
