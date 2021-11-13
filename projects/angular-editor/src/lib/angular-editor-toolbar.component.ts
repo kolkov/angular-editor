@@ -318,9 +318,9 @@ export class AngularEditorToolbarComponent {
     const file = event.target.files[0];
     if (file.type.includes('image/')) {
         if (this.upload) {
-          this.upload(file).subscribe(() => this.watchUploadImage);
+          this.upload(file).subscribe((response: HttpResponse<UploadResponse>) => this.watchUploadImage(response, event));
         } else if (this.uploadUrl) {
-            this.editorService.uploadImage(file).subscribe(() => this.watchUploadImage);
+            this.editorService.uploadImage(file).subscribe((response: HttpResponse<UploadResponse>) => this.watchUploadImage(response, event));
         } else {
           const reader = new FileReader();
           reader.onload = (e: ProgressEvent) => {
