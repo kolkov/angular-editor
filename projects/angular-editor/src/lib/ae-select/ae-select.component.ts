@@ -35,7 +35,7 @@ export interface SelectOption {
 })
 export class AeSelectComponent implements OnInit, ControlValueAccessor {
   @Input() options: SelectOption[] = [];
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('hidden') isHidden: boolean;
 
   selectedOption: SelectOption;
@@ -54,7 +54,7 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
 
   @HostBinding('style.display') hidden = 'inline-block';
 
-  // tslint:disable-next-line:no-output-native no-output-rename
+  // eslint-disable-next-line @angular-eslint/no-output-native, @angular-eslint/no-output-rename
   @Output('change') changeEvent = new EventEmitter();
 
   @ViewChild('labelButton', {static: true}) labelButton: ElementRef;

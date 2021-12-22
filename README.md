@@ -14,7 +14,7 @@
 [![codecov](https://codecov.io/gh/kolkov/angular-editor/branch/master/graph/badge.svg)](https://codecov.io/gh/kolkov/angular-editor)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/AndreyKolkov)
 
-A simple native WYSIWYG/Rich Text editor for Angular 6-10+
+A simple native WYSIWYG/Rich Text editor for Angular 6-12+
 
 ![Nov-27-2019 17-26-29](https://user-images.githubusercontent.com/216412/69763434-259cd800-113b-11ea-918f-0565ebce0e48.gif)
 
@@ -114,6 +114,7 @@ editorConfig: AngularEditorConfig = {
       },
     ],
     uploadUrl: 'v1/image',
+    upload: (file: File) => { ... }
     uploadWithCredentials: false,
     sanitize: true,
     toolbarPosition: 'top',
@@ -159,7 +160,7 @@ For `ngModel` to work, you must import `FormsModule` from `@angular/forms`, or f
 | ------------- | ------------- | ------------- | ------------- | ------------- |
 | editable  | `bolean` | `true` | no | Set editing enabled or not |
 | spellcheck  | `bolean` | `true` | no | Set spellchecking enabled or not |
-| translate  | `sting` | `yes` | no | Set translating enabled or not |
+| translate  | `string` | `yes` | no | Set translating enabled or not |
 | sanitize  | `bolean` | `true` | no | Set DOM sanitizing enabled or not |
 | height  | `string` | `auto` | no | Set height of the editor |
 | minHeight  | `string` | `0` | no | Set minimum height of the editor |
@@ -173,7 +174,8 @@ For `ngModel` to work, you must import `FormsModule` from `@angular/forms`, or f
 | defaultParagraphSeparator  | `string` | `-` | no | Set default paragraph separator such as `p` |
 | defaultFontName  | `string` | `-` | no | Set default font such as `Comic Sans MS` |
 | defaultFontSize  | `string` | `-` | no | Set default font size such as `1` - `7` |
-| uploadUrl  | `string` | `-` | no | Set image upload endpoint `https://api.exapple.com/v1/image/upload` |
+| uploadUrl  | `string` | `-` | no | Set image upload endpoint `https://api.exapple.com/v1/image/upload` and return response with imageUrl key. {"imageUrl" : <url>} |
+| upload  | `function` | `-` | no | Set image upload function |
 | uploadWithCredentials | `bolean` | `false` | no | Set passing or not credentials in the image upload call |
 | fonts  | `Font[]` | `-` | no | Set array of available fonts  `[{name, class},...]` |
 | customClasses  | `CustomClass[]` | `-` | no | Set array of available fonts  `[{name, class, tag},...]` |

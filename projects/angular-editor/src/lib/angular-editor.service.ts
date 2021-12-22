@@ -8,9 +8,7 @@ export interface UploadResponse {
   imageUrl: string;
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AngularEditorService {
 
   public savedSelection: Range | null;
@@ -203,10 +201,10 @@ export class AngularEditorService {
     const imageUrl = `https://img.youtube.com/vi/${id}/0.jpg`;
     const thumbnail = `
       <div style='position: relative'>
-        <img style='position: absolute; left:200px; top:140px'
-             src="https://img.icons8.com/color/96/000000/youtube-play.png"/>
         <a href='${videoUrl}' target='_blank'>
           <img src="${imageUrl}" alt="click to watch"/>
+          <img style='position: absolute; left:200px; top:140px'
+          src="https://img.icons8.com/color/96/000000/youtube-play.png"/>
         </a>
       </div>`;
     this.insertHtml(thumbnail);
