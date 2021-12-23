@@ -1,6 +1,6 @@
 {
     "name": "@gloww/angular-editor",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
@@ -13,7 +13,7 @@
         "test:lib": "ng test angular-editor",
         "build:lib": "ng build angular-editor",
         "build-prod:lib": "ng build angular-editor --configuration production",
-        "publish:lib": "npm run copy:readme && npm run copy:changelog && npm run copy:license && npm publish ./dist/angular-editor --tag next",
+        "publish:lib": "npm run copy:readme && npm run copy:changelog && npm run copy:license && npm publish ./dist/angular-editor --tag latest",
         "copy:readme": "cpx README.md dist/angular-editor",
         "copy:changelog": "cpx CHANGELOG.md dist/angular-editor",
         "copy:license": "cpx LICENSE dist/angular-editor",

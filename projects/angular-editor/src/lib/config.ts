@@ -38,6 +38,7 @@ export interface AngularEditorConfig {
   outline?: boolean;
   toolbarHiddenButtons?: string[][];
   rawPaste?: boolean;
+  additionalButtons?: AngularEditorButtonConfig[];
 }
 
 export const angularEditorConfig: AngularEditorConfig = {
@@ -77,3 +78,9 @@ export const angularEditorConfig: AngularEditorConfig = {
     ['link', 'unlink', 'image', 'video']
   ]*/
 };
+
+export interface AngularEditorButtonConfig {
+  title: string,
+  click: () => void,
+  icon: string
+}
