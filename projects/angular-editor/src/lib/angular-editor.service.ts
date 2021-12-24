@@ -1,8 +1,8 @@
-import {Inject, Injectable} from '@angular/core';
-import {HttpClient, HttpEvent} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {DOCUMENT} from '@angular/common';
-import {CustomClass} from './config';
+import { Inject, Injectable } from '@angular/core';
+import { HttpClient, HttpEvent } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
+import { CustomClass } from './config';
 
 export interface UploadResponse {
   imageUrl: string;
@@ -11,8 +11,8 @@ export interface UploadResponse {
 @Injectable()
 export class AngularEditorService {
 
-  savedSelection: Range | null;
-  selectedText: string;
+  public savedSelection: Range | null;
+  public selectedText: string = null;
   uploadUrl: string;
   uploadWithCredentials: boolean;
 
@@ -248,7 +248,7 @@ export class AngularEditorService {
     } else {
       // Iterate nodes until we hit the end container
       while (node && node !== endNode) {
-        rangeNodes.push( node = this.nextNode(node) );
+        rangeNodes.push(node = this.nextNode(node));
       }
 
       // Add partially selected nodes at the start of the range

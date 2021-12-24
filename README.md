@@ -29,7 +29,7 @@ A simple native WYSIWYG/Rich Text editor for Angular 6-12+
 Install via [npm][npm] package manager 
 
 ```bash
-npm install @kolkov/angular-editor --save
+npm install @gloww/angular-editor --save
 ```
 ### Versions
 
@@ -260,6 +260,6 @@ See [the Releases section of our project](https://github.com/kolkov/angular-edit
 
 If you like my work and I save your time you can buy me a :beer: or :pizza: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/AndreyKolkov)
 
-[npm]: https://www.npmjs.com/package/@kolkov/angular-editor
+[npm]: https://www.npmjs.com/package/@gloww/angular-editor
 [demo]: https://angular-editor-wysiwyg.stackblitz.io/
 [example]: https://stackblitz.com/edit/angular-editor-wysiwyg

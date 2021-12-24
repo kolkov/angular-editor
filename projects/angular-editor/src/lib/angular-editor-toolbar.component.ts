@@ -1,15 +1,15 @@
-import {Component, ElementRef, EventEmitter, Inject, Input, Output, Renderer2, ViewChild} from '@angular/core';
-import {AngularEditorService, UploadResponse} from './angular-editor.service';
-import {HttpResponse, HttpEvent} from '@angular/common/http';
-import {DOCUMENT} from '@angular/common';
-import {CustomClass} from './config';
-import {SelectOption} from './ae-select/ae-select.component';
+import { Component, ElementRef, EventEmitter, Inject, Input, Output, Renderer2, ViewChild } from '@angular/core';
+import { AngularEditorService, UploadResponse } from './angular-editor.service';
+import { HttpResponse, HttpEvent } from '@angular/common/http';
+import { DOCUMENT } from '@angular/common';
+import { CustomClass, AngularEditorButtonConfig } from './config';
+import { SelectOption } from './ae-select/ae-select.component';
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'angular-editor-toolbar',
   templateUrl: './angular-editor-toolbar.component.html',
-  styleUrls: ['./angular-editor-toolbar.component.scss'],
+  styleUrls: ['./angular-editor-toolbar.component.scss']
 })
 
 export class AngularEditorToolbarComponent {
@@ -102,7 +102,7 @@ export class AngularEditorToolbarComponent {
   customClassId = '-1';
   // eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle, id-blacklist, id-match
   _customClasses: CustomClass[];
-  customClassList: SelectOption[] = [{label: '', value: ''}];
+  customClassList: SelectOption[] = [{ label: '', value: '' }];
   // uploadUrl: string;
 
   tagMap = {
@@ -119,14 +119,15 @@ export class AngularEditorToolbarComponent {
   @Input() uploadUrl: string;
   @Input() upload: (file: File) => Observable<HttpEvent<UploadResponse>>;
   @Input() showToolbar: boolean;
-  @Input() fonts: SelectOption[] = [{label: '', value: ''}];
+  @Input() fonts: SelectOption[] = [{ label: '', value: '' }];
+  @Input() additionalButtons: AngularEditorButtonConfig[] = [];
 
   @Input()
   set customClasses(classes: CustomClass[]) {
     if (classes) {
       this._customClasses = classes;
-      this.customClassList = this._customClasses.map((x, i) => ({label: x.name, value: i.toString()}));
-      this.customClassList.unshift({label: 'Clear Class', value: '-1'});
+      this.customClassList = this._customClasses.map((x, i) => ({ label: x.name, value: i.toString() }));
+      this.customClassList.unshift({ label: 'Clear Class', value: '-1' });
     }
   }
 
@@ -148,7 +149,7 @@ export class AngularEditorToolbarComponent {
 
   @Output() execute: EventEmitter<string> = new EventEmitter<string>();
 
-  @ViewChild('fileInput', {static: true}) myInputFile: ElementRef;
+  @ViewChild('fileInput', { static: true }) myInputFile: ElementRef;
 
   public get isLinkButtonDisabled(): boolean {
     return this.htmlMode || !Boolean(this.editorService.selectedText);
@@ -317,22 +318,22 @@ export class AngularEditorToolbarComponent {
   onFileChanged(event) {
     const file = event.target.files[0];
     if (file.type.includes('image/')) {
-        if (this.upload) {
-          this.upload(file).subscribe((response: HttpResponse<UploadResponse>) => this.watchUploadImage(response, event));
-        } else if (this.uploadUrl) {
-            this.editorService.uploadImage(file).subscribe((response: HttpResponse<UploadResponse>) => this.watchUploadImage(response, event));
-        } else {
-          const reader = new FileReader();
-          reader.onload = (e: ProgressEvent) => {
-            const fr = e.currentTarget as FileReader;
-            this.editorService.insertImage(fr.result.toString());
-          };
-          reader.readAsDataURL(file);
-        }
+      if (this.upload) {
+        this.upload(file).subscribe((response: HttpResponse<UploadResponse>) => this.watchUploadImage(response, event));
+      } else if (this.uploadUrl) {
+        this.editorService.uploadImage(file).subscribe((response: HttpResponse<UploadResponse>) => this.watchUploadImage(response, event));
+      } else {
+        const reader = new FileReader();
+        reader.onload = (e: ProgressEvent) => {
+          const fr = e.currentTarget as FileReader;
+          this.editorService.insertImage(fr.result.toString());
+        };
+        reader.readAsDataURL(file);
       }
+    }
   }
 
-  watchUploadImage(response: HttpResponse<{imageUrl: string}>, event) {
+  watchUploadImage(response: HttpResponse<{ imageUrl: string }>, event) {
     const { imageUrl } = response.body;
     this.editorService.insertImage(imageUrl);
     event.srcElement.value = null;
@@ -371,5 +372,13 @@ export class AngularEditorToolbarComponent {
   focus() {
     this.execute.emit('focus');
     console.log('focused');
+  }
+
+  insertHtml(html: string): void {
+    this.editorService.insertHtml(html);
+  }
+
+  clickCallback(bt: AngularEditorButtonConfig, event: any): void {
+    bt.click.call(this, this, event);
   }
 }
