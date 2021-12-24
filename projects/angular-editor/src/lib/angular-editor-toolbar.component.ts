@@ -373,4 +373,12 @@ export class AngularEditorToolbarComponent {
     this.execute.emit('focus');
     console.log('focused');
   }
+
+  insertHtml(html: string): void {
+    this.editorService.insertHtml(html);
+  }
+
+  clickCallback(bt: AngularEditorButtonConfig, event: any): void {
+    bt.click.call(this, this, event);
+  }
 }

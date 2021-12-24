@@ -81,6 +81,6 @@ export const angularEditorConfig: AngularEditorConfig = {
 
 export interface AngularEditorButtonConfig {
   title: string,
-  click: (event) => void,
+  click: (AngularEditorToolbarComponent, event) => void,
   icon: string
 }

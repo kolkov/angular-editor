@@ -17,7 +17,8 @@
         "copy:readme": "cpx README.md dist/angular-editor",
         "copy:changelog": "cpx CHANGELOG.md dist/angular-editor",
         "copy:license": "cpx LICENSE dist/angular-editor",
-        "test-ci": "ng test angular-editor --code-coverage --no-watch --browsers=ChromeHeadless && cat ./coverage/angular-editor/lcov.info | coveralls"
+        "test-ci": "ng test angular-editor --code-coverage --no-watch --browsers=ChromeHeadless && cat ./coverage/angular-editor/lcov.info | coveralls",
+        "publish-beta": "cd projects/angular-editor; npm version prerelease ; cd ../..; yarn run build-prod:lib;  npm publish ./dist/angular-editor --tag beta"
     },
     "private": true,
     "dependencies": {
