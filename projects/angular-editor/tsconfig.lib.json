@@ -13,6 +13,8 @@
     ]
   },
   "angularCompilerOptions": {
+    "enableIvy": true,
+    "allowEmptyCodegenFiles": true,
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
     "fullTemplateTypeCheck": true,

@@ -71,9 +71,9 @@
         <button [id]="'clearFormatting-'+id" type="button" title="Clear Formatting" class="angular-editor-button" (click)="triggerCommand('removeFormat')" [disabled]="htmlMode" [hidden]="isButtonHidden('removeFormat')" tabindex="-1"><i class='fa fa-remove'></i>
     </button>
     </div>
-    <div class="angular-editor-toolbar-set">YY
-        <button *ngFor="let bt of additionalButtons; let i = index" [id]="'additionalButton-'+id+'-'+i" type="button" [title]="bt.title" class="angular-editor-button" (click)="bt.click">
-      <i [ngClass]="bt.icon"></i>XX
+    <div class="angular-editor-toolbar-set">
+        <button *ngFor="let bt of additionalButtons; let i = index" [id]="'additionalButton-'+id+'-'+i" type="button" [title]="bt.title" class="angular-editor-button" (click)="bt.click()">
+      <i [ngClass]="bt.icon"></i>
     </button>
 
 

@@ -1,6 +1,6 @@
 {
     "name": "@gloww/angular-editor",
-    "version": "1.2.2-beta.0",
+    "version": "1.2.2-beta.4",
     "description": "A simple native WYSIWYG editor for Angular 6+, 7+, 8+. Rich Text editor component for Angular.",
     "author": "Fork from Andrey Kolkov <a.kolkov@gmail.com> by Charles Christoph <charles@7ss.be>",
     "repository": "https://github.com/7starssolutions/angular-editor",
