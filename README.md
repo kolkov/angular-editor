@@ -14,7 +14,7 @@
 [![codecov](https://codecov.io/gh/kolkov/angular-editor/branch/master/graph/badge.svg)](https://codecov.io/gh/kolkov/angular-editor)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/AndreyKolkov)
 
-A simple native WYSIWYG/Rich Text editor for Angular 6-12+
+A simple native WYSIWYG/Rich Text editor for Angular 6-13+
 
 ![Nov-27-2019 17-26-29](https://user-images.githubusercontent.com/216412/69763434-259cd800-113b-11ea-918f-0565ebce0e48.gif)
 
@@ -32,6 +32,8 @@ Install via [npm][npm] package manager
 npm install @kolkov/angular-editor --save
 ```
 ### Versions
+
+2.0.0 and above - for Angular v13.0.0 and above
 
 1.0.0 and above - for Angular v8.x.x and above
 
