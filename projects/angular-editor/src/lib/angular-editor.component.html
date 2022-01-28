@@ -17,7 +17,13 @@
           [defaultFontSize]="config.defaultFontSize"
           [hiddenButtons]="config.toolbarHiddenButtons"
           (execute)="executeCommand($event)"
-     ></angular-editor-toolbar>
+     >
+       <ng-container
+         [ngTemplateOutlet]="customButtonsTemplateRef"
+         [ngTemplateOutletContext]="{ executeCommandFn: this.executeCommandFn}"
+       >
+       </ng-container>
+     </angular-editor-toolbar>
 
      <div
           class="angular-editor-wrapper"

@@ -1,4 +1,14 @@
-import {Component, ElementRef, EventEmitter, Inject, Input, Output, Renderer2, ViewChild} from '@angular/core';
+import {
+  Component,
+  ContentChild,
+  ElementRef,
+  EventEmitter,
+  Inject,
+  Input,
+  Output,
+  Renderer2, TemplateRef,
+  ViewChild
+} from '@angular/core';
 import {AngularEditorService, UploadResponse} from './angular-editor.service';
 import {HttpResponse, HttpEvent} from '@angular/common/http';
 import {DOCUMENT} from '@angular/common';
