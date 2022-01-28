@@ -9,8 +9,6 @@
 [![npm](https://img.shields.io/npm/dm/@kolkov/angular-editor.svg)](https://www.npmjs.com/package/@kolkov/angular-editor)
 [![](https://data.jsdelivr.com/v1/package/npm/@kolkov/angular-editor/badge?style=rounded)](https://www.jsdelivr.com/package/npm/@kolkov/angular-editor)
 [![Coverage Status](https://coveralls.io/repos/github/kolkov/angular-editor/badge.svg?branch=master)](https://coveralls.io/github/kolkov/angular-editor?branch=master)
-[![dependencies Status](https://david-dm.org/kolkov/angular-editor/status.svg)](https://david-dm.org/kolkov/angular-editor)
-[![devDependencies Status](https://david-dm.org/kolkov/angular-editor/dev-status.svg)](https://david-dm.org/kolkov/angular-editor?type=dev)
 [![codecov](https://codecov.io/gh/kolkov/angular-editor/branch/master/graph/badge.svg)](https://codecov.io/gh/kolkov/angular-editor)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/AndreyKolkov)
 
