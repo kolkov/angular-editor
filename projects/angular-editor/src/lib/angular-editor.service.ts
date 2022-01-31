@@ -24,14 +24,15 @@ export class AngularEditorService {
   /**
    * Executed command from editor header buttons exclude toggleEditorMode
    * @param command string from triggerCommand
+   * @param value
    */
-  executeCommand(command: string) {
+  executeCommand(command: string, value?: string) {
     const commands = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'pre'];
     if (commands.includes(command)) {
       this.doc.execCommand('formatBlock', false, command);
       return;
     }
-    this.doc.execCommand(command, false, null);
+    this.doc.execCommand(command, false, value);
   }
 
   /**

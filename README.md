@@ -126,6 +126,22 @@ editorConfig: AngularEditorConfig = {
 ```
 For `ngModel` to work, you must import `FormsModule` from `@angular/forms`, or for `formControlName`, you must import `ReactiveFormsModule` from `@angular/forms`
 
+### Custom buttons
+
+You can define your custom buttons with custom actions using executeCommandFn. It accepts commands from [execCommand](https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand).
+The first argument of this method is aCommandName and the second argument is aValueArgument. Example shows a button that adds Angular editor logo into the editor.
+```html
+<angular-editor id="editor1" formControlName="htmlContent1" [config]="editorConfig">
+  <ng-template #customButtons let-executeCommandFn="executeCommandFn">
+    <ae-toolbar-set>
+      <ae-button iconClass="fa fa-html5" title="Angular editor logo"
+                 (buttonClick)="executeCommandFn('insertHtml', angularEditorLogo)">
+      </ae-button>
+    </ae-toolbar-set>
+  </ng-template>
+</angular-editor>
+```
+
 ## API
 ### Inputs
 | Input  | Type | Default | Required | Description |
