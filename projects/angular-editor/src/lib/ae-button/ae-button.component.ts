@@ -9,8 +9,10 @@ import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angula
 })
 export class AeButtonComponent {
 
-  @Input() iconClass = '';
+  @Input() id = '';
   @Input() title = '';
+  @Input() disabled = false;
+  @Input() iconClass = '';
   @Output() buttonClick = new EventEmitter();
 
   constructor() { }
