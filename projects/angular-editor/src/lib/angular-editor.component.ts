@@ -58,7 +58,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   @Input() placeholder = '';
   @Input() tabIndex: number | null;
 
-  @Output() html;
+  @Output() html = new EventEmitter<string>();
 
   @ViewChild('editor', {static: true}) textArea: ElementRef;
   @ViewChild('editorWrapper', {static: true}) editorWrapper: ElementRef;
@@ -220,6 +220,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       }
     }
     this.changed = true;
+    this.html.emit(html);
   }
 
   /**
