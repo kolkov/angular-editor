@@ -395,9 +395,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
   getFonts() {
     const fonts = this.config.fonts ? this.config.fonts : angularEditorConfig.fonts;
-    return fonts.map(x => {
-      return {label: x.name, value: x.name};
-    });
+    return fonts;
   }
 
   getCustomTags() {
