@@ -96,6 +96,9 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
   ngOnInit() {
     this.config.toolbarPosition = this.config.toolbarPosition ? this.config.toolbarPosition : angularEditorConfig.toolbarPosition;
+    if (this.config.styleWithCSS) {
+        this.doc.execCommand('styleWithCSS', null, true);
+    }
   }
 
   ngAfterViewInit() {
@@ -108,7 +111,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     if (this.config.rawPaste) {
       event.preventDefault();
       const text = event.clipboardData.getData('text/plain');
-      document.execCommand('insertHTML', false, text);
+      this.doc.execCommand('insertHTML', false, text);
       return text;
     }
   }
