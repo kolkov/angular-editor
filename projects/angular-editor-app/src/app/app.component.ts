@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {AngularEditorConfig} from 'angular-editor';
+
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { AngularEditorConfig } from 'projects/angular-editor/src/lib/config';
 
 const ANGULAR_EDITOR_LOGO_URL = 'https://raw.githubusercontent.com/kolkov/angular-editor/master/docs/angular-editor-logo.png?raw=true'
 
