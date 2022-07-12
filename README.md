@@ -126,6 +126,16 @@ editorConfig: AngularEditorConfig = {
 ```
 For `ngModel` to work, you must import `FormsModule` from `@angular/forms`, or for `formControlName`, you must import `ReactiveFormsModule` from `@angular/forms`
 
+To serve the fontawesome files, ensure that your angular.json contains the following asset configuration:
+
+```
+{
+  "glob": "**/*",
+  "input": "./node_modules/@kolkov/angular-editor/assets/",
+  "output": "./assets/fonts/"
+}
+```
+
 ### Custom buttons
 
 You can define your custom buttons with custom actions using executeCommandFn. It accepts commands from [execCommand](https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand).

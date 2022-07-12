@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import {
   AfterViewInit,
   Attribute,
@@ -17,13 +18,12 @@ import {
   SecurityContext, TemplateRef,
   ViewChild
 } from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {AngularEditorConfig, angularEditorConfig} from './config';
-import {AngularEditorToolbarComponent} from './angular-editor-toolbar.component';
-import {AngularEditorService} from './angular-editor.service';
-import {DOCUMENT} from '@angular/common';
-import {DomSanitizer} from '@angular/platform-browser';
-import {isDefined} from './utils';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
+import { AngularEditorToolbarComponent } from './angular-editor-toolbar.component';
+import { AngularEditorService } from './angular-editor.service';
+import { AngularEditorConfig, angularEditorConfig } from './config';
+import { isDefined } from './utils';
 
 @Component({
   selector: 'angular-editor',

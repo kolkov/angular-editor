@@ -12,7 +12,7 @@ before_install:
 install:
   - npm install
 before_script:
-  - npm install -g @angular/cli
+  - npm install -g @angular/cli@13
   - npm install -g codecov
 script:
   - npm run lint:lib
