@@ -205,7 +205,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    * Executed from the contenteditable section while the input property changes
    * @param element html element from contenteditable
    */
-   onContentChange(element: HTMLElement): void {
+  onContentChange(element: HTMLElement): void {
     let html = '';
     if (this.modeVisual) {
       html = element.innerHTML;
