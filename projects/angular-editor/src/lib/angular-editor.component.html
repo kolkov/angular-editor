@@ -40,7 +40,7 @@
                [style.minHeight]="config.minHeight"
                [style.maxHeight]="config.maxHeight"
                [style.outline]="config.outline === false ? 'none': undefined"
-               (input)="onContentChange(null, $event.target)"
+               (input)="onContentChange($event.target)"
                (focus)="onTextAreaFocus($event)"
                (blur)="onTextAreaBlur($event)"
                (click)="exec()"
