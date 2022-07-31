@@ -23,6 +23,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { AngularEditorToolbarComponent } from './angular-editor-toolbar.component';
 import { AngularEditorService } from './angular-editor.service';
 import { AngularEditorConfig, angularEditorConfig } from './config';
+import { ElementDOM } from './element-dom';
 import { isDefined } from './utils';
 
 @Component({
@@ -38,7 +39,7 @@ import { isDefined } from './utils';
     AngularEditorService
   ]
 })
-export class AngularEditorComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnDestroy {
+export class AngularEditorComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnDestroy, ElementDOM {
 
   private onChange: (value: string) => void;
   private onTouched: () => void;
@@ -90,7 +91,8 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     private sanitizer: DomSanitizer,
     private cdRef: ChangeDetectorRef,
     @Attribute('tabindex') defaultTabIndex: string,
-    @Attribute('autofocus') private autoFocus: any
+    @Attribute('autofocus') private autoFocus: any,
+    public elementDOM: ElementRef<HTMLElement>
   ) {
     const parsedTabIndex = Number(defaultTabIndex);
     this.tabIndex = (parsedTabIndex || parsedTabIndex === 0) ? parsedTabIndex : null;
@@ -195,7 +197,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     if (this.modeVisual) {
       this.textArea.nativeElement.focus();
     } else {
-      const sourceText = this.doc.getElementById('sourceText' + this.id);
+      const sourceText = this.getChildById('sourceText' + this.id);
       sourceText.focus();
       this.focused = true;
     }
@@ -427,5 +429,9 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   filterStyles(html: string): string {
     html = html.replace('position: fixed;', '');
     return html;
+  }
+
+  getChildById(id: string): HTMLElement {
+    return this.elementDOM.nativeElement.querySelector(`#${id}`);
   }
 }
