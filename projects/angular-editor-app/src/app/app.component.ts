@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AngularEditorConfig } from 'angular-editor';
 
 const ANGULAR_EDITOR_LOGO_URL = 'https://raw.githubusercontent.com/kolkov/angular-editor/master/docs/angular-editor-logo.png?raw=true'
@@ -12,7 +12,7 @@ const ANGULAR_EDITOR_LOGO_URL = 'https://raw.githubusercontent.com/kolkov/angula
 export class AppComponent implements OnInit {
   title = 'app';
 
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   htmlContent1 = '';
   htmlContent2 = '';
@@ -82,7 +82,7 @@ export class AppComponent implements OnInit {
     ]
   };
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: UntypedFormBuilder) {}
 
   ngOnInit() {
     this.form = this.formBuilder.group({
