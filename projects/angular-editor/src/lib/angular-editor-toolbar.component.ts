@@ -15,6 +15,7 @@ import {DOCUMENT} from '@angular/common';
 import {CustomClass} from './config';
 import {SelectOption} from './ae-select/ae-select.component';
 import { Observable } from 'rxjs';
+import { ElementDOM } from './element-dom';
 
 @Component({
   selector: 'angular-editor-toolbar',
@@ -22,7 +23,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./angular-editor-toolbar.component.scss'],
 })
 
-export class AngularEditorToolbarComponent {
+export class AngularEditorToolbarComponent implements ElementDOM {
   htmlMode = false;
   linkSelected = false;
   block = 'default';
@@ -168,7 +169,8 @@ export class AngularEditorToolbarComponent {
     private r: Renderer2,
     private editorService: AngularEditorService,
     private er: ElementRef,
-    @Inject(DOCUMENT) private doc: any
+    @Inject(DOCUMENT) private doc: any,
+    public elementDOM: ElementRef<HTMLElement>
   ) {
   }
 
@@ -189,7 +191,7 @@ export class AngularEditorToolbarComponent {
     }
     this.buttons.forEach(e => {
       const result = this.doc.queryCommandState(e);
-      const elementById = this.doc.getElementById(e + '-' + this.id);
+      const elementById = this.getChildById(e + '-' + this.id);
       if (result) {
         this.r.addClass(elementById, 'active');
       } else {
@@ -239,7 +241,7 @@ export class AngularEditorToolbarComponent {
     }
 
     Object.keys(this.tagMap).map(e => {
-      const elementById = this.doc.getElementById(this.tagMap[e] + '-' + this.id);
+      const elementById = this.getChildById(this.tagMap[e] + '-' + this.id);
       const node = nodes.find(x => x.nodeName === e);
       if (node !== undefined && e === node.nodeName) {
         this.r.addClass(elementById, 'active');
@@ -312,7 +314,7 @@ export class AngularEditorToolbarComponent {
    * @param m boolean
    */
   setEditorMode(m: boolean) {
-    const toggleEditorModeButton = this.doc.getElementById('toggleEditorMode' + '-' + this.id);
+    const toggleEditorModeButton = this.getChildById('toggleEditorMode' + '-' + this.id);
     if (m) {
       this.r.addClass(toggleEditorModeButton, 'active');
     } else {
@@ -382,4 +384,9 @@ export class AngularEditorToolbarComponent {
     this.execute.emit('focus');
     console.log('focused');
   }
+
+  getChildById(id: string): HTMLElement {
+    return this.elementDOM.nativeElement.querySelector(`#${id}`);
+  }
+
 }

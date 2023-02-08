@@ -1,0 +1,32 @@
+<app-nav></app-nav>
+
+<div class="container">
+    <h1>Angular Editor</h1>
+    <p><a href="https://github.com/kolkov/angular-editor">Get it here</a></p>
+
+    <label for="test_input">Test input </label>
+    <input id="test_input">
+    <br><br>
+    <angular-editor id="editor1" [(ngModel)]="htmlContent1" [config]="config1" (ngModelChange)="onChange($event)"
+        (blur)="onBlur($event)">
+        <ng-template #customButtons let-executeCommandFn="executeCommandFn">
+            <ae-toolbar-set>
+                <ae-button iconClass="fa fa-html5" title="Angular editor logo"
+                    (buttonClick)="executeCommandFn('insertHtml', angularEditorLogo)"></ae-button>
+            </ae-toolbar-set>
+        </ng-template>
+    </angular-editor>
+    <p class="html">
+        HTML Output: {{ htmlContent1 }}
+    </p>
+    <form [formGroup]="form">
+        <angular-editor autofocus="true" id="editor2" formControlName="signature" [config]="config2"
+            (ngModelChange)="onChange2($event)"></angular-editor>
+    </form>
+    <p>
+        Form Value: {{ form.value.signature }}
+    </p>
+    <p>
+        Form Status: {{ form.status }}
+    </p>
+</div>
