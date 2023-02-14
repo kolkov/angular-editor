@@ -1,90 +1,95 @@
 <div class="angular-editor-toolbar" *ngIf="showToolbar">
-  <div class="angular-editor-toolbar-set">
-    <button type="button" title="Undo" class="angular-editor-button" (click)="triggerCommand('undo')"
-            [hidden]="isButtonHidden('undo')" tabindex="-1"><i
-      class='fa fa-undo'></i></button>
-    <button type="button" title="Redo" class="angular-editor-button" (click)="triggerCommand('redo')"
-            [hidden]="isButtonHidden('redo')" tabindex="-1"><i
-      class='fa fa-repeat'></i></button>
-  </div>
-  <div class="angular-editor-toolbar-set">
-    <button [id]="'bold-'+id" type="button" title="Bold" class="angular-editor-button" (click)="triggerCommand('bold')"
-            [disabled]="htmlMode" [hidden]="isButtonHidden('bold')" tabindex="-1"><i class='fa fa-bold'></i></button>
-    <button [id]="'italic-'+id" type="button" title="Italic" class="angular-editor-button"
-            (click)="triggerCommand('italic')"
-            [disabled]="htmlMode" [hidden]="isButtonHidden('italic')" tabindex="-1"><i class='fa fa-italic'></i>
-    </button>
-    <button [id]="'underline-'+id" type="button" title="Underline" class="angular-editor-button"
-            (click)="triggerCommand('underline')" [disabled]="htmlMode" [hidden]="isButtonHidden('underline')"
-            tabindex="-1"><i class='fa fa-underline'></i></button>
-    <button [id]="'strikeThrough-'+id" type="button" title="Strikethrough" class="angular-editor-button"
-            (click)="triggerCommand('strikeThrough')" [disabled]="htmlMode" [hidden]="isButtonHidden('strikeThrough')"
-            tabindex="-1"><i class='fa fa-strikethrough'></i></button>
-    <button [id]="'subscript-'+id" type="button" title="Subscript" class="angular-editor-button"
-            (click)="triggerCommand('subscript')" [disabled]="htmlMode" [hidden]="isButtonHidden('subscript')"
-            tabindex="-1"><i class='fa fa-subscript'></i></button>
-    <button [id]="'superscript-'+id" type="button" title="Superscript" class="angular-editor-button"
-            (click)="triggerCommand('superscript')" [disabled]="htmlMode" [hidden]="isButtonHidden('superscript')"
-            tabindex="-1"><i class='fa fa-superscript'></i></button>
-  </div>
-  <div class="angular-editor-toolbar-set">
-    <button [id]="'justifyLeft-'+id" type="button" title="Justify Left" class="angular-editor-button"
-            (click)="triggerCommand('justifyLeft')" [disabled]="htmlMode" [hidden]="isButtonHidden('justifyLeft')"
-            tabindex="-1"><i
-      class='fa fa-align-left'></i></button>
-    <button [id]="'justifyCenter-'+id" type="button" title="Justify Center" class="angular-editor-button"
-            (click)="triggerCommand('justifyCenter')" [disabled]="htmlMode" [hidden]="isButtonHidden('justifyCenter')"
-            tabindex="-1"><i
-      class='fa fa-align-center'></i></button>
-    <button [id]="'justifyRight-'+id" type="button" title="Justify Right" class="angular-editor-button"
-            (click)="triggerCommand('justifyRight')" [disabled]="htmlMode" [hidden]="isButtonHidden('justifyRight')"
-            tabindex="-1">
-      <i class='fa fa-align-right'></i></button>
-    <button [id]="'justifyFull-'+id" type="button" title="Justify Full" class="angular-editor-button"
-            (click)="triggerCommand('justifyFull')" [disabled]="htmlMode" [hidden]="isButtonHidden('justifyFull')"
-            tabindex="-1"><i
-      class='fa fa-align-justify'></i></button>
-  </div>
-  <div class="angular-editor-toolbar-set">
-    <button [id]="'indent-'+id" type="button" title="Indent" class="angular-editor-button"
-            (click)="triggerCommand('indent')"
-            [disabled]="htmlMode" [hidden]="isButtonHidden('indent')" tabindex="-1"><i
-      class='fa fa-indent'></i></button>
-    <button [id]="'outdent-'+id" type="button" title="Outdent" class="angular-editor-button"
-            (click)="triggerCommand('outdent')"
-            [disabled]="htmlMode" [hidden]="isButtonHidden('outdent')" tabindex="-1"><i
-      class='fa fa-outdent'></i></button>
-  </div>
-  <div class="angular-editor-toolbar-set">
-    <button [id]="'insertUnorderedList-'+id" type="button" title="Unordered List" class="angular-editor-button"
-            (click)="triggerCommand('insertUnorderedList')" [disabled]="htmlMode"
-            [hidden]="isButtonHidden('insertUnorderedList')" tabindex="-1"><i
-      class='fa fa-list-ul'></i></button>
-    <button [id]="'insertOrderedList-'+id" type="button" title="Ordered List" class="angular-editor-button"
-            (click)="triggerCommand('insertOrderedList')" [disabled]="htmlMode"
-            [hidden]="isButtonHidden('insertOrderedList')" tabindex="-1"><i
-      class='fa fa-list-ol'></i></button>
-  </div>
-  <div class="angular-editor-toolbar-set">
-
+  <ae-toolbar-set>
+    <ae-button title="Undo" iconClass="fa fa-undo"
+               [hidden]="isButtonHidden('undo')"
+               (buttonClick)="triggerCommand('undo')">
+    </ae-button>
+    <ae-button title="Redo" iconClass="fa fa-repeat"
+               [hidden]="isButtonHidden('redo')"
+               (buttonClick)="triggerCommand('redo')">
+    </ae-button>
+  </ae-toolbar-set>
+  <ae-toolbar-set>
+    <ae-button [id]="'bold-'+id" title="Bold" iconClass="fa fa-bold"
+               [disabled]="htmlMode" [hidden]="isButtonHidden('bold')"
+               (buttonClick)="triggerCommand('bold')">
+    </ae-button>
+    <ae-button [id]="'italic-'+id" title="Italic" iconClass="fa fa-italic"
+               [disabled]="htmlMode" [hidden]="isButtonHidden('italic')"
+               (buttonClick)="triggerCommand('italic')">
+    </ae-button>
+    <ae-button [id]="'underline-'+id" title="Underline" iconClass="fa fa-underline"
+               [disabled]="htmlMode" [hidden]="isButtonHidden('underline')"
+               (buttonClick)="triggerCommand('underline')">
+    </ae-button>
+    <ae-button [id]="'strikeThrough-'+id" title="Strikethrough" iconClass="fa fa-strikethrough"
+               [disabled]="htmlMode" [hidden]="isButtonHidden('strikeThrough')"
+               (buttonClick)="triggerCommand('strikeThrough')">
+    </ae-button>
+    <ae-button [id]="'subscript-'+id" title="Subscript" iconClass="fa fa-subscript"
+               [disabled]="htmlMode" [hidden]="isButtonHidden('subscript')"
+               (buttonClick)="triggerCommand('subscript')">
+    </ae-button>
+    <ae-button [id]="'superscript-'+id" title="Superscript" iconClass="fa fa-superscript"
+               [disabled]="htmlMode" [hidden]="isButtonHidden('superscript')"
+               (buttonClick)="triggerCommand('superscript')">
+    </ae-button>
+  </ae-toolbar-set>
+  <ae-toolbar-set>
+    <ae-button [id]="'justifyLeft-'+id" title="Justify Left" iconClass="fa fa-align-left"
+               [disabled]="htmlMode" [hidden]="isButtonHidden('justifyLeft')"
+               (buttonClick)="triggerCommand('justifyLeft')">
+    </ae-button>
+    <ae-button [id]="'justifyCenter-'+id" title="Justify Center" iconClass="fa fa-align-center"
+               [disabled]="htmlMode" [hidden]="isButtonHidden('justifyCenter')"
+               (buttonClick)="triggerCommand('justifyCenter')">
+    </ae-button>
+    <ae-button [id]="'justifyRight-'+id" title="Justify Right" iconClass="fa fa-align-right"
+               [disabled]="htmlMode" [hidden]="isButtonHidden('justifyRight')"
+               (buttonClick)="triggerCommand('justifyRight')">
+    </ae-button>
+    <ae-button [id]="'justifyFull-'+id" title="Justify Full" iconClass="fa fa-align-justify"
+               [disabled]="htmlMode" [hidden]="isButtonHidden('justifyFull')"
+               (buttonClick)="triggerCommand('justifyFull')">
+    </ae-button>
+  </ae-toolbar-set>
+  <ae-toolbar-set>
+    <ae-button [id]="'indent-'+id" title="Indent" iconClass="fa fa-indent"
+               [disabled]="htmlMode" [hidden]="isButtonHidden('indent')"
+               (buttonClick)="triggerCommand('indent')">
+    </ae-button>
+    <ae-button [id]="'outdent-'+id" title="Outdent" iconClass="fa fa-outdent"
+               [disabled]="htmlMode" [hidden]="isButtonHidden('outdent')"
+               (buttonClick)="triggerCommand('outdent')">
+    </ae-button>
+  </ae-toolbar-set>
+  <ae-toolbar-set>
+    <ae-button [id]="'insertUnorderedList-'+id" title="Unordered List" iconClass="fa fa-list-ul"
+               [disabled]="htmlMode" [hidden]="isButtonHidden('insertUnorderedList')"
+               (buttonClick)="triggerCommand('insertUnorderedList')">
+    </ae-button>
+    <ae-button [id]="'insertOrderedList-'+id" title="Ordered List" iconClass="fa fa-list-ol"
+               [disabled]="htmlMode" [hidden]="isButtonHidden('insertOrderedList')"
+               (buttonClick)="triggerCommand('insertOrderedList')">
+    </ae-button>
+  </ae-toolbar-set>
+  <ae-toolbar-set>
     <ae-select class="select-heading" [options]="headings"
                [(ngModel)]="block"
                (change)="triggerCommand(block)"
                [disabled]="htmlMode"
                [hidden]="isButtonHidden('heading')"
                tabindex="-1"></ae-select>
-  </div>
-  <div class="angular-editor-toolbar-set">
-
+  </ae-toolbar-set>
+  <ae-toolbar-set>
     <ae-select class="select-font" [options]="fonts"
                [(ngModel)]="fontName"
                (change)="setFontName(fontName)"
                [disabled]="htmlMode"
                [hidden]="isButtonHidden('fontName')"
                tabindex="-1"></ae-select>
-  </div>
-  <div class="angular-editor-toolbar-set">
-
+  </ae-toolbar-set>
+  <ae-toolbar-set>
     <ae-select class="select-font-size" [options]="fontSizes"
                [(ngModel)]="fontSize"
                (change)="setFontSize(fontSize)"
@@ -92,8 +97,8 @@
                [hidden]="isButtonHidden('fontSize')"
                tabindex="-1">
     </ae-select>
-  </div>
-  <div class="angular-editor-toolbar-set">
+  </ae-toolbar-set>
+  <ae-toolbar-set>
     <input
       style="display: none"
       type="color" (change)="insertColor(fgInput.value, 'textColor')"
@@ -112,52 +117,53 @@
             [disabled]="htmlMode" [hidden]="isButtonHidden('backgroundColor')" tabindex="-1"><span
       class="color-label background"><i class="fa fa-font"></i></span>
     </button>
-  </div>
-  <div *ngIf="_customClasses" class="angular-editor-toolbar-set">
+  </ae-toolbar-set>
+  <ae-toolbar-set *ngIf="_customClasses">
     <ae-select class="select-custom-style" [options]="customClassList"
                [(ngModel)]="customClassId"
                (change)="setCustomClass(customClassId)"
                [disabled]="htmlMode"
                [hidden]="isButtonHidden('customClasses')"
                tabindex="-1"></ae-select>
-  </div>
-  <div class="angular-editor-toolbar-set">
-    <button [id]="'link-'+id" type="button" class="angular-editor-button" (click)="insertUrl()"
-            title="Insert Link" [disabled]="isLinkButtonDisabled" [hidden]="isButtonHidden('link')" tabindex="-1">
-      <i class="fa fa-link"></i>
-    </button>
-    <button [id]="'unlink-'+id" type="button" class="angular-editor-button" (click)="triggerCommand('unlink')"
-            title="Unlink" [disabled]="htmlMode || !linkSelected" [hidden]="isButtonHidden('unlink')" tabindex="-1">
-      <i class="fa fa-chain-broken"></i>
-    </button>
+  </ae-toolbar-set>
+  <ae-toolbar-set>
+    <ae-button [id]="'link-'+id" title="Insert Link" iconClass="fa fa-link"
+               [disabled]="isLinkButtonDisabled" [hidden]="isButtonHidden('link')"
+               (buttonClick)="insertUrl()">
+    </ae-button>
+    <ae-button [id]="'unlink-'+id" title="Unlink" iconClass="fa fa-chain-broken"
+               [disabled]="htmlMode || !linkSelected" [hidden]="isButtonHidden('unlink')"
+               (buttonClick)="triggerCommand('unlink')">
+    </ae-button>
     <input
       style="display: none"
       accept="image/*"
       type="file" (change)="onFileChanged($event)"
       #fileInput>
-    <button [id]="'insertImage-'+id" type="button" class="angular-editor-button" (click)="focus(); fileInput.click()"
-            title="Insert Image"
-            [disabled]="htmlMode" [hidden]="isButtonHidden('insertImage')" tabindex="-1"><i class="fa fa-image"></i>
-    </button>
-    <button [id]="'insertVideo-'+id" type="button" class="angular-editor-button"
-            (click)="insertVideo()" title="Insert Video" [disabled]="htmlMode" [hidden]="isButtonHidden('insertVideo')"
-            tabindex="-1"><i
-      class="fa fa-video-camera"></i></button>
-    <button [id]="'insertHorizontalRule-'+id" type="button" title="Horizontal Line" class="angular-editor-button"
-            (click)="triggerCommand('insertHorizontalRule')" [disabled]="htmlMode"
-            [hidden]="isButtonHidden('insertHorizontalRule')" tabindex="-1"><i
-      class="fa fa-minus"></i></button>
-  </div>
-  <div class="angular-editor-toolbar-set">
-    <button [id]="'clearFormatting-'+id" type="button" title="Clear Formatting" class="angular-editor-button"
-            (click)="triggerCommand('removeFormat')" [disabled]="htmlMode" [hidden]="isButtonHidden('removeFormat')"
-            tabindex="-1"><i class='fa fa-remove'></i>
-    </button>
-  </div>
-  <div class="angular-editor-toolbar-set">
-    <button [id]="'toggleEditorMode-'+id" type="button" title="HTML Code" class="angular-editor-button"
-            (click)="triggerCommand('toggleEditorMode')" [hidden]="isButtonHidden('toggleEditorMode')" tabindex="-1"><i
-      class='fa fa-code'></i></button>
-  </div>
+    <ae-button [id]="'insertImage-'+id" title="Insert Image" iconClass="fa fa-image"
+               [disabled]="htmlMode" [hidden]="isButtonHidden('insertImage')"
+               (buttonClick)="focus(); fileInput.click()">
+    </ae-button>
+    <ae-button [id]="'insertVideo-'+id" title="Insert Video" iconClass="fa fa-video-camera"
+               [disabled]="htmlMode" [hidden]="isButtonHidden('insertVideo')"
+               (buttonClick)="insertVideo()">
+    </ae-button>
+    <ae-button [id]="'insertHorizontalRule-'+id" title="Horizontal Line" iconClass="fa fa-minus"
+               [disabled]="htmlMode" [hidden]="isButtonHidden('insertHorizontalRule')"
+               (buttonClick)="triggerCommand('insertHorizontalRule')">
+    </ae-button>
+  </ae-toolbar-set>
+  <ae-toolbar-set>
+    <ae-button [id]="'clearFormatting-'+id" title="Clear Formatting" iconClass="fa fa-remove"
+               [disabled]="htmlMode" [hidden]="isButtonHidden('removeFormat')"
+               (buttonClick)="triggerCommand('removeFormat')">
+    </ae-button>
+  </ae-toolbar-set>
+  <ae-toolbar-set>
+    <ae-button [id]="'toggleEditorMode-'+id" title="HTML Code" iconClass="fa fa-code"
+               [hidden]="isButtonHidden('toggleEditorMode')"
+               (buttonClick)="triggerCommand('toggleEditorMode')">
+    </ae-button>
+  </ae-toolbar-set>
   <ng-content></ng-content>
 </div>
