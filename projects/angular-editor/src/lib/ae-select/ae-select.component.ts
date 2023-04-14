@@ -195,7 +195,7 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
   }
 
   _handleSpace($event) {
-
+    this.optionSelect(this.options[this.optionId], $event);
   }
 
   _handleEnter($event) {
