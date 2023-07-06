@@ -13,6 +13,11 @@ export interface Font {
   class: string;
 }
 
+export interface Headings {
+  label: string;
+  value: string;
+}
+
 export interface AngularEditorConfig {
   editable?: boolean;
   spellcheck?: boolean;
@@ -32,6 +37,7 @@ export interface AngularEditorConfig {
   upload?: (file: File) => Observable<HttpEvent<UploadResponse>>;
   uploadWithCredentials?: boolean;
   fonts?: Font[];
+  headings?: Headings[];
   customClasses?: CustomClass[];
   sanitize?: boolean;
   toolbarPosition?: 'top' | 'bottom';
@@ -60,6 +66,52 @@ export const angularEditorConfig: AngularEditorConfig = {
     {class: 'times-new-roman', name: 'Times New Roman'},
     {class: 'calibri', name: 'Calibri'},
     {class: 'comic-sans-ms', name: 'Comic Sans MS'}
+  ],
+  headings:[
+    {
+      label: 'Heading 1',
+      value: 'h1',
+    },
+    {
+      label: 'Heading 2',
+      value: 'h2',
+    },
+    {
+      label: 'Heading 3',
+      value: 'h3',
+    },
+    {
+      label: 'Heading 4',
+      value: 'h4',
+    },
+    {
+      label: 'Heading 5',
+      value: 'h5',
+    },
+    {
+      label: 'Heading 6',
+      value: 'h6',
+    },
+    {
+      label: 'Heading 7',
+      value: 'h7',
+    },
+    {
+      label: 'Paragraph',
+      value: 'p',
+    },
+    {
+      label: 'Predefined',
+      value: 'pre'
+    },
+    {
+      label: 'Standard',
+      value: 'div'
+    },
+    {
+      label: 'default',
+      value: 'default'
+    }
   ],
   uploadUrl: 'v1/image',
   uploadWithCredentials: false,
