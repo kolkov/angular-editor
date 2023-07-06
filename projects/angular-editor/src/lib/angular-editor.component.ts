@@ -403,6 +403,12 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     });
   }
 
+  getHeadings(){
+    const headings = this.config.headings ? this.config.headings : angularEditorConfig.headings;
+
+    return headings;
+  }
+
   getCustomTags() {
     const tags = ['span'];
     this.config.customClasses.forEach(x => {

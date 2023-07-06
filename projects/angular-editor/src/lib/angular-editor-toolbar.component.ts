@@ -31,52 +31,9 @@ export class AngularEditorToolbarComponent {
   foreColour;
   backColor;
 
-  headings: SelectOption[] = [
-    {
-      label: 'Heading 1',
-      value: 'h1',
-    },
-    {
-      label: 'Heading 2',
-      value: 'h2',
-    },
-    {
-      label: 'Heading 3',
-      value: 'h3',
-    },
-    {
-      label: 'Heading 4',
-      value: 'h4',
-    },
-    {
-      label: 'Heading 5',
-      value: 'h5',
-    },
-    {
-      label: 'Heading 6',
-      value: 'h6',
-    },
-    {
-      label: 'Heading 7',
-      value: 'h7',
-    },
-    {
-      label: 'Paragraph',
-      value: 'p',
-    },
-    {
-      label: 'Predefined',
-      value: 'pre'
-    },
-    {
-      label: 'Standard',
-      value: 'div'
-    },
-    {
-      label: 'default',
-      value: 'default'
-    }
-  ];
+  // headings: SelectOption[] = [
+    
+  // ];
 
   fontSizes: SelectOption[] = [
     {
@@ -130,6 +87,7 @@ export class AngularEditorToolbarComponent {
   @Input() upload: (file: File) => Observable<HttpEvent<UploadResponse>>;
   @Input() showToolbar: boolean;
   @Input() fonts: SelectOption[] = [{label: '', value: ''}];
+  @Input() headings: SelectOption[] = [{label: '', value: ''}];
 
   @Input()
   set customClasses(classes: CustomClass[]) {
