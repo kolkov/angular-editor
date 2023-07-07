@@ -3,11 +3,12 @@
 </p>
 
 # AngularEditor
+
 [![npm version](https://badge.fury.io/js/%40kolkov%2Fangular-editor.svg)](https://badge.fury.io/js/%40kolkov%2Fangular-editor)
 [![demo](https://img.shields.io/badge/demo-StackBlitz-blueviolet.svg)](https://stackblitz.com/edit/angular-editor-wysiwyg)
 [![Build Status](https://travis-ci.com/kolkov/angular-editor.svg?branch=master)](https://travis-ci.com/kolkov/angular-editor)
 [![npm](https://img.shields.io/npm/dm/@kolkov/angular-editor.svg)](https://www.npmjs.com/package/@kolkov/angular-editor)
-[![](https://data.jsdelivr.com/v1/package/npm/@kolkov/angular-editor/badge?style=rounded)](https://www.jsdelivr.com/package/npm/@kolkov/angular-editor)
+[![jsDelivr](https://data.jsdelivr.com/v1/package/npm/@kolkov/angular-editor/badge?style=rounded)](https://www.jsdelivr.com/package/npm/@kolkov/angular-editor)
 [![Coverage Status](https://coveralls.io/repos/github/kolkov/angular-editor/badge.svg?branch=master)](https://coveralls.io/github/kolkov/angular-editor?branch=master)
 [![codecov](https://codecov.io/gh/kolkov/angular-editor/branch/master/graph/badge.svg)](https://codecov.io/gh/kolkov/angular-editor)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/AndreyKolkov)
@@ -16,19 +17,20 @@ A simple native WYSIWYG/Rich Text editor for Angular 6-14+
 
 ![Nov-27-2019 17-26-29](https://user-images.githubusercontent.com/216412/69763434-259cd800-113b-11ea-918f-0565ebce0e48.gif)
 
-
 ## Demo
-[demo](https://angular-editor-wysiwyg.stackblitz.io/) | [See the code in StackBlitz](https://stackblitz.com/edit/angular-editor-wysiwyg).
+
+[Demo](https://angular-editor-wysiwyg.stackblitz.io/) | [See the code in StackBlitz](https://stackblitz.com/edit/angular-editor-wysiwyg).
 
 ## Getting Started
 
 ### Installation
 
-Install via [npm][npm] package manager 
+Install via [npm][npm] package manager
 
 ```bash
 npm install @kolkov/angular-editor --save
 ```
+
 ### Versions
 
 2.0.0 and above - for Angular v13.0.0 and above
@@ -37,7 +39,7 @@ npm install @kolkov/angular-editor --save
 
 0.18.4 and above - for Angular v7.x.x
 
-0.15.x - for Angular v6.x.x 
+0.15.x - for Angular v6.x.x
 
 ### Usage
 
@@ -75,7 +77,6 @@ where
 
 ```js
 import { AngularEditorConfig } from '@kolkov/angular-editor';
-
 
 editorConfig: AngularEditorConfig = {
     editable: true,
@@ -124,11 +125,12 @@ editorConfig: AngularEditorConfig = {
     ]
 };
 ```
+
 For `ngModel` to work, you must import `FormsModule` from `@angular/forms`, or for `formControlName`, you must import `ReactiveFormsModule` from `@angular/forms`
 
 To serve the fontawesome files, ensure that your angular.json contains the following asset configuration:
 
-```
+```json
 {
   "glob": "**/*",
   "input": "./node_modules/@kolkov/angular-editor/assets/",
@@ -138,8 +140,9 @@ To serve the fontawesome files, ensure that your angular.json contains the follo
 
 ### Custom buttons
 
-You can define your custom buttons with custom actions using executeCommandFn. It accepts commands from [execCommand](https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand).
-The first argument of this method is aCommandName and the second argument is aValueArgument. Example shows a button that adds Angular editor logo into the editor.
+You can define your custom buttons with custom actions using `executeCommandFn`. It accepts commands from [execCommand](https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand).
+The first argument of this method is `aCommandName` and the second argument is `aValueArgument`. Example shows a button that adds Angular editor logo into the editor.
+
 ```html
 <angular-editor id="editor1" formControlName="htmlContent1" [config]="editorConfig">
   <ng-template #customButtons let-executeCommandFn="executeCommandFn">
@@ -153,13 +156,15 @@ The first argument of this method is aCommandName and the second argument is aVa
 ```
 
 ## API
+
 ### Inputs
+
 | Input  | Type | Default | Required | Description |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
 | id | `string` | `-` | no | Id property when multiple editor used on same page |
-| [config] | `AngularEditorConfig` | `default config` | no | config for the editor |
+| [config] | `AngularEditorConfig` | `default config` | no | Config for the editor |
 | placeholder | `string` | `-` | no | Set custom placeholder for input area |
-| tabIndex | `number` | `-` | no | Set Set tabindex on angular-editor |
+| tabIndex | `number` | `-` | no | Set tabindex on angular-editor |
 
 ### Outputs
 
@@ -171,12 +176,14 @@ The first argument of this method is aCommandName and the second argument is aVa
 | (focus)  | Fired when editor focus |
 
 ### Methods
- Name  | Description |
+
+| Name  | Description |
 | ------------- | ------------- |
 | focus  | Focuses the editor element |
 
 ### Other
- Name  | Type | Description |
+
+| Name  | Type | Description |
 | ------------- | ------------- | ------------- |
 | AngularEditorConfig | configuration | Configuration for the AngularEditor component.|
 
@@ -200,7 +207,7 @@ The first argument of this method is aCommandName and the second argument is aVa
 | defaultParagraphSeparator  | `string` | `-` | no | Set default paragraph separator such as `p` |
 | defaultFontName  | `string` | `-` | no | Set default font such as `Comic Sans MS` |
 | defaultFontSize  | `string` | `-` | no | Set default font size such as `1` - `7` |
-| uploadUrl  | `string` | `-` | no | Set image upload endpoint `https://api.exapple.com/v1/image/upload` and return response with imageUrl key. {"imageUrl" : <url>} |
+| uploadUrl  | `string` | `-` | no | Set image upload endpoint `https://api.exapple.com/v1/image/upload` and return response with imageUrl key `{"imageUrl" : <url>}` |
 | upload  | `function` | `-` | no | Set image upload function |
 | uploadWithCredentials | `bolean` | `false` | no | Set passing or not credentials in the image upload call |
 | fonts  | `Font[]` | `-` | no | Set array of available fonts  `[{name, class},...]` |
@@ -256,6 +263,7 @@ angular-editor/
     ├── angular-editor/
     └── angular-editor-app/
 ```
+
 `angular-editor/` - library
 
 `angular-editor-app/` - demo application
@@ -287,5 +295,3 @@ See [the Releases section of our project](https://github.com/kolkov/angular-edit
 If you like my work and I save your time you can buy me a :beer: or :pizza: [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/AndreyKolkov)
 
 [npm]: https://www.npmjs.com/package/@kolkov/angular-editor
-[demo]: https://angular-editor-wysiwyg.stackblitz.io/
-[example]: https://stackblitz.com/edit/angular-editor-wysiwyg
