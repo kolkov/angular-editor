@@ -189,7 +189,7 @@ export class AngularEditorService {
   }
 
   insertVideo(videoUrl: string) {
-    if (videoUrl.match('www.youtube.com')) {
+    if (this.isYoutubeVideoUrl(videoUrl)) {
       this.insertYouTubeVideoTag(videoUrl);
     }
     if (videoUrl.match('vimeo.com')) {
@@ -197,8 +197,20 @@ export class AngularEditorService {
     }
   }
 
+  isYoutubeVideoUrl(videoUrl: string): boolean {
+    const youtubeRegex = '^(?:https?://)?(?:www.)?youtube.com|youtu.be';
+    return videoUrl.match(youtubeRegex) !== null;
+  }
+
+  getYoutubeVideoId(videoUrl: string): string | undefined {
+    const youtubeRegex =  /(?:https?:\/\/)?(?:youtu\.be\/|watch\?v=)([^&?/\s]*)/;
+    const match = videoUrl.match(youtubeRegex);
+
+    return match?.[1];
+  }
+
   private insertYouTubeVideoTag(videoUrl: string): void {
-    const id = videoUrl.split('v=')[1];
+    const id = this.getYoutubeVideoId(videoUrl);
     const imageUrl = `https://img.youtube.com/vi/${id}/0.jpg`;
     const thumbnail = `
       <div style='position: relative'>
