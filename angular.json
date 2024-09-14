@@ -73,6 +73,11 @@
                 "output": "assets/fonts/"
               }
             ],
+            "stylePreprocessorOptions": {
+                "includePaths": [
+                  "./node_modules"
+                ]
+              },
             "styles": [
               "projects/angular-editor-app/src/styles.scss"
             ],
@@ -116,18 +121,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-editor-app:build"
+            "buildTarget": "angular-editor-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular-editor-app:build:production"
+              "buildTarget": "angular-editor-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-editor-app:build"
+            "buildTarget": "angular-editor-app:build"
           }
         },
         "test": {
@@ -142,8 +147,13 @@
               "projects/angular-editor-app/src/assets"
             ],
             "styles": [
-              "projects/angular-editor-app/src/styles.css"
+              "projects/angular-editor-app/src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+                "includePaths": [
+                  "./node_modules"
+                ]
+              },
             "scripts": []
           }
         },
@@ -176,5 +186,13 @@
     "schematicCollections": [
       "@angular-eslint/schematics"
     ]
+  },
+  "schematics": {
+    "@angular-eslint/schematics:application": {
+      "setParserOptionsProject": true
+    },
+    "@angular-eslint/schematics:library": {
+      "setParserOptionsProject": true
+    }
   }
 }
