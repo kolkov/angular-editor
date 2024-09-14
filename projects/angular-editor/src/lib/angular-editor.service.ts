@@ -277,7 +277,7 @@ export class AngularEditorService {
     if (this.doc.getSelection) {
       const sel = this.doc.getSelection();
       for (let i = 0, len = sel.rangeCount; i < len; ++i) {
-        nodes.push.apply(nodes, this.getRangeSelectedNodes(sel.getRangeAt(i), true));
+        nodes.push(...this.getRangeSelectedNodes(sel.getRangeAt(i), true));
       }
     }
     return nodes;

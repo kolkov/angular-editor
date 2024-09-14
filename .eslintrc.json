@@ -1,51 +1,67 @@
 {
-  "root": true,
-  "ignorePatterns": [
-    "projects/**/*"
-  ],
-  "overrides": [
-    {
-      "files": [
-        "*.ts"
-      ],
-      "parserOptions": {
-        "project": [
-          "tsconfig.json",
-          "e2e/tsconfig.json"
-        ],
-        "createDefaultProgram": true
-      },
-      "extends": [
-        "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates"
-      ],
-      "rules": {
-        "@angular-eslint/component-selector": [
-          "error",
-          {
-            "prefix": "lib",
-            "style": "kebab-case",
-            "type": "element"
-          }
-        ],
-        "@angular-eslint/directive-selector": [
-          "error",
-          {
-            "prefix": "lib",
-            "style": "camelCase",
-            "type": "attribute"
-          }
-        ]
-      }
-    },
-    {
-      "files": [
-        "*.html"
-      ],
-      "extends": [
-        "plugin:@angular-eslint/template/recommended"
-      ],
-      "rules": {}
-    }
-  ]
+    "root": true,
+    "ignorePatterns": [
+        "projects/**/*"
+    ],
+    "overrides": [
+        {
+            "files": [
+                "*.ts"
+            ],
+            "parserOptions": {
+                "parser": "@typescript-eslint/parser",
+                "project": [
+                    "tsconfig.json",
+                    "e2e/tsconfig.json"
+                ],
+                "createDefaultProgram": true
+            },
+            "extends": [
+                "plugin:@angular-eslint/recommended",
+                "plugin:@angular-eslint/template/process-inline-templates",
+                "plugin:@typescript-eslint/recommended"
+            ],
+            "rules": {
+                "@typescript-eslint/no-var-requires": 0,
+                "@typescript-eslint/no-unused-vars": 0,
+                "@typescript-eslint/no-explicit-any": 0,
+                "@typescript-eslint/naming-convention": [
+                    "error",
+                    {
+                        "selector": "enumMember",
+                        "format": [
+                            "camelCase",
+                            "PascalCase",
+                            "UPPER_CASE"
+                        ]
+                    }
+                ],
+                "@angular-eslint/component-selector": [
+                    "error",
+                    {
+                        "prefix": "lib",
+                        "style": "kebab-case",
+                        "type": "element"
+                    }
+                ],
+                "@angular-eslint/directive-selector": [
+                    "error",
+                    {
+                        "prefix": "lib",
+                        "style": "camelCase",
+                        "type": "attribute"
+                    }
+                ]
+            }
+        },
+        {
+            "files": [
+                "*.html"
+            ],
+            "extends": [
+                "plugin:@angular-eslint/template/recommended"
+            ],
+            "rules": {}
+        }
+    ]
 }

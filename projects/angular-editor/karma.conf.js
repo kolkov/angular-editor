@@ -10,6 +10,7 @@ module.exports = function (config) {
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage'),
+      require('karma-coverage-istanbul-reporter'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
     client: {
@@ -29,7 +30,7 @@ module.exports = function (config) {
       dir: require('path').join(__dirname, '../../coverage/angular-editor'),
       subdir: '.',
     },
-    reporters: ['progress', 'kjhtml'],
+    reporters: ['progress', 'kjhtml', 'coverage-istanbul'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
