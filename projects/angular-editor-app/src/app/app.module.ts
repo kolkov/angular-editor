@@ -5,6 +5,9 @@ import { AppComponent } from './app.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {AngularEditorModule} from '../../../angular-editor/src/lib/angular-editor.module';
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 
 
 @NgModule({
@@ -21,4 +24,6 @@ import {AngularEditorModule} from '../../../angular-editor/src/lib/angular-edito
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+
+}
