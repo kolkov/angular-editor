@@ -6,6 +6,7 @@ import {
   forwardRef, HostBinding,
   HostListener,
   Input,
+  NgZone,
   OnInit,
   Output,
   Renderer2,
@@ -41,6 +42,7 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
   selectedOption: SelectOption;
   disabled = false;
   optionId = 0;
+  private outsideClickListener: () => void;
 
   get label(): string {
     return this.selectedOption && this.selectedOption.hasOwnProperty('label') ? this.selectedOption.label : 'Select';
@@ -61,13 +63,24 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
 
   constructor(private elRef: ElementRef,
               private r: Renderer2,
-  ) {}
+              private ngZone: NgZone
+  ) {
+    this.ngZone.runOutsideAngular(() => {
+      this.outsideClickListener = this.handleOutsideClick.bind(this);
+      document.addEventListener('click', this.outsideClickListener);
+    });
+  }
 
   ngOnInit() {
     this.selectedOption = this.options[0];
     if (isDefined(this.isHidden) && this.isHidden) {
       this.hide();
     }
+  }
+
+  ngOnDestroy() {
+    // Clean up the event listener
+    document.removeEventListener('click', this.outsideClickListener);
   }
 
   hide() {
@@ -91,10 +104,14 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
     this.opened = !this.opened;
   }
 
-  @HostListener('document:click', ['$event'])
-  onClick($event: MouseEvent) {
-    if (!this.elRef.nativeElement.contains($event.target)) {
-      this.close();
+  handleOutsideClick(event: MouseEvent) {
+    if (!this.opened)
+      return; 
+
+    if (!this.elRef.nativeElement.contains(event.target)) {
+      this.ngZone.run(() => {
+        this.close();
+      });
     }
   }
 
