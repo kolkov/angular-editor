@@ -1,6 +1,8 @@
 {
-  "name": "@kolkov/angular-editor",
-  "version": "3.0.0-beta.0",
+  "name": "@linhle/angular-editor-fork",
+  "version": "1.0.0",
+  "description": "A fork of original-library with modifications",
+  "author": "Original author @kolkov",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
