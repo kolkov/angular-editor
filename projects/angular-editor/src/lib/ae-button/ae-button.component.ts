@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angular/core';
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -9,7 +10,7 @@ import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angula
 })
 export class AeButtonComponent {
 
-  @Input() iconClass = '';
+  @Input() icon!: IconDefinition;
   @Input() title = '';
   @Output() buttonClick = new EventEmitter();
 

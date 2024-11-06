@@ -1,69 +1,91 @@
 <div class="angular-editor-toolbar" *ngIf="showToolbar">
   <div class="angular-editor-toolbar-set">
     <button type="button" title="Undo" class="angular-editor-button" (click)="triggerCommand('undo')"
-            [hidden]="isButtonHidden('undo')" tabindex="-1"><i
-      class='fa fa-undo'></i></button>
+            [hidden]="isButtonHidden('undo')" tabindex="-1">
+            <fa-icon [icon]="faUndo"></fa-icon>
+            </button>
     <button type="button" title="Redo" class="angular-editor-button" (click)="triggerCommand('redo')"
-            [hidden]="isButtonHidden('redo')" tabindex="-1"><i
-      class='fa fa-repeat'></i></button>
+            [hidden]="isButtonHidden('redo')" tabindex="-1">
+            <fa-icon [icon]="faRedo"></fa-icon>
+          </button>
   </div>
   <div class="angular-editor-toolbar-set">
     <button [id]="'bold-'+id" type="button" title="Bold" class="angular-editor-button" (click)="triggerCommand('bold')"
-            [disabled]="htmlMode" [hidden]="isButtonHidden('bold')" tabindex="-1"><i class='fa fa-bold'></i></button>
+            [disabled]="htmlMode" [hidden]="isButtonHidden('bold')" tabindex="-1">
+            <fa-icon [icon]="faBold"></fa-icon>
+          </button>
     <button [id]="'italic-'+id" type="button" title="Italic" class="angular-editor-button"
             (click)="triggerCommand('italic')"
-            [disabled]="htmlMode" [hidden]="isButtonHidden('italic')" tabindex="-1"><i class='fa fa-italic'></i>
+            [disabled]="htmlMode" [hidden]="isButtonHidden('italic')" tabindex="-1">
+            <fa-icon [icon]="faItalic"></fa-icon>
     </button>
     <button [id]="'underline-'+id" type="button" title="Underline" class="angular-editor-button"
             (click)="triggerCommand('underline')" [disabled]="htmlMode" [hidden]="isButtonHidden('underline')"
-            tabindex="-1"><i class='fa fa-underline'></i></button>
+            tabindex="-1">
+            <fa-icon [icon]="faUnderline"></fa-icon>
+          </button>
     <button [id]="'strikeThrough-'+id" type="button" title="Strikethrough" class="angular-editor-button"
             (click)="triggerCommand('strikeThrough')" [disabled]="htmlMode" [hidden]="isButtonHidden('strikeThrough')"
-            tabindex="-1"><i class='fa fa-strikethrough'></i></button>
+            tabindex="-1">
+            <i class='fa fa-strikethrough'></i>
+            <fa-icon [icon]="faStrikethrough"></fa-icon>
+          </button>
     <button [id]="'subscript-'+id" type="button" title="Subscript" class="angular-editor-button"
             (click)="triggerCommand('subscript')" [disabled]="htmlMode" [hidden]="isButtonHidden('subscript')"
-            tabindex="-1"><i class='fa fa-subscript'></i></button>
+            tabindex="-1">
+            <fa-icon [icon]="faSubscript"></fa-icon>
+          </button>
     <button [id]="'superscript-'+id" type="button" title="Superscript" class="angular-editor-button"
             (click)="triggerCommand('superscript')" [disabled]="htmlMode" [hidden]="isButtonHidden('superscript')"
-            tabindex="-1"><i class='fa fa-superscript'></i></button>
+            tabindex="-1">
+            <fa-icon [icon]="faSuperscript"></fa-icon>
+          </button>
   </div>
   <div class="angular-editor-toolbar-set">
     <button [id]="'justifyLeft-'+id" type="button" title="Justify Left" class="angular-editor-button"
             (click)="triggerCommand('justifyLeft')" [disabled]="htmlMode" [hidden]="isButtonHidden('justifyLeft')"
-            tabindex="-1"><i
-      class='fa fa-align-left'></i></button>
+            tabindex="-1">
+            <fa-icon [icon]="faAlignLeft"></fa-icon>
+    </button>
     <button [id]="'justifyCenter-'+id" type="button" title="Justify Center" class="angular-editor-button"
             (click)="triggerCommand('justifyCenter')" [disabled]="htmlMode" [hidden]="isButtonHidden('justifyCenter')"
-            tabindex="-1"><i
-      class='fa fa-align-center'></i></button>
+            tabindex="-1">
+            <fa-icon [icon]="faAlignCenter"></fa-icon>
+          </button>
     <button [id]="'justifyRight-'+id" type="button" title="Justify Right" class="angular-editor-button"
             (click)="triggerCommand('justifyRight')" [disabled]="htmlMode" [hidden]="isButtonHidden('justifyRight')"
             tabindex="-1">
-      <i class='fa fa-align-right'></i></button>
+      <i class='fa fa-align-right'></i>
+    </button>
     <button [id]="'justifyFull-'+id" type="button" title="Justify Full" class="angular-editor-button"
             (click)="triggerCommand('justifyFull')" [disabled]="htmlMode" [hidden]="isButtonHidden('justifyFull')"
-            tabindex="-1"><i
-      class='fa fa-align-justify'></i></button>
+            tabindex="-1">
+            <fa-icon [icon]="faAlignJustify"></fa-icon>
+          </button>
   </div>
   <div class="angular-editor-toolbar-set">
     <button [id]="'indent-'+id" type="button" title="Indent" class="angular-editor-button"
             (click)="triggerCommand('indent')"
-            [disabled]="htmlMode" [hidden]="isButtonHidden('indent')" tabindex="-1"><i
-      class='fa fa-indent'></i></button>
+            [disabled]="htmlMode" [hidden]="isButtonHidden('indent')" tabindex="-1">
+            <fa-icon [icon]="faIndent"></fa-icon>
+          </button>
     <button [id]="'outdent-'+id" type="button" title="Outdent" class="angular-editor-button"
             (click)="triggerCommand('outdent')"
-            [disabled]="htmlMode" [hidden]="isButtonHidden('outdent')" tabindex="-1"><i
-      class='fa fa-outdent'></i></button>
+            [disabled]="htmlMode" [hidden]="isButtonHidden('outdent')" tabindex="-1">
+            <fa-icon [icon]="faOutdent"></fa-icon>
+          </button>
   </div>
   <div class="angular-editor-toolbar-set">
     <button [id]="'insertUnorderedList-'+id" type="button" title="Unordered List" class="angular-editor-button"
             (click)="triggerCommand('insertUnorderedList')" [disabled]="htmlMode"
-            [hidden]="isButtonHidden('insertUnorderedList')" tabindex="-1"><i
-      class='fa fa-list-ul'></i></button>
+            [hidden]="isButtonHidden('insertUnorderedList')" tabindex="-1">
+            <fa-icon [icon]="faListUl"></fa-icon>
+          </button>
     <button [id]="'insertOrderedList-'+id" type="button" title="Ordered List" class="angular-editor-button"
             (click)="triggerCommand('insertOrderedList')" [disabled]="htmlMode"
-            [hidden]="isButtonHidden('insertOrderedList')" tabindex="-1"><i
-      class='fa fa-list-ol'></i></button>
+            [hidden]="isButtonHidden('insertOrderedList')" tabindex="-1">
+            <fa-icon [icon]="faListOl"></fa-icon>
+          </button>
   </div>
   <div class="angular-editor-toolbar-set">
 
@@ -101,7 +123,9 @@
     <button [id]="'foregroundColorPicker-'+id" type="button" class="angular-editor-button" (click)="focus(); ; fgInput.click()"
             title="Text Color"
             [disabled]="htmlMode" [hidden]="isButtonHidden('textColor')" tabindex="-1"><span
-      class="color-label foreground"><i class="fa fa-font"></i></span>
+      class="color-label foreground">
+      <fa-icon [icon]="faFont"></fa-icon>
+    </span>
     </button>
     <input
       style="display: none"
@@ -110,7 +134,9 @@
     <button [id]="'backgroundColorPicker-'+id" type="button" class="angular-editor-button" (click)="focus(); ; bgInput.click()"
             title="Background Color"
             [disabled]="htmlMode" [hidden]="isButtonHidden('backgroundColor')" tabindex="-1"><span
-      class="color-label background"><i class="fa fa-font"></i></span>
+      class="color-label background">
+      <fa-icon [icon]="faFont"></fa-icon>
+    </span>
     </button>
   </div>
   <div *ngIf="_customClasses" class="angular-editor-toolbar-set">
@@ -124,11 +150,11 @@
   <div class="angular-editor-toolbar-set">
     <button [id]="'link-'+id" type="button" class="angular-editor-button" (click)="insertUrl()"
             title="Insert Link" [disabled]="isLinkButtonDisabled" [hidden]="isButtonHidden('link')" tabindex="-1">
-      <i class="fa fa-link"></i>
+      <fa-icon [icon]="faLink"></fa-icon>
     </button>
     <button [id]="'unlink-'+id" type="button" class="angular-editor-button" (click)="triggerCommand('unlink')"
             title="Unlink" [disabled]="htmlMode || !linkSelected" [hidden]="isButtonHidden('unlink')" tabindex="-1">
-      <i class="fa fa-chain-broken"></i>
+      <fa-icon [icon]="faChainBroken"></fa-icon>
     </button>
     <input
       style="display: none"
@@ -137,27 +163,32 @@
       #fileInput>
     <button [id]="'insertImage-'+id" type="button" class="angular-editor-button" (click)="focus(); fileInput.click()"
             title="Insert Image"
-            [disabled]="htmlMode" [hidden]="isButtonHidden('insertImage')" tabindex="-1"><i class="fa fa-image"></i>
+            [disabled]="htmlMode" [hidden]="isButtonHidden('insertImage')" tabindex="-1">
+            <fa-icon [icon]="faImage"></fa-icon>
     </button>
     <button [id]="'insertVideo-'+id" type="button" class="angular-editor-button"
             (click)="insertVideo()" title="Insert Video" [disabled]="htmlMode" [hidden]="isButtonHidden('insertVideo')"
-            tabindex="-1"><i
-      class="fa fa-video-camera"></i></button>
+            tabindex="-1">
+            <fa-icon [icon]="faVideo"></fa-icon>
+          </button>
     <button [id]="'insertHorizontalRule-'+id" type="button" title="Horizontal Line" class="angular-editor-button"
             (click)="triggerCommand('insertHorizontalRule')" [disabled]="htmlMode"
-            [hidden]="isButtonHidden('insertHorizontalRule')" tabindex="-1"><i
-      class="fa fa-minus"></i></button>
+            [hidden]="isButtonHidden('insertHorizontalRule')" tabindex="-1">
+            <fa-icon [icon]="faMinus"></fa-icon>
+          </button>
   </div>
   <div class="angular-editor-toolbar-set">
     <button [id]="'clearFormatting-'+id" type="button" title="Clear Formatting" class="angular-editor-button"
             (click)="triggerCommand('removeFormat')" [disabled]="htmlMode" [hidden]="isButtonHidden('removeFormat')"
-            tabindex="-1"><i class='fa fa-remove'></i>
+            tabindex="-1">
+            <fa-icon [icon]="faRemove"></fa-icon>
     </button>
   </div>
   <div class="angular-editor-toolbar-set">
     <button [id]="'toggleEditorMode-'+id" type="button" title="HTML Code" class="angular-editor-button"
-            (click)="triggerCommand('toggleEditorMode')" [hidden]="isButtonHidden('toggleEditorMode')" tabindex="-1"><i
-      class='fa fa-code'></i></button>
+            (click)="triggerCommand('toggleEditorMode')" [hidden]="isButtonHidden('toggleEditorMode')" tabindex="-1">
+            <fa-icon [icon]="faCode"></fa-icon>
+          </button>
   </div>
   <ng-content></ng-content>
 </div>

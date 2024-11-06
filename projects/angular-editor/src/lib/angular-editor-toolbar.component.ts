@@ -1,20 +1,20 @@
+import { DOCUMENT } from '@angular/common';
+import { HttpEvent, HttpResponse } from '@angular/common/http';
 import {
   Component,
-  ContentChild,
   ElementRef,
   EventEmitter,
   Inject,
   Input,
   Output,
-  Renderer2, TemplateRef,
+  Renderer2,
   ViewChild
 } from '@angular/core';
-import {AngularEditorService, UploadResponse} from './angular-editor.service';
-import {HttpResponse, HttpEvent} from '@angular/common/http';
-import {DOCUMENT} from '@angular/common';
-import {CustomClass} from './config';
-import {SelectOption} from './ae-select/ae-select.component';
+import { faAlignCenter, faAlignJustify, faAlignLeft, faAlignRight, faBold, faChainBroken, faCode, faFont, faImage, faIndent, faItalic, faLink, faListOl, faListUl, faMinus, faOutdent, faRedo, faRemove, faStrikethrough, faSubscript, faSuperscript, faUnderline, faUndo, faVideo } from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
+import { SelectOption } from './ae-select/ae-select.component';
+import { AngularEditorService, UploadResponse } from './angular-editor.service';
+import { CustomClass } from './config';
 
 @Component({
   selector: 'angular-editor-toolbar',
@@ -108,6 +108,31 @@ export class AngularEditorToolbarComponent {
       value: '7',
     }
   ];
+
+  faUndo = faUndo
+  faRedo = faRedo;
+  faBold = faBold;
+  faItalic = faItalic;
+  faUnderline = faUnderline;
+  faStrikethrough = faStrikethrough;
+  faSubscript = faSubscript;
+  faSuperscript = faSuperscript;
+  faAlignLeft = faAlignLeft;
+  faAlignCenter = faAlignCenter;
+  faAlignRight = faAlignRight;
+  faAlignJustify = faAlignJustify;
+  faIndent = faIndent;
+  faOutdent = faOutdent;
+  faListUl = faListUl;
+  faListOl = faListOl;
+  faFont = faFont;
+  faLink = faLink;
+  faChainBroken = faChainBroken;
+  faImage = faImage;
+  faVideo = faVideo;
+  faMinus = faMinus;
+  faRemove = faRemove;
+  faCode = faCode;
 
   customClassId = '-1';
   // eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle, id-blacklist, id-match
