@@ -69,8 +69,8 @@
               "projects/angular-editor-app/src/assets",
               {
                 "glob": "**/*",
-                "input": "node_modules/font-awesome/fonts",
-                "output": "assets/fonts/"
+                "input": "projects/angular-editor/assets/icons/",
+                "output": "assets/ae-icons/"
               }
             ],
             "styles": [

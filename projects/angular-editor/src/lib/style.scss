@@ -1,5 +1,5 @@
-$fa-font-path: "/assets/fonts" !default;
-@import "~font-awesome/scss/font-awesome.scss";
+/*$fa-font-path: "/assets/fonts" !default;
+@import "~font-awesome/scss/font-awesome.scss";*/
 
 a {
   cursor: pointer;
@@ -29,18 +29,25 @@ a {
   font-size: 0.8rem;
   padding: 0.2rem;
   border: 1px solid #ddd;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
 
   .angular-editor-toolbar-set {
-    display: none;
-    margin-right: 5px;
+    display: flex;
+    gap: 1px;
+    width: fit-content;
+    //margin-right: 5px;
     vertical-align: baseline;
     .angular-editor-button {
       background-color: white;
       vertical-align: middle;
       border: 1px solid #ddd;
       padding: 0.4rem;
-      min-width: 2.0rem;
+      //min-width: 2.0rem;
       float: left;
+      width: 2rem;
+      height: 2rem;
 
       &:first-child {
         //border-radius: 5px 0 0 5px;
@@ -316,6 +323,6 @@ a {
     }
   }
   .angular-editor-toolbar-set:not([style*="display:none"]):not([style*="display: none"]){
-    display: inline-block;
+    //display: inline-block;
   }
 }

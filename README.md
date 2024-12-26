@@ -264,6 +264,8 @@ angular-editor/
 
 The documentation for the AngularEditor is hosted at our website [AngularEditor](https://angular-editor.kolkov.ru/)
 
+Icons from Ligature Symbols Icons Collection [icons]
+
 ## Contributing
 
 Please read through our [contributing guidelines](https://github.com/kolkov/angular-editor/blob/master/CONTRIBUTING.md). Included are directions for opening issues, coding standards, and notes on development.
@@ -289,3 +291,4 @@ If you like my work and I save your time you can buy me a :beer: or :pizza: [![D
 [npm]: https://www.npmjs.com/package/@kolkov/angular-editor
 [demo]: https://angular-editor-wysiwyg.stackblitz.io/
 [example]: https://stackblitz.com/edit/angular-editor-wysiwyg
+[icons]: https://www.svgrepo.com/collection/ligature-symbols-icons/

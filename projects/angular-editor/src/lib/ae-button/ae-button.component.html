@@ -1,3 +1,8 @@
-<button type="button" [title]="title" class="angular-editor-button" (click)="buttonClick.emit()" tabindex="-1"><i
-    [class]="iconClass"></i></button>
-
+<ng-container *ngIf="iconName; else contentTemplate">
+  <svg>
+    <use [attr.href]="'assets/ae-icons/icons.svg#' + iconName" [attr.xlink:href]="'assets/ae-icons/icons.svg#' + iconName"></use>
+  </svg>
+</ng-container>
+<ng-template #contentTemplate>
+  <ng-content></ng-content>
+</ng-template>
