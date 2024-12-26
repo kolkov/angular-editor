@@ -12,7 +12,7 @@
 [![codecov](https://codecov.io/gh/kolkov/angular-editor/branch/master/graph/badge.svg)](https://codecov.io/gh/kolkov/angular-editor)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/AndreyKolkov)
 
-A simple native WYSIWYG/Rich Text editor for Angular 6-14+
+A simple native WYSIWYG/Rich Text editor for Angular 6-19+
 
 ![Nov-27-2019 17-26-29](https://user-images.githubusercontent.com/216412/69763434-259cd800-113b-11ea-918f-0565ebce0e48.gif)
 
@@ -30,6 +30,7 @@ Install via [npm][npm] package manager
 npm install @kolkov/angular-editor --save
 ```
 ### Versions
+3.0.0 and above - for Angular v13+ (removed Font Awesome icons deps)
 
 2.0.0 and above - for Angular v13.0.0 and above
 
@@ -64,7 +65,7 @@ or for usage with reactive forms
 <angular-editor formControlName="htmlContent" [config]="editorConfig"></angular-editor>
 ```
 
-if you using more than one editor on same page set `id` property
+if you are using more than one editor on same page set `id` property
 
 ```html
 <angular-editor id="editor1" formControlName="htmlContent1" [config]="editorConfig"></angular-editor>
@@ -126,13 +127,13 @@ editorConfig: AngularEditorConfig = {
 ```
 For `ngModel` to work, you must import `FormsModule` from `@angular/forms`, or for `formControlName`, you must import `ReactiveFormsModule` from `@angular/forms`
 
-To serve the fontawesome files, ensure that your angular.json contains the following asset configuration:
+To serve the icons file, ensure that your angular.json contains the following asset configuration:
 
 ```
 {
   "glob": "**/*",
-  "input": "./node_modules/@kolkov/angular-editor/assets/",
-  "output": "./assets/fonts/"
+  "input": "node_modules/@kolkov/angular-editor/assets/icons",
+  "output": "assets/ae-icons/"
 }
 ```
 
