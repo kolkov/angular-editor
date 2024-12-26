@@ -10,7 +10,6 @@
   .ae-picker-label {
     cursor: pointer;
     display: inline-block;
-    //height: 100%;
     padding-left: 8px;
     padding-right: 10px;
     position: relative;
@@ -57,10 +56,7 @@
 
     svg {
       position: absolute;
-      //margin-top: -9px;
       right: 0;
-      //top: 50%;
-      //width: 18px;
       width: 1rem;
       &:not(:root) {
         overflow: hidden;

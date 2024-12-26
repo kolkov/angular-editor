@@ -2,9 +2,6 @@
 
 .select-button {
   display: inline-block;
-  // border: #000066 solid;
-  // padding-right: 10px;
-  // padding: auto;
   &.disabled {
     cursor: pointer;
     background-color: #f1f1f1;
