@@ -29,14 +29,16 @@
             "type": "element",
             "style": "kebab-case"
           }
-        ]
+        ],
+        "@angular-eslint/no-host-metadata-property": "warn"
       }
     },
     {
       "files": [
         "*.html"
       ],
-      "rules": {}
+      "rules": {
+      }
     }
   ]
 }

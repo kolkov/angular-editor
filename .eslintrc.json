@@ -35,7 +35,8 @@
             "style": "camelCase",
             "type": "attribute"
           }
-        ]
+        ],
+        "@angular-eslint/no-host-metadata-property": "warn"
       }
     },
     {
@@ -45,7 +46,8 @@
       "extends": [
         "plugin:@angular-eslint/template/recommended"
       ],
-      "rules": {}
+      "rules": {
+      }
     }
   ]
 }
