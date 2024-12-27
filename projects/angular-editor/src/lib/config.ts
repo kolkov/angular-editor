@@ -35,6 +35,7 @@ export interface AngularEditorConfig {
   customClasses?: CustomClass[];
   sanitize?: boolean;
   toolbarPosition?: 'top' | 'bottom';
+  styleWithCSS?: boolean;
   outline?: boolean;
   toolbarHiddenButtons?: string[][];
   rawPaste?: boolean;
@@ -65,6 +66,7 @@ export const angularEditorConfig: AngularEditorConfig = {
   uploadWithCredentials: false,
   sanitize: true,
   toolbarPosition: 'top',
+  styleWithCSS: false,
   outline: true,
   /*toolbarHiddenButtons: [
     ['bold', 'italic', 'underline', 'strikeThrough', 'superscript', 'subscript'],
