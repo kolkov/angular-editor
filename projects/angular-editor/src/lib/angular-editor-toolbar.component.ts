@@ -380,6 +380,5 @@ export class AngularEditorToolbarComponent {
 
   focus() {
     this.execute.emit('focus');
-    console.log('focused');
   }
 }
