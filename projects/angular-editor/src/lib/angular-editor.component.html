@@ -49,7 +49,7 @@
                (paste)="onPaste($event)"
           >
           </div>
-          <span class="angular-editor-placeholder">{{ placeholder || config['placeholder'] }}</span>
+          <span class="angular-editor-placeholder" [innerHTML]={{ placeholder || config['placeholder'] }}></span>
      </div>
      <angular-editor-toolbar
           *ngIf="config.toolbarPosition === 'bottom'"
