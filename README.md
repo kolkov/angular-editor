@@ -30,15 +30,17 @@ Install via [npm][npm] package manager
 npm install @kolkov/angular-editor --save
 ```
 ### Versions
-3.0.0 and above - for Angular v13+ (removed Font Awesome icons deps)
+3.0.0 and above - for Angular v13+ (removed Font Awesome icons deps + CSS variables)
 
-2.0.0 and above - for Angular v13.0.0 and above
+2.0.0 and above - for Angular v13.x.x and above
 
 1.0.0 and above - for Angular v8.x.x and above
 
 0.18.4 and above - for Angular v7.x.x
 
-0.15.x - for Angular v6.x.x 
+0.15.x - for Angular v6.x.x
+
+Attention! `alpha` and `beta` versions may contain breaking changes.
 
 ### Usage
 
@@ -127,7 +129,7 @@ editorConfig: AngularEditorConfig = {
 ```
 For `ngModel` to work, you must import `FormsModule` from `@angular/forms`, or for `formControlName`, you must import `ReactiveFormsModule` from `@angular/forms`
 
-To serve the icons file, ensure that your angular.json contains the following asset configuration:
+To serve the icons file, ensure that your `angular.json` contains the following asset configuration:
 
 ```
 {
@@ -137,17 +139,69 @@ To serve the icons file, ensure that your angular.json contains the following as
 }
 ```
 
+### Styling
+
+Connect default theme file to your `angular.json` or `nx.json` 
+```
+"styles": [
+     "projects/angular-editor-app/src/styles.scss",
+     "node_modules/@kolkov/angular-editor/themes/default.scss"
+],
+```
+or `@include` or `@use` in your project `styles.scss` file, and then override default theme variables like this:
+```scss
+:root {
+  --ae-gap: 5px;
+  --ae-text-area-border: 1px solid #ddd;
+  --ae-text-area-border-radius: 0;
+  --ae-focus-outline-color: #afaeae auto 1px;
+  --ae-toolbar-padding: 1px;
+  --ae-toolbar-bg-color: #b3dca0;
+  --ae-toolbar-border-radius: 1px solid #ddd;
+  --ae-button-bg-color: #dadad7;
+  --ae-button-border: 3px solid #3fb74e;
+  --ae-button-radius: 5px;
+  --ae-button-hover-bg-color: #3fb74e;
+  --ae-button-active-bg-color: red;
+  --ae-button-active-hover-bg-color: blue;
+  --ae-button-disabled-bg-color: gray;
+  --ae-picker-label-color: rgb(78, 84, 155);
+  --ae-picker-icon-bg-color: rgb(34, 41, 122);
+  --ae-picker-option-bg-color: rgba(221, 221, 84, 0.76);
+  --ae-picker-option-active-bg-color: rgba(237, 237, 62, 0.9);
+  --ae-picker-option-focused-bg-color: rgb(255, 255, 0);  
+}
+```
+
 ### Custom buttons
 
 You can define your custom buttons with custom actions using executeCommandFn. It accepts commands from [execCommand](https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand).
 The first argument of this method is aCommandName and the second argument is aValueArgument. Example shows a button that adds Angular editor logo into the editor.
 ```html
-<angular-editor id="editor1" formControlName="htmlContent1" [config]="editorConfig">
+<angular-editor id="editor1" [(ngModel)]="htmlContent1" [config]="config1" (ngModelChange)="onChange($event)"
+                (blur)="onBlur($event)">
   <ng-template #customButtons let-executeCommandFn="executeCommandFn">
     <ae-toolbar-set>
-      <ae-button iconClass="fa fa-html5" title="Angular editor logo"
-                 (buttonClick)="executeCommandFn('insertHtml', angularEditorLogo)">
-      </ae-button>
+      <button aeButton title="Angular editor logo" (click)="executeCommandFn('insertHtml', angularEditorLogo)">
+        <svg viewBox="-8 0 272 272" xmlns="http://www.w3.org/2000/svg"
+             preserveAspectRatio="xMidYMid" fill="#000000">
+          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+          <g id="SVGRepo_iconCarrier">
+            <g>
+              <path
+                d="M0.0996108949,45.522179 L125.908171,0.697276265 L255.103502,44.7252918 L234.185214,211.175097 L125.908171,271.140856 L19.3245136,211.971984 L0.0996108949,45.522179 Z"
+                fill="#E23237"></path>
+              <path
+                d="M255.103502,44.7252918 L125.908171,0.697276265 L125.908171,271.140856 L234.185214,211.274708 L255.103502,44.7252918 L255.103502,44.7252918 Z"
+                fill="#B52E31"></path>
+              <path
+                d="M126.107393,32.27393 L126.107393,32.27393 L47.7136187,206.692607 L76.9992218,206.194553 L92.7377432,166.848249 L126.207004,166.848249 L126.306615,166.848249 L163.063035,166.848249 L180.29572,206.692607 L208.286381,207.190661 L126.107393,32.27393 L126.107393,32.27393 Z M126.306615,88.155642 L152.803113,143.5393 L127.402335,143.5393 L126.107393,143.5393 L102.997665,143.5393 L126.306615,88.155642 L126.306615,88.155642 Z"
+                fill="#FFFFFF"></path>
+            </g>
+          </g>
+        </svg>
+      </button>
     </ae-toolbar-set>
   </ng-template>
 </angular-editor>

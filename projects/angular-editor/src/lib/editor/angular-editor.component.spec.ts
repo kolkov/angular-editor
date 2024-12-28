@@ -1,11 +1,11 @@
 import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {AngularEditorComponent} from './angular-editor.component';
-import {AngularEditorToolbarComponent} from './angular-editor-toolbar.component';
+import {AeToolbarComponent} from '../ae-toolbar/ae-toolbar.component';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import {AeSelectComponent} from './ae-select/ae-select.component';
-import {AngularEditorModule} from './angular-editor.module';
+import {AeSelectComponent} from '../ae-select/ae-select.component';
+import {AngularEditorModule} from '../angular-editor.module';
 
 describe('AngularEditorComponent', () => {
   let component: AngularEditorComponent;
@@ -14,7 +14,7 @@ describe('AngularEditorComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [ FormsModule, HttpClientModule],
-      declarations: [AngularEditorComponent, AngularEditorToolbarComponent, AeSelectComponent]
+      declarations: [AngularEditorComponent, AeToolbarComponent, AeSelectComponent]
     })
       .compileComponents();
   }));

@@ -1,28 +1,29 @@
 import {
   Component,
-  ContentChild,
   ElementRef,
   EventEmitter,
   Inject,
   Input,
   Output,
-  Renderer2, TemplateRef,
-  ViewChild
+  Renderer2,
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
-import {AngularEditorService, UploadResponse} from './angular-editor.service';
-import {HttpResponse, HttpEvent} from '@angular/common/http';
+import {AngularEditorService, UploadResponse} from '../angular-editor.service';
+import {HttpEvent, HttpResponse} from '@angular/common/http';
 import {DOCUMENT} from '@angular/common';
-import {CustomClass} from './config';
-import {SelectOption} from './ae-select/ae-select.component';
-import { Observable } from 'rxjs';
+import {CustomClass} from '../config';
+import {SelectOption} from '../ae-select/ae-select.component';
+import {Observable} from 'rxjs';
 
 @Component({
-  selector: 'angular-editor-toolbar',
-  templateUrl: './angular-editor-toolbar.component.html',
-  styleUrls: ['./angular-editor-toolbar.component.scss'],
+  selector: 'angular-editor-toolbar, ae-toolbar, div[aeToolbar]',
+  templateUrl: './ae-toolbar.component.html',
+  styleUrls: ['./ae-toolbar.component.scss'],
+  //encapsulation: ViewEncapsulation.None,
 })
 
-export class AngularEditorToolbarComponent {
+export class AeToolbarComponent {
   htmlMode = false;
   linkSelected = false;
   block = 'default';
@@ -327,23 +328,23 @@ export class AngularEditorToolbarComponent {
   onFileChanged(event) {
     const file = event.target.files[0];
     if (file.type.includes('image/')) {
-        if (this.upload) {
-          this.upload(file).subscribe((response: HttpResponse<UploadResponse>) => this.watchUploadImage(response, event));
-        } else if (this.uploadUrl) {
-            this.editorService.uploadImage(file).subscribe((response: HttpResponse<UploadResponse>) => this.watchUploadImage(response, event));
-        } else {
-          const reader = new FileReader();
-          reader.onload = (e: ProgressEvent) => {
-            const fr = e.currentTarget as FileReader;
-            this.editorService.insertImage(fr.result.toString());
-          };
-          reader.readAsDataURL(file);
-        }
+      if (this.upload) {
+        this.upload(file).subscribe((response: HttpResponse<UploadResponse>) => this.watchUploadImage(response, event));
+      } else if (this.uploadUrl) {
+        this.editorService.uploadImage(file).subscribe((response: HttpResponse<UploadResponse>) => this.watchUploadImage(response, event));
+      } else {
+        const reader = new FileReader();
+        reader.onload = (e: ProgressEvent) => {
+          const fr = e.currentTarget as FileReader;
+          this.editorService.insertImage(fr.result.toString());
+        };
+        reader.readAsDataURL(file);
       }
+    }
   }
 
-  watchUploadImage(response: HttpResponse<{imageUrl: string}>, event) {
-    const { imageUrl } = response.body;
+  watchUploadImage(response: HttpResponse<{ imageUrl: string }>, event) {
+    const {imageUrl} = response.body;
     this.editorService.insertImage(imageUrl);
     event.srcElement.value = null;
   }

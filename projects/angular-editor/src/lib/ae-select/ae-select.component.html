@@ -1,5 +1,5 @@
-<span class="ae-font ae-picker" [ngClass]="{'ae-expanded':isOpen}">
-  <button [tabIndex]="-1" #labelButton tabindex="0" type="button" role="button" class="ae-picker-label" (click)="toggleOpen($event);">{{label}}
+<span class="ae-picker" [ngClass]="{'ae-expanded':isOpen}">
+  <button [tabIndex]="-1" #labelButton tabindex="-1" type="button" role="button" class="ae-picker-label" (click)="toggleOpen($event);">{{label}}
     <svg>
       <use [attr.href]="'assets/ae-icons/icons.svg#sort'" [attr.xlink:href]="'assets/ae-icons/icons.svg#sort'"></use>
     </svg>

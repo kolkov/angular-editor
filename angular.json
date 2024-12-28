@@ -74,7 +74,8 @@
               }
             ],
             "styles": [
-              "projects/angular-editor-app/src/styles.scss"
+              "projects/angular-editor-app/src/styles.scss",
+              "projects/angular-editor/themes/default.scss"
             ],
             "scripts": [],
             "vendorChunk": true,

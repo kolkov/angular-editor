@@ -1,134 +1,158 @@
-.ae-font {
-  &.ae-picker {
-    color: #444;
-    display: inline-block;
-    float: left;
-    width: 100%;
-    position: relative;
-    vertical-align: middle;
-  }
-  .ae-picker-label {
-    cursor: pointer;
-    display: inline-block;
-    padding-left: 8px;
-    padding-right: 10px;
-    position: relative;
-    width: 100%;
-    line-height: 1.8rem;
-    vertical-align: middle;
-    font-size: 85%;
-    text-align: left;
-    background-color: white;
-    min-width: 2rem;
-    float: left;
-    border: 1px solid #ddd;
-    text-overflow: clip;
-    overflow: hidden;
-    white-space: nowrap;
-    height: 2rem;
-    &:before {
-      content: '';
-      position: absolute;
-      right: 0; top: 0;
-      width: 20px;
-      height: 100%;
-      background: linear-gradient(to right, rgba(255, 255, 255,1), #ffffff 100%);
-    }
-    &:focus {
-      outline: none;
-    }
-    &:hover {
-      cursor: pointer;
-      background-color: #f1f1f1;
-      transition: 0.2s ease;
-      &:before {
-        background: linear-gradient(to right, #f5f5f5 100%, #ffffff 100%);
-      }
-    }
-    &:disabled {
-      background-color: #f5f5f5;
-      pointer-events: none;
-      cursor: not-allowed;
-      &:before {
-        background: linear-gradient(to right, #f5f5f5 100%, #ffffff 100%);
-      }
-    }
-
-    svg {
-      position: absolute;
-      right: 0;
-      width: 1rem;
-      &:not(:root) {
-        overflow: hidden;
-      }
-      .ae-stroke {
-        fill: none;
-        stroke: #444;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        stroke-width: 2;
-      }
-    }
-  }
-  .ae-picker-options {
-    background-color: #fff;
-    display: none;
-    min-width: 100%;
-    position: absolute;
-    white-space: nowrap;
-    z-index: 3;
-    border: 1px solid transparent;
-    box-shadow: rgba(0,0,0,0.2) 0 2px 8px;
-    .ae-picker-item {
-      cursor: pointer;
-      display: block;
-      padding-bottom: 5px;
-      padding-top: 5px;
-      padding-left: 5px;
-      z-index: 3;
-      text-align: left;
-      background-color: transparent;
-      min-width: 2rem;
-      width: 100%;
-      border: 0 solid #ddd;
-      &.selected {
-        color: #06c;
-        background-color: #fff4c2;
-      }
-      &.focused {
-        background-color: #fffa98;
-      }
-      &:hover {
-        background-color: #fffa98;
-      }
-    }
-  }
-  &.ae-expanded {
-    display: block;
-    margin-top: -1px;
-    z-index: 1;
-    .ae-picker-label {
-      color: #ccc;
-      z-index: 2;
-      svg {
-        color: #ccc;
-        z-index: 2;
-        .ae-stroke {
-          stroke: #ccc;
-        }
-      }
-    }
-    .ae-picker-options {
-      display: block;
-      margin-top: -1px;
-      top: 100%;
-      z-index: 3;
-      border-color: #ccc;
-    }
-  }
-}
+@import "../styles";
 
 svg {
   width: 100%;
   height: 100%;
 }
+
+.ae-picker {
+  color: var(--ae-picker-color, #444);
+  display: inline-block;
+  float: left;
+  width: 100%;
+  position: relative;
+  vertical-align: middle;
+}
+
+.ae-picker-label {
+  cursor: pointer;
+  display: inline-block;
+  padding-left: 8px;
+  padding-right: 10px;
+  position: relative;
+  width: 100%;
+  line-height: 1.8rem;
+  vertical-align: middle;
+  font-size: 85%;
+  text-align: left;
+  background-color: var(--ae-picker-label-color, white);
+  min-width: 2rem;
+  float: left;
+  border: 1px solid #ddd;
+  border-radius: var(--ae-button-radius, 4px);
+  text-overflow: clip;
+  overflow: hidden;
+  white-space: nowrap;
+  height: 2rem;
+
+  &:before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 20px;
+    height: 100%;
+    background: linear-gradient(to right, var(--ae-picker-label-color, white), var(--ae-picker-label-color, white) 100%);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: #f1f1f1;
+    transition: 0.2s ease;
+
+    &:before {
+      background: linear-gradient(to right, #f5f5f5 100%, #ffffff 100%);
+    }
+  }
+
+  &:disabled {
+    background-color: #f5f5f5;
+    pointer-events: none;
+    cursor: not-allowed;
+
+    &:before {
+      background: linear-gradient(to right, #f5f5f5 100%, #ffffff 100%);
+    }
+  }
+
+  svg {
+    position: absolute;
+    right: 0;
+    width: 1rem;
+
+    &:not(:root) {
+      overflow: hidden;
+    }
+
+    .ae-stroke {
+      fill: none;
+      stroke: #444;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2;
+    }
+  }
+}
+
+.ae-picker-options {
+  background-color: var(--ae-picker-option-bg-color, #fff);
+  display: none;
+  min-width: 100%;
+  position: absolute;
+  white-space: nowrap;
+  z-index: 3;
+  border: 1px solid transparent;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 2px 8px;
+
+  .ae-picker-item {
+    cursor: pointer;
+    display: block;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    padding-left: 5px;
+    z-index: 3;
+    text-align: left;
+    background-color: transparent;
+    min-width: 2rem;
+    width: 100%;
+    border: 0 solid #ddd;
+
+    &.selected {
+      color: #06c;
+      background-color: var(--ae-picker-option-active-bg-color, #fff4c2);
+    }
+
+    &.focused {
+      background-color: var(--ae-picker-option-focused-bg-color, #fbf9b0);
+    }
+
+    &:hover {
+      background-color: var(--ae-picker-option-hover-bg-color,#fffa98);
+    }
+  }
+}
+
+.ae-expanded {
+  display: block;
+  margin-top: -1px;
+  z-index: 1;
+
+  .ae-picker-label {
+    color: #ccc;
+    z-index: 2;
+
+    svg {
+      color: #ccc;
+      z-index: 2;
+
+      .ae-stroke {
+        stroke: #ccc;
+      }
+    }
+  }
+
+  .ae-picker-options {
+    display: flex;
+    flex-direction: column;
+    margin-top: -1px;
+    top: 100%;
+    z-index: 3;
+    border-color: #ccc;
+  }
+}
+
+

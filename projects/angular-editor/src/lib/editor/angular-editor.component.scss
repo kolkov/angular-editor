@@ -1,8 +1,13 @@
-@import "style";
+@import "../styles";
 
 .angular-editor {
   display: flex;
   flex-direction: column;
+  gap: var(--ae-gap, 5px);
+
+  &.bottom {
+    flex-direction: column-reverse;
+  }
 
   ::ng-deep [contenteditable=true]:empty:before {
     content: attr(placeholder);
@@ -14,15 +19,36 @@
     position: relative;
 
     .angular-editor-textarea {
+      min-height: 150px;
+      overflow: auto;
+      resize: vertical;
+
+      &:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        display: block;
+        width: 8px;
+        height: 8px;
+        cursor: nwse-resize;
+        background-color: rgba(255, 255, 255, 0.5)
+      }
+    }
+
+    .angular-editor-textarea {
       min-height: 5rem;
       padding: 0.5rem 0.8rem 1rem 0.8rem;
-      border: 1px solid #ddd;
+      border-radius: var(--ae-text-area-border-radius, 0.3rem);
+      border: var(--ae-text-area-border, 1px solid #ddd);
       background-color: transparent;
       overflow-x: hidden;
       overflow-y: auto;
       position: relative;
+
       &:focus,
       &.focus {
+        outline: var(--ae-focus-outline-color, -webkit-focus-ring-color auto 1px);
       }
 
       ::ng-deep blockquote {
@@ -40,7 +66,7 @@
       display: none;
       position: absolute;
       top: 0;
-      padding: 0.9rem 0.8rem 1rem 0.9rem;
+      padding: 0.6rem 0.8rem 1rem 0.9rem;
       color: #6c757d;
       opacity: 0.75;
     }
@@ -50,6 +76,7 @@
         display: block;
       }
     }
+
     &.disabled {
       cursor: not-allowed;
       opacity: 0.5;

@@ -1,0 +1,14 @@
+@import "../styles";
+
+:host {
+  &.angular-editor-toolbar-set {
+    display: flex;
+    gap: 1px;
+    width: fit-content;
+    vertical-align: baseline;
+  }
+}
+
+.angular-editor-toolbar-set:not([style*="display:none"]):not([style*="display: none"]){
+  //display: inline-block;
+}

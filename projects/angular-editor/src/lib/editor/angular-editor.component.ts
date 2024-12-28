@@ -1,9 +1,10 @@
-import { DOCUMENT } from '@angular/common';
+import {DOCUMENT} from '@angular/common';
 import {
   AfterViewInit,
   Attribute,
   ChangeDetectorRef,
-  Component, ContentChild,
+  Component,
+  ContentChild,
   ElementRef,
   EventEmitter,
   forwardRef,
@@ -15,20 +16,22 @@ import {
   OnInit,
   Output,
   Renderer2,
-  SecurityContext, TemplateRef,
-  ViewChild
+  SecurityContext,
+  TemplateRef,
+  ViewChild, ViewEncapsulation
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
-import { AngularEditorToolbarComponent } from './angular-editor-toolbar.component';
-import { AngularEditorService } from './angular-editor.service';
-import { AngularEditorConfig, angularEditorConfig } from './config';
-import { isDefined } from './utils';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {DomSanitizer} from '@angular/platform-browser';
+import {AeToolbarComponent} from '../ae-toolbar/ae-toolbar.component';
+import {AngularEditorService} from '../angular-editor.service';
+import {AngularEditorConfig, angularEditorConfig} from '../config';
+import {isDefined} from '../utils';
 
 @Component({
   selector: 'angular-editor',
   templateUrl: './angular-editor.component.html',
   styleUrls: ['./angular-editor.component.scss'],
+  //encapsulation: ViewEncapsulation.None,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -62,7 +65,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
   @ViewChild('editor', {static: true}) textArea: ElementRef;
   @ViewChild('editorWrapper', {static: true}) editorWrapper: ElementRef;
-  @ViewChild('editorToolbar') editorToolbar: AngularEditorToolbarComponent;
+  @ViewChild('editorToolbar') editorToolbar: AeToolbarComponent;
   @ContentChild("customButtons") customButtonsTemplateRef?: TemplateRef<any>;
   executeCommandFn = this.executeCommand.bind(this);
 
@@ -106,7 +109,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     }
   }
 
-  onPaste(event: ClipboardEvent){
+  onPaste(event: ClipboardEvent) {
     if (this.config.rawPaste) {
       event.preventDefault();
       const text = event.clipboardData.getData('text/plain');
@@ -232,7 +235,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    * @param fn a function
    */
   registerOnChange(fn: any): void {
-    this.onChange = e => (e === '<br>' ? fn('') : fn(e)) ;
+    this.onChange = e => (e === '<br>' ? fn('') : fn(e));
   }
 
   /**

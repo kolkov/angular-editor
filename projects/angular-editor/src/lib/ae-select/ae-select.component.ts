@@ -1,9 +1,9 @@
 import {
-  Attribute,
   Component,
   ElementRef,
   EventEmitter,
-  forwardRef, HostBinding,
+  forwardRef,
+  HostBinding,
   HostListener,
   Input,
   OnInit,
@@ -24,7 +24,7 @@ export interface SelectOption {
   selector: 'ae-select',
   templateUrl: './ae-select.component.html',
   styleUrls: ['./ae-select.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  //encapsulation: ViewEncapsulation.None,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -61,7 +61,8 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
 
   constructor(private elRef: ElementRef,
               private r: Renderer2,
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.selectedOption = this.options[0];
