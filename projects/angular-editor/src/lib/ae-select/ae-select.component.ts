@@ -76,6 +76,11 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
   }
 
   optionSelect(option: SelectOption, event: MouseEvent) {
+    //console.log(event.button, event.buttons);
+    if (event.buttons !== 1) {
+      return;
+    }
+    event.preventDefault();
     event.stopPropagation();
     this.setValue(option.value);
     this.onChange(this.selectedOption.value);

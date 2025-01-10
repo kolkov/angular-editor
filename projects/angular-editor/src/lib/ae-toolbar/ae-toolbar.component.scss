@@ -24,33 +24,6 @@
       border: 1px solid;
       background-color: white;
     }
-    .default {
-      font-size: 16px;
-    }
-    .h1 {
-      font-size: 24px;
-    }
-    .h2 {
-      font-size: 20px;
-    }
-    .h3 {
-      font-size: 16px;
-    }
-    .h4 {
-      font-size: 15px;
-    }
-    .h5 {
-      font-size: 14px;
-    }
-    .h6 {
-      font-size: 13px;
-    }
-    .div {
-      font-size: 12px;
-    }
-    .pre {
-      font-size: 12px;
-    }
   }
 
   &:disabled {
@@ -198,3 +171,30 @@
   }
 }
 
+.default {
+  font-size: 16px;
+}
+h1 {
+  font-size: 24px;
+}
+h2 {
+  font-size: 20px;
+}
+h3 {
+  font-size: 16px;
+}
+h4 {
+  font-size: 15px;
+}
+h5 {
+  font-size: 14px;
+}
+h6 {
+  font-size: 13px;
+}
+div {
+  font-size: 12px;
+}
+pre {
+  font-size: 12px;
+}

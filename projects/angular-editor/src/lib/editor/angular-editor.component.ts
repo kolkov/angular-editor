@@ -31,7 +31,7 @@ import {isDefined} from '../utils';
   selector: 'angular-editor',
   templateUrl: './angular-editor.component.html',
   styleUrls: ['./angular-editor.component.scss'],
-  //encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

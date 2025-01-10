@@ -101,14 +101,12 @@ svg {
   .ae-picker-item {
     cursor: pointer;
     display: block;
-    padding-bottom: 5px;
-    padding-top: 5px;
-    padding-left: 5px;
+    padding: 5px;
     z-index: 3;
     text-align: left;
     background-color: transparent;
     min-width: 2rem;
-    width: 100%;
+    //width: 100%;
     border: 0 solid #ddd;
 
     &.selected {

@@ -5,12 +5,12 @@
     </svg>
   </button>
   <span class="ae-picker-options">
-    <button tabindex="-1" type="button" role="button" class="ae-picker-item"
+    <span tabindex="-1" type="button" role="button" class="ae-picker-item"
           *ngFor="let item of options; let i = index"
           [ngClass]="{'selected': item.value === value, 'focused': i === optionId}"
-          (click)="optionSelect(item, $event)">
+          (mousedown)="optionSelect(item, $event)">
           {{item.label}}
-    </button>
+    </span>
     <span class="dropdown-item" *ngIf="!options.length">No items for select</span>
   </span>
 </span>
