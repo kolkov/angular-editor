@@ -1,0 +1,18 @@
+{
+    "workbench.iconTheme": "material-icon-theme",
+    "material-icon-theme.activeIconPack": "angular",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "prettier.enable": true,
+    "prettier.requireConfig": true,
+    "prettier.configPath": "./.prettierrc",
+    "prettier.ignorePath": "./.prettierignore",
+    "prettier.prettierPath": "./node_modules/prettier",
+    "references.preferredLocation": "peek",
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": false,
+    "typescript.format.insertSpaceBeforeAndAfterBinaryOperators": true,
+    "typescript.format.insertSpaceBeforeFunctionParenthesis": false,
+    "typescript.format.semicolons": "insert",
+    "typescript.preferences.quoteStyle": "single"
+}
