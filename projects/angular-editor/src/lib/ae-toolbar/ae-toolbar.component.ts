@@ -17,10 +17,10 @@ import {SelectOption} from '../ae-select/ae-select.component';
 import {Observable} from 'rxjs';
 
 @Component({
-  selector: 'angular-editor-toolbar, ae-toolbar, div[aeToolbar]',
-  templateUrl: './ae-toolbar.component.html',
-  styleUrls: ['./ae-toolbar.component.scss'],
-  //encapsulation: ViewEncapsulation.None,
+    selector: 'angular-editor-toolbar, ae-toolbar, div[aeToolbar]',
+    templateUrl: './ae-toolbar.component.html',
+    styleUrls: ['./ae-toolbar.component.scss'],
+    standalone: false
 })
 
 export class AeToolbarComponent {
