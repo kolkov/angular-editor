@@ -57,12 +57,15 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/angular-editor-app",
+            "outputPath": {
+              "base": "dist/angular-editor-app"
+            },
             "index": "projects/angular-editor-app/src/index.html",
-            "main": "projects/angular-editor-app/src/main.ts",
-            "polyfills": "projects/angular-editor-app/src/polyfills.ts",
+            "polyfills": [
+              "projects/angular-editor-app/src/polyfills.ts"
+            ],
             "tsConfig": "projects/angular-editor-app/tsconfig.app.json",
             "assets": [
               "projects/angular-editor-app/src/favicon.ico",
@@ -78,12 +81,11 @@
               "projects/angular-editor/themes/default.scss"
             ],
             "scripts": [],
-            "vendorChunk": true,
             "extractLicenses": false,
-            "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "browser": "projects/angular-editor-app/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -98,8 +100,6 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",

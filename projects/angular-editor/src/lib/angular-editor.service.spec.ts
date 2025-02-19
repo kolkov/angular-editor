@@ -1,14 +1,14 @@
 import {inject, TestBed} from '@angular/core/testing';
 
 import {AngularEditorService} from './angular-editor.service';
-import {HttpClientModule} from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('AngularEditorService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientModule ],
-      providers: [AngularEditorService]
-    });
+    imports: [],
+    providers: [AngularEditorService, provideHttpClient(withInterceptorsFromDi())]
+});
   });
 
   it('should be created', inject([AngularEditorService], (service: AngularEditorService) => {
