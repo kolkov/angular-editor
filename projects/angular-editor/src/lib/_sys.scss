@@ -1,0 +1,233 @@
+/*
+--(mat-sys-[A-Za-z-0-9]*): .*
+$$1: var(--$1);
+*/
+
+// colors
+
+$background: var(--mat-sys-background);
+$error: var(--mat-sys-error);
+$error-container: var(--mat-sys-error-container);
+$inverse-on-surface: var(--mat-sys-inverse-on-surface);
+$inverse-primary: var(--mat-sys-inverse-primary);
+$inverse-surface: var(--mat-sys-inverse-surface);
+$on-background: var(--mat-sys-on-background);
+$on-error: var(--mat-sys-on-error);
+$on-error-container: var(--mat-sys-on-error-container);
+$on-primary: var(--mat-sys-on-primary);
+$on-primary-container: var(--mat-sys-on-primary-container);
+$on-primary-fixed: var(--mat-sys-on-primary-fixed);
+$on-primary-fixed-variant: var(--mat-sys-on-primary-fixed-variant);
+$on-secondary: var(--mat-sys-on-secondary);
+$on-secondary-container: var(--mat-sys-on-secondary-container);
+$on-secondary-fixed: var(--mat-sys-on-secondary-fixed);
+$on-secondary-fixed-variant: var(--mat-sys-on-secondary-fixed-variant);
+$on-surface: var(--mat-sys-on-surface);
+$on-surface-variant: var(--mat-sys-on-surface-variant);
+$on-tertiary: var(--mat-sys-on-tertiary);
+$on-tertiary-container: var(--mat-sys-on-tertiary-container);
+$on-tertiary-fixed: var(--mat-sys-on-tertiary-fixed);
+$on-tertiary-fixed-variant: var(--mat-sys-on-tertiary-fixed-variant);
+$outline: var(--mat-sys-outline);
+$outline-variant: var(--mat-sys-outline-variant);
+$primary: var(--mat-sys-primary);
+$primary-container: var(--mat-sys-primary-container);
+$primary-fixed: var(--mat-sys-primary-fixed);
+$primary-fixed-dim: var(--mat-sys-primary-fixed-dim);
+$scrim: var(--mat-sys-scrim);
+$secondary: var(--mat-sys-secondary);
+$secondary-container: var(--mat-sys-secondary-container);
+$secondary-fixed: var(--mat-sys-secondary-fixed);
+$secondary-fixed-dim: var(--mat-sys-secondary-fixed-dim);
+$shadow: var(--mat-sys-shadow);
+$surface: var(--mat-sys-surface);
+$surface-bright: var(--mat-sys-surface-bright);
+$surface-container: var(--mat-sys-surface-container);
+$surface-container-high: var(--mat-sys-surface-container-high);
+$surface-container-highest: var(--mat-sys-surface-container-highest);
+$surface-container-low: var(--mat-sys-surface-container-low);
+$surface-container-lowest: var(--mat-sys-surface-container-lowest);
+$surface-dim: var(--mat-sys-surface-dim);
+$surface-tint: var(--mat-sys-surface-tint);
+$surface-variant: var(--mat-sys-surface-variant);
+$tertiary: var(--mat-sys-tertiary);
+$tertiary-container: var(--mat-sys-tertiary-container);
+$tertiary-fixed: var(--mat-sys-tertiary-fixed);
+$tertiary-fixed-dim: var(--mat-sys-tertiary-fixed-dim);
+$neutral-variant20: var(--mat-sys-neutral-variant20);
+$neutral10: var(--mat-sys-neutral10);
+
+// fonts
+
+@mixin font-level($font, $size, $weight, $line-height, $tracking) {
+    font-family: $font;
+    font-size: $size;
+    font-weight: $weight;
+    line-height: $line-height;
+    letter-spacing: $tracking;
+}
+
+$body-small: var(--mat-sys-body-small);
+$body-small-font: var(--mat-sys-body-small-font);
+$body-small-line-height: var(--mat-sys-body-small-line-height);
+$body-small-size: var(--mat-sys-body-small-size);
+$body-small-tracking: var(--mat-sys-body-small-tracking);
+$body-small-weight: var(--mat-sys-body-small-weight);
+
+@mixin body-small($font: $body-small-font) {
+    @include font-level(
+        $body-small-font,
+        $body-small-size,
+        $body-small-weight,
+        $body-small-line-height,
+        $body-small-tracking
+    );
+}
+
+$body-medium: var(--mat-sys-body-medium);
+$body-medium-font: var(--mat-sys-body-medium-font);
+$body-medium-line-height: var(--mat-sys-body-medium-line-height);
+$body-medium-size: var(--mat-sys-body-medium-size);
+$body-medium-tracking: var(--mat-sys-body-medium-tracking);
+$body-medium-weight: var(--mat-sys-body-medium-weight);
+
+@mixin body-medium() {
+    @include font-level(
+        $body-medium-font,
+        $body-medium-size,
+        $body-medium-weight,
+        $body-medium-line-height,
+        $body-medium-tracking
+    );
+}
+
+$body-large: var(--mat-sys-body-large);
+$body-large-font: var(--mat-sys-body-large-font);
+$body-large-line-height: var(--mat-sys-body-large-line-height);
+$body-large-size: var(--mat-sys-body-large-size);
+$body-large-tracking: var(--mat-sys-body-large-tracking);
+$body-large-weight: var(--mat-sys-body-large-weight);
+
+$headline-small: var(--mat-sys-headline-small);
+$headline-small-font: var(--mat-sys-headline-small-font);
+$headline-small-line-height: var(--mat-sys-headline-small-line-height);
+$headline-small-size: var(--mat-sys-headline-small-size);
+$headline-small-tracking: var(--mat-sys-headline-small-tracking);
+$headline-small-weight: var(--mat-sys-headline-small-weight);
+
+$headline-medium: var(--mat-sys-headline-medium);
+$headline-medium-font: var(--mat-sys-headline-medium-font);
+$headline-medium-line-height: var(--mat-sys-headline-medium-line-height);
+$headline-medium-size: var(--mat-sys-headline-medium-size);
+$headline-medium-tracking: var(--mat-sys-headline-medium-tracking);
+$headline-medium-weight: var(--mat-sys-headline-medium-weight);
+
+$headline-large: var(--mat-sys-headline-large);
+$headline-large-font: var(--mat-sys-headline-large-font);
+$headline-large-line-height: var(--mat-sys-headline-large-line-height);
+$headline-large-size: var(--mat-sys-headline-large-size);
+$headline-large-tracking: var(--mat-sys-headline-large-tracking);
+$headline-large-weight: var(--mat-sys-headline-large-weight);
+
+$display-small: var(--mat-sys-display-small);
+$display-small-font: var(--mat-sys-display-small-font);
+$display-small-line-height: var(--mat-sys-display-small-line-height);
+$display-small-size: var(--mat-sys-display-small-size);
+$display-small-tracking: var(--mat-sys-display-small-tracking);
+$display-small-weight: var(--mat-sys-display-small-weight);
+
+$display-medium: var(--mat-sys-display-medium);
+$display-medium-font: var(--mat-sys-display-medium-font);
+$display-medium-line-height: var(--mat-sys-display-medium-line-height);
+$display-medium-size: var(--mat-sys-display-medium-size);
+$display-medium-tracking: var(--mat-sys-display-medium-tracking);
+$display-medium-weight: var(--mat-sys-display-medium-weight);
+
+$display-large: var(--mat-sys-display-large);
+$display-large-font: var(--mat-sys-display-large-font);
+$display-large-line-height: var(--mat-sys-display-large-line-height);
+$display-large-size: var(--mat-sys-display-large-size);
+$display-large-tracking: var(--mat-sys-display-large-tracking);
+$display-large-weight: var(--mat-sys-display-large-weight);
+
+$title-small: var(--mat-sys-title-small);
+$title-small-font: var(--mat-sys-title-small-font);
+$title-small-line-height: var(--mat-sys-title-small-line-height);
+$title-small-size: var(--mat-sys-title-small-size);
+$title-small-tracking: var(--mat-sys-title-small-tracking);
+$title-small-weight: var(--mat-sys-title-small-weight);
+
+$title-medium: var(--mat-sys-title-medium);
+$title-medium-font: var(--mat-sys-title-medium-font);
+$title-medium-line-height: var(--mat-sys-title-medium-line-height);
+$title-medium-size: var(--mat-sys-title-medium-size);
+$title-medium-tracking: var(--mat-sys-title-medium-tracking);
+$title-medium-weight: var(--mat-sys-title-medium-weight);
+
+$title-large: var(--mat-sys-title-large);
+$title-large-font: var(--mat-sys-title-large-font);
+$title-large-line-height: var(--mat-sys-title-large-line-height);
+$title-large-size: var(--mat-sys-title-large-size);
+$title-large-tracking: var(--mat-sys-title-large-tracking);
+$title-large-weight: var(--mat-sys-title-large-weight);
+
+$label-small: var(--mat-sys-label-small);
+$label-small-font: var(--mat-sys-label-small-font);
+$label-small-line-height: var(--mat-sys-label-small-line-height);
+$label-small-size: var(--mat-sys-label-small-size);
+$label-small-tracking: var(--mat-sys-label-small-tracking);
+$label-small-weight: var(--mat-sys-label-small-weight);
+
+$label-medium: var(--mat-sys-label-medium);
+$label-medium-font: var(--mat-sys-label-medium-font);
+$label-medium-line-height: var(--mat-sys-label-medium-line-height);
+$label-medium-size: var(--mat-sys-label-medium-size);
+$label-medium-tracking: var(--mat-sys-label-medium-tracking);
+$label-medium-weight: var(--mat-sys-label-medium-weight);
+$label-medium-weight-prominent: var(--mat-sys-label-medium-weight-prominent);
+
+$label-large: var(--mat-sys-label-large);
+$label-large-font: var(--mat-sys-label-large-font);
+$label-large-line-height: var(--mat-sys-label-large-line-height);
+$label-large-size: var(--mat-sys-label-large-size);
+$label-large-tracking: var(--mat-sys-label-large-tracking);
+$label-large-weight: var(--mat-sys-label-large-weight);
+$label-large-weight-prominent: var(--mat-sys-label-large-weight-prominent);
+
+// layout
+
+$corner-extra-large: var(--mat-sys-corner-extra-large);
+$corner-extra-large-top: var(--mat-sys-corner-extra-large-top);
+$corner-extra-small: var(--mat-sys-corner-extra-small);
+$corner-extra-small-top: var(--mat-sys-corner-extra-small-top);
+$corner-large-end: var(--mat-sys-corner-large-end);
+$corner-large-start: var(--mat-sys-corner-large-start);
+$corner-large-top: var(--mat-sys-corner-large-top);
+
+$corner-small: var(--mat-sys-corner-small);
+$corner-medium: var(--mat-sys-corner-medium);
+$corner-full: var(--mat-sys-corner-full);
+$corner-large: var(--mat-sys-corner-large);
+
+$corner-none: var(--mat-sys-corner-none);
+
+// Padding
+
+$padding-extra-small: 2px;
+$padding-small: 4px;
+$padding-full: 8px;
+$padding-large: 16px;
+$padding-extra-large: 24px;
+
+// Misk
+
+$border: solid 1px $outline;
+
+// Drop shadows
+
+$level0: var(--mat-sys-level0);
+$level1: var(--mat-sys-level1);
+$level2: var(--mat-sys-level2);
+$level3: var(--mat-sys-level3);
+$level4: var(--mat-sys-level4);
+$level5: var(--mat-sys-level5);

@@ -1,200 +1,158 @@
-@import "../styles";
+@use '../styles';
+@use '../sys' as sys;
+@use '@angular/material' as mat;
 
-.angular-editor-toolbar {
-  font: 100 14px/15px Roboto, Arial, sans-serif;
-  background-color: var(--ae-toolbar-bg-color, #f5f5f5);
-  font-size: 0.8rem;
-  padding: var(--ae-toolbar-padding,0.2rem);
-  border: var(--ae-toolbar-border-radius, 1px solid #ddd);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
+angular-editor-toolbar {
+    font: sys.$label-medium;
+    background-color: sys.$surface;
+    padding: sys.$padding-small;
+    border-radius: none;
+    border: none;
+    display: flex;
+    flex-wrap: wrap;
+    z-index: 1;
+    width: 100%;
 }
 
 .select-heading {
-  display: inline-block;
-  width: 90px;
-  @supports not( -moz-appearance:none ) {
-    optgroup {
-      font-size: 12px;
-      background-color: #f4f4f4;
-      padding: 5px;
-    }
-    option {
-      border: 1px solid;
-      background-color: white;
-    }
-  }
+    display: inline-block;
+    width: 90px;
 
-  &:disabled {
-    background-color: #f5f5f5;
-    pointer-events: none;
-    cursor: not-allowed;
-  }
+    @supports not (-moz-appearance: none) {
+        optgroup {
+            font-size: 12px;
+            background-color: #f4f4f4;
+            padding: 5px;
+        }
+        option {
+            border: 1px solid;
+            background-color: white;
+        }
+    }
 
-  &:hover {
-    cursor: pointer;
-    background-color: #f1f1f1;
-    transition: 0.2s ease;
-  }
+    &:disabled {
+        background-color: #f5f5f5;
+        pointer-events: none;
+        cursor: not-allowed;
+    }
+
+    &:hover {
+        cursor: pointer;
+        background-color: #f1f1f1;
+        transition: 0.2s ease;
+    }
 }
 
 .select-font {
-  display: inline-block;
-  width: 90px;
-  @supports not( -moz-appearance:none ) {
-    optgroup {
-      font-size: 12px;
-      background-color: #f4f4f4;
-      padding: 5px;
+    display: inline-block;
+    width: 90px;
+    @supports not (-moz-appearance: none) {
+        optgroup {
+            font-size: 12px;
+            background-color: #f4f4f4;
+            padding: 5px;
+        }
+        option {
+            border: 1px solid;
+            background-color: white;
+        }
     }
-    option {
-      border: 1px solid;
-      background-color: white;
+
+    &:disabled {
+        background-color: #f5f5f5;
+        pointer-events: none;
+        cursor: not-allowed;
     }
-  }
 
-  &:disabled {
-    background-color: #f5f5f5;
-    pointer-events: none;
-    cursor: not-allowed;
-  }
-
-  &:hover {
-    cursor: pointer;
-    background-color: #f1f1f1;
-    transition: 0.2s ease;
-  }
+    &:hover {
+        cursor: pointer;
+        background-color: #f1f1f1;
+        transition: 0.2s ease;
+    }
 }
 
 .select-font-size {
-  display: inline-block;
-  width: 50px;
-  @supports not( -moz-appearance:none ) {
-    optgroup {
-      font-size: 12px;
-      background-color: #f4f4f4;
-      padding: 5px;
+    @supports not (-moz-appearance: none) {
+        .size1 {
+            font-size: 10px;
+        }
+        .size2 {
+            font-size: 12px;
+        }
+        .size3 {
+            font-size: 14px;
+        }
+        .size4 {
+            font-size: 16px;
+        }
+        .size5 {
+            font-size: 18px;
+        }
+        .size6 {
+            font-size: 20px;
+        }
+        .size7 {
+            font-size: 22px;
+        }
     }
-    option {
-      border: 1px solid;
-      background-color: white;
-    }
-    .size1 {
-      font-size: 10px;
-    }
-    .size2 {
-      font-size: 12px;
-    }
-    .size3 {
-      font-size: 14px;
-    }
-    .size4 {
-      font-size: 16px;
-    }
-    .size5 {
-      font-size: 18px;
-    }
-    .size6 {
-      font-size: 20px;
-    }
-    .size7 {
-      font-size: 22px;
-    }
-  }
-
-  &:disabled {
-    background-color: #f5f5f5;
-    pointer-events: none;
-    cursor: not-allowed;
-  }
-
-  &:hover {
-    cursor: pointer;
-    background-color: #f1f1f1;
-    transition: 0.2s ease;
-  }
 }
 
 .select-custom-style {
-  display: inline-block;
-  width: 90px;
-  @supports not( -moz-appearance:none ) {
-    optgroup {
-      font-size: 12px;
-      background-color: #f4f4f4;
-      padding: 5px;
-    }
-    option {
-      border: 1px solid;
-      background-color: white;
-    }
-  }
-
-  &:disabled {
-    background-color: #f5f5f5;
-    pointer-events: none;
-    cursor: not-allowed;
-  }
-
-  &:hover {
-    cursor: pointer;
-    background-color: #f1f1f1;
-    transition: 0.2s ease;
-  }
+    display: inline-block;
+    width: 90px;
 }
 
 .color-label {
-  position: relative;
-  cursor: pointer;
+    position: relative;
+    cursor: pointer;
 }
 
 .background {
-  font-size: smaller;
-  background: #1b1b1b;
-  color: white;
-  padding: 3px;
+    font-size: smaller;
+    background: #1b1b1b;
+    color: white;
+    padding: 3px;
 }
 
 .foreground {
-  :after {
-    position: absolute;
-    content: "";
-    left: -1px;
-    top: auto;
-    bottom: -3px;
-    right: auto;
-    width: 15px;
-    height: 2px;
-    z-index: 0;
-    background: #1b1b1b;
-  }
+    :after {
+        position: absolute;
+        content: '';
+        left: -1px;
+        top: auto;
+        bottom: -3px;
+        right: auto;
+        width: 15px;
+        height: 2px;
+        z-index: 0;
+        background: #1b1b1b;
+    }
 }
 
 .default {
-  font-size: 16px;
+    font-size: 16px;
 }
 h1 {
-  font-size: 24px;
+    font-size: 24px;
 }
 h2 {
-  font-size: 20px;
+    font-size: 20px;
 }
 h3 {
-  font-size: 16px;
+    font-size: 16px;
 }
 h4 {
-  font-size: 15px;
+    font-size: 15px;
 }
 h5 {
-  font-size: 14px;
+    font-size: 14px;
 }
 h6 {
-  font-size: 13px;
+    font-size: 13px;
 }
 div {
-  font-size: 12px;
+    font-size: 12px;
 }
 pre {
-  font-size: 12px;
+    font-size: 12px;
 }

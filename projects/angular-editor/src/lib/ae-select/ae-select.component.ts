@@ -1,219 +1,222 @@
 import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  forwardRef,
-  HostBinding,
-  HostListener,
-  Input,
-  OnInit,
-  Output,
-  Renderer2,
-  ViewChild,
-  ViewEncapsulation
+    Component,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    HostBinding,
+    HostListener,
+    Input,
+    OnInit,
+    Output,
+    Renderer2,
+    ViewChild,
+    ViewEncapsulation
 } from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {isDefined} from '../utils';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { isDefined } from '../utils';
+import { CommonModule } from '@angular/common';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltip } from '@angular/material/tooltip';
 
 export interface SelectOption {
-  label: string;
-  value: string;
+    label: string;
+    value: string;
 }
 
 @Component({
     selector: 'ae-select',
     templateUrl: './ae-select.component.html',
     styleUrls: ['./ae-select.component.scss'],
-    //encapsulation: ViewEncapsulation.None,
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => AeSelectComponent),
-            multi: true,
+            multi: true
         }
     ],
-    standalone: false
+    imports: [CommonModule, MatSelectModule],
+    standalone: true
 })
 export class AeSelectComponent implements OnInit, ControlValueAccessor {
-  @Input() options: SelectOption[] = [];
-  // eslint-disable-next-line @angular-eslint/no-input-rename
-  @Input('hidden') isHidden: boolean;
+    @Input()
+    title!: string;
 
-  selectedOption: SelectOption;
-  disabled = false;
-  optionId = 0;
+    @Input()
+    options: SelectOption[] = [];
 
-  get label(): string {
-    return this.selectedOption && this.selectedOption.hasOwnProperty('label') ? this.selectedOption.label : 'Select';
-  }
+    @Input('hidden')
+    isHidden?: boolean;
 
-  opened = false;
+    selectedOption?: SelectOption;
+    disabled = false;
+    optionId = 0;
 
-  get value(): string {
-    return this.selectedOption.value;
-  }
-
-  @HostBinding('style.display') hidden = 'inline-block';
-
-  // eslint-disable-next-line @angular-eslint/no-output-native, @angular-eslint/no-output-rename
-  @Output('change') changeEvent = new EventEmitter();
-
-  @ViewChild('labelButton', {static: true}) labelButton: ElementRef;
-
-  constructor(private elRef: ElementRef,
-              private r: Renderer2,
-  ) {
-  }
-
-  ngOnInit() {
-    this.selectedOption = this.options[0];
-    if (isDefined(this.isHidden) && this.isHidden) {
-      this.hide();
+    get label(): string {
+        return this.selectedOption &&
+            this.selectedOption.hasOwnProperty('label')
+            ? this.selectedOption.label
+            : 'Select';
     }
-  }
 
-  hide() {
-    this.hidden = 'none';
-  }
+    isOpen = false;
 
-  optionSelect(option: SelectOption, event: MouseEvent) {
-    //console.log(event.button, event.buttons);
-    if (event.buttons !== 1) {
-      return;
+    get value(): string | undefined {
+        return this.selectedOption?.value;
     }
-    event.preventDefault();
-    event.stopPropagation();
-    this.setValue(option.value);
-    this.onChange(this.selectedOption.value);
-    this.changeEvent.emit(this.selectedOption.value);
-    this.onTouched();
-    this.opened = false;
-  }
 
-  toggleOpen(event: MouseEvent) {
-    // event.stopPropagation();
-    if (this.disabled) {
-      return;
+    // @HostBinding('style.display')
+    // hidden = 'inline-block';
+
+    @Output('change')
+    changeEvent = new EventEmitter();
+
+    @ViewChild('labelButton', { static: true })
+    labelButton?: ElementRef;
+
+    constructor(
+        private elRef: ElementRef,
+        private r: Renderer2
+    ) {}
+
+    ngOnInit() {
+        this.selectedOption = this.options[0];
+        if (isDefined(this.isHidden) && this.isHidden) {
+            // this.hide();
+        }
     }
-    this.opened = !this.opened;
-  }
 
-  @HostListener('document:click', ['$event'])
-  onClick($event: MouseEvent) {
-    if (!this.elRef.nativeElement.contains($event.target)) {
-      this.close();
+    writeValue(value: unknown) {
+        if (!value || typeof value !== 'string') {
+            return;
+        }
+        this.setValue(value);
     }
-  }
 
-  close() {
-    this.opened = false;
-  }
-
-  get isOpen(): boolean {
-    return this.opened;
-  }
-
-  writeValue(value) {
-    if (!value || typeof value !== 'string') {
-      return;
+    setValue(value: unknown) {
+        let index = 0;
+        const selectedEl = this.options.find((el, i) => {
+            index = i;
+            return el.value === value;
+        });
+        if (selectedEl) {
+            this.selectedOption = selectedEl;
+            this.optionId = index;
+        }
     }
-    this.setValue(value);
-  }
 
-  setValue(value) {
-    let index = 0;
-    const selectedEl = this.options.find((el, i) => {
-      index = i;
-      return el.value === value;
-    });
-    if (selectedEl) {
-      this.selectedOption = selectedEl;
-      this.optionId = index;
+    onChange: any = () => {};
+    onTouched: any = () => {};
+
+    registerOnChange(fn: Function) {
+        this.onChange = fn;
     }
-  }
 
-  onChange: any = () => {
-  }
-  onTouched: any = () => {
-  }
-
-  registerOnChange(fn) {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn) {
-    this.onTouched = fn;
-  }
-
-  setDisabledState(isDisabled: boolean): void {
-    this.labelButton.nativeElement.disabled = isDisabled;
-    const div = this.labelButton.nativeElement;
-    const action = isDisabled ? 'addClass' : 'removeClass';
-    this.r[action](div, 'disabled');
-    this.disabled = isDisabled;
-  }
-
-  @HostListener('keydown', ['$event'])
-  handleKeyDown($event: KeyboardEvent) {
-    if (!this.opened) {
-      return;
+    registerOnTouched(fn: Function) {
+        this.onTouched = fn;
     }
-    // console.log($event.key);
-    // if (KeyCode[$event.key]) {
-    switch ($event.key) {
-      case 'ArrowDown':
-        this._handleArrowDown($event);
-        break;
-      case 'ArrowUp':
-        this._handleArrowUp($event);
-        break;
-      case 'Space':
-        this._handleSpace($event);
-        break;
-      case 'Enter':
-        this._handleEnter($event);
-        break;
-      case 'Tab':
-        this._handleTab($event);
-        break;
-      case 'Escape':
-        this.close();
-        $event.preventDefault();
-        break;
-      case 'Backspace':
-        this._handleBackspace();
-        break;
-    }
-    // } else if ($event.key && $event.key.length === 1) {
-    // this._keyPress$.next($event.key.toLocaleLowerCase());
+
+    // hide() {
+    //     this.hidden = 'none';
     // }
-  }
 
-  _handleArrowDown($event) {
-    if (this.optionId < this.options.length - 1) {
-      this.optionId++;
+    optionSelect(option: SelectOption) {
+        //, event: MouseEvent | KeyboardEvent) {
+        if ((<any>event).buttons !== 1) {
+            // @todo - TS error
+            return;
+        }
+        // event.preventDefault();
+        // event.stopPropagation();
+        this.setValue(option.value);
+        this.onChange(this.selectedOption?.value);
+        this.changeEvent.emit(this.selectedOption?.value);
+        this.onTouched();
+        this.isOpen = false;
     }
-  }
 
-  _handleArrowUp($event) {
-    if (this.optionId >= 1) {
-      this.optionId--;
+    toggleOpen(event: MouseEvent) {
+        // event.stopPropagation();
+        if (this.disabled) {
+            return;
+        }
+        this.isOpen = !this.isOpen;
     }
-  }
 
-  _handleSpace($event) {
+    @HostListener('document:click', ['$event'])
+    onClick($event: MouseEvent) {
+        if (!this.elRef.nativeElement.contains($event.target)) {
+            this.close();
+        }
+    }
 
-  }
+    close() {
+        this.isOpen = false;
+    }
 
-  _handleEnter($event) {
-    this.optionSelect(this.options[this.optionId], $event);
-  }
+    // setDisabledState(isDisabled: boolean): void {
+    //     if (!this.labelButton) return;
+    //     this.labelButton.nativeElement.disabled = isDisabled;
+    //     const div = this.labelButton.nativeElement;
+    //     const action = isDisabled ? 'addClass' : 'removeClass';
+    //     this.r[action](div, 'disabled');
+    //     this.disabled = isDisabled;
+    // }
 
-  _handleTab($event) {
+    // @HostListener('keydown', ['$event'])
+    // handleKeyDown($event: KeyboardEvent) {
+    //     if (!this.opened) {
+    //         return;
+    //     }
+    //     // console.log($event.key);
+    //     // if (KeyCode[$event.key]) {
+    //     switch ($event.key) {
+    //         case 'ArrowDown':
+    //             this._handleArrowDown($event);
+    //             break;
+    //         case 'ArrowUp':
+    //             this._handleArrowUp($event);
+    //             break;
+    //         case 'Space':
+    //             this._handleSpace($event);
+    //             break;
+    //         case 'Enter':
+    //             this._handleEnter($event);
+    //             break;
+    //         case 'Tab':
+    //             this._handleTab($event);
+    //             break;
+    //         case 'Escape':
+    //             this.close();
+    //             $event.preventDefault();
+    //             break;
+    //         case 'Backspace':
+    //             this._handleBackspace();
+    //             break;
+    //     }
+    //     // } else if ($event.key && $event.key.length === 1) {
+    //     // this._keyPress$.next($event.key.toLocaleLowerCase());
+    //     // }
+    // }
 
-  }
+    // _handleArrowDown($event: unknown) {
+    //     if (this.optionId < this.options.length - 1) {
+    //         this.optionId++;
+    //     }
+    // }
 
-  _handleBackspace() {
+    // _handleArrowUp($event: unknown) {
+    //     if (this.optionId >= 1) {
+    //         this.optionId--;
+    //     }
+    // }
 
-  }
+    // _handleSpace($event: unknown) {}
+
+    // _handleEnter($event: KeyboardEvent) {
+    //     this.optionSelect(this.options[this.optionId], $event);
+    // }
+
+    // _handleTab($event: unknown) {}
+
+    // _handleBackspace() {}
 }

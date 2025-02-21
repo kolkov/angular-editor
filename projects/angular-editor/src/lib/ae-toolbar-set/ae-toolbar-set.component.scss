@@ -1,14 +1,12 @@
-@import "../styles";
+@use '../styles';
+@use '../sys' as sys;
 
-:host {
-  &.angular-editor-toolbar-set {
+ae-toolbar-set {
     display: flex;
-    gap: 1px;
-    width: fit-content;
-    vertical-align: baseline;
-  }
-}
 
-.angular-editor-toolbar-set:not([style*="display:none"]):not([style*="display: none"]){
-  //display: inline-block;
+    & + ae-toolbar-set {
+        border-left: solid 1px sys.$outline;
+        padding-left: sys.$padding-full;
+        margin-left: sys.$padding-full;
+    }
 }

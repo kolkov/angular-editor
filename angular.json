@@ -69,16 +69,15 @@
             "tsConfig": "projects/angular-editor-app/tsconfig.app.json",
             "assets": [
               "projects/angular-editor-app/src/favicon.ico",
-              "projects/angular-editor-app/src/assets",
               {
                 "glob": "**/*",
-                "input": "projects/angular-editor/assets/icons/",
-                "output": "assets/ae-icons/"
+                "input": "projects/angular-editor/assets/",
+                "output": "assets/"
               }
             ],
             "styles": [
-              "projects/angular-editor-app/src/styles.scss",
-              "projects/angular-editor/themes/default.scss"
+              "@angular/material/prebuilt-themes/azure-blue.css",
+              "projects/angular-editor-app/src/styles.scss"
             ],
             "scripts": [],
             "extractLicenses": false,
@@ -143,7 +142,10 @@
               "projects/angular-editor-app/src/assets"
             ],
             "styles": [
-              "projects/angular-editor-app/src/styles.css"
+              "@angular/material/prebuilt-themes/azure-blue.css",
+              "projects/angular-editor-app/src/styles.css",
+              "@angular-elements/rich-text-editor/themes/bookerly/bookerly.scss",
+              "@angular-elements/rich-text-editor/assets/material-symbols/material-symbols.css"
             ],
             "scripts": []
           }

@@ -1,49 +1,57 @@
-<div class="container">
-  <h1>Angular Editor</h1>
-  <p><a href="https://github.com/kolkov/angular-editor">Get it here</a></p>
+<angular-editor
+    id="editor1"
+    [formControl]="textFormControl"
+    (blur)="onBlur($event)">
+    <!-- <ng-template
+            #customButtons
+            let-executeCommandFn="executeCommandFn">
+            <ae-toolbar-set>
+                <button
+                    aeButton
+                    title="Angular editor logo"
+                    (click)="executeCommandFn('insertHtml', angularEditorLogo)">
+                    <svg
+                        viewBox="-8 0 272 272"
+                        xmlns="http://www.w3.org/2000/svg"
+                        preserveAspectRatio="xMidYMid"
+                        fill="#000000">
+                        <g
+                            id="SVGRepo_bgCarrier"
+                            stroke-width="0"></g>
+                        <g
+                            id="SVGRepo_tracerCarrier"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <g>
+                                <path
+                                    d="M0.0996108949,45.522179 L125.908171,0.697276265 L255.103502,44.7252918 L234.185214,211.175097 L125.908171,271.140856 L19.3245136,211.971984 L0.0996108949,45.522179 Z"
+                                    fill="#E23237"></path>
+                                <path
+                                    d="M255.103502,44.7252918 L125.908171,0.697276265 L125.908171,271.140856 L234.185214,211.274708 L255.103502,44.7252918 L255.103502,44.7252918 Z"
+                                    fill="#B52E31"></path>
+                                <path
+                                    d="M126.107393,32.27393 L126.107393,32.27393 L47.7136187,206.692607 L76.9992218,206.194553 L92.7377432,166.848249 L126.207004,166.848249 L126.306615,166.848249 L163.063035,166.848249 L180.29572,206.692607 L208.286381,207.190661 L126.107393,32.27393 L126.107393,32.27393 Z M126.306615,88.155642 L152.803113,143.5393 L127.402335,143.5393 L126.107393,143.5393 L102.997665,143.5393 L126.306615,88.155642 L126.306615,88.155642 Z"
+                                    fill="#FFFFFF"></path>
+                            </g>
+                        </g>
+                    </svg>
+                </button>
+            </ae-toolbar-set>
+        </ng-template> -->
+</angular-editor>
 
-  <label for="test_input">Test input </label>
-  <input id="test_input">
-  <br><br>
-  <angular-editor id="editor1" [(ngModel)]="htmlContent1" [config]="config1" (ngModelChange)="onChange($event)"
-                  (blur)="onBlur($event)">
-    <ng-template #customButtons let-executeCommandFn="executeCommandFn">
-      <ae-toolbar-set>
-        <button aeButton title="Angular editor logo" (click)="executeCommandFn('insertHtml', angularEditorLogo)">
-          <svg viewBox="-8 0 272 272" xmlns="http://www.w3.org/2000/svg"
-               preserveAspectRatio="xMidYMid" fill="#000000">
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-            <g id="SVGRepo_iconCarrier">
-              <g>
-                <path
-                  d="M0.0996108949,45.522179 L125.908171,0.697276265 L255.103502,44.7252918 L234.185214,211.175097 L125.908171,271.140856 L19.3245136,211.971984 L0.0996108949,45.522179 Z"
-                  fill="#E23237"></path>
-                <path
-                  d="M255.103502,44.7252918 L125.908171,0.697276265 L125.908171,271.140856 L234.185214,211.274708 L255.103502,44.7252918 L255.103502,44.7252918 Z"
-                  fill="#B52E31"></path>
-                <path
-                  d="M126.107393,32.27393 L126.107393,32.27393 L47.7136187,206.692607 L76.9992218,206.194553 L92.7377432,166.848249 L126.207004,166.848249 L126.306615,166.848249 L163.063035,166.848249 L180.29572,206.692607 L208.286381,207.190661 L126.107393,32.27393 L126.107393,32.27393 Z M126.306615,88.155642 L152.803113,143.5393 L127.402335,143.5393 L126.107393,143.5393 L102.997665,143.5393 L126.306615,88.155642 L126.306615,88.155642 Z"
-                  fill="#FFFFFF"></path>
-              </g>
-            </g>
-          </svg>
-        </button>
-      </ae-toolbar-set>
-    </ng-template>
-  </angular-editor>
-  <p class="html">
-    HTML Output:  {{ htmlContent1 }}
-  </p>
-  <form [formGroup]="form">
-    <angular-editor autofocus="true" id="editor2" formControlName="signature" [config]="config2"
-                    (ngModelChange)="onChange2($event)"></angular-editor>
-  </form>
-  <p>
-    Form Value: {{ form.value.signature }}
-  </p>
-  <p>
-    Form Status: {{ form.status }}
-  </p>
-</div>
+<!-- <p class="html">HTML Output: {{ htmlContent1 }}</p>
 
+    @if (form) {
+        <form [formGroup]="form">
+            <angular-editor
+                autofocus="true"
+                id="editor2"
+                formControlName="signature"
+                [config]="config2"
+                (ngModelChange)="onChange2($event)"></angular-editor>
+        </form>
+        <p>Form Value: {{ form.value.signature }}</p>
+        <p>Form Status: {{ form.status }}</p>
+    } -->

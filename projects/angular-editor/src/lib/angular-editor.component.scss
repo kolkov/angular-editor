@@ -1,0 +1,81 @@
+@use 'styles.scss';
+@use 'sys' as sys;
+
+angular-editor {
+    display: flex;
+    flex-direction: column;
+    gap: sys.$padding-full;
+    width: 100%;
+    height: 100%;
+
+    &.bottom {
+        flex-direction: column-reverse;
+    }
+
+    ::ng-deep [contenteditable='true']:empty:before {
+        content: attr(placeholder);
+        color: #868e96;
+        opacity: 1;
+    }
+
+    .angular-editor-wrapper {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        border-radius: sys.$corner-small;
+        background-color: sys.$surface;
+        top: 40px;
+
+        border: sys.$border;
+        overflow-y: auto;
+
+        .angular-editor-textarea__wrapper {
+            height: 100%;
+        }
+
+        .angular-editor-textarea {
+            height: fit-content;
+            resize: none;
+            width: 750px;
+            max-width: 750px;
+            background-color: sys.$surface-container;
+            padding: sys.$padding-large;
+
+            &:focus-visible {
+                outline: none;
+            }
+
+            ::ng-deep blockquote {
+                margin-left: 1rem;
+                border-left: 0.2em solid #dfe2e5;
+                padding-left: 0.5rem;
+            }
+        }
+
+        ::ng-deep p {
+            margin-bottom: 0;
+        }
+
+        .angular-editor-placeholder {
+            display: none;
+            position: absolute;
+            top: 0;
+            padding: 0.6rem 0.8rem 1rem 0.9rem;
+            color: #6c757d;
+            opacity: 0.75;
+        }
+
+        &.show-placeholder {
+            .angular-editor-placeholder {
+                display: block;
+            }
+        }
+
+        &.disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    }
+}

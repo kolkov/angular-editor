@@ -1,0 +1,47 @@
+<!-- <div
+    class="angular-editor"
+    [style.width]="config.width"
+    [style.minWidth]="config.minWidth"
+    [ngClass]="{ bottom: config.toolbarPosition === 'bottom' }"> -->
+<!--[uploadUrl]="config.uploadUrl" [upload]="config.upload"-->
+<angular-editor-toolbar
+    #editorToolbar
+    [id]="id"
+    [showToolbar]="editorConfig.showToolbar"
+    [fonts]="getFonts()"
+    [customClasses]="editorConfig.customClasses"
+    [defaultFontName]="editorConfig.defaultFontName"
+    [defaultFontSize]="editorConfig.defaultFontSize"
+    [hiddenButtons]="editorConfig.toolbarHiddenButtons"
+    (execute)="executeCommand($event)">
+    <ng-container
+        [ngTemplateOutlet]="customButtonsTemplateRef"
+        [ngTemplateOutletContext]="{
+            executeCommandFn: this.executeCommandFn
+        }">
+    </ng-container>
+</angular-editor-toolbar>
+
+<div
+    class="angular-editor-wrapper bookerly"
+    [class.show-placeholder]="!(this.showPlaceholder | async)"
+    [style.height]="editorToolbar.contentHeight">
+    <div
+        #editor
+        class="angular-editor-textarea"
+        [attr.contenteditable]="editorConfig.editable"
+        [attr.tabindex]="disabled ? -1 : tabIndex"
+        [attr.translate]="editorConfig.translate"
+        [attr.spellcheck]="editorConfig.spellcheck"
+        (input)="onContentChange($event.target)"
+        (focus)="onTextAreaFocus($event)"
+        (blur)="onTextAreaBlur($event)"
+        (keyup)="exec()"
+        (mouseout)="onTextAreaMouseOut($event)"
+        (paste)="onPaste($event)"></div>
+
+    <!-- <span class="angular-editor-placeholder">
+        {{ placeholder || config['placeholder'] }}
+    </span> -->
+</div>
+<!-- </div> -->

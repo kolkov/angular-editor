@@ -1,159 +1,258 @@
-<div class="angular-editor-toolbar" *ngIf="showToolbar">
-  <div aeToolbarSet>
-    <button aeButton title="Undo" iconName="undo" (click)="triggerCommand('undo')" [hidden]="isButtonHidden('undo')">
-    </button>
-    <button aeButton title="Redo" iconName="redo" (click)="triggerCommand('redo')"
-            [hidden]="isButtonHidden('redo')">
-    </button>
-  </div>
-  <div aeToolbarSet>
-    <button [id]="'bold-'+id" aeButton title="Bold" iconName="bold" (click)="triggerCommand('bold')"
-            [disabled]="htmlMode" [hidden]="isButtonHidden('bold')">
-    </button>
-    <button [id]="'italic-'+id" aeButton iconName="italic" title="Italic" (click)="triggerCommand('italic')"
-            [disabled]="htmlMode" [hidden]="isButtonHidden('italic')">
-    </button>
-    <button [id]="'underline-'+id" aeButton title="Underline" iconName="underline"
-            (click)="triggerCommand('underline')" [disabled]="htmlMode" [hidden]="isButtonHidden('underline')">
-    </button>
-    <button [id]="'strikeThrough-'+id" aeButton iconName="strikeThrough" title="Strikethrough"
-            (click)="triggerCommand('strikeThrough')" [disabled]="htmlMode"
-            [hidden]="isButtonHidden('strikeThrough')">
-    </button>
-    <button [id]="'subscript-'+id" aeButton title="Subscript" iconName="subscript"
-            (click)="triggerCommand('subscript')" [disabled]="htmlMode" [hidden]="isButtonHidden('subscript')">
-    </button>
-    <button [id]="'superscript-'+id" aeButton iconName="superscript" title="Superscript"
-            (click)="triggerCommand('superscript')" [disabled]="htmlMode"
-            [hidden]="isButtonHidden('superscript')">
-    </button>
-  </div>
-  <div aeToolbarSet>
-    <button [id]="'justifyLeft-'+id" aeButton iconName="justifyLeft" title="Justify Left"
-            (click)="triggerCommand('justifyLeft')" [disabled]="htmlMode"
-            [hidden]="isButtonHidden('justifyLeft')">
-    </button>
-    <button [id]="'justifyCenter-'+id" aeButton iconName="justifyCenter" title="Justify Center"
-            (click)="triggerCommand('justifyCenter')" [disabled]="htmlMode"
-            [hidden]="isButtonHidden('justifyCenter')">
-    </button>
-    <button [id]="'justifyRight-'+id" aeButton iconName="justifyRight" title="Justify Right"
-            (click)="triggerCommand('justifyRight')" [disabled]="htmlMode"
-            [hidden]="isButtonHidden('justifyRight')">
-    </button>
-    <button [id]="'justifyFull-'+id" aeButton iconName="justifyFull" title="Justify Full"
-            (click)="triggerCommand('justifyFull')" [disabled]="htmlMode"
-            [hidden]="isButtonHidden('justifyFull')">
-    </button>
-  </div>
-  <div aeToolbarSet>
-    <button [id]="'indent-'+id" aeButton iconName="indent" title="Indent"
-            (click)="triggerCommand('indent')"
-            [disabled]="htmlMode" [hidden]="isButtonHidden('indent')">
-    </button>
-    <button [id]="'outdent-'+id" aeButton iconName="outdent" title="Outdent"
-            (click)="triggerCommand('outdent')"
-            [disabled]="htmlMode" [hidden]="isButtonHidden('outdent')">
-    </button>
-  </div>
-  <div aeToolbarSet>
-    <button [id]="'insertUnorderedList-'+id" aeButton iconName="unorderedList" title="Unordered List"
-            (click)="triggerCommand('insertUnorderedList')" [disabled]="htmlMode"
-            [hidden]="isButtonHidden('insertUnorderedList')">
-    </button>
-    <button [id]="'insertOrderedList-'+id" aeButton iconName="orderedList" title="Ordered List"
-            (click)="triggerCommand('insertOrderedList')" [disabled]="htmlMode"
-            [hidden]="isButtonHidden('insertOrderedList')">
-    </button>
-  </div>
-  <div aeToolbarSet>
-    <ae-select class="select-heading" [options]="headings"
-               [(ngModel)]="block"
-               (change)="triggerCommand(block)"
-               [disabled]="htmlMode"
-               [hidden]="isButtonHidden('heading')"
-               tabindex="-1"></ae-select>
-  </div>
-  <div aeToolbarSet>
-    <ae-select class="select-font" [options]="fonts"
-               [(ngModel)]="fontName"
-               (change)="setFontName(fontName)"
-               [disabled]="htmlMode"
-               [hidden]="isButtonHidden('fontName')"
-               tabindex="-1"></ae-select>
-  </div>
-  <div aeToolbarSet>
-    <ae-select class="select-font-size" [options]="fontSizes"
-               [(ngModel)]="fontSize"
-               (change)="setFontSize(fontSize)"
-               [disabled]="htmlMode"
-               [hidden]="isButtonHidden('fontSize')"
-               tabindex="-1">
+<ae-toolbar-set>
+    <button
+        aeButton
+        matTooltip="Undo"
+        iconName="undo"
+        (click)="triggerCommand('undo')"
+        [hidden]="isButtonHidden('undo')"></button>
+    <button
+        aeButton
+        matTooltip="Redo"
+        iconName="redo"
+        (click)="triggerCommand('redo')"
+        [hidden]="isButtonHidden('redo')"></button>
+</ae-toolbar-set>
+<ae-toolbar-set>
+    <button
+        [id]="'bold-' + id"
+        aeButton
+        matTooltip="Bold"
+        iconName="format_bold"
+        (click)="triggerCommand('bold')"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('bold')"></button>
+    <button
+        [id]="'italic-' + id"
+        aeButton
+        iconName="format_italic"
+        matTooltip="Italic"
+        (click)="triggerCommand('italic')"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('italic')"></button>
+    <button
+        [id]="'underline-' + id"
+        aeButton
+        matTooltip="Underline"
+        iconName="format_underlined"
+        (click)="triggerCommand('underline')"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('underline')"></button>
+    <button
+        [id]="'strikeThrough-' + id"
+        aeButton
+        iconName="format_strikethrough"
+        matTooltip="Strikethrough"
+        (click)="triggerCommand('strikeThrough')"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('strikeThrough')"></button>
+    <button
+        [id]="'subscript-' + id"
+        aeButton
+        matTooltip="Subscript"
+        iconName="subscript"
+        (click)="triggerCommand('subscript')"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('subscript')"></button>
+    <button
+        [id]="'superscript-' + id"
+        aeButton
+        matTooltip="Superscript"
+        iconName="superscript"
+        (click)="triggerCommand('superscript')"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('superscript')"></button>
+</ae-toolbar-set>
+<ae-toolbar-set>
+    <button
+        [id]="'justifyLeft-' + id"
+        aeButton
+        iconName="format_align_left"
+        matTooltip="Justify Left"
+        (click)="triggerCommand('justifyLeft')"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('justifyLeft')"></button>
+    <button
+        [id]="'justifyCenter-' + id"
+        aeButton
+        iconName="format_align_center"
+        matTooltip="Justify Center"
+        (click)="triggerCommand('justifyCenter')"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('justifyCenter')"></button>
+    <button
+        [id]="'justifyRight-' + id"
+        aeButton
+        iconName="format_align_right"
+        matTooltip="Justify Right"
+        (click)="triggerCommand('justifyRight')"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('justifyRight')"></button>
+    <button
+        [id]="'justifyFull-' + id"
+        aeButton
+        iconName="format_align_justify"
+        matTooltip="Justify Full"
+        (click)="triggerCommand('justifyFull')"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('justifyFull')"></button>
+</ae-toolbar-set>
+<ae-toolbar-set>
+    <button
+        [id]="'indent-' + id"
+        aeButton
+        iconName="format_indent_increase"
+        matTooltip="Indent"
+        (click)="triggerCommand('indent')"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('indent')"></button>
+    <button
+        [id]="'outdent-' + id"
+        aeButton
+        iconName="format_indent_decrease"
+        matTooltip="Outdent"
+        (click)="triggerCommand('outdent')"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('outdent')"></button>
+</ae-toolbar-set>
+<ae-toolbar-set>
+    <button
+        [id]="'insertUnorderedList-' + id"
+        aeButton
+        iconName="format_list_numbered"
+        matTooltip="Unordered List"
+        (click)="triggerCommand('insertUnorderedList')"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('insertUnorderedList')"></button>
+    <button
+        [id]="'insertOrderedList-' + id"
+        aeButton
+        iconName="format_list_bulleted"
+        matTooltip="Ordered List"
+        (click)="triggerCommand('insertOrderedList')"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('insertOrderedList')"></button>
+</ae-toolbar-set>
+<ae-toolbar-set>
+    <ae-select
+        [options]="headings"
+        [(ngModel)]="block"
+        matTooltip="Styles"
+        (change)="triggerCommand(block)"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('heading')"
+        tabindex="-1"></ae-select>
+</ae-toolbar-set>
+<ae-toolbar-set>
+    <ae-select
+        [options]="fonts"
+        [(ngModel)]="fontName"
+        matTooltip="Font"
+        (change)="setFontName(fontName)"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('fontName')"
+        tabindex="-1"></ae-select>
+</ae-toolbar-set>
+<ae-toolbar-set>
+    <ae-select
+        class="select-font-size"
+        [options]="fontSizes"
+        [(ngModel)]="fontSize"
+        matTooltip="Font Size"
+        (change)="setFontSize(fontSize)"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('fontSize')"
+        tabindex="-1">
     </ae-select>
-  </div>
-  <div aeToolbarSet>
+</ae-toolbar-set>
+<ae-toolbar-set>
     <input
-      style="display: none"
-      type="color" (change)="insertColor(fgInput.value, 'textColor')"
-      #fgInput>
-    <button [id]="'foregroundColorPicker-'+id" aeButton iconName="textColor"
-            (click)="focus(); ; fgInput.click()"
-            title="Text Color"
-            [disabled]="htmlMode" [hidden]="isButtonHidden('textColor')">
-    </button>
+        style="display: none"
+        type="color"
+        (change)="insertColor(fgInput.value, 'textColor')"
+        #fgInput />
+    <button
+        [id]="'foregroundColorPicker-' + id"
+        aeButton
+        iconName="format_color_text"
+        (click)="focus(); fgInput.click()"
+        matTooltip="Text Color"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('textColor')"></button>
     <input
-      style="display: none"
-      type="color" (change)="insertColor(bgInput.value, 'backgroundColor')"
-      #bgInput>
-    <button [id]="'backgroundColorPicker-'+id" aeButton iconName="backgroundColor"
-            (click)="focus(); ; bgInput.click()"
-            title="Background Color"
-            [disabled]="htmlMode" [hidden]="isButtonHidden('backgroundColor')">
-    </button>
-  </div>
-  <div *ngIf="_customClasses" aeToolbarSet>
-    <ae-select class="select-custom-style" [options]="customClassList"
-               [(ngModel)]="customClassId"
-               (change)="setCustomClass(customClassId)"
-               [disabled]="htmlMode"
-               [hidden]="isButtonHidden('customClasses')"
-               tabindex="-1"></ae-select>
-  </div>
-  <div aeToolbarSet>
-    <button [id]="'link-'+id" aeButton iconName="link" (click)="insertUrl()"
-            title="Insert Link" [disabled]="isLinkButtonDisabled" [hidden]="isButtonHidden('link')">
-    </button>
-    <button [id]="'unlink-'+id" aeButton iconName="unlink" (click)="triggerCommand('unlink')"
-            title="Unlink" [disabled]="htmlMode || !linkSelected" [hidden]="isButtonHidden('unlink')">
-    </button>
+        style="display: none"
+        type="color"
+        (change)="insertColor(bgInput.value, 'backgroundColor')"
+        #bgInput />
+    <button
+        [id]="'backgroundColorPicker-' + id"
+        aeButton
+        iconName="format_color_fill"
+        (click)="focus(); bgInput.click()"
+        matTooltip="Background Color"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('backgroundColor')"></button>
+</ae-toolbar-set>
+<ae-toolbar-set *ngIf="_customClasses">
+    <ae-select
+        class="select-custom-style"
+        matTooltip="Custom Styles"
+        [options]="customClassList"
+        [(ngModel)]="customClassId"
+        (change)="setCustomClass(customClassId)"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('customClasses')"
+        tabindex="-1"></ae-select>
+</ae-toolbar-set>
+<ae-toolbar-set>
+    <button
+        [id]="'link-' + id"
+        aeButton
+        iconName="link"
+        (click)="insertUrl()"
+        matTooltip="Insert Link"
+        [disabled]="isLinkButtonDisabled"
+        [hidden]="isButtonHidden('link')"></button>
+    <button
+        [id]="'insertImage-' + id"
+        aeButton
+        iconName="image"
+        (click)="focus(); fileInput.click()"
+        matTooltip="Insert Image"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('insertImage')"></button>
     <input
-      style="display: none"
-      accept="image/*"
-      type="file" (change)="onFileChanged($event)"
-      #fileInput>
-    <button [id]="'insertImage-'+id" aeButton iconName="image" (click)="focus(); fileInput.click()"
-            title="Insert Image"
-            [disabled]="htmlMode" [hidden]="isButtonHidden('insertImage')">
-    </button>
-    <button [id]="'insertVideo-'+id" aeButton iconName="video"
-            (click)="insertVideo()" title="Insert Video" [disabled]="htmlMode"
-            [hidden]="isButtonHidden('insertVideo')">
-    </button>
-    <button [id]="'insertHorizontalRule-'+id" aeButton iconName="horizontalLine" title="Horizontal Line"
-            (click)="triggerCommand('insertHorizontalRule')" [disabled]="htmlMode"
-            [hidden]="isButtonHidden('insertHorizontalRule')">
-    </button>
-  </div>
-  <div aeToolbarSet>
-    <button [id]="'clearFormatting-'+id" aeButton iconName="removeFormat" title="Clear Formatting"
-            class="angular-editor-button"
-            (click)="triggerCommand('removeFormat')" [disabled]="htmlMode" [hidden]="isButtonHidden('removeFormat')">
-    </button>
-  </div>
-  <div aeToolbarSet>
-    <button [id]="'toggleEditorMode-'+id" aeButton iconName="htmlCode" title="HTML Code"
-            (click)="triggerCommand('toggleEditorMode')" [hidden]="isButtonHidden('toggleEditorMode')">
-    </button>
-  </div>
-  <ng-content></ng-content>
-</div>
+        style="display: none"
+        accept="image/*"
+        type="file"
+        (change)="onFileChanged($event)"
+        #fileInput />
+    <button
+        [id]="'insertHorizontalRule-' + id"
+        aeButton
+        iconName="horizontal_rule"
+        matTooltip="Horizontal Line"
+        (click)="triggerCommand('insertHorizontalRule')"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('insertHorizontalRule')"></button>
+</ae-toolbar-set>
+<ae-toolbar-set>
+    <button
+        [id]="'clearFormatting-' + id"
+        aeButton
+        iconName="format_clear"
+        matTooltip="Clear Formatting"
+        class="angular-editor-button"
+        (click)="triggerCommand('removeFormat')"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('removeFormat')"></button>
+</ae-toolbar-set>
+<ae-toolbar-set>
+    <button
+        [id]="'toggleEditorMode-' + id"
+        aeButton
+        iconName="htmlCode"
+        matTooltip="HTML Code"
+        (click)="triggerCommand('toggleEditorMode')"
+        [hidden]="isButtonHidden('toggleEditorMode')"></button>
+</ae-toolbar-set>
+<ng-content></ng-content>

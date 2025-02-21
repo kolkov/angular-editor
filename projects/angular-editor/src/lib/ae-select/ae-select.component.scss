@@ -1,156 +1,83 @@
-@import "../styles";
-
+@use '../styles';
+@use '../ae' as ae;
+@use '../sys' as sys;
 svg {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
+}
+
+:host {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    height: fit-content;
 }
 
 .ae-picker {
-  color: var(--ae-picker-color, #444);
-  display: inline-block;
-  float: left;
-  width: 100%;
-  position: relative;
-  vertical-align: middle;
-}
-
-.ae-picker-label {
-  cursor: pointer;
-  display: inline-block;
-  padding-left: 8px;
-  padding-right: 10px;
-  position: relative;
-  width: 100%;
-  line-height: 1.8rem;
-  vertical-align: middle;
-  font-size: 85%;
-  text-align: left;
-  background-color: var(--ae-picker-label-color, white);
-  min-width: 2rem;
-  float: left;
-  border: 1px solid #ddd;
-  border-radius: var(--ae-button-radius, 4px);
-  text-overflow: clip;
-  overflow: hidden;
-  white-space: nowrap;
-  height: 2rem;
-
-  &:before {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 20px;
-    height: 100%;
-    background: linear-gradient(to right, var(--ae-picker-label-color, white), var(--ae-picker-label-color, white) 100%);
-  }
-
-  &:focus {
-    outline: none;
-  }
-
-  &:hover {
-    cursor: pointer;
-    background-color: #f1f1f1;
-    transition: 0.2s ease;
-
-    &:before {
-      background: linear-gradient(to right, #f5f5f5 100%, #ffffff 100%);
-    }
-  }
-
-  &:disabled {
-    background-color: #f5f5f5;
-    pointer-events: none;
-    cursor: not-allowed;
-
-    &:before {
-      background: linear-gradient(to right, #f5f5f5 100%, #ffffff 100%);
-    }
-  }
-
-  svg {
-    position: absolute;
-    right: 0;
-    width: 1rem;
-
-    &:not(:root) {
-      overflow: hidden;
-    }
-
-    .ae-stroke {
-      fill: none;
-      stroke: #444;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke-width: 2;
-    }
-  }
-}
-
-.ae-picker-options {
-  background-color: var(--ae-picker-option-bg-color, #fff);
-  display: none;
-  min-width: 100%;
-  position: absolute;
-  white-space: nowrap;
-  z-index: 3;
-  border: 1px solid transparent;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 2px 8px;
-
-  .ae-picker-item {
-    cursor: pointer;
-    display: block;
-    padding: 5px;
-    z-index: 3;
-    text-align: left;
-    background-color: transparent;
-    min-width: 2rem;
-    //width: 100%;
-    border: 0 solid #ddd;
-
-    &.selected {
-      color: #06c;
-      background-color: var(--ae-picker-option-active-bg-color, #fff4c2);
-    }
-
-    &.focused {
-      background-color: var(--ae-picker-option-focused-bg-color, #fbf9b0);
-    }
-
-    &:hover {
-      background-color: var(--ae-picker-option-hover-bg-color,#fffa98);
-    }
-  }
-}
-
-.ae-expanded {
-  display: block;
-  margin-top: -1px;
-  z-index: 1;
-
-  .ae-picker-label {
-    color: #ccc;
-    z-index: 2;
-
-    svg {
-      color: #ccc;
-      z-index: 2;
-
-      .ae-stroke {
-        stroke: #ccc;
-      }
-    }
-  }
-
-  .ae-picker-options {
     display: flex;
-    flex-direction: column;
-    margin-top: -1px;
-    top: 100%;
-    z-index: 3;
-    border-color: #ccc;
-  }
+    position: relative;
+
+    &.ae-expanded {
+        z-index: 1;
+
+        .ae-picker__label {
+            z-index: 2;
+        }
+
+        .ae-picker__options {
+            display: flex;
+            flex-direction: column;
+            z-index: 3;
+        }
+    }
+
+    &__label {
+        @include ae.button();
+
+        padding-left: sys.$padding-full;
+
+        white-space: nowrap;
+        position: relative;
+    }
+
+    &__options {
+        background-color: sys.$surface-container;
+        color: sys.$on-surface;
+        display: none;
+        width: fit-content;
+        min-width: 132px;
+        position: absolute;
+        top: 40px;
+        white-space: nowrap;
+        padding: sys.$padding-full 0;
+        border-radius: sys.$corner-small;
+        box-shadow: sys.$level3;
+
+        &--item {
+            cursor: pointer;
+            display: block;
+            padding: sys.$padding-small sys.$padding-large;
+            z-index: 3;
+            text-align: left;
+            background-color: transparent;
+
+            @include sys.body-medium();
+
+            .selected {
+                color: sys.$on-primary;
+                background-color: sys.$primary;
+            }
+
+            .focused {
+                color: sys.$on-primary;
+                background-color: sys.$primary;
+            }
+
+            &:hover {
+                color: sys.$on-primary;
+                background-color: sys.$primary;
+            }
+        }
+    }
 }
-
-

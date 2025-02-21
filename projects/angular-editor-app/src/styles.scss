@@ -1,7 +1,45 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@use 'assets/material-symbols/material-symbols.scss';
+@use 'assets/bookerly/bookerly.scss';
 
 .container {
-  max-width: 720px;
-  margin-right: auto;
-  margin-left: auto;
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    height: 100%;
+}
+
+html,
+body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+body {
+    margin: 0;
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+app-root {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+html {
+    @include mat.theme(
+        (
+            color: (
+                theme-type: dark,
+                primary: mat.$blue-palette,
+                tertiary: mat.$green-palette
+            ),
+            density: 0
+        )
+    );
+
+    background: var(--mat-sys-background);
+    color: var(--mat-sys-on-background);
 }

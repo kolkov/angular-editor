@@ -1,8 +1,5 @@
-<ng-container *ngIf="iconName; else contentTemplate">
-  <svg>
-    <use [attr.href]="'assets/ae-icons/icons.svg#' + iconName" [attr.xlink:href]="'assets/ae-icons/icons.svg#' + iconName"></use>
-  </svg>
-</ng-container>
-<ng-template #contentTemplate>
-  <ng-content></ng-content>
-</ng-template>
+@if (iconName) {
+    <span class="material-symbols-rounded"> {{ iconName }} </span>
+} @else {
+    <ng-content></ng-content>
+}

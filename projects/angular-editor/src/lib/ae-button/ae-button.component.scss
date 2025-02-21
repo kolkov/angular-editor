@@ -1,60 +1,8 @@
-@import "../styles";
+@use '../styles';
+@use '../ae' as ae;
 
 :host {
-  &.angular-editor-button {
-    background-color: var(--ae-button-bg-color, white);
-    vertical-align: middle;
-    border: var(--ae-button-border, 1px solid #ddd);
-    border-radius: var(--ae-button-radius, 4px);
-    padding: 0.4rem;
-    float: left;
-    width: 2rem;
-    height: 2rem;
-
-    svg {
-      width: 100%;
-      height: 100%;
+    &.angular-editor-button {
+        @include ae.button();
     }
-
-    &:hover {
-      cursor: pointer;
-      background-color: var(--ae-button-hover-bg-color, #f1f1f1);
-      transition: 0.2s ease;
-    }
-
-    &:focus,
-    &.focus {
-      outline: 0;
-    }
-
-    &:disabled {
-      background-color: var(--ae-button-disabled-bg-color,#f5f5f5);
-      pointer-events: none;
-      cursor: not-allowed;
-
-      > .color-label {
-        pointer-events: none;
-        cursor: not-allowed;
-
-        &.foreground {
-          :after {
-            background: #555555;
-          }
-        }
-
-        &.background {
-          background: #555555;
-        }
-      }
-    }
-
-    &.active {
-      background: var(--ae-button-active-bg-color, #fffbd3);
-
-      &:hover {
-        background-color: var(--ae-button-active-hover-bg-color, #fffaad);
-      }
-    }
-  }
 }
-

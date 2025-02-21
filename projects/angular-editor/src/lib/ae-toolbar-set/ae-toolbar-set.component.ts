@@ -1,18 +1,12 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-    selector: 'ae-toolbar-set, [aeToolbarSet]',
+    selector: 'ae-toolbar-set',
     templateUrl: './ae-toolbar-set.component.html',
     styleUrls: ['./ae-toolbar-set.component.scss'],
-    //encapsulation: ViewEncapsulation.None,
-    host: {
-        'class': 'angular-editor-toolbar-set'
-    },
-    standalone: false
+    encapsulation: ViewEncapsulation.None,
+    standalone: true
 })
 export class AeToolbarSetComponent {
-
-  constructor() {
-  }
-
+    constructor() {}
 }
