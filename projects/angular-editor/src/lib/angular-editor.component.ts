@@ -31,6 +31,7 @@ import { AngularEditorConfig } from './config';
 import { isDefined } from './utils';
 import { BehaviorSubject } from 'rxjs';
 import { loadDefaultConfig, NGX_EDITOR_CONFIG } from './provide-editor-config';
+import { NgxResizedDirective } from './resized.directive';
 
 @Component({
     selector: 'angular-editor',
@@ -49,7 +50,8 @@ import { loadDefaultConfig, NGX_EDITOR_CONFIG } from './provide-editor-config';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        AeToolbarComponent
+        AeToolbarComponent,
+        NgxResizedDirective
     ],
     standalone: true,
     host: {
@@ -94,6 +96,7 @@ export class AngularEditorComponent
 
     public showPlaceholder = new BehaviorSubject<boolean>(false);
     public executeCommandFn = this.executeCommand.bind(this);
+    public height = new BehaviorSubject<string>('100%');
 
     public focusInstance: any;
     public blurInstance: any;

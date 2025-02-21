@@ -1,0 +1,40 @@
+@use 'sass:map' as map;
+
+@mixin theme-builder($font-config) {
+    @include font-level-theme($font-config, 'display');
+    @include font-level-theme($font-config, 'headline');
+    @include font-level-theme($font-config, 'title');
+    @include font-level-theme($font-config, 'body');
+}
+
+///
+/// @param $font-config A font configuration object that includes all levels
+/// @param { `body | headline | display | title` } $level-name The name of a level
+///
+@mixin font-level-theme($font-config, $level-name) {
+    @include font-levels($font-config, $level-name, 'font');
+    @include font-levels($font-config, $level-name, 'line-height');
+    @include font-levels($font-config, $level-name, 'size');
+    @include font-levels($font-config, $level-name, 'tracking');
+    @include font-levels($font-config, $level-name, 'weight');
+}
+
+///
+/// @param $level-theme A config level, such as `display`
+/// @param { `body | headline | display | title` } $level-name The name of a level
+/// @param { `line-height | size | tracking | weight` } $level-type The type of the level
+///
+@mixin font-levels($font-config, $level-name, $level-type) {
+    @include font-level-var($font-config, $level-name, $level-type, 'small');
+    @include font-level-var($font-config, $level-name, $level-type, 'medium');
+    @include font-level-var($font-config, $level-name, $level-type, 'large');
+}
+
+@mixin font-level-var($font-config, $level-name, $level-type, $level-size) {
+    --ae-sys-#{$level-name}-#{$level-size}-#{$level-type}: #{map.get(
+            $font-config,
+            $level-name,
+            $level-type,
+            $level-size
+        )};
+}

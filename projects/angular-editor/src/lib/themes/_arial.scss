@@ -1,0 +1,116 @@
+@use 'theme-builder' as theme;
+
+$arial: (
+    display: (
+        font: (
+            large: 'Arial',
+            medium: 'Arial',
+            small: 'Arial'
+        ),
+        line-height: (
+            large: 4rem,
+            medium: 3.25rem,
+            small: 2.75rem
+        ),
+        size: (
+            large: 3.562rem,
+            medium: 2.812rem,
+            small: 2.25rem
+        ),
+        tracking: (
+            large: -0.016rem,
+            medium: 0,
+            small: 0
+        ),
+        weight: (
+            large: 400,
+            medium: 400,
+            small: 400
+        )
+    ),
+    headline: (
+        font: (
+            large: 'Arial',
+            medium: 'Arial',
+            small: 'Arial'
+        ),
+        line-height: (
+            large: 2.5rem,
+            medium: 2.25rem,
+            small: 2rem
+        ),
+        size: (
+            large: 2rem,
+            medium: 1.75rem,
+            small: 1.5rem
+        ),
+        tracking: (
+            large: 0,
+            medium: 0,
+            small: 0
+        ),
+        weight: (
+            large: 400,
+            medium: 400,
+            small: 400
+        )
+    ),
+    title: (
+        font: (
+            large: 'Arial',
+            medium: 'Arial',
+            small: 'Arial'
+        ),
+        line-height: (
+            large: 1.75rem,
+            medium: 1.5rem,
+            small: 1.25rem
+        ),
+        size: (
+            large: 1.375rem,
+            medium: 1rem,
+            small: 0.875rem
+        ),
+        tracking: (
+            large: 0,
+            medium: 0.009rem,
+            small: 0.006rem
+        ),
+        weight: (
+            large: 400,
+            medium: 500,
+            small: 500
+        )
+    ),
+    body: (
+        font: (
+            large: 'Arial',
+            medium: 'Arial',
+            small: 'Arial'
+        ),
+        line-height: (
+            large: 1.5rem,
+            medium: 1.25rem,
+            small: 1rem
+        ),
+        size: (
+            large: 1rem,
+            medium: 0.875rem,
+            small: 0.75rem
+        ),
+        tracking: (
+            large: 0.031rem,
+            medium: 0.061rem,
+            small: 0.025rem
+        ),
+        weight: (
+            large: 400,
+            medium: 500,
+            small: 400
+        )
+    )
+);
+
+.arial {
+    @include theme.theme-builder($arial);
+}

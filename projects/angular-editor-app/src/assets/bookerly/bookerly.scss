@@ -1,141 +1,71 @@
 @font-face {
-    font-family: 'Bookerly Local Light Italic';
+    font-family: 'Bookerly';
+    font-style: italic;
+    font-weight: 300;
+    src: url('Bookerly Light Italic.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Bookerly';
+    font-style: normal;
+    font-weight: 300;
+    src: url('Bookerly Light.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Bookerly';
+    font-style: normal;
+    font-weight: 400;
+    src: url('Bookerly.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Bookerly';
+    font-style: italic;
+    font-weight: 400;
+    src: url('Bookerly Italic.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Bookerly';
+    font-style: normal;
+    font-weight: 500;
+    src: url('Bookerly Bold.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Bookerly';
+    font-style: italic;
+    font-weight: 500;
+    src: url('Bookerly Bold Italic.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Bookerly Display';
+    font-style: normal;
+    font-weight: 400;
+    src: url('Bookerly Display.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Bookerly Display';
     font-style: italic;
     font-weight: 400;
     src:
-        local('Bookerly Local'),
-        url('Bookerly Light Italic.woff') format('woff');
-}
-
-@font-face {
-    font-family: 'Bookerly Local Light Italic';
-    font-style: normal;
-    font-weight: 400;
-    src:
-        local('Bookerly'),
-        url('Bookerly Light.woff') format('woff');
-}
-
-@font-face {
-    font-family: 'Bookerly Local Regular';
-    font-style: normal;
-    font-weight: 500;
-    src:
-        local('Bookerly Local Regular'),
-        url('Bookerly.woff') format('woff');
-}
-
-@font-face {
-    font-family: 'Bookerly Local Regular Italic';
-    font-style: italic;
-    font-weight: 500;
-    src:
-        local('Bookerly Local Regular Italic'),
-        url('Bookerly Italic.woff') format('woff');
-}
-
-@font-face {
-    font-family: 'Bookerly Local Bold';
-    font-style: normal;
-    font-weight: 600;
-    src:
-        local('Bookerly Local Bold'),
-        url('Bookerly Bold.woff') format('woff');
-}
-
-@font-face {
-    font-family: 'Bookerly Local Bold Italic';
-    font-style: italic;
-    font-weight: 600;
-    src:
-        local('Bookerly Local Bold Italic'),
-        url('Bookerly Bold Italic.woff') format('woff');
-}
-
-@font-face {
-    font-family: 'Bookerly Local Display';
-    font-style: normal;
-    font-weight: 700;
-    src:
-        local('Bookerly Local Display'),
-        url('Bookerly Display.woff') format('woff');
-}
-
-@font-face {
-    font-family: 'Bookerly Local Display Italic';
-    font-style: italic;
-    font-weight: 700;
-    src:
-        local('Bookerly Local Display Italic'),
+        local('Bookerly Display'),
         url('Bookerly Display Italic.woff') format('woff');
 }
 
 @font-face {
-    font-family: 'Bookerly Local Display Bold';
+    font-family: 'Bookerly Display';
     font-style: normal;
-    font-weight: 800;
-    src:
-        local('Bookerly Local Display Bold'),
-        url('Bookerly Display Bold.woff') format('woff');
+    font-weight: 500;
+    src: url('Bookerly Display Bold.woff') format('woff');
 }
 
 @font-face {
-    font-family: 'Bookerly Local Display Bold Italic';
+    font-family: 'Bookerly Display';
     font-style: italic;
-    font-weight: 800;
-    src:
-        local('Bookerly Local Display Bold Italic'),
-        url('Bookerly Display Bold Italic.woff') format('woff');
-}
-
-.bookerly {
-    font-family: 'Bookerly Local Regular';
-
-    p {
-        padding: 0;
-        margin: 0;
-        text-indent: 24px;
-        line-height: 1.75rem;
-    }
-
-    em,
-    i {
-        font-family: 'Bookerly Local Regular Italic';
-    }
-
-    b {
-        font-family: 'Bookerly Local Bold';
-    }
-
-    p {
-        font-family: 'Bookerly Local Regular';
-    }
-
-    em > b,
-    i > b,
-    b > i {
-        font-family: 'Bookerly Local Bold Italic';
-    }
-
-    &:focus {
-        outline: none !important;
-    }
-
-    h1,
-    h2 {
-        font-family: 'Bookerly Local Display';
-
-        b {
-            font-family: 'Bookerly Local Display Bold';
-        }
-
-        i {
-            font-family: 'Bookerly Local Display Italic';
-        }
-
-        i > b,
-        b > i {
-            font-family: 'Bookerly Local Display Bold Italic';
-        }
-    }
+    font-weight: 500;
+    src: url('Bookerly Display Bold Italic.woff') format('woff');
 }

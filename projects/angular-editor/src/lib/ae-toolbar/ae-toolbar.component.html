@@ -192,17 +192,7 @@
         [disabled]="htmlMode"
         [hidden]="isButtonHidden('backgroundColor')"></button>
 </ae-toolbar-set>
-<ae-toolbar-set *ngIf="_customClasses">
-    <ae-select
-        class="select-custom-style"
-        matTooltip="Custom Styles"
-        [options]="customClassList"
-        [(ngModel)]="customClassId"
-        (change)="setCustomClass(customClassId)"
-        [disabled]="htmlMode"
-        [hidden]="isButtonHidden('customClasses')"
-        tabindex="-1"></ae-select>
-</ae-toolbar-set>
+
 <ae-toolbar-set>
     <button
         [id]="'link-' + id"
@@ -256,3 +246,15 @@
         [hidden]="isButtonHidden('toggleEditorMode')"></button>
 </ae-toolbar-set>
 <ng-content></ng-content>
+<!-- @todo - Integrate custom classes/styles into style menu. -->
+<!-- <ae-toolbar-set *ngIf="_customClasses">
+    <ae-select
+        class="select-custom-style"
+        matTooltip="Custom Styles"
+        [options]="customClassList"
+        [(ngModel)]="customClassId"
+        (change)="setCustomClass(customClassId)"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('customClasses')"
+        tabindex="-1"></ae-select>
+</ae-toolbar-set> -->

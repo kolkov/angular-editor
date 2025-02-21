@@ -74,7 +74,7 @@ $body-small-size: var(--mat-sys-body-small-size);
 $body-small-tracking: var(--mat-sys-body-small-tracking);
 $body-small-weight: var(--mat-sys-body-small-weight);
 
-@mixin body-small($font: $body-small-font) {
+@mixin body-small() {
     @include font-level(
         $body-small-font,
         $body-small-size,
@@ -108,12 +108,32 @@ $body-large-size: var(--mat-sys-body-large-size);
 $body-large-tracking: var(--mat-sys-body-large-tracking);
 $body-large-weight: var(--mat-sys-body-large-weight);
 
+@mixin body-large() {
+    @include font-level(
+        $body-large-font,
+        $body-large-size,
+        $body-large-weight,
+        $body-large-line-height,
+        $body-large-tracking
+    );
+}
+
 $headline-small: var(--mat-sys-headline-small);
 $headline-small-font: var(--mat-sys-headline-small-font);
 $headline-small-line-height: var(--mat-sys-headline-small-line-height);
 $headline-small-size: var(--mat-sys-headline-small-size);
 $headline-small-tracking: var(--mat-sys-headline-small-tracking);
 $headline-small-weight: var(--mat-sys-headline-small-weight);
+
+@mixin headline-small() {
+    @include font-level(
+        $headline-small-font,
+        $headline-small-size,
+        $headline-small-weight,
+        $headline-small-line-height,
+        $headline-small-tracking
+    );
+}
 
 $headline-medium: var(--mat-sys-headline-medium);
 $headline-medium-font: var(--mat-sys-headline-medium-font);
@@ -122,12 +142,32 @@ $headline-medium-size: var(--mat-sys-headline-medium-size);
 $headline-medium-tracking: var(--mat-sys-headline-medium-tracking);
 $headline-medium-weight: var(--mat-sys-headline-medium-weight);
 
+@mixin headline-medium() {
+    @include font-level(
+        $body-medium-font,
+        $body-medium-size,
+        $body-medium-weight,
+        $body-medium-line-height,
+        $body-medium-tracking
+    );
+}
+
 $headline-large: var(--mat-sys-headline-large);
 $headline-large-font: var(--mat-sys-headline-large-font);
 $headline-large-line-height: var(--mat-sys-headline-large-line-height);
 $headline-large-size: var(--mat-sys-headline-large-size);
 $headline-large-tracking: var(--mat-sys-headline-large-tracking);
 $headline-large-weight: var(--mat-sys-headline-large-weight);
+
+@mixin headline-large() {
+    @include font-level(
+        $headline-large-font,
+        $headline-large-size,
+        $headline-large-weight,
+        $headline-large-line-height,
+        $headline-large-tracking
+    );
+}
 
 $display-small: var(--mat-sys-display-small);
 $display-small-font: var(--mat-sys-display-small-font);
@@ -136,12 +176,32 @@ $display-small-size: var(--mat-sys-display-small-size);
 $display-small-tracking: var(--mat-sys-display-small-tracking);
 $display-small-weight: var(--mat-sys-display-small-weight);
 
+@mixin display-small() {
+    @include font-level(
+        $display-small-font,
+        $display-small-size,
+        $display-small-weight,
+        $display-small-line-height,
+        $display-small-tracking
+    );
+}
+
 $display-medium: var(--mat-sys-display-medium);
 $display-medium-font: var(--mat-sys-display-medium-font);
 $display-medium-line-height: var(--mat-sys-display-medium-line-height);
 $display-medium-size: var(--mat-sys-display-medium-size);
 $display-medium-tracking: var(--mat-sys-display-medium-tracking);
 $display-medium-weight: var(--mat-sys-display-medium-weight);
+
+@mixin display-medium() {
+    @include font-level(
+        $display-medium-font,
+        $display-medium-size,
+        $display-medium-weight,
+        $display-medium-line-height,
+        $display-medium-tracking
+    );
+}
 
 $display-large: var(--mat-sys-display-large);
 $display-large-font: var(--mat-sys-display-large-font);
@@ -150,12 +210,32 @@ $display-large-size: var(--mat-sys-display-large-size);
 $display-large-tracking: var(--mat-sys-display-large-tracking);
 $display-large-weight: var(--mat-sys-display-large-weight);
 
+@mixin display-large() {
+    @include font-level(
+        $display-large-font,
+        $display-large-size,
+        $display-large-weight,
+        $display-large-line-height,
+        $display-large-tracking
+    );
+}
+
 $title-small: var(--mat-sys-title-small);
 $title-small-font: var(--mat-sys-title-small-font);
 $title-small-line-height: var(--mat-sys-title-small-line-height);
 $title-small-size: var(--mat-sys-title-small-size);
 $title-small-tracking: var(--mat-sys-title-small-tracking);
 $title-small-weight: var(--mat-sys-title-small-weight);
+
+@mixin title-small() {
+    @include font-level(
+        $title-small-font,
+        $title-small-size,
+        $title-small-weight,
+        $title-small-line-height,
+        $title-small-tracking
+    );
+}
 
 $title-medium: var(--mat-sys-title-medium);
 $title-medium-font: var(--mat-sys-title-medium-font);
@@ -164,6 +244,16 @@ $title-medium-size: var(--mat-sys-title-medium-size);
 $title-medium-tracking: var(--mat-sys-title-medium-tracking);
 $title-medium-weight: var(--mat-sys-title-medium-weight);
 
+@mixin title-medium() {
+    @include font-level(
+        $title-medium-font,
+        $title-medium-size,
+        $title-medium-weight,
+        $title-medium-line-height,
+        $title-medium-tracking
+    );
+}
+
 $title-large: var(--mat-sys-title-large);
 $title-large-font: var(--mat-sys-title-large-font);
 $title-large-line-height: var(--mat-sys-title-large-line-height);
@@ -171,12 +261,32 @@ $title-large-size: var(--mat-sys-title-large-size);
 $title-large-tracking: var(--mat-sys-title-large-tracking);
 $title-large-weight: var(--mat-sys-title-large-weight);
 
+@mixin title-large() {
+    @include font-level(
+        $title-large-font,
+        $title-large-size,
+        $title-large-weight,
+        $title-large-line-height,
+        $title-large-tracking
+    );
+}
+
 $label-small: var(--mat-sys-label-small);
 $label-small-font: var(--mat-sys-label-small-font);
 $label-small-line-height: var(--mat-sys-label-small-line-height);
 $label-small-size: var(--mat-sys-label-small-size);
 $label-small-tracking: var(--mat-sys-label-small-tracking);
 $label-small-weight: var(--mat-sys-label-small-weight);
+
+@mixin label-small() {
+    @include font-level(
+        $label-small-font,
+        $label-small-size,
+        $label-small-weight,
+        $label-small-line-height,
+        $label-small-tracking
+    );
+}
 
 $label-medium: var(--mat-sys-label-medium);
 $label-medium-font: var(--mat-sys-label-medium-font);
@@ -186,6 +296,16 @@ $label-medium-tracking: var(--mat-sys-label-medium-tracking);
 $label-medium-weight: var(--mat-sys-label-medium-weight);
 $label-medium-weight-prominent: var(--mat-sys-label-medium-weight-prominent);
 
+@mixin label-medium() {
+    @include font-level(
+        $label-medium-font,
+        $label-medium-size,
+        $label-medium-weight,
+        $label-medium-line-height,
+        $label-medium-tracking
+    );
+}
+
 $label-large: var(--mat-sys-label-large);
 $label-large-font: var(--mat-sys-label-large-font);
 $label-large-line-height: var(--mat-sys-label-large-line-height);
@@ -193,6 +313,16 @@ $label-large-size: var(--mat-sys-label-large-size);
 $label-large-tracking: var(--mat-sys-label-large-tracking);
 $label-large-weight: var(--mat-sys-label-large-weight);
 $label-large-weight-prominent: var(--mat-sys-label-large-weight-prominent);
+
+@mixin label-large() {
+    @include font-level(
+        $label-large-font,
+        $label-large-size,
+        $label-large-weight,
+        $label-large-line-height,
+        $label-large-tracking
+    );
+}
 
 // layout
 

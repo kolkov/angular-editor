@@ -29,6 +29,9 @@ app-root {
 }
 
 html {
+    background-color: var(--mat-sys-background);
+    color: var(--mat-sys-on-background);
+
     @include mat.theme(
         (
             color: (
@@ -39,7 +42,4 @@ html {
             density: 0
         )
     );
-
-    background: var(--mat-sys-background);
-    color: var(--mat-sys-on-background);
 }

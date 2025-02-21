@@ -1,0 +1,46 @@
+@forward 'arial';
+@forward 'bookerly';
+
+@use '../ae' as ae;
+
+@mixin editor-theme {
+    p {
+        padding: 0;
+        margin: 0;
+        text-indent: 24px;
+
+        @include ae.body-large();
+
+        &:first-of-type {
+            text-indent: 0;
+        }
+    }
+
+    &:focus {
+        outline: none !important;
+    }
+
+    h1 {
+        @include ae.display-large();
+    }
+
+    h2 {
+        @include ae.display-medium();
+    }
+
+    h3 {
+        @include ae.display-small();
+    }
+
+    h4 {
+        @include ae.headline-large();
+    }
+
+    h5 {
+        @include ae.headline-medium();
+    }
+
+    h6 {
+        @include ae.headline-small();
+    }
+}

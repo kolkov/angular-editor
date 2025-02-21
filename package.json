@@ -33,7 +33,7 @@
     "@angular/router": "^19.1.7",
     "font-awesome": "^4.7.0",
     "material-symbols": "^0.28.2",
-    "rxjs": "~6.5.4",
+    "rxjs": "~7.8.1",
     "tslib": "^2.4.0",
     "zone.js": "~0.15.0"
   },

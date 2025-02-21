@@ -1,9 +1,3 @@
-<!-- <div
-    class="angular-editor"
-    [style.width]="config.width"
-    [style.minWidth]="config.minWidth"
-    [ngClass]="{ bottom: config.toolbarPosition === 'bottom' }"> -->
-<!--[uploadUrl]="config.uploadUrl" [upload]="config.upload"-->
 <angular-editor-toolbar
     #editorToolbar
     [id]="id"
@@ -13,7 +7,9 @@
     [defaultFontName]="editorConfig.defaultFontName"
     [defaultFontSize]="editorConfig.defaultFontSize"
     [hiddenButtons]="editorConfig.toolbarHiddenButtons"
-    (execute)="executeCommand($event)">
+    (execute)="executeCommand($event)"
+    ngxResized
+    (sizechange)="height.next('calc(100% - ' + $event.height + 'px)')">
     <ng-container
         [ngTemplateOutlet]="customButtonsTemplateRef"
         [ngTemplateOutletContext]="{
@@ -25,7 +21,7 @@
 <div
     class="angular-editor-wrapper bookerly"
     [class.show-placeholder]="!(this.showPlaceholder | async)"
-    [style.height]="editorToolbar.contentHeight">
+    [style.height]="height | async">
     <div
         #editor
         class="angular-editor-textarea"
@@ -44,4 +40,3 @@
         {{ placeholder || config['placeholder'] }}
     </span> -->
 </div>
-<!-- </div> -->

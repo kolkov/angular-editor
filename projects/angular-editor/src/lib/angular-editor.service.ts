@@ -51,7 +51,7 @@ export class AngularEditorService {
      * @deprecated
      */
     public executeCommand(command: string, value?: string) {
-        const commands = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'pre'];
+        const commands = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'code'];
         if (commands.includes(command)) {
             this.execCommand('formatBlock', false, command);
             return;
