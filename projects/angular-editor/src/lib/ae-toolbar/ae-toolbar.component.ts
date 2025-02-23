@@ -1,32 +1,22 @@
+import { CommonModule } from '@angular/common';
 import {
     Component,
     ElementRef,
-    EventEmitter,
-    Inject,
     Input,
-    Output,
     Renderer2,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import {
-    AngularEditorService,
-    UploadResponse
-} from '../angular-editor.service';
-import { HttpEvent, HttpResponse } from '@angular/common/http';
-import { CommonModule, DOCUMENT } from '@angular/common';
-import { CustomClass, HiddenButtons } from '../config';
-import {
-    AeSelectComponent,
-    SelectOption
-} from '../ae-select/ae-select.component';
-import { Observable } from 'rxjs';
-import { MatSelectModule } from '@angular/material/select';
-import { AeButtonComponent } from '../ae-button/ae-button.component';
-import { AeToolbarSetComponent } from '../ae-toolbar-set/ae-toolbar-set.component';
 import { FormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { makeFontSizes, makeFontStyle } from '../utils';
+
+import { AeButtonComponent } from '../ae-button/ae-button.component';
+import { AeSelectComponent } from '../ae-select/ae-select.component';
+import { AeToolbarSetComponent } from '../ae-toolbar-set/ae-toolbar-set.component';
+import { AngularEditorService } from '../angular-editor.service';
+import { Block, CommandId, SelectOption } from '../types';
+import { CustomClass, HiddenButtons } from '../config';
+import { getButtons, makeFontSizes, makeFontStyle } from '../utils';
 
 @Component({
     selector: 'angular-editor-toolbar, ae-toolbar, div[aeToolbar]',
@@ -35,7 +25,6 @@ import { makeFontSizes, makeFontStyle } from '../utils';
     encapsulation: ViewEncapsulation.None,
     imports: [
         CommonModule,
-        MatSelectModule,
         AeButtonComponent,
         AeToolbarSetComponent,
         AeSelectComponent,
@@ -45,54 +34,20 @@ import { makeFontSizes, makeFontStyle } from '../utils';
     standalone: true
 })
 export class AeToolbarComponent {
-    htmlMode = false;
-    linkSelected = false;
-    block = 'p';
-    fontName = 'Times New Roman';
-    fontSize = '3';
-    foreColor?: string;
-    backColor?: string;
-
-    headings = makeFontStyle();
-    fontSizes = makeFontSizes();
-
-    customClassId = '-1';
-    _customClasses?: CustomClass[];
-    customClassList: SelectOption[] = [{ label: '', value: '' }];
-
-    tagMap = {
-        BLOCKQUOTE: 'indent',
-        A: 'link'
-    };
-
-    select = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P', 'PRE', 'DIV'];
-
-    buttons = [
-        'bold',
-        'italic',
-        'underline',
-        'strikeThrough',
-        'subscript',
-        'superscript',
-        'justifyLeft',
-        'justifyCenter',
-        'justifyRight',
-        'justifyFull',
-        'indent',
-        'outdent',
-        'insertUnorderedList',
-        'insertOrderedList',
-        'link'
-    ];
-
-    @Input() id?: string;
-    // @Input() uploadUrl?: string;
-    // @Input() upload?: (file: File) => Observable<HttpEvent<UploadResponse>>;
-    @Input() showToolbar?: boolean;
-    @Input() fonts: SelectOption[] = [{ label: '', value: '' }];
+    @ViewChild('fileInput', { static: true })
+    public myInputFile?: ElementRef;
 
     @Input()
-    set customClasses(classes: CustomClass[] | undefined) {
+    public id?: string;
+
+    @Input()
+    public showToolbar?: boolean;
+
+    @Input()
+    public fonts: SelectOption[] = [{ label: '', value: '' }];
+
+    @Input()
+    public set customClasses(classes: CustomClass[] | undefined) {
         if (classes) {
             this._customClasses = classes;
             this.customClassList = this._customClasses.map((x, i) => ({
@@ -104,14 +59,14 @@ export class AeToolbarComponent {
     }
 
     @Input()
-    set defaultFontName(value: string | undefined) {
+    public set defaultFontName(value: string | undefined) {
         if (value) {
             this.fontName = value;
         }
     }
 
     @Input()
-    set defaultFontSize(value: string | undefined) {
+    public set defaultFontSize(value: string | undefined) {
         if (value) {
             this.fontSize = value;
         }
@@ -120,19 +75,36 @@ export class AeToolbarComponent {
     @Input()
     public hiddenButtons?: Partial<HiddenButtons>;
 
-    @Output() execute: EventEmitter<string> = new EventEmitter<string>();
+    public htmlMode = false;
+    public linkSelected = false;
 
-    @ViewChild('fileInput', { static: true }) myInputFile?: ElementRef;
+    public block: Block = 'p';
+
+    public foreColor?: string;
+    public backColor?: string;
+
+    public headings = makeFontStyle();
+    public fontSizes = makeFontSizes();
+
+    public customClassId = '-1';
+    private _customClasses?: CustomClass[];
+    public customClassList: SelectOption[] = [];
+
+    public tagMap = { BLOCKQUOTE: 'indent', A: 'link' };
+
+    public select = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P', 'CODE'];
+
+    public buttons = getButtons();
+
+    constructor(
+        private renderer: Renderer2,
+        private editorService: AngularEditorService,
+        private _host: ElementRef<HTMLElement>
+    ) {}
 
     public get isLinkButtonDisabled(): boolean {
         return this.htmlMode || !Boolean(this.editorService.selectedText);
     }
-
-    constructor(
-        private r: Renderer2,
-        private editorService: AngularEditorService,
-        private _host: ElementRef<HTMLElement>
-    ) {}
 
     public get height() {
         return this._host.nativeElement.offsetHeight;
@@ -146,14 +118,14 @@ export class AeToolbarComponent {
      * Trigger command from editor header buttons
      * @param command string from toolbar buttons
      */
-    triggerCommand(command: string) {
-        this.execute.emit(command);
+    public triggerCommand(command: CommandId) {
+        this.editorService.executeCommand(command);
     }
 
     /**
      * highlight editor buttons when cursor moved or positioning
      */
-    triggerButtons() {
+    public triggerButtons() {
         if (!this.showToolbar) return;
 
         this.buttons.forEach((e) => {
@@ -163,9 +135,9 @@ export class AeToolbarComponent {
             );
 
             if (result) {
-                this.r.addClass(elementById, 'active');
+                this.renderer.addClass(elementById, 'active');
             } else {
-                this.r.removeClass(elementById, 'active');
+                this.renderer.removeClass(elementById, 'active');
             }
         });
     }
@@ -173,7 +145,7 @@ export class AeToolbarComponent {
     /**
      * trigger highlight editor buttons when cursor moved or positioning in block
      */
-    triggerBlocks(nodes: Node[]) {
+    public triggerBlocks(nodes: Node[]) {
         if (!this.showToolbar) {
             return;
         }
@@ -183,11 +155,11 @@ export class AeToolbarComponent {
             const node = nodes.find((x) => x.nodeName === y);
             if (node !== undefined && y === node.nodeName) {
                 if (found === false) {
-                    this.block = node.nodeName.toLowerCase();
+                    this.block = <Block>node.nodeName.toLowerCase();
                     found = true;
                 }
             } else if (found === false) {
-                this.block = 'default';
+                this.block = 'p';
             }
         });
 
@@ -213,11 +185,13 @@ export class AeToolbarComponent {
             const elementById = this.editorService.getElementById(
                 this.tagMap[<keyof typeof this.tagMap>e] + '-' + this.id
             );
+
             const node = nodes.find((x) => x.nodeName === e);
+
             if (node !== undefined && e === node.nodeName) {
-                this.r.addClass(elementById, 'active');
+                this.renderer.addClass(elementById, 'active');
             } else {
-                this.r.removeClass(elementById, 'active');
+                this.renderer.removeClass(elementById, 'active');
             }
         });
 
@@ -232,7 +206,7 @@ export class AeToolbarComponent {
     /**
      * insert URL link
      */
-    insertUrl() {
+    public insertUrl() {
         let url: string | null = 'https:\/\/';
         const selection = this.editorService.savedSelection;
         if (
@@ -252,43 +226,45 @@ export class AeToolbarComponent {
     }
 
     /** insert color */
-    insertColor(color: string, where: string) {
+    public insertColor(color: string, where: string) {
         this.editorService.insertColor(color, where);
-        this.execute.emit('');
     }
 
     /**
      * set font Name/family
      * @param foreColor string
+     * @deprecated
      */
-    setFontName(foreColor: string): void {
+    public setFontName(foreColor: string): void {
         this.editorService.setFontName(foreColor);
-        this.execute.emit('');
     }
 
     /**
      * set font Size
      * @param fontSize string
+     * @deprecated
      */
-    setFontSize(fontSize: string): void {
+    public setFontSize(fontSize: string): void {
         this.editorService.setFontSize(fontSize);
-        this.execute.emit('');
     }
 
     /**
      * toggle editor mode (WYSIWYG or SOURCE)
-     * @param m boolean
+     * @param mode boolean
+     * @public
      */
-    setEditorMode(m: boolean) {
+    setEditorMode(mode: boolean) {
         const toggleEditorModeButton = this.editorService.getElementById(
             'toggleEditorMode' + '-' + this.id
         );
-        if (m) {
-            this.r.addClass(toggleEditorModeButton, 'active');
+
+        if (mode) {
+            this.renderer.addClass(toggleEditorModeButton, 'active');
         } else {
-            this.r.removeClass(toggleEditorModeButton, 'active');
+            this.renderer.removeClass(toggleEditorModeButton, 'active');
         }
-        this.htmlMode = m;
+
+        this.htmlMode = mode;
     }
 
     /**
@@ -320,19 +296,12 @@ export class AeToolbarComponent {
         // }
     }
 
-    // watchUploadImage({ body }: HttpResponse<UploadResponse>, event: any) {
-    //     if (!body) return; // @todo - Error handling
-    //     const { imageUrl } = body;
-    //     this.editorService.insertImage(imageUrl);
-    //     event.srcElement.value = null;
-    // }
-
     /**
      * Set custom class
      */
     setCustomClass(classId: string) {
         if (classId === '-1') {
-            this.execute.emit('clear');
+            this.editorService.execCommand('clear');
         } else {
             this._customClasses ??= [];
             this.editorService.createCustomClass(this._customClasses[+classId]);
@@ -340,30 +309,37 @@ export class AeToolbarComponent {
     }
 
     isButtonHidden(name: string): boolean {
-        if (!name) {
-            return false;
-        }
-        if (!(this.hiddenButtons instanceof Array)) {
-            return false;
-        }
-        let result: any;
-        for (const arr of this.hiddenButtons) {
-            if (arr instanceof Array) {
-                result = arr.find((item) => item === name);
+        if (!Array.isArray(this.hiddenButtons)) return false;
+
+        const found = this.hiddenButtons?.find((buttonGroup) => {
+            if (buttonGroup instanceof Array) {
+                return buttonGroup.find((item) => item === name);
             }
-            if (result) {
-                break;
-            }
-        }
-        return result !== undefined;
+        });
+
+        return found !== undefined;
     }
 
     focus() {
-        this.execute.emit('focus');
+        this.editorService.execCommand('focus');
         console.log('focused');
     }
+
+    /** @deprecated */
+    public fontName = 'Times New Roman';
+
+    /** @deprecated */
+    fontSize = '3';
 }
 
+// @Input() uploadUrl?: string;
+// @Input() upload?: (file: File) => Observable<HttpEvent<UploadResponse>>;
+// watchUploadImage({ body }: HttpResponse<UploadResponse>, event: any) {
+//     if (!body) return; // @todo - Error handling
+//     const { imageUrl } = body;
+//     this.editorService.insertImage(imageUrl);
+//     event.srcElement.value = null;
+// }
 // /**
 //      * insert Video link
 //      */

@@ -1,9 +1,0 @@
-@use 'sys' as sys;
-
-.mat-mdc-select-trigger {
-    gap: sys.$padding-small;
-}
-
-.cdk-overlay-pane {
-    width: fit-content !important;
-}

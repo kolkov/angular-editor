@@ -10,7 +10,7 @@
 
     cursor: pointer;
 
-    background-color: sys.$surface-container;
+    background-color: sys.$surface;
     color: sys.$on-surface;
     border: none;
     border-radius: sys.$corner-small;
@@ -50,7 +50,7 @@
     }
 
     &.active {
-        background: sys.$surface-container-high;
+        background: sys.$surface-bright;
     }
 }
 

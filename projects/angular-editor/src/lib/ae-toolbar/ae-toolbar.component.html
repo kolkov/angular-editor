@@ -142,28 +142,7 @@
         [hidden]="isButtonHidden('heading')"
         tabindex="-1"></ae-select>
 </ae-toolbar-set>
-<ae-toolbar-set>
-    <ae-select
-        [options]="fonts"
-        [(ngModel)]="fontName"
-        matTooltip="Font"
-        (change)="setFontName(fontName)"
-        [disabled]="htmlMode"
-        [hidden]="isButtonHidden('fontName')"
-        tabindex="-1"></ae-select>
-</ae-toolbar-set>
-<ae-toolbar-set>
-    <ae-select
-        class="select-font-size"
-        [options]="fontSizes"
-        [(ngModel)]="fontSize"
-        matTooltip="Font Size"
-        (change)="setFontSize(fontSize)"
-        [disabled]="htmlMode"
-        [hidden]="isButtonHidden('fontSize')"
-        tabindex="-1">
-    </ae-select>
-</ae-toolbar-set>
+
 <ae-toolbar-set>
     <input
         style="display: none"
@@ -246,6 +225,29 @@
         [hidden]="isButtonHidden('toggleEditorMode')"></button>
 </ae-toolbar-set>
 <ng-content></ng-content>
+
+<!-- <ae-toolbar-set>
+    <ae-select
+        [options]="fonts"
+        [(ngModel)]="fontName"
+        matTooltip="Font"
+        (change)="setFontName(fontName)"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('fontName')"
+        tabindex="-1"></ae-select>
+</ae-toolbar-set>
+<ae-toolbar-set>
+    <ae-select
+        class="select-font-size"
+        [options]="fontSizes"
+        [(ngModel)]="fontSize"
+        matTooltip="Font Size"
+        (change)="setFontSize(fontSize)"
+        [disabled]="htmlMode"
+        [hidden]="isButtonHidden('fontSize')"
+        tabindex="-1">
+    </ae-select>
+</ae-toolbar-set> -->
 <!-- @todo - Integrate custom classes/styles into style menu. -->
 <!-- <ae-toolbar-set *ngIf="_customClasses">
     <ae-select

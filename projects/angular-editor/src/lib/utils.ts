@@ -1,4 +1,4 @@
-import { SelectOption } from '../public-api';
+import { Block, SelectOption } from './types';
 
 export function isDefined(value: any) {
     return value !== undefined && value !== null;
@@ -28,8 +28,8 @@ export function makeFontSizes(): SelectOption[] {
     });
 }
 
-export function makeFontStyle(): SelectOption[] {
-    const styles: SelectOption[] = [
+export function makeFontStyle(): SelectOption<Block>[] {
+    const styles: SelectOption<Block>[] = [
         { label: 'Paragraph', value: 'p' },
         { label: 'Code', value: 'code' }
     ];
@@ -37,9 +37,29 @@ export function makeFontStyle(): SelectOption[] {
     for (let i = 6; i > 0; i--) {
         styles.unshift({
             label: 'Heading ' + i,
-            value: 'h' + i
+            value: <Block>('h' + i)
         });
     }
 
     return styles;
+}
+
+export function getButtons() {
+    return [
+        'bold',
+        'italic',
+        'underline',
+        'strikeThrough',
+        'subscript',
+        'superscript',
+        'justifyLeft',
+        'justifyCenter',
+        'justifyRight',
+        'justifyFull',
+        'indent',
+        'outdent',
+        'insertUnorderedList',
+        'insertOrderedList',
+        'link'
+    ];
 }

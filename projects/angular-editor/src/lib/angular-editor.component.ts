@@ -32,6 +32,7 @@ import { isDefined } from './utils';
 import { BehaviorSubject } from 'rxjs';
 import { loadDefaultConfig, NGX_EDITOR_CONFIG } from './provide-editor-config';
 import { NgxResizedDirective } from './resized.directive';
+import { CommandId } from './types';
 
 @Component({
     selector: 'angular-editor',
@@ -156,10 +157,10 @@ export class AngularEditorComponent
      * @param command string from triggerCommand
      * @param value
      */
-    executeCommand(command: string, value?: string) {
+    executeCommand(command: CommandId | null, value?: string) {
         this.onFocus();
 
-        if (command === 'focus' || command === '') return;
+        if (command === 'focus' || command === null) return;
 
         switch (command) {
             case 'toggleEditorMode':
@@ -436,8 +437,8 @@ export class AngularEditorComponent
         // ToDo move to service
         this._editorService.execCommand(
             'defaultParagraphSeparator',
-            false,
-            'div'
+            'div',
+            false
         );
 
         this.sourceMode.next(false);
@@ -453,10 +454,6 @@ export class AngularEditorComponent
 
         let userSelection = this._editorService.getSelection();
         if (!userSelection) return;
-
-        this._editorService.executeInNextQueueIteration(
-            this._editorService.saveSelection
-        );
 
         this._editorService.saveSelection();
 

@@ -1,6 +1,15 @@
-@forward 'materials';
 @forward 'themes/themes';
+
+@use 'sys' as sys;
 
 a {
     cursor: pointer;
+}
+
+.mat-mdc-select-trigger {
+    gap: sys.$padding-small;
+}
+
+.cdk-overlay-pane {
+    width: fit-content !important;
 }

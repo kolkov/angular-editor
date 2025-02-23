@@ -2,26 +2,19 @@ import {
     Component,
     ElementRef,
     EventEmitter,
-    forwardRef,
-    HostBinding,
     HostListener,
     Input,
     OnInit,
     Output,
     Renderer2,
     ViewChild,
-    ViewEncapsulation
+    forwardRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { isDefined } from '../utils';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
-import { MatTooltip } from '@angular/material/tooltip';
-
-export interface SelectOption {
-    label: string;
-    value: string;
-}
+import { SelectOption } from '../types';
 
 @Component({
     selector: 'ae-select',

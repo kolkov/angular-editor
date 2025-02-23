@@ -4,6 +4,7 @@ import { NEVER, Observable } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { CustomClass } from './config';
 import { formatHtmlTag } from './utils';
+import { CommandId } from './types';
 
 export interface UploadResponse {
     imageUrl: string;
@@ -30,8 +31,27 @@ export class AngularEditorService {
     }
 
     /** @deprecated */
-    public execCommand(commandId: string, showUI?: boolean, value?: string) {
-        return this._doc.execCommand(commandId, showUI, value);
+    public execCommand(
+        commandId: CommandId,
+        commandValue?: string,
+        showUI?: boolean
+    ) {
+        return this._doc.execCommand(commandId, showUI, commandValue);
+    }
+
+    /**
+     * Executed command from editor header buttons exclude toggleEditorMode
+     * @param command string from triggerCommand
+     * @param value
+     * @deprecated
+     */
+    public executeCommand(command: CommandId, value?: string) {
+        const commands = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'code'];
+        if (commands.includes(command)) {
+            this.execCommand('formatBlock', command, false);
+            return;
+        }
+        this.execCommand(command, value, false);
     }
 
     /** @deprecated */
@@ -45,28 +65,13 @@ export class AngularEditorService {
     }
 
     /**
-     * Executed command from editor header buttons exclude toggleEditorMode
-     * @param command string from triggerCommand
-     * @param value
-     * @deprecated
-     */
-    public executeCommand(command: string, value?: string) {
-        const commands = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'code'];
-        if (commands.includes(command)) {
-            this.execCommand('formatBlock', false, command);
-            return;
-        }
-        this.execCommand(command, false, value);
-    }
-
-    /**
      * Create URL link
      * @param url string from UI prompt
      * @deprecated
      */
     public createLink(url: string) {
         if (!url.includes('http')) {
-            this.execCommand('createlink', false, url);
+            this.execCommand('createlink', url, false);
         } else {
             const newUrl =
                 '<a href="' +
@@ -89,9 +94,9 @@ export class AngularEditorService {
         const restored = this.restoreSelection();
         if (restored) {
             if (where === 'textColor') {
-                this.execCommand('foreColor', false, color);
+                this.execCommand('foreColor', color, false);
             } else {
-                this.execCommand('hiliteColor', false, color);
+                this.execCommand('hiliteColor', color, false);
             }
         }
     }
@@ -120,7 +125,7 @@ export class AngularEditorService {
      * @deprecated
      */
     public insertHtml(html: string): void {
-        const isHTMLInserted = this.execCommand('insertHTML', false, html);
+        const isHTMLInserted = this.execCommand('insertHTML', html, false);
 
         if (!isHTMLInserted) {
             throw new Error('Unable to perform the operation');
@@ -210,7 +215,7 @@ export class AngularEditorService {
      * @deprecated
      */
     insertImage(imageUrl: string) {
-        this.execCommand('insertImage', false, imageUrl);
+        this.execCommand('insertImage', imageUrl, false);
     }
 
     /**
@@ -218,7 +223,7 @@ export class AngularEditorService {
      * @deprecated
      */
     setDefaultParagraphSeparator(separator: string) {
-        this.execCommand('defaultParagraphSeparator', false, separator);
+        this.execCommand('defaultParagraphSeparator', separator, false);
     }
 
     /**
