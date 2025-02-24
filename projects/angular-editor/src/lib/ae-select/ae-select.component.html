@@ -2,26 +2,41 @@
     class="ae-picker"
     [class.ae-expanded]="isOpen">
     <button
-        #labelButton
+        cdkOverlayOrigin
+        #trigger="cdkOverlayOrigin"
+        type="button"
         class="ae-picker__label"
-        (click)="toggleOpen($event)">
+        [disabled]="disabled"
+        (click)="
+            isOpen = !isOpen;
+            onClicked($event, cdkOverlay.elementRef.nativeElement)
+        ">
         <span>{{ label }}</span>
         <span class="material-symbols-rounded"> arrow_drop_down </span>
     </button>
-    <span class="ae-picker__options">
-        @for (option of options; track option.label; let i = $index) {
-            <span
-                tabindex="-1"
-                type="button"
-                role="button"
-                class="ae-picker__options--item"
-                [class.selected]="option.value === value"
-                [class.focused]="i === optionId"
-                (mousedown)="optionSelect(option)">
-                {{ option.label }}
-            </span>
-        } @empty {
-            <span class="ae-picker__options--item"> No items for select </span>
-        }
-    </span>
 </span>
+
+<ng-template
+    #cdkOverlay
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="trigger"
+    [cdkConnectedOverlayOpen]="isOpen"
+    cdkConnectedOverlayPanelClass="ae-overlay-pane"
+    (overlayOutsideClick)="isOpen = false"
+    (detach)="isOpen = false">
+    @for (option of options; track option.label; let i = $index) {
+        <span
+            [tabindex]="-1"
+            type="button"
+            role="button"
+            class="ae-picker__options--item"
+            [class.selected]="option.value === value"
+            [class.focused]="i === optionId"
+            (mousedown)="optionSelect(option, $event)"
+            (keypress)="optionSelect(option, $event)">
+            {{ option.label }}
+        </span>
+    } @empty {
+        <span class="ae-picker__options--item"> No items for select </span>
+    }
+</ng-template>

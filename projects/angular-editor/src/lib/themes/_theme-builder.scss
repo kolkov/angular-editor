@@ -17,6 +17,7 @@
     @include font-levels($font-config, $level-name, 'size');
     @include font-levels($font-config, $level-name, 'tracking');
     @include font-levels($font-config, $level-name, 'weight');
+    @include font-levels($font-config, $level-name, 'align', 'left');
 }
 
 ///
@@ -24,17 +25,44 @@
 /// @param { `body | headline | display | title` } $level-name The name of a level
 /// @param { `line-height | size | tracking | weight` } $level-type The type of the level
 ///
-@mixin font-levels($font-config, $level-name, $level-type) {
-    @include font-level-var($font-config, $level-name, $level-type, 'small');
-    @include font-level-var($font-config, $level-name, $level-type, 'medium');
-    @include font-level-var($font-config, $level-name, $level-type, 'large');
+@mixin font-levels($font-config, $level-name, $level-type, $default: null) {
+    @include font-level-var(
+        $font-config,
+        $level-name,
+        $level-type,
+        'small',
+        $default
+    );
+    @include font-level-var(
+        $font-config,
+        $level-name,
+        $level-type,
+        'medium',
+        $default
+    );
+    @include font-level-var(
+        $font-config,
+        $level-name,
+        $level-type,
+        'large',
+        $default
+    );
 }
 
-@mixin font-level-var($font-config, $level-name, $level-type, $level-size) {
-    --ae-sys-#{$level-name}-#{$level-size}-#{$level-type}: #{map.get(
-            $font-config,
-            $level-name,
-            $level-type,
-            $level-size
-        )};
+@mixin font-level-var(
+    $font-config,
+    $level-name,
+    $level-type,
+    $level-size,
+    $default
+) {
+    $value: map.get($font-config, $level-name, $level-type, $level-size);
+
+    @if ($value == null) {
+        @if ($default != null) {
+            --ae-sys-#{$level-name}-#{$level-size}-#{$level-type}: #{$default};
+        }
+    } @else {
+        --ae-sys-#{$level-name}-#{$level-size}-#{$level-type}: #{$value};
+    }
 }

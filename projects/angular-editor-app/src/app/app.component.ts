@@ -15,6 +15,8 @@ import { sampleText } from './sample-text';
 import { editorConfig } from './editor.config';
 import { CommonModule } from '@angular/common';
 
+console.log(document.createElement('div').getHTML());
+
 const ANGULAR_EDITOR_LOGO_URL =
     'https://raw.githubusercontent.com/kolkov/angular-editor/master/docs/angular-editor-logo.png?raw=true';
 

@@ -1,5 +1,19 @@
 @use 'sys' as sys;
 
+.ae-overlay-pane {
+    display: flex;
+    top: 40px;
+    flex-direction: column;
+    background-color: sys.$surface-container;
+    color: sys.$on-surface;
+    width: fit-content;
+    min-width: 132px;
+    white-space: nowrap;
+    padding: sys.$padding-full 0;
+    border-radius: sys.$corner-small;
+    box-shadow: sys.$level3;
+}
+
 @mixin button() {
     display: flex;
     gap: sys.$padding-small;
@@ -54,12 +68,23 @@
     }
 }
 
-@mixin font-level($font, $size, $weight, $line-height, $tracking) {
+@mixin font-level(
+    $font,
+    $size,
+    $weight,
+    $line-height,
+    $tracking,
+    $align: null
+) {
     font-family: var(#{$font});
     font-size: var(#{$size});
     font-weight: var(#{$weight});
     line-height: var(#{$line-height});
     letter-spacing: var(#{$tracking});
+
+    @if ($align != null) {
+        text-align: var(#{$align});
+    }
 }
 
 @mixin body-small() {
@@ -68,7 +93,8 @@
         --ae-sys-body-small-size,
         --ae-sys-body-small-weight,
         --ae-sys-body-small-line-height,
-        --ae-sys-body-small-tracking
+        --ae-sys-body-small-tracking,
+        --ae-sys-body-small-align
     );
 }
 
@@ -78,7 +104,8 @@
         --ae-sys-body-medium-size,
         --ae-sys-body-medium-weight,
         --ae-sys-body-medium-line-height,
-        --ae-sys-body-medium-tracking
+        --ae-sys-body-medium-tracking,
+        --ae-sys-body-medium-align
     );
 }
 
@@ -88,7 +115,8 @@
         --ae-sys-body-large-size,
         --ae-sys-body-large-weight,
         --ae-sys-body-large-line-height,
-        --ae-sys-body-large-tracking
+        --ae-sys-body-large-tracking,
+        --ae-sys-body-small-align
     );
 }
 

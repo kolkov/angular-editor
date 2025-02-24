@@ -17,6 +17,7 @@ import { AngularEditorService } from '../angular-editor.service';
 import { Block, CommandId, SelectOption } from '../types';
 import { CustomClass, HiddenButtons } from '../config';
 import { getButtons, makeFontSizes, makeFontStyle } from '../utils';
+import { AeSelectionService } from '../ae-selection.service';
 
 @Component({
     selector: 'angular-editor-toolbar, ae-toolbar, div[aeToolbar]',
@@ -97,13 +98,14 @@ export class AeToolbarComponent {
     public buttons = getButtons();
 
     constructor(
-        private renderer: Renderer2,
-        private editorService: AngularEditorService,
+        private _renderer: Renderer2,
+        private _editorService: AngularEditorService,
+        private _selectionService: AeSelectionService,
         private _host: ElementRef<HTMLElement>
     ) {}
 
     public get isLinkButtonDisabled(): boolean {
-        return this.htmlMode || !Boolean(this.editorService.selectedText);
+        return this.htmlMode || !Boolean(this._selectionService.selectedText);
     }
 
     public get height() {
@@ -115,35 +117,37 @@ export class AeToolbarComponent {
     }
 
     /**
-     * Trigger command from editor header buttons
+     * Trigger command from toolbar button click
      * @param command string from toolbar buttons
      */
     public triggerCommand(command: CommandId) {
-        this.editorService.executeCommand(command);
+        this._editorService.executeCommand(command);
     }
 
     /**
-     * highlight editor buttons when cursor moved or positioning
+     * Trigger command from toolbar button click
+     * @param command string from toolbar buttons
      */
     public triggerButtons() {
         if (!this.showToolbar) return;
 
         this.buttons.forEach((e) => {
-            const result = this.editorService.queryCommandState(e);
-            const elementById = this.editorService.getElementById(
+            const result = this._editorService.queryCommandState(e);
+            const elementById = this._editorService.getElementById(
                 e + '-' + this.id
             );
 
             if (result) {
-                this.renderer.addClass(elementById, 'active');
+                this._renderer.addClass(elementById, 'active');
             } else {
-                this.renderer.removeClass(elementById, 'active');
+                this._renderer.removeClass(elementById, 'active');
             }
         });
     }
 
     /**
      * trigger highlight editor buttons when cursor moved or positioning in block
+     * @param nodes Nodes at the cursor position
      */
     public triggerBlocks(nodes: Node[]) {
         if (!this.showToolbar) {
@@ -182,33 +186,33 @@ export class AeToolbarComponent {
         }
 
         Object.keys(this.tagMap).map((e) => {
-            const elementById = this.editorService.getElementById(
+            const elementById = this._editorService.getElementById(
                 this.tagMap[<keyof typeof this.tagMap>e] + '-' + this.id
             );
 
             const node = nodes.find((x) => x.nodeName === e);
 
             if (node !== undefined && e === node.nodeName) {
-                this.renderer.addClass(elementById, 'active');
+                this._renderer.addClass(elementById, 'active');
             } else {
-                this.renderer.removeClass(elementById, 'active');
+                this._renderer.removeClass(elementById, 'active');
             }
         });
 
-        this.foreColor = this.editorService.queryCommandValue('ForeColor');
-        this.fontSize = this.editorService.queryCommandValue('FontSize');
-        this.fontName = this.editorService
+        this.foreColor = this._editorService.queryCommandValue('ForeColor');
+        this.fontSize = this._editorService.queryCommandValue('FontSize');
+        this.fontName = this._editorService
             .queryCommandValue('FontName')
             .replace(/"/g, '');
-        this.backColor = this.editorService.queryCommandValue('backColor');
+        this.backColor = this._editorService.queryCommandValue('backColor');
     }
 
     /**
-     * insert URL link
+     * insert link
      */
     public insertUrl() {
         let url: string | null = 'https:\/\/';
-        const selection = this.editorService.savedSelection;
+        const selection = this._selectionService.savedSelection;
         if (
             selection &&
             selection.commonAncestorContainer.parentElement?.nodeName === 'A'
@@ -221,13 +225,13 @@ export class AeToolbarComponent {
         }
         url = prompt('Insert URL link', url);
         if (url && url !== '' && url !== 'https://') {
-            this.editorService.createLink(url);
+            this._editorService.createLink(url);
         }
     }
 
     /** insert color */
     public insertColor(color: string, where: string) {
-        this.editorService.insertColor(color, where);
+        this._editorService.insertColor(color, where);
     }
 
     /**
@@ -236,7 +240,7 @@ export class AeToolbarComponent {
      * @deprecated
      */
     public setFontName(foreColor: string): void {
-        this.editorService.setFontName(foreColor);
+        this._editorService.setFontName(foreColor);
     }
 
     /**
@@ -245,7 +249,7 @@ export class AeToolbarComponent {
      * @deprecated
      */
     public setFontSize(fontSize: string): void {
-        this.editorService.setFontSize(fontSize);
+        this._editorService.setFontSize(fontSize);
     }
 
     /**
@@ -254,14 +258,14 @@ export class AeToolbarComponent {
      * @public
      */
     setEditorMode(mode: boolean) {
-        const toggleEditorModeButton = this.editorService.getElementById(
+        const toggleEditorModeButton = this._editorService.getElementById(
             'toggleEditorMode' + '-' + this.id
         );
 
         if (mode) {
-            this.renderer.addClass(toggleEditorModeButton, 'active');
+            this._renderer.addClass(toggleEditorModeButton, 'active');
         } else {
-            this.renderer.removeClass(toggleEditorModeButton, 'active');
+            this._renderer.removeClass(toggleEditorModeButton, 'active');
         }
 
         this.htmlMode = mode;
@@ -301,10 +305,12 @@ export class AeToolbarComponent {
      */
     setCustomClass(classId: string) {
         if (classId === '-1') {
-            this.editorService.execCommand('clear');
+            this._editorService.execCommand('clear');
         } else {
             this._customClasses ??= [];
-            this.editorService.createCustomClass(this._customClasses[+classId]);
+            this._editorService.createCustomClass(
+                this._customClasses[+classId]
+            );
         }
     }
 
@@ -321,7 +327,7 @@ export class AeToolbarComponent {
     }
 
     focus() {
-        this.editorService.execCommand('focus');
+        this._editorService.execCommand('focus');
         console.log('focused');
     }
 

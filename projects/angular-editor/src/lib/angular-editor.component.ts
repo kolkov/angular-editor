@@ -1,4 +1,4 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
     AfterViewInit,
     Attribute,
@@ -30,9 +30,11 @@ import { AngularEditorService } from './angular-editor.service';
 import { AngularEditorConfig } from './config';
 import { isDefined } from './utils';
 import { BehaviorSubject } from 'rxjs';
-import { loadDefaultConfig, NGX_EDITOR_CONFIG } from './provide-editor-config';
+import { loadDefaultConfig } from './config-default';
 import { NgxResizedDirective } from './resized.directive';
 import { CommandId } from './types';
+import { AeSelectionService } from './ae-selection.service';
+import { NGX_EDITOR_CONFIG } from './provide-angluar-editor';
 
 @Component({
     selector: 'angular-editor',
@@ -110,6 +112,7 @@ export class AngularEditorComponent
     constructor(
         private _renderer: Renderer2,
         private _editorService: AngularEditorService,
+        private _selectionService: AeSelectionService,
         private _sanitizer: DomSanitizer,
         @Optional()
         @Inject(NGX_EDITOR_CONFIG)
@@ -118,9 +121,12 @@ export class AngularEditorComponent
         @Attribute('autofocus') private autoFocus: any
     ) {
         const parsedTabIndex = Number(defaultTabIndex);
-        this.tabIndex =
-            parsedTabIndex || parsedTabIndex === 0 ? parsedTabIndex : null;
+        this.tabIndex = parsedTabIndex ?? null;
         this.editorConfig ??= loadDefaultConfig();
+    }
+
+    ngAfterViewInit() {
+        if (isDefined(this.autoFocus)) this.onFocus();
     }
 
     private get _sourceMode() {
@@ -137,19 +143,67 @@ export class AngularEditorComponent
         this.showPlaceholder.next(show);
     }
 
-    ngAfterViewInit() {
-        if (isDefined(this.autoFocus)) {
-            this.onFocus();
-        }
+    /**
+     * Set the function to be called when the control
+     * receives a change event.
+     */
+    public registerOnChange(fn: any): void {
+        this.onChange = (e) => (e === '<br>' ? fn('') : fn(e));
     }
 
-    onPaste(event: ClipboardEvent) {
-        if (!this.editorConfig.rawPaste) return;
+    /**
+     * Set the function to be called when the control
+     * receives a touch event.
+     */
+    public registerOnTouched(fn: any): void {
+        this.onTouched = fn;
+    }
 
-        event.preventDefault();
-        const text = event.clipboardData?.getData('text/plain');
-        document.execCommand('insertHTML', false, text);
-        return text;
+    /**
+     * Write a new value to the element.
+     *
+     * @param value value to be executed when there is a change in contenteditable
+     */
+    public writeValue(value: any): void {
+        const hasContent = !value || value === '<br>' || value === '';
+
+        if (hasContent !== this._showPlaceholder) {
+            this.togglePlaceholder();
+        }
+
+        if (value === undefined || value === '' || value === '<br>') {
+            value = null;
+        }
+
+        this.refreshView(value);
+    }
+
+    /**
+     * Refresh view/HTML of the editor
+     *
+     * @param value html string from the editor
+     */
+    public refreshView(value: string): void {
+        const normalizedValue = value === null ? '' : value;
+        this._renderer.setProperty(
+            this.textArea.nativeElement,
+            'innerHTML',
+            normalizedValue
+        );
+
+        return;
+    }
+
+    /**
+     * Implements disabled state for this element
+     *
+     * @param isDisabled Disabled flag
+     */
+    public setDisabledState(isDisabled: boolean): void {
+        const div = this.textArea.nativeElement;
+        const action = isDisabled ? 'addClass' : 'removeClass';
+        this._renderer[action](div, 'disabled');
+        this.disabled = isDisabled;
     }
 
     /**
@@ -157,7 +211,7 @@ export class AngularEditorComponent
      * @param command string from triggerCommand
      * @param value
      */
-    executeCommand(command: CommandId | null, value?: string) {
+    public executeCommand(command: CommandId | null, value?: string) {
         this.onFocus();
 
         if (command === 'focus' || command === null) return;
@@ -167,14 +221,14 @@ export class AngularEditorComponent
                 this.toggleEditorMode();
                 break;
             case 'clear':
-                this._editorService.removeSelectedElements(
+                this._selectionService.removeSelectedElements(
                     this.getCustomTags()
                 );
                 this.onContentChange(this.textArea.nativeElement);
                 break;
             case 'default':
-                this._editorService.removeSelectedElements(
-                    'h1,h2,h3,h4,h5,h6,p,pre'
+                this._selectionService.removeSelectedElements(
+                    'h1,h2,h3,h4,h5,h6,code'
                 );
                 this.onContentChange(this.textArea.nativeElement);
                 break;
@@ -186,77 +240,9 @@ export class AngularEditorComponent
     }
 
     /**
-     * focus event
-     */
-    onTextAreaFocus(event: FocusEvent): void {
-        if (this.focused) {
-            event.stopPropagation();
-            return;
-        }
-        this.focused = true;
-        this.focusEvent.emit(event);
-        if (!this.touched || !this.changed) {
-            this._editorService.executeInNextQueueIteration(() => {
-                this.configure();
-                this.touched = true;
-            });
-        }
-    }
-
-    private configure() {
-        if (this.editorConfig.defaultParagraphSeparator) {
-            this._editorService.setDefaultParagraphSeparator(
-                this.editorConfig.defaultParagraphSeparator
-            );
-        }
-        if (this.editorConfig.defaultFontName) {
-            this._editorService.setFontName(this.editorConfig.defaultFontName);
-        }
-        if (this.editorConfig.defaultFontSize) {
-            this._editorService.setFontSize(this.editorConfig.defaultFontSize);
-        }
-    }
-
-    /**
-     * @description fires when cursor leaves textarea
-     */
-    public onTextAreaMouseOut(event: MouseEvent): void {
-        this._editorService.saveSelection();
-    }
-
-    /**
-     * blur event
-     */
-    onTextAreaBlur(event: FocusEvent) {
-        /**
-         * save selection if focussed out
-         */
-        this._editorService.executeInNextQueueIteration(
-            this._editorService.saveSelection
-        );
-
-        if (typeof this.onTouched === 'function') {
-            this.onTouched();
-        }
-
-        if (event.relatedTarget !== null) {
-            const parent = (event.relatedTarget as HTMLElement).parentElement;
-            if (!parent) return;
-
-            if (
-                !parent.classList.contains('angular-editor-toolbar-set') &&
-                !parent.classList.contains('ae-picker')
-            ) {
-                this.blurEvent.emit(event);
-                this.focused = false;
-            }
-        }
-    }
-
-    /**
      *  focus the text area when the editor is focused
      */
-    onFocus() {
+    public onFocus() {
         if (this._sourceMode) {
             this.textArea.nativeElement.focus();
         } else {
@@ -269,10 +255,36 @@ export class AngularEditorComponent
     }
 
     /**
+     * Toggles between source and rich text editing mode
+     * @todo - this is broken
+     */
+    public toggleEditorMode() {
+        const editableElement = this.textArea.nativeElement;
+
+        if (this._sourceMode) {
+            this._renderSourceView(editableElement);
+            return;
+        }
+
+        this._renderer.setProperty(
+            editableElement,
+            'innerHTML',
+            editableElement.innerText
+        );
+
+        this._renderer.setProperty(editableElement, 'contentEditable', true);
+        this._sourceMode = true;
+        this.onContentChange(editableElement);
+        editableElement.focus();
+
+        this.editorToolbar.setEditorMode(!this.sourceMode.value);
+    }
+
+    /**
      * Executed from the contenteditable section while the input property changes
      * @param element html element from contenteditable
      */
-    onContentChange(element: any | null): void {
+    public onContentChange(element: any | null): void {
         if (!element || !(element instanceof HTMLElement)) return;
 
         let html = '';
@@ -306,103 +318,44 @@ export class AngularEditorComponent
         this.changed = true;
     }
 
-    /**
-     * Set the function to be called
-     * when the control receives a change event.
-     *
-     * @param fn a function
-     */
-    registerOnChange(fn: any): void {
-        this.onChange = (e) => (e === '<br>' ? fn('') : fn(e));
+    public getCustomTags() {
+        const tags = ['span'];
+        this.editorConfig.customClasses.forEach((x) => {
+            if (x.tag !== undefined) {
+                if (!tags.includes(x.tag)) {
+                    tags.push(x.tag);
+                }
+            }
+        });
+        return tags.join(',');
     }
 
     /**
-     * Set the function to be called
-     * when the control receives a touch event.
-     *
-     * @param fn a function
+     * Toggles editor buttons when cursor moved or positioning
+     * Send a node array from the contentEditable of the editor
      */
-    registerOnTouched(fn: any): void {
-        this.onTouched = fn;
-    }
+    public exec() {
+        this.editorToolbar.triggerButtons();
 
-    /**
-     * Write a new value to the element.
-     *
-     * @param value value to be executed when there is a change in contenteditable
-     */
-    writeValue(value: any): void {
-        const hasContent = !value || value === '<br>' || value === '';
+        let userSelection = this._selectionService.getSelection();
+        if (!userSelection) return;
 
-        if (hasContent !== this._showPlaceholder) {
-            this.togglePlaceholder();
+        this._selectionService.saveSelection();
+
+        let a = userSelection.focusNode;
+        const els = [];
+        while (a && (<any>a).id !== 'editor') {
+            els.unshift(a);
+            a = a.parentNode;
         }
-
-        if (value === undefined || value === '' || value === '<br>') {
-            value = null;
-        }
-
-        this.refreshView(value);
-    }
-
-    /**
-     * refresh view/HTML of the editor
-     *
-     * @param value html string from the editor
-     */
-    refreshView(value: string): void {
-        const normalizedValue = value === null ? '' : value;
-        this._renderer.setProperty(
-            this.textArea.nativeElement,
-            'innerHTML',
-            normalizedValue
-        );
-
-        return;
+        this.editorToolbar.triggerBlocks(els);
     }
 
     /**
      * Toggles placeholder based on input string
      */
-    togglePlaceholder(): void {
+    public togglePlaceholder(): void {
         this._showPlaceholder = !this._showPlaceholder;
-    }
-
-    /**
-     * Implements disabled state for this element
-     *
-     * @param isDisabled Disabled flag
-     */
-    setDisabledState(isDisabled: boolean): void {
-        const div = this.textArea.nativeElement;
-        const action = isDisabled ? 'addClass' : 'removeClass';
-        this._renderer[action](div, 'disabled');
-        this.disabled = isDisabled;
-    }
-
-    /**
-     * Toggles between source and rich text editing mode
-     */
-    toggleEditorMode() {
-        const editableElement = this.textArea.nativeElement;
-
-        if (this._sourceMode) {
-            this._renderSourceView(editableElement);
-            return;
-        }
-
-        this._renderer.setProperty(
-            editableElement,
-            'innerHTML',
-            editableElement.innerText
-        );
-
-        this._renderer.setProperty(editableElement, 'contentEditable', true);
-        this._sourceMode = true;
-        this.onContentChange(editableElement);
-        editableElement.focus();
-
-        this.editorToolbar.setEditorMode(!this.sourceMode.value);
     }
 
     private _renderSourceView(editableElement: HTMLElement) {
@@ -446,45 +399,83 @@ export class AngularEditorComponent
     }
 
     /**
-     * Toggles editor buttons when cursor moved or positioning
-     * Send a node array from the contentEditable of the editor
+     * focus event
      */
-    exec() {
-        this.editorToolbar.triggerButtons();
-
-        let userSelection = this._editorService.getSelection();
-        if (!userSelection) return;
-
-        this._editorService.saveSelection();
-
-        let a = userSelection.focusNode;
-        const els = [];
-        while (a && (<any>a).id !== 'editor') {
-            els.unshift(a);
-            a = a.parentNode;
+    public onTextAreaFocus(event: FocusEvent): void {
+        if (this.focused) {
+            event.stopPropagation();
+            return;
         }
-        this.editorToolbar.triggerBlocks(els);
+        this.focused = true;
+        this.focusEvent.emit(event);
+        if (!this.touched || !this.changed) {
+            this._editorService.executeInNextQueueIteration(() => {
+                this._configure();
+                this.touched = true;
+            });
+        }
     }
 
-    getFonts() {
+    private _configure() {
+        if (this.editorConfig.defaultParagraphSeparator) {
+            this._editorService.setDefaultParagraphSeparator(
+                this.editorConfig.defaultParagraphSeparator
+            );
+        }
+    }
+
+    /**
+     * Bound to `blur` in the template.
+     */
+    public onTextAreaBlur(event: FocusEvent) {
+        // Save selection if focussed out
+        this._editorService.executeInNextQueueIteration(
+            this._selectionService.saveSelection
+        );
+
+        if (typeof this.onTouched === 'function') {
+            this.onTouched();
+        }
+
+        if (event.relatedTarget !== null) {
+            const parent = (event.relatedTarget as HTMLElement).parentElement;
+            if (!parent) return;
+
+            if (
+                !parent.classList.contains('angular-editor-toolbar-set') &&
+                !parent.classList.contains('ae-picker')
+            ) {
+                this.blurEvent.emit(event);
+                this.focused = false;
+            }
+        }
+    }
+
+    /**
+     * Bound to `mouseout` in the template.
+     */
+    public onTextAreaMouseOut(): void {
+        this._selectionService.saveSelection();
+    }
+
+    /**
+     * Bound to `paste` in template.
+     */
+    public onPaste(event: ClipboardEvent) {
+        if (!this.editorConfig.rawPaste) return;
+        event.preventDefault();
+        const text = event.clipboardData?.getData('text/plain');
+        this._editorService.execCommand('insertHTML', text);
+        return text;
+    }
+
+    public getFonts() {
         return this.editorConfig.fonts.map((x) => {
             return { label: x.name, value: x.name };
         });
     }
 
-    getCustomTags() {
-        const tags = ['span'];
-        this.editorConfig.customClasses.forEach((x) => {
-            if (x.tag !== undefined) {
-                if (!tags.includes(x.tag)) {
-                    tags.push(x.tag);
-                }
-            }
-        });
-        return tags.join(',');
-    }
-
-    ngOnDestroy() {
+    public ngOnDestroy() {
         if (this.blurInstance) {
             this.blurInstance();
         }
@@ -493,7 +484,7 @@ export class AngularEditorComponent
         }
     }
 
-    filterStyles(html: string): string {
+    public filterStyles(html: string): string {
         html = html.replace('position: fixed;', '');
         return html;
     }

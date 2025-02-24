@@ -6,8 +6,9 @@ export * from './lib/ae-button/ae-button.component';
 export * from './lib/ae-toolbar-set/ae-toolbar-set.component';
 export * from './lib/ae-select/ae-select.component';
 export * from './lib/ae-toolbar/ae-toolbar.component';
+export * from './lib/ae-selection.service';
 
-export { provideEditorConfig } from './lib/provide-editor-config';
+export { provideAngularEditor } from './lib/provide-angluar-editor';
 
 export {
     type CustomClass,

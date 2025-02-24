@@ -1,16 +1,4 @@
-import { EnvironmentProviders, Provider } from '@angular/core';
 import { AngularEditorConfig } from './config';
-
-export const NGX_EDITOR_CONFIG = 'NGX_EDITOR_CONFIG';
-
-export function provideEditorConfig(
-    editorConfig: Partial<AngularEditorConfig>
-): Provider {
-    return {
-        provide: NGX_EDITOR_CONFIG,
-        useValue: loadDefaultConfig(editorConfig)
-    };
-}
 
 export function loadDefaultConfig(
     editorConfig: Partial<AngularEditorConfig> = {}
