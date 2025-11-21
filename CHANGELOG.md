@@ -1,5 +1,7 @@
-<a name="3.0.0-beta.3"></a>
-## [3.0.0-beta.3](https://github.com/kolkov/angular-editor/compare/v3.0.0-beta.2...v3.0.0-beta.3) (2025-11-22) Major Angular 20 Upgrade
+<a name="3.0.0"></a>
+## [3.0.0](https://github.com/kolkov/angular-editor/compare/v2.0.0...v3.0.0) (2025-11-22) Major Angular 20 Upgrade
+
+🎉 **Stable Release** - Production Ready!
 
 ### Breaking Changes
 * **Angular Version:** Minimum required version is now Angular 20.0.0
@@ -26,7 +28,11 @@
 * **Linting:** All files pass linting (0 errors)
 * **Build:** Both development and production builds verified
 * **Tests:** 13/13 tests passing (100% success rate)
-* **Bug Fixes:** Fixed AeSelectComponent tests for mousedown event handling
+
+### Bug Fixes
+* **Icons:** Fixed list icons (unordered/ordered) display consistency in toolbar
+* **Tests:** Fixed AeSelectComponent tests for mousedown event handling
+* **Demo:** Updated demo app for Angular 20 compatibility
 
 ### Technical Details
 * Removed deprecated `async` test helper (use `waitForAsync`)

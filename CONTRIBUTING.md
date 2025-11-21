@@ -71,5 +71,16 @@ instead of the prebuilt version specified in `package.json`.
 
 ## Develop
 
-* `npm run build and watch angular-editor`: Continuously builds the `@kolkov/angular-editor` code when sources change.
-* `npm run start`: Continuously builds and runs Demo app when source or tests change.
+* `npm run build-watch:lib`: Continuously builds the `@kolkov/angular-editor` library when sources change.
+* `npm start`: Runs the demo app (requires library to be built first or running in watch mode)
+
+**Recommended development workflow:**
+```bash
+# Terminal 1: Watch and rebuild library on changes
+npm run build-watch:lib
+
+# Terminal 2: Run demo app
+npm start
+```
+
+This setup ensures the demo app automatically picks up library changes.
