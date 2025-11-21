@@ -36,7 +36,8 @@
             "type": "attribute"
           }
         ],
-        "@angular-eslint/no-host-metadata-property": "warn"
+        "@angular-eslint/prefer-standalone": "off",
+        "@angular-eslint/prefer-inject": "off"
       }
     },
     {

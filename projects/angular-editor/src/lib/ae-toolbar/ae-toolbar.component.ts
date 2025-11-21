@@ -108,7 +108,7 @@ export class AeToolbarComponent {
   ];
 
   customClassId = '-1';
-  // eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle, id-blacklist, id-match
+  // eslint-disable-next-line no-underscore-dangle, id-blacklist, id-match
   _customClasses: CustomClass[];
   customClassList: SelectOption[] = [{label: '', value: ''}];
   // uploadUrl: string;
