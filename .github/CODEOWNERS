@@ -1,0 +1,31 @@
+# CODEOWNERS file for @kolkov/angular-editor
+#
+# This file defines individuals or teams that are responsible for code in this repository.
+# Code owners are automatically requested for review when someone opens a pull request
+# that modifies code that they own.
+#
+# For more info: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owners for everything in the repo
+# These owners will be requested for review unless a later match takes precedence
+* @kolkov
+
+# GitHub Actions workflows
+/.github/workflows/ @kolkov
+
+# Library source code
+/projects/angular-editor/src/ @kolkov
+
+# Documentation
+*.md @kolkov
+/docs/ @kolkov
+
+# Build and configuration files
+package.json @kolkov
+package-lock.json @kolkov
+angular.json @kolkov
+tsconfig*.json @kolkov
+
+# CI/CD and release management
+/.github/workflows/npm-publish.yml @kolkov
+CHANGELOG.md @kolkov
