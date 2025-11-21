@@ -1,4 +1,4 @@
-import {DOCUMENT} from '@angular/common';
+
 import {
   AfterViewInit,
   Attribute,
@@ -18,7 +18,8 @@ import {
   Renderer2,
   SecurityContext,
   TemplateRef,
-  ViewChild, ViewEncapsulation
+  ViewChild, ViewEncapsulation,
+  DOCUMENT
 } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {DomSanitizer} from '@angular/platform-browser';

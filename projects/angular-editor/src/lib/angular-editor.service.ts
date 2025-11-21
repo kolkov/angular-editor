@@ -1,7 +1,7 @@
-import {Inject, Injectable} from '@angular/core';
+import {Inject, Injectable, DOCUMENT} from '@angular/core';
 import {HttpClient, HttpEvent} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {DOCUMENT} from '@angular/common';
+
 import {CustomClass} from './config';
 
 export interface UploadResponse {

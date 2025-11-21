@@ -7,11 +7,12 @@ import {
   Output,
   Renderer2,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
+  DOCUMENT
 } from '@angular/core';
 import {AngularEditorService, UploadResponse} from '../angular-editor.service';
 import {HttpEvent, HttpResponse} from '@angular/common/http';
-import {DOCUMENT} from '@angular/common';
+
 import {CustomClass} from '../config';
 import {SelectOption} from '../ae-select/ae-select.component';
 import {Observable} from 'rxjs';
