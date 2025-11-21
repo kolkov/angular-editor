@@ -69,19 +69,19 @@ describe('AeSelectComponent', () => {
     expect(options.length).toBe(2);
   });
 
-  it('should select option by click', () => {
+  it('should select option by mousedown', () => {
     component.options = testOptions;
     component.selectedOption = testOptions[0];
     fixture.detectChanges();
 
     const options = fixture.debugElement.queryAll(By.css('.ae-picker-item'));
     const optionSelect = spyOn(component, 'optionSelect');
-    options[1].triggerEventHandler('click', {});
+    options[1].triggerEventHandler('mousedown', {});
     expect(optionSelect).toHaveBeenCalledWith(testOptions[1], {} as MouseEvent);
   });
 
   it('should select option and close after', () => {
-    const event = new MouseEvent('click');
+    const event = new MouseEvent('mousedown', { buttons: 1 });
     const stopPropagation = spyOn(event, 'stopPropagation');
     const setValue = spyOn(component, 'setValue').and.callFake(() => {});
     const onChange = spyOn(component, 'onChange').and.callFake(() => {});

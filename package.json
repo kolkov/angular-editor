@@ -1,6 +1,6 @@
 {
   "name": "@kolkov/angular-editor",
-  "version": "3.0.0-beta.2",
+  "version": "3.0.0-beta.3",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -29,7 +29,6 @@
     "@angular/platform-browser": "^20.3.13",
     "@angular/platform-browser-dynamic": "^20.3.13",
     "@angular/router": "^20.3.13",
-    "font-awesome": "^4.7.0",
     "rxjs": "^7.8.2",
     "tslib": "^2.4.0",
     "zone.js": "~0.15.1"

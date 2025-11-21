@@ -12,6 +12,8 @@
 * **Angular 21 Ready:** Forward compatible with Angular 21.x
 * **Modern Build System:** Updated to latest ng-packagr 20.3.2
 * **Enhanced Type Safety:** Improved TypeScript strict mode compliance
+* **Font Awesome Removed:** No external icon dependencies - using pure SVG icons (27 icons)
+* **Zero External Icon Dependencies:** Fully self-contained icon system
 
 ### Migration Path
 * Migrated through: Angular 13 → 18 → 19 → 20
@@ -23,7 +25,8 @@
 * **ESLint:** Updated to @angular-eslint 20.x
 * **Linting:** All files pass linting (0 errors)
 * **Build:** Both development and production builds verified
-* **Tests:** 11/13 tests passing (84.6% success rate)
+* **Tests:** 13/13 tests passing (100% success rate)
+* **Bug Fixes:** Fixed AeSelectComponent tests for mousedown event handling
 
 ### Technical Details
 * Removed deprecated `async` test helper (use `waitForAsync`)
