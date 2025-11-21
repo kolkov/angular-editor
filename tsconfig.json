@@ -23,6 +23,12 @@
       ],
       "angular-editor/*": [
         "dist/angular-editor/*"
+      ],
+      "@kolkov/angular-editor": [
+        "dist/angular-editor"
+      ],
+      "@kolkov/angular-editor/*": [
+        "dist/angular-editor/*"
       ]
     }
   }
