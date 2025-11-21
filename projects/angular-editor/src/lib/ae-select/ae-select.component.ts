@@ -21,17 +21,18 @@ export interface SelectOption {
 }
 
 @Component({
-  selector: 'ae-select',
-  templateUrl: './ae-select.component.html',
-  styleUrls: ['./ae-select.component.scss'],
-  //encapsulation: ViewEncapsulation.None,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => AeSelectComponent),
-      multi: true,
-    }
-  ]
+    selector: 'ae-select',
+    templateUrl: './ae-select.component.html',
+    styleUrls: ['./ae-select.component.scss'],
+    //encapsulation: ViewEncapsulation.None,
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => AeSelectComponent),
+            multi: true,
+        }
+    ],
+    standalone: false
 })
 export class AeSelectComponent implements OnInit, ControlValueAccessor {
   @Input() options: SelectOption[] = [];

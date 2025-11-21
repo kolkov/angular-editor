@@ -84,6 +84,15 @@ typings/
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# Claude Code private configuration
+.claude/
+.goco/
+.goda/
+
+# Private development documentation
+docs/dev/
+INDEX.md
+
 # misc
 /.angular/cache
 /.sass-cache

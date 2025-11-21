@@ -7,20 +7,21 @@ import {
   Output,
   Renderer2,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
+  DOCUMENT
 } from '@angular/core';
 import {AngularEditorService, UploadResponse} from '../angular-editor.service';
 import {HttpEvent, HttpResponse} from '@angular/common/http';
-import {DOCUMENT} from '@angular/common';
+
 import {CustomClass} from '../config';
 import {SelectOption} from '../ae-select/ae-select.component';
 import {Observable} from 'rxjs';
 
 @Component({
-  selector: 'angular-editor-toolbar, ae-toolbar, div[aeToolbar]',
-  templateUrl: './ae-toolbar.component.html',
-  styleUrls: ['./ae-toolbar.component.scss'],
-  //encapsulation: ViewEncapsulation.None,
+    selector: 'angular-editor-toolbar, ae-toolbar, div[aeToolbar]',
+    templateUrl: './ae-toolbar.component.html',
+    styleUrls: ['./ae-toolbar.component.scss'],
+    standalone: false
 })
 
 export class AeToolbarComponent {
@@ -107,7 +108,7 @@ export class AeToolbarComponent {
   ];
 
   customClassId = '-1';
-  // eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle, id-blacklist, id-match
+  // eslint-disable-next-line no-underscore-dangle, id-blacklist, id-match
   _customClasses: CustomClass[];
   customClassList: SelectOption[] = [{label: '', value: ''}];
   // uploadUrl: string;

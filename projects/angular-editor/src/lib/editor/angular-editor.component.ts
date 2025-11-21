@@ -1,4 +1,4 @@
-import {DOCUMENT} from '@angular/common';
+
 import {
   AfterViewInit,
   Attribute,
@@ -18,7 +18,8 @@ import {
   Renderer2,
   SecurityContext,
   TemplateRef,
-  ViewChild, ViewEncapsulation
+  ViewChild, ViewEncapsulation,
+  DOCUMENT
 } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -28,18 +29,19 @@ import {AngularEditorConfig, angularEditorConfig} from '../config';
 import {isDefined} from '../utils';
 
 @Component({
-  selector: 'angular-editor',
-  templateUrl: './angular-editor.component.html',
-  styleUrls: ['./angular-editor.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => AngularEditorComponent),
-      multi: true
-    },
-    AngularEditorService
-  ]
+    selector: 'angular-editor',
+    templateUrl: './angular-editor.component.html',
+    styleUrls: ['./angular-editor.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => AngularEditorComponent),
+            multi: true
+        },
+        AngularEditorService
+    ],
+    standalone: false
 })
 export class AngularEditorComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnDestroy {
 

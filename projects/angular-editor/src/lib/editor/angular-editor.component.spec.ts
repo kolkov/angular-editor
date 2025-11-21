@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {AngularEditorComponent} from './angular-editor.component';
 import {AeToolbarComponent} from '../ae-toolbar/ae-toolbar.component';
