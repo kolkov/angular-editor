@@ -1,15 +1,15 @@
 <p align="center">
-  <img width="150px" src="https://raw.githubusercontent.com/kolkov/angular-editor/master/docs/angular-editor-logo.png?raw=true" alt="AngularEditor logo"/>
+  <img width="150px" src="https://raw.githubusercontent.com/kolkov/angular-editor/main/docs/angular-editor-logo.png?raw=true" alt="AngularEditor logo"/>
 </p>
 
 # AngularEditor
 [![npm version](https://badge.fury.io/js/%40kolkov%2Fangular-editor.svg)](https://badge.fury.io/js/%40kolkov%2Fangular-editor)
 [![demo](https://img.shields.io/badge/demo-StackBlitz-blueviolet.svg)](https://stackblitz.com/edit/angular-editor-wysiwyg)
-[![Build Status](https://travis-ci.com/kolkov/angular-editor.svg?branch=master)](https://travis-ci.com/kolkov/angular-editor)
+[![Build Status](https://travis-ci.com/kolkov/angular-editor.svg?branch=main)](https://travis-ci.com/kolkov/angular-editor)
 [![npm](https://img.shields.io/npm/dm/@kolkov/angular-editor.svg)](https://www.npmjs.com/package/@kolkov/angular-editor)
 [![](https://data.jsdelivr.com/v1/package/npm/@kolkov/angular-editor/badge?style=rounded)](https://www.jsdelivr.com/package/npm/@kolkov/angular-editor)
-[![Coverage Status](https://coveralls.io/repos/github/kolkov/angular-editor/badge.svg?branch=master)](https://coveralls.io/github/kolkov/angular-editor?branch=master)
-[![codecov](https://codecov.io/gh/kolkov/angular-editor/branch/master/graph/badge.svg)](https://codecov.io/gh/kolkov/angular-editor)
+[![Coverage Status](https://coveralls.io/repos/github/kolkov/angular-editor/badge.svg?branch=main)](https://coveralls.io/github/kolkov/angular-editor?branch=main)
+[![codecov](https://codecov.io/gh/kolkov/angular-editor/branch/main/graph/badge.svg)](https://codecov.io/gh/kolkov/angular-editor)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/AndreyKolkov)
 
 A simple native WYSIWYG/Rich Text editor for Angular 20+
@@ -328,9 +328,9 @@ Icons from Ligature Symbols Icons Collection [icons]
 
 ## Contributing
 
-Please read through our [contributing guidelines](https://github.com/kolkov/angular-editor/blob/master/CONTRIBUTING.md). Included are directions for opening issues, coding standards, and notes on development.
+Please read through our [contributing guidelines](https://github.com/kolkov/angular-editor/blob/main/CONTRIBUTING.md). Included are directions for opening issues, coding standards, and notes on development.
 
-Editor preferences are available in the [editor config](https://github.com/kolkov/angular-editor/blob/master/.editorconfig) for easy use in common text editors. Read more and download plugins at <http://editorconfig.org>.
+Editor preferences are available in the [editor config](https://github.com/kolkov/angular-editor/blob/main/.editorconfig) for easy use in common text editors. Read more and download plugins at <http://editorconfig.org>.
 
 ## Versioning
 
