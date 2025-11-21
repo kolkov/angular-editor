@@ -77,13 +77,13 @@
     <path d="M18.2 14.8L17.5 15.5L14 12L17.5 8.5L18.2 9.2L15.4 12L18.2 14.8Z" fill="#000000"></path>
   </symbol>
   <symbol id="unorderedList" viewBox="0 0 16 16">
-    <g id="SVGRepo_iconCarrier">
+    <g id="SVGRepo_iconCarrier" transform="translate(1.6 1.6) scale(0.8)">
       <rect width="16" height="16" id="icon-bound" fill="none"></rect>
       <path d="M4,3v2h12V3H4z M0,5h2V3H0V5z M4,9h12V7H4V9z M0,9h2V7H0V9z M4,13h12v-2H4V13z M0,13h2v-2H0V13z"></path>
     </g>
   </symbol>
   <symbol id="orderedList" viewBox="0 0 16 16">
-    <g id="SVGRepo_iconCarrier">
+    <g id="SVGRepo_iconCarrier" transform="translate(1.6 1.6) scale(0.8)">
       <rect width="16" height="16" id="icon-bound" fill="none"></rect>
       <path id="list-numbered"
             d="M0,10l0,-1l2,0c0.552,0 1,0.448 1,1l0,1c-0,0.552 -0.448,1 -1,1l-0.75,0c-0.066,-0 -0.13,0.026 -0.177,0.073c-0.047,0.047 -0.073,0.111 -0.073,0.177c0,0.153 0,0.347 0,0.5c-0,0.066 0.026,0.13 0.073,0.177c0.047,0.047 0.111,0.073 0.177,0.073l1.75,0l0,1l-2,0c-0.552,-0 -1,-0.448 -1,-1l0,-1c0,-0.552 0.448,-1 1,-1l0.75,-0c0.066,0 0.13,-0.026 0.177,-0.073c0.047,-0.047 0.073,-0.111 0.073,-0.177c0,-0.153 0,-0.347 0,-0.5c0,-0.066 -0.026,-0.13 -0.073,-0.177c-0.047,-0.047 -0.111,-0.073 -0.177,-0.073l-1.75,0Zm4,1l12,0l0,2l-12,0l0,-2Zm0,-4l12,0l0,2l-12,0l0,-2Zm-3,-3.75c0,-0.066 -0.026,-0.13 -0.073,-0.177c-0.047,-0.047 -0.111,-0.073 -0.177,-0.073l-0.75,0l0,-1l1,0c0.552,0 1,0.448 1,1c-0,1.185 0,4 0,4l-1,0l0,-3.75Zm3,-0.25l12,0l0,2l-12,0l0,-2Z"></path>
