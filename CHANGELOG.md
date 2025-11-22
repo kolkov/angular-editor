@@ -1,3 +1,16 @@
+<a name="3.0.1"></a>
+## [3.0.1](https://github.com/kolkov/angular-editor/compare/v3.0.0...v3.0.1) (2025-11-22)
+
+### Bug Fixes
+* **Icons:** Fixed list icons (unordered/ordered) display consistency in toolbar
+
+### CI/CD
+* **GitHub Actions:** Added automated npm publishing workflow
+* **npm Publishing:** Configured Granular Access Token authentication
+* **GitHub Releases:** Automated release creation with changelog
+
+---
+
 <a name="3.0.0"></a>
 ## [3.0.0](https://github.com/kolkov/angular-editor/compare/v2.0.0...v3.0.0) (2025-11-22) Major Angular 20 Upgrade
 
@@ -30,7 +43,6 @@
 * **Tests:** 13/13 tests passing (100% success rate)
 
 ### Bug Fixes
-* **Icons:** Fixed list icons (unordered/ordered) display consistency in toolbar
 * **Tests:** Fixed AeSelectComponent tests for mousedown event handling
 * **Demo:** Updated demo app for Angular 20 compatibility
 
