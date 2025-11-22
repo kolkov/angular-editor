@@ -1,3 +1,17 @@
+<a name="3.0.2"></a>
+## [3.0.2](https://github.com/kolkov/angular-editor/compare/v3.0.1...v3.0.2) (2025-01-22)
+
+### Bug Fixes
+* **toolbar:** toolbarHiddenButtons option now works without Bootstrap ([#544](https://github.com/kolkov/angular-editor/issues/544)) ([3563552](https://github.com/kolkov/angular-editor/commit/3563552))
+* **image:** allow re-uploading same image after deletion ([#543](https://github.com/kolkov/angular-editor/issues/543), [#568](https://github.com/kolkov/angular-editor/issues/568), [#503](https://github.com/kolkov/angular-editor/issues/503)) ([7d21718](https://github.com/kolkov/angular-editor/commit/7d21718))
+* **video:** support YouTube short URLs (youtu.be format) ([#557](https://github.com/kolkov/angular-editor/issues/557), [#554](https://github.com/kolkov/angular-editor/issues/554)) ([4aa8397](https://github.com/kolkov/angular-editor/commit/4aa8397))
+
+### Maintenance
+* **issues:** Systematic triage completed - 61 issues closed, 249 remain open
+* **documentation:** Added issue triage session record
+
+---
+
 <a name="3.0.1"></a>
 ## [3.0.1](https://github.com/kolkov/angular-editor/compare/v3.0.0...v3.0.1) (2025-11-22)
 
