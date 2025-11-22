@@ -4,11 +4,12 @@
 
 # AngularEditor
 [![npm version](https://badge.fury.io/js/%40kolkov%2Fangular-editor.svg)](https://badge.fury.io/js/%40kolkov%2Fangular-editor)
+[![npm](https://img.shields.io/npm/v/@kolkov/angular-editor.svg)](https://www.npmjs.com/package/@kolkov/angular-editor)
 [![CI](https://github.com/kolkov/angular-editor/actions/workflows/publish.yml/badge.svg)](https://github.com/kolkov/angular-editor/actions/workflows/publish.yml)
+[![npm downloads](https://img.shields.io/npm/dm/@kolkov/angular-editor.svg)](https://www.npmjs.com/package/@kolkov/angular-editor)
 [![demo](https://img.shields.io/badge/demo-StackBlitz-blueviolet.svg)](https://stackblitz.com/edit/angular-editor-wysiwyg)
-[![npm](https://img.shields.io/npm/dm/@kolkov/angular-editor.svg)](https://www.npmjs.com/package/@kolkov/angular-editor)
 [![](https://data.jsdelivr.com/v1/package/npm/@kolkov/angular-editor/badge?style=rounded)](https://www.jsdelivr.com/package/npm/@kolkov/angular-editor)
-[![codecov](https://codecov.io/gh/kolkov/angular-editor/branch/main/graph/badge.svg)](https://codecov.io/gh/kolkov/angular-editor)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/AndreyKolkov)
 
 A simple native WYSIWYG/Rich Text editor for Angular 20+
