@@ -260,8 +260,10 @@ export class AeToolbarComponent {
     const selection = this.editorService.savedSelection;
     if (selection && selection.commonAncestorContainer.parentElement.nodeName === 'A') {
       const parent = selection.commonAncestorContainer.parentElement as HTMLAnchorElement;
-      if (parent.href !== '') {
-        url = parent.href;
+      // Use getAttribute to preserve relative URLs instead of href which returns absolute URL
+      const href = parent.getAttribute('href');
+      if (href !== '' && href !== null) {
+        url = href;
       }
     }
     url = prompt('Insert URL link', url);
@@ -380,6 +382,5 @@ export class AeToolbarComponent {
 
   focus() {
     this.execute.emit('focus');
-    console.log('focused');
   }
 }
