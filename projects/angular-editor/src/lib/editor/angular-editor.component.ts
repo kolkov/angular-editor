@@ -275,7 +275,11 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    */
   refreshView(value: string): void {
     const normalizedValue = value === null ? '' : value;
-    this.r.setProperty(this.textArea.nativeElement, 'innerHTML', normalizedValue);
+    // Apply sanitization to prevent XSS when setting innerHTML
+    const sanitizedValue = this.config.sanitize !== false
+      ? this.sanitizer.sanitize(SecurityContext.HTML, normalizedValue)
+      : normalizedValue;
+    this.r.setProperty(this.textArea.nativeElement, 'innerHTML', sanitizedValue);
 
     return;
   }
