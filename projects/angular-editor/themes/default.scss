@@ -1,3 +1,9 @@
+// Fix for toolbarHiddenButtons option
+// The [hidden] attribute needs explicit styling to work without Bootstrap
+[hidden] {
+  display: none !important;
+}
+
 :root {
   --ae-gap: 5px;
   --ae-text-area-border: 1px solid #ddd;
