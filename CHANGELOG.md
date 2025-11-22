@@ -1,3 +1,23 @@
+<a name="3.0.3"></a>
+## [3.0.3](https://github.com/kolkov/angular-editor/compare/v3.0.2...v3.0.3) (2025-01-22) - Security Hotfix
+
+### Security
+* **CRITICAL:** Fixed XSS vulnerability in `refreshView()` method ([#580](https://github.com/kolkov/angular-editor/issues/580)) ([774a97d](https://github.com/kolkov/angular-editor/commit/774a97d))
+  - XSS could bypass sanitizer when setting editor value via ngModel/formControl
+  - Sanitization now properly applied to all innerHTML assignments
+  - Thanks to @MarioTesoro for responsible disclosure with PoC
+
+### Bug Fixes
+* **links:** Preserve relative URLs when editing existing links ([#359](https://github.com/kolkov/angular-editor/issues/359)) ([c691d30](https://github.com/kolkov/angular-editor/commit/c691d30))
+  - Use `getAttribute('href')` instead of `.href` property
+  - Prevents adding hostname to relative paths
+* **debug:** Remove debug `console.log` statement from focus() method ([#324](https://github.com/kolkov/angular-editor/issues/324)) ([c691d30](https://github.com/kolkov/angular-editor/commit/c691d30))
+
+### Upgrade Recommendation
+**IMMEDIATE UPGRADE RECOMMENDED** for all users. This release fixes a critical security vulnerability.
+
+---
+
 <a name="3.0.2"></a>
 ## [3.0.2](https://github.com/kolkov/angular-editor/compare/v3.0.1...v3.0.2) (2025-01-22)
 
