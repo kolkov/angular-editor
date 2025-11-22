@@ -334,6 +334,8 @@ export class AeToolbarComponent {
         reader.onload = (e: ProgressEvent) => {
           const fr = e.currentTarget as FileReader;
           this.editorService.insertImage(fr.result.toString());
+          // Reset input value to allow re-uploading the same file
+          event.target.value = null;
         };
         reader.readAsDataURL(file);
       }
