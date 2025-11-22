@@ -9,7 +9,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write # Required for creating GitHub releases
       id-token: write # Required for npm trusted publishing (OIDC)
 
     steps:
