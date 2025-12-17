@@ -49,10 +49,8 @@ jobs:
             echo "tag=latest" >> $GITHUB_OUTPUT
           fi
 
-      - name: Publish to npm (Trusted Publishing)
+      - name: Publish to npm (Trusted Publishing via OIDC)
         run: npm publish ./dist/angular-editor --tag ${{ steps.npm-tag.outputs.tag }} --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
