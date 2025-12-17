@@ -353,18 +353,18 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       oCode.focus();
     } else {
       if (this.doc.querySelectorAll) {
-        // if sanitize: true the html element, from preview to text, is sanitized according the sanitizer config. 
-        if(this.config.sanitize !== false){
-          editableElement.innerText = this.sanitizer.sanitize(SecurityContext.HTML, editableElement.innerText)
+        // Apply sanitization to prevent XSS when switching from HTML mode
+        if (this.config.sanitize !== false) {
+          editableElement.innerText = this.sanitizer.sanitize(SecurityContext.HTML, editableElement.innerText);
         }
         this.r.setProperty(editableElement, 'innerHTML', editableElement.innerText);
       } else {
         oContent = this.doc.createRange();
         oContent.selectNodeContents(editableElement.firstChild);
-        let oContentString = oContent.toString()
-        // if sanitize: true the oContent is sanitized according the sanitizer config. 
-        if(this.config.sanitize !== false){
-          oContentString = this.sanitizer.sanitize(SecurityContext.HTML, oContentString)
+        let oContentString = oContent.toString();
+        // Apply sanitization to prevent XSS when switching from HTML mode
+        if (this.config.sanitize !== false) {
+          oContentString = this.sanitizer.sanitize(SecurityContext.HTML, oContentString);
         }
         this.r.setProperty(editableElement, 'innerHTML', oContentString);
       }
