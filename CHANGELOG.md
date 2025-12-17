@@ -1,3 +1,21 @@
+<a name="3.0.4"></a>
+## [3.0.4](https://github.com/kolkov/angular-editor/compare/v3.0.3...v3.0.4) (2025-12-18) - Security Hotfix
+
+### Security
+* **CRITICAL:** Fixed XSS vulnerability in `toggleEditorMode()` method ([#580](https://github.com/kolkov/angular-editor/issues/580)) ([#587](https://github.com/kolkov/angular-editor/pull/587))
+  - XSS could execute when switching from HTML source mode back to WYSIWYG
+  - User-entered HTML was set via innerHTML without sanitization
+  - Sanitization now properly applied in both code paths
+  - Thanks to @MarioTesoro for finding the root cause and submitting the fix
+
+### Note
+v3.0.3 fix was incomplete - it only covered `refreshView()` but not `toggleEditorMode()`. This release provides complete XSS protection.
+
+### Upgrade Recommendation
+**IMMEDIATE UPGRADE RECOMMENDED** for all users. This release completes the security fix started in v3.0.3.
+
+---
+
 <a name="3.0.3"></a>
 ## [3.0.3](https://github.com/kolkov/angular-editor/compare/v3.0.2...v3.0.3) (2025-01-22) - Security Hotfix
 
