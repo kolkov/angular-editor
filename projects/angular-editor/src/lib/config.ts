@@ -38,6 +38,7 @@ export interface AngularEditorConfig {
   outline?: boolean;
   toolbarHiddenButtons?: string[][];
   rawPaste?: boolean;
+  textDirection?: 'ltr' | 'rtl' | 'auto';
 }
 
 export const angularEditorConfig: AngularEditorConfig = {

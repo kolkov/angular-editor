@@ -50,7 +50,8 @@ export class AppComponent implements OnInit {
     ],
     toolbarHiddenButtons: [
       ['bold', 'italic'],
-    ]
+    ],
+    textDirection: 'auto'
   };
 
   config2: AngularEditorConfig = {
