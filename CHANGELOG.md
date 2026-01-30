@@ -1,3 +1,22 @@
+<a name="3.0.5"></a>
+## [3.0.5](https://github.com/kolkov/angular-editor/compare/v3.0.4...v3.0.5) (2026-01-30)
+
+### Bug Fixes
+* **custom-class:** Preserve HTML structure in multiline selections ([#594](https://github.com/kolkov/angular-editor/issues/594)) ([#595](https://github.com/kolkov/angular-editor/pull/595))
+  - Fixed `createCustomClass()` stripping HTML when applying custom classes to multiline content
+  - Added `mode` option to `CustomClass`: `'inline'`, `'block'`, `'auto'` (default)
+  - Smart detection: inline mode for single blocks, block mode for multiple paragraphs
+  - Block mode applies class to each block element (P, DIV, H1-H6, LI, etc.)
+  - Uses DOM Range API with `extractContents()` + `insertNode()` instead of `sel.toString()`
+
+### Features
+* **config:** Add `textDirection` option for RTL/LTR support ([#520](https://github.com/kolkov/angular-editor/issues/520)) ([#592](https://github.com/kolkov/angular-editor/pull/592))
+  - New config property: `textDirection?: 'ltr' | 'rtl' | 'auto'`
+  - Binds to HTML `dir` attribute on editor element
+  - Thanks to @jamesey2001 for the contribution
+
+---
+
 <a name="3.0.4"></a>
 ## [3.0.4](https://github.com/kolkov/angular-editor/compare/v3.0.3...v3.0.4) (2025-12-18) - Security Hotfix
 
