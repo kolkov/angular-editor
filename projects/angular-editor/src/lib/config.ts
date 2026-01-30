@@ -2,10 +2,33 @@ import { UploadResponse } from './angular-editor.service';
 import { HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+/**
+ * Custom class configuration for applying styles to selected content.
+ *
+ * @example
+ * // Basic usage (inline span)
+ * { name: 'Red Text', class: 'text-red' }
+ *
+ * // Block-level class (applies to each paragraph)
+ * { name: 'Highlight', class: 'highlight', mode: 'block' }
+ *
+ * // Auto mode (smart detection)
+ * { name: 'Quote', class: 'quote', mode: 'auto', tag: 'div' }
+ */
 export interface CustomClass {
+  /** Display name shown in dropdown */
   name: string;
+  /** CSS class to apply */
   class: string;
+  /** HTML tag to use for wrapping (default: 'span') */
   tag?: string;
+  /**
+   * Application mode:
+   * - 'inline': Always wrap selection in a single element (legacy behavior)
+   * - 'block': Apply class to each block element in selection
+   * - 'auto': Smart detection - inline for single block, block for multiple (default)
+   */
+  mode?: 'inline' | 'block' | 'auto';
 }
 
 export interface Font {

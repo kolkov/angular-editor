@@ -179,13 +179,210 @@ export class AngularEditorService {
     this.doc.execCommand('defaultParagraphSeparator', false, separator);
   }
 
-  createCustomClass(customClass: CustomClass) {
-    let newTag = this.selectedText;
-    if (customClass) {
-      const tagName = customClass.tag ? customClass.tag : 'span';
-      newTag = '<' + tagName + ' class="' + customClass.class + '">' + this.selectedText + '</' + tagName + '>';
+  /**
+   * Apply custom class to selection with enterprise-level HTML structure preservation.
+   * Supports three modes:
+   * - 'inline': Wrap selection in a single element (legacy behavior)
+   * - 'block': Apply class to each block element in selection
+   * - 'auto': Smart detection based on selection span (default)
+   *
+   * @param customClass The custom class configuration
+   */
+  createCustomClass(customClass: CustomClass): void {
+    if (!customClass || !this.savedSelection) {
+      return;
     }
+
+    const mode = customClass.mode || 'auto';
+    const range = this.savedSelection;
+
+    // Restore selection before applying
+    this.restoreSelection();
+
+    if (mode === 'inline') {
+      this.applyClassInline(range, customClass);
+    } else if (mode === 'block') {
+      this.applyClassToBlocks(range, customClass);
+    } else {
+      // Auto mode: detect if selection spans multiple blocks
+      const blocks = this.getBlockElementsInRange(range);
+      if (blocks.length > 1) {
+        this.applyClassToBlocks(range, customClass);
+      } else {
+        this.applyClassInline(range, customClass);
+      }
+    }
+  }
+
+  /**
+   * Apply class inline by wrapping selection in a single element.
+   * Uses extractContents + insertNode pattern for safety.
+   */
+  private applyClassInline(range: Range, customClass: CustomClass): void {
+    const tagName = customClass.tag || 'span';
+
+    try {
+      // Create wrapper element
+      const wrapper = this.doc.createElement(tagName);
+      wrapper.className = customClass.class;
+
+      // Extract contents and wrap (safer than surroundContents)
+      const contents = range.extractContents();
+      wrapper.appendChild(contents);
+      range.insertNode(wrapper);
+
+      // Normalize to merge adjacent text nodes
+      if (wrapper.parentNode) {
+        wrapper.parentNode.normalize();
+      }
+
+      // Update selection to the new wrapper
+      range.selectNodeContents(wrapper);
+      const sel = this.doc.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    } catch (e) {
+      // Fallback to legacy method if DOM manipulation fails
+      console.warn('applyClassInline failed, using fallback:', e);
+      this.applyClassInlineFallback(customClass);
+    }
+  }
+
+  /**
+   * Fallback method for inline class application (legacy behavior).
+   */
+  private applyClassInlineFallback(customClass: CustomClass): void {
+    const tagName = customClass.tag || 'span';
+    const newTag = '<' + tagName + ' class="' + customClass.class + '">' + this.selectedText + '</' + tagName + '>';
     this.insertHtml(newTag);
+  }
+
+  /**
+   * Apply class to each block element in selection.
+   * Preserves HTML structure by adding class to existing elements.
+   */
+  private applyClassToBlocks(range: Range, customClass: CustomClass): void {
+    const blocks = this.getBlockElementsInRange(range);
+
+    if (blocks.length === 0) {
+      // No blocks found, fall back to inline
+      this.applyClassInline(range, customClass);
+      return;
+    }
+
+    // Apply class to each block element
+    blocks.forEach(block => {
+      // Toggle class: remove if present, add if not
+      if (block.classList.contains(customClass.class)) {
+        block.classList.remove(customClass.class);
+      } else {
+        block.classList.add(customClass.class);
+      }
+    });
+
+    // Trigger change detection by moving cursor
+    const sel = this.doc.getSelection();
+    if (sel && blocks.length > 0) {
+      // Reselect the original range
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+  }
+
+  /**
+   * Get all block-level elements within a range.
+   * Returns elements that are fully or partially selected.
+   */
+  private getBlockElementsInRange(range: Range): HTMLElement[] {
+    const blockTags = [
+      'P', 'DIV', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6',
+      'LI', 'BLOCKQUOTE', 'PRE', 'ADDRESS', 'ARTICLE',
+      'ASIDE', 'FIGCAPTION', 'FIGURE', 'FOOTER', 'HEADER',
+      'MAIN', 'NAV', 'SECTION'
+    ];
+    const blocks: HTMLElement[] = [];
+    const seen = new Set<HTMLElement>();
+
+    // Get the common ancestor
+    const container = range.commonAncestorContainer;
+    const root = container.nodeType === Node.ELEMENT_NODE
+      ? container as HTMLElement
+      : container.parentElement;
+
+    if (!root) {
+      return blocks;
+    }
+
+    // If root itself is a block element and fully contains the range
+    if (blockTags.includes(root.tagName) && this.isNodeFullyInRange(root, range)) {
+      return [root];
+    }
+
+    // Find all block elements within the range using TreeWalker
+    const walker = this.doc.createTreeWalker(
+      root,
+      NodeFilter.SHOW_ELEMENT,
+      {
+        acceptNode: (node: Element) => {
+          if (!blockTags.includes(node.tagName)) {
+            return NodeFilter.FILTER_SKIP;
+          }
+          // Check if node intersects with selection
+          if (range.intersectsNode(node)) {
+            return NodeFilter.FILTER_ACCEPT;
+          }
+          return NodeFilter.FILTER_SKIP;
+        }
+      }
+    );
+
+    let node: Node | null;
+    while ((node = walker.nextNode())) {
+      const element = node as HTMLElement;
+      // Avoid duplicates and nested blocks
+      if (!seen.has(element) && !this.hasAncestorInSet(element, seen)) {
+        seen.add(element);
+        blocks.push(element);
+      }
+    }
+
+    // If no blocks found, check if we're inside a block
+    if (blocks.length === 0) {
+      let parent = root;
+      while (parent && parent !== this.doc.body) {
+        if (blockTags.includes(parent.tagName)) {
+          blocks.push(parent);
+          break;
+        }
+        parent = parent.parentElement;
+      }
+    }
+
+    return blocks;
+  }
+
+  /**
+   * Check if a node is fully contained within a range.
+   */
+  private isNodeFullyInRange(node: Node, range: Range): boolean {
+    const nodeRange = this.doc.createRange();
+    nodeRange.selectNodeContents(node);
+    return range.compareBoundaryPoints(Range.START_TO_START, nodeRange) <= 0 &&
+           range.compareBoundaryPoints(Range.END_TO_END, nodeRange) >= 0;
+  }
+
+  /**
+   * Check if element has an ancestor in the given set.
+   */
+  private hasAncestorInSet(element: HTMLElement, set: Set<HTMLElement>): boolean {
+    let parent = element.parentElement;
+    while (parent) {
+      if (set.has(parent)) {
+        return true;
+      }
+      parent = parent.parentElement;
+    }
+    return false;
   }
 
   insertVideo(videoUrl: string) {
