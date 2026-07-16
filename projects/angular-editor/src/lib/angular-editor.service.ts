@@ -1,4 +1,4 @@
-import {Inject, Injectable, DOCUMENT} from '@angular/core';
+import {inject, Injectable, DOCUMENT} from '@angular/core';
 import {HttpClient, HttpEvent} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
@@ -11,15 +11,14 @@ export interface UploadResponse {
 @Injectable()
 export class AngularEditorService {
 
-  savedSelection: Range | null;
-  selectedText: string;
-  uploadUrl: string;
-  uploadWithCredentials: boolean;
+  savedSelection: Range | null = null;
+  selectedText: string = '';
+  uploadUrl: string = '';
+  uploadWithCredentials: boolean = false;
 
-  constructor(
-    private http: HttpClient,
-    @Inject(DOCUMENT) private doc: any
-  ) { }
+  private http = inject(HttpClient);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private doc: any = inject(DOCUMENT);
 
   /**
    * Executed command from editor header buttons exclude toggleEditorMode
@@ -104,8 +103,6 @@ export class AngularEditorService {
         this.savedSelection = sel.getRangeAt(0);
         this.selectedText = sel.toString();
       }
-    } else if (this.doc.getSelection && this.doc.createRange) {
-      this.savedSelection = document.createRange();
     } else {
       this.savedSelection = null;
     }
@@ -123,25 +120,24 @@ export class AngularEditorService {
         sel.removeAllRanges();
         sel.addRange(this.savedSelection);
         return true;
-      } else if (this.doc.getSelection /*&& this.savedSelection.select*/) {
-        // this.savedSelection.select();
-        return true;
       }
-    } else {
-      return false;
     }
+    return false;
   }
 
   /**
    * setTimeout used for execute 'saveSelection' method in next event loop iteration
    */
-  public executeInNextQueueIteration(callbackFn: (...args: any[]) => any, timeout = 1e2): void {
+  public executeInNextQueueIteration(callbackFn: (...args: unknown[]) => unknown, timeout = 1e2): void {
     setTimeout(callbackFn, timeout);
   }
 
   /** check any selection is made or not */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private checkSelection(): any {
-
+    if (!this.savedSelection) {
+      throw new Error('No Selection Made');
+    }
     const selectedText = this.savedSelection.toString();
 
     if (selectedText.length === 0) {
@@ -348,7 +344,7 @@ export class AngularEditorService {
 
     // If no blocks found, check if we're inside a block
     if (blocks.length === 0) {
-      let parent = root;
+      let parent: HTMLElement | null = root;
       while (parent && parent !== this.doc.body) {
         if (blockTags.includes(parent.tagName)) {
           blocks.push(parent);
@@ -415,6 +411,7 @@ export class AngularEditorService {
   }
 
   private insertVimeoVideoTag(videoUrl: string): void {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const sub = this.http.get<any>(`https://vimeo.com/api/oembed.json?url=${videoUrl}`).subscribe(data => {
       const imageUrl = data.thumbnail_url_with_play_button;
       const thumbnail = `<div>
@@ -427,7 +424,8 @@ export class AngularEditorService {
     });
   }
 
-  nextNode(node) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  nextNode(node: any): any {
     if (node.hasChildNodes()) {
       return node.firstChild;
     } else {
@@ -441,10 +439,12 @@ export class AngularEditorService {
     }
   }
 
-  getRangeSelectedNodes(range, includePartiallySelectedContainers) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getRangeSelectedNodes(range: any, includePartiallySelectedContainers: boolean): any[] {
     let node = range.startContainer;
     const endNode = range.endContainer;
-    let rangeNodes = [];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let rangeNodes: any[] = [];
 
     // Special case for a range that is contained within a single node
     if (node === endNode) {
@@ -475,18 +475,21 @@ export class AngularEditorService {
     return rangeNodes;
   }
 
-  getSelectedNodes() {
-    const nodes = [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getSelectedNodes(): any[] {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const nodes: any[] = [];
     if (this.doc.getSelection) {
       const sel = this.doc.getSelection();
       for (let i = 0, len = sel.rangeCount; i < len; ++i) {
-        nodes.push.apply(nodes, this.getRangeSelectedNodes(sel.getRangeAt(i), true));
+        nodes.push(...this.getRangeSelectedNodes(sel.getRangeAt(i), true));
       }
     }
     return nodes;
   }
 
-  replaceWithOwnChildren(el) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  replaceWithOwnChildren(el: any) {
     const parent = el.parentNode;
     while (el.hasChildNodes()) {
       parent.insertBefore(el.firstChild, el);
@@ -494,7 +497,8 @@ export class AngularEditorService {
     parent.removeChild(el);
   }
 
-  removeSelectedElements(tagNames) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  removeSelectedElements(tagNames: any) {
     const tagNamesArray = tagNames.toLowerCase().split(',');
     this.getSelectedNodes().forEach((node) => {
       if (node.nodeType === 1 &&

@@ -10,14 +10,14 @@
   <angular-editor-toolbar
     #editorToolbar
     [id]="id"
-    [uploadUrl]="config.uploadUrl"
-    [upload]="config.upload"
+    [uploadUrl]="config.uploadUrl || ''"
+    [upload]="$any(config.upload)"
     [showToolbar]="config.showToolbar !== undefined ? config.showToolbar : true"
     [fonts]="getFonts()"
-    [customClasses]="config.customClasses"
-    [defaultFontName]="config.defaultFontName"
-    [defaultFontSize]="config.defaultFontSize"
-    [hiddenButtons]="config.toolbarHiddenButtons"
+    [customClasses]="config.customClasses || []"
+    [defaultFontName]="config.defaultFontName || ''"
+    [defaultFontSize]="config.defaultFontSize || ''"
+    [hiddenButtons]="config.toolbarHiddenButtons || []"
     (execute)="executeCommand($event)"
   >
     <ng-container

@@ -3,16 +3,16 @@
 </p>
 
 # AngularEditor
-[![npm version](https://badge.fury.io/js/%40kolkov%2Fangular-editor.svg)](https://badge.fury.io/js/%40kolkov%2Fangular-editor)
-[![npm](https://img.shields.io/npm/v/@kolkov/angular-editor.svg)](https://www.npmjs.com/package/@kolkov/angular-editor)
-[![CI](https://github.com/kolkov/angular-editor/actions/workflows/publish.yml/badge.svg)](https://github.com/kolkov/angular-editor/actions/workflows/publish.yml)
+[![npm version](https://badge.fury.io/js/%40kolkov%2Fangular-editor.svg)](https://www.npmjs.com/package/@kolkov/angular-editor)
+[![CI](https://github.com/kolkov/angular-editor/actions/workflows/ci.yml/badge.svg)](https://github.com/kolkov/angular-editor/actions/workflows/ci.yml)
+[![Coverage](https://codecov.io/gh/kolkov/angular-editor/branch/main/graph/badge.svg)](https://codecov.io/gh/kolkov/angular-editor)
 [![npm downloads](https://img.shields.io/npm/dm/@kolkov/angular-editor.svg)](https://www.npmjs.com/package/@kolkov/angular-editor)
 [![demo](https://img.shields.io/badge/demo-StackBlitz-blueviolet.svg)](https://stackblitz.com/edit/angular-editor-wysiwyg)
 [![](https://data.jsdelivr.com/v1/package/npm/@kolkov/angular-editor/badge?style=rounded)](https://www.jsdelivr.com/package/npm/@kolkov/angular-editor)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/AndreyKolkov)
 
-A simple native WYSIWYG/Rich Text editor for Angular 20+
+A simple native WYSIWYG/Rich Text editor for Angular 22+
 
 ![Nov-27-2019 17-26-29](https://user-images.githubusercontent.com/216412/69763434-259cd800-113b-11ea-918f-0565ebce0e48.gif)
 
@@ -30,6 +30,8 @@ Install via [npm][npm] package manager
 npm install @kolkov/angular-editor --save
 ```
 ### Versions
+3.1.0 and above - for Angular v22+ (CSS variables, Vitest testing)
+
 3.0.0 and above - for Angular v20+ (CSS variables, modern Angular 20)
 
 2.0.0 and above - for Angular v13-19
@@ -40,10 +42,10 @@ npm install @kolkov/angular-editor --save
 
 0.15.x - for Angular v6.x.x
 
-**Note:** Version 3.0.0 requires:
-- Angular 20.0.0 or higher (also compatible with Angular 21)
+**Note:** Version 3.1.0 requires:
+- Angular 22.0.0 or higher
 - RxJS 7.8.0 or higher
-- TypeScript 5.4 or higher
+- TypeScript 6.0 or higher
 
 Attention! `alpha` and `beta` versions may contain breaking changes.
 

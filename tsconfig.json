@@ -1,35 +1,44 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
-    "module": "es2020",
-    "moduleResolution": "bundler",
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2017",
+    "target": "ES2022",
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "sourceMap": true,
+    "declaration": false,
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
-      "es2020",
+      "ES2022",
       "dom"
     ],
     "paths": {
       "angular-editor": [
-        "dist/angular-editor"
+        "./dist/angular-editor"
       ],
       "angular-editor/*": [
-        "dist/angular-editor/*"
+        "./dist/angular-editor/*"
       ],
       "@kolkov/angular-editor": [
-        "dist/angular-editor"
+        "./dist/angular-editor"
       ],
       "@kolkov/angular-editor/*": [
-        "dist/angular-editor/*"
+        "./dist/angular-editor/*"
       ]
     }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true
   }
 }

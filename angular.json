@@ -15,23 +15,24 @@
       },
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "tsConfig": "projects/angular-editor/tsconfig.lib.json",
-            "project": "projects/angular-editor/ng-package.json"
-          },
+          "builder": "@angular/build:ng-packagr",
           "configurations": {
             "production": {
               "tsConfig": "projects/angular-editor/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/angular-editor/tsconfig.lib.json"
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "main": "projects/angular-editor/src/test.ts",
             "tsConfig": "projects/angular-editor/tsconfig.spec.json",
-            "karmaConfig": "projects/angular-editor/karma.conf.js"
+            "include": [
+              "**/*.spec.ts"
+            ]
           }
         },
         "lint": {
@@ -57,16 +58,17 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/angular-editor-app",
-            "index": "projects/angular-editor-app/src/index.html",
-            "main": "projects/angular-editor-app/src/main.ts",
-            "polyfills": "projects/angular-editor-app/src/polyfills.ts",
+            "browser": "projects/angular-editor-app/src/main.ts",
             "tsConfig": "projects/angular-editor-app/tsconfig.app.json",
             "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/angular-editor-app/src/assets",
+                "output": "assets"
+              },
               "projects/angular-editor-app/src/favicon.ico",
-              "projects/angular-editor-app/src/assets",
               {
                 "glob": "**/*",
                 "input": "projects/angular-editor/assets/icons/",
@@ -77,29 +79,10 @@
               "projects/angular-editor-app/src/styles.scss",
               "projects/angular-editor/themes/default.scss"
             ],
-            "scripts": [],
-            "vendorChunk": true,
-            "extractLicenses": false,
-            "buildOptimizer": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true
+            "scripts": []
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "projects/angular-editor-app/src/environments/environment.ts",
-                  "with": "projects/angular-editor-app/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -110,43 +93,37 @@
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kb"
                 }
-              ]
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "buildTarget": "angular-editor-app:build"
-          },
+          "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
               "buildTarget": "angular-editor-app:build:production"
+            },
+            "development": {
+              "buildTarget": "angular-editor-app:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "builder": "@angular/build:extract-i18n",
           "options": {
             "buildTarget": "angular-editor-app:build"
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/angular-editor-app/src/test.ts",
-            "polyfills": "projects/angular-editor-app/src/polyfills.ts",
-            "tsConfig": "projects/angular-editor-app/tsconfig.spec.json",
-            "karmaConfig": "projects/angular-editor-app/karma.conf.js",
-            "assets": [
-              "projects/angular-editor-app/src/favicon.ico",
-              "projects/angular-editor-app/src/assets"
-            ],
-            "styles": [
-              "projects/angular-editor-app/src/styles.css"
-            ],
-            "scripts": []
-          }
+          "builder": "@angular/build:unit-test"
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
@@ -156,24 +133,12 @@
               "projects/angular-editor-app/**/*.html"
             ]
           }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "projects/angular-editor-app/e2e/protractor.conf.js",
-            "devServerTarget": "angular-editor-app:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "angular-editor-app:serve:production"
-            }
-          }
         }
       }
     }
   },
   "cli": {
-    "analytics": "fbddda2f-258b-4004-8062-d701809d0a1c",
+    "packageManager": "npm",
     "schematicCollections": [
       "@angular-eslint/schematics"
     ]

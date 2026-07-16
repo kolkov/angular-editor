@@ -3,15 +3,15 @@
   "compilerOptions": {
     "outDir": "../../out-tsc/spec",
     "types": [
-      "jasmine",
-      "node"
+      "vitest/globals"
+    ],
+    "typeRoots": [
+      "../../node_modules/@types",
+      "../../node_modules"
     ]
   },
-  "files": [
-    "src/test.ts"
-  ],
   "include": [
-    "**/*.spec.ts",
-    "**/*.d.ts"
+    "src/**/*.d.ts",
+    "src/**/*.spec.ts"
   ]
 }

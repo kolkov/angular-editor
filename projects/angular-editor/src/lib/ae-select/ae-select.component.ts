@@ -5,12 +5,12 @@ import {
   forwardRef,
   HostBinding,
   HostListener,
+  inject,
   Input,
   OnInit,
   Output,
   Renderer2,
   ViewChild,
-  ViewEncapsulation
 } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {isDefined} from '../utils';
@@ -37,14 +37,14 @@ export interface SelectOption {
 export class AeSelectComponent implements OnInit, ControlValueAccessor {
   @Input() options: SelectOption[] = [];
   // eslint-disable-next-line @angular-eslint/no-input-rename
-  @Input('hidden') isHidden: boolean;
+  @Input('hidden') isHidden: boolean = false;
 
-  selectedOption: SelectOption;
+  selectedOption!: SelectOption;
   disabled = false;
   optionId = 0;
 
   get label(): string {
-    return this.selectedOption && this.selectedOption.hasOwnProperty('label') ? this.selectedOption.label : 'Select';
+    return this.selectedOption && Object.prototype.hasOwnProperty.call(this.selectedOption, 'label') ? this.selectedOption.label : 'Select';
   }
 
   opened = false;
@@ -58,12 +58,10 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
   // eslint-disable-next-line @angular-eslint/no-output-native, @angular-eslint/no-output-rename
   @Output('change') changeEvent = new EventEmitter();
 
-  @ViewChild('labelButton', {static: true}) labelButton: ElementRef;
+  @ViewChild('labelButton', {static: true}) labelButton!: ElementRef;
 
-  constructor(private elRef: ElementRef,
-              private r: Renderer2,
-  ) {
-  }
+  private elRef = inject(ElementRef);
+  private r = inject(Renderer2);
 
   ngOnInit() {
     this.selectedOption = this.options[0];
@@ -113,14 +111,16 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
     return this.opened;
   }
 
-  writeValue(value) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  writeValue(value: any) {
     if (!value || typeof value !== 'string') {
       return;
     }
     this.setValue(value);
   }
 
-  setValue(value) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setValue(value: any) {
     let index = 0;
     const selectedEl = this.options.find((el, i) => {
       index = i;
@@ -132,16 +132,18 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
     }
   }
 
-  onChange: any = () => {
-  }
-  onTouched: any = () => {
-  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onChange: any = () => {};
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onTouched: any = () => {};
 
-  registerOnChange(fn) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  registerOnChange(fn: any) {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  registerOnTouched(fn: any) {
     this.onTouched = fn;
   }
 
@@ -189,27 +191,32 @@ export class AeSelectComponent implements OnInit, ControlValueAccessor {
     // }
   }
 
-  _handleArrowDown($event) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  _handleArrowDown($event: any) {
     if (this.optionId < this.options.length - 1) {
       this.optionId++;
     }
   }
 
-  _handleArrowUp($event) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  _handleArrowUp($event: any) {
     if (this.optionId >= 1) {
       this.optionId--;
     }
   }
 
-  _handleSpace($event) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  _handleSpace($event: any) {
 
   }
 
-  _handleEnter($event) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  _handleEnter($event: any) {
     this.optionSelect(this.options[this.optionId], $event);
   }
 
-  _handleTab($event) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  _handleTab($event: any) {
 
   }
 
