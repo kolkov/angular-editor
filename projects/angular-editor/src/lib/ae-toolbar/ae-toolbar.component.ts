@@ -2,12 +2,11 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  Inject,
+  inject,
   Input,
   Output,
   Renderer2,
   ViewChild,
-  ViewEncapsulation,
   DOCUMENT
 } from '@angular/core';
 import {AngularEditorService, UploadResponse} from '../angular-editor.service';
@@ -30,8 +29,8 @@ export class AeToolbarComponent {
   block = 'default';
   fontName = 'Times New Roman';
   fontSize = '3';
-  foreColour;
-  backColor;
+  foreColour: string = '';
+  backColor: string = '';
 
   headings: SelectOption[] = [
     {
@@ -108,12 +107,10 @@ export class AeToolbarComponent {
   ];
 
   customClassId = '-1';
-  // eslint-disable-next-line no-underscore-dangle, id-blacklist, id-match
-  _customClasses: CustomClass[];
+  _customClasses: CustomClass[] = [];
   customClassList: SelectOption[] = [{label: '', value: ''}];
-  // uploadUrl: string;
 
-  tagMap = {
+  tagMap: Record<string, string> = {
     BLOCKQUOTE: 'indent',
     A: 'link'
   };
@@ -123,10 +120,10 @@ export class AeToolbarComponent {
   buttons = ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'justifyLeft', 'justifyCenter',
     'justifyRight', 'justifyFull', 'indent', 'outdent', 'insertUnorderedList', 'insertOrderedList', 'link'];
 
-  @Input() id: string;
-  @Input() uploadUrl: string;
-  @Input() upload: (file: File) => Observable<HttpEvent<UploadResponse>>;
-  @Input() showToolbar: boolean;
+  @Input() id: string = '';
+  @Input() uploadUrl: string = '';
+  @Input() upload!: (file: File) => Observable<HttpEvent<UploadResponse>>;
+  @Input() showToolbar: boolean = false;
   @Input() fonts: SelectOption[] = [{label: '', value: ''}];
 
   @Input()
@@ -152,23 +149,21 @@ export class AeToolbarComponent {
     }
   }
 
-  @Input() hiddenButtons: string[][];
+  @Input() hiddenButtons: string[][] = [];
 
   @Output() execute: EventEmitter<string> = new EventEmitter<string>();
 
-  @ViewChild('fileInput', {static: true}) myInputFile: ElementRef;
+  @ViewChild('fileInput', {static: true}) myInputFile!: ElementRef;
 
   public get isLinkButtonDisabled(): boolean {
-    return this.htmlMode || !Boolean(this.editorService.selectedText);
+    return this.htmlMode || !this.editorService.selectedText;
   }
 
-  constructor(
-    private r: Renderer2,
-    private editorService: AngularEditorService,
-    private er: ElementRef,
-    @Inject(DOCUMENT) private doc: any
-  ) {
-  }
+  private r = inject(Renderer2);
+  private editorService = inject(AngularEditorService);
+  private er = inject(ElementRef);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private doc: any = inject(DOCUMENT);
 
   /**
    * Trigger command from editor header buttons
@@ -224,6 +219,7 @@ export class AeToolbarComponent {
           if (x instanceof Element) {
             return x.className === y.class;
           }
+          return false;
         });
         if (node !== undefined) {
           if (found === false) {
@@ -256,9 +252,9 @@ export class AeToolbarComponent {
    * insert URL link
    */
   insertUrl() {
-    let url = 'https:\/\/';
+    let url = 'https://';
     const selection = this.editorService.savedSelection;
-    if (selection && selection.commonAncestorContainer.parentElement.nodeName === 'A') {
+    if (selection && selection.commonAncestorContainer.parentElement?.nodeName === 'A') {
       const parent = selection.commonAncestorContainer.parentElement as HTMLAnchorElement;
       // Use getAttribute to preserve relative URLs instead of href which returns absolute URL
       const href = parent.getAttribute('href');
@@ -266,9 +262,9 @@ export class AeToolbarComponent {
         url = href;
       }
     }
-    url = prompt('Insert URL link', url);
-    if (url && url !== '' && url !== 'https://') {
-      this.editorService.createLink(url);
+    const promptUrl = prompt('Insert URL link', url);
+    if (promptUrl && promptUrl !== '' && promptUrl !== 'https://') {
+      this.editorService.createLink(promptUrl);
     }
   }
 
@@ -324,18 +320,29 @@ export class AeToolbarComponent {
   /**
    * Upload image when file is selected.
    */
-  onFileChanged(event) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onFileChanged(event: any) {
     const file = event.target.files[0];
     if (file.type.includes('image/')) {
       if (this.upload) {
-        this.upload(file).subscribe((response: HttpResponse<UploadResponse>) => this.watchUploadImage(response, event));
+        this.upload(file).subscribe((response) => {
+          if (response instanceof HttpResponse) {
+            this.watchUploadImage(response as HttpResponse<{ imageUrl: string }>, event);
+          }
+        });
       } else if (this.uploadUrl) {
-        this.editorService.uploadImage(file).subscribe((response: HttpResponse<UploadResponse>) => this.watchUploadImage(response, event));
+        this.editorService.uploadImage(file).subscribe((response) => {
+          if (response instanceof HttpResponse) {
+            this.watchUploadImage(response as HttpResponse<{ imageUrl: string }>, event);
+          }
+        });
       } else {
         const reader = new FileReader();
         reader.onload = (e: ProgressEvent) => {
           const fr = e.currentTarget as FileReader;
-          this.editorService.insertImage(fr.result.toString());
+          if (fr.result !== null) {
+            this.editorService.insertImage(fr.result.toString());
+          }
           // Reset input value to allow re-uploading the same file
           event.target.value = null;
         };
@@ -344,9 +351,13 @@ export class AeToolbarComponent {
     }
   }
 
-  watchUploadImage(response: HttpResponse<{ imageUrl: string }>, event) {
-    const {imageUrl} = response.body;
-    this.editorService.insertImage(imageUrl);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  watchUploadImage(response: HttpResponse<{ imageUrl: string }>, event: any) {
+    const body = response.body;
+    if (body) {
+      const {imageUrl} = body;
+      this.editorService.insertImage(imageUrl);
+    }
     event.srcElement.value = null;
   }
 
@@ -368,6 +379,7 @@ export class AeToolbarComponent {
     if (!(this.hiddenButtons instanceof Array)) {
       return false;
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let result: any;
     for (const arr of this.hiddenButtons) {
       if (arr instanceof Array) {

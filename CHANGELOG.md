@@ -1,3 +1,24 @@
+<a name="3.1.0"></a>
+## [3.1.0](https://github.com/kolkov/angular-editor/compare/v3.0.5...v3.1.0) (2026-07-16)
+
+### Features
+* **deps:** Upgrade to Angular 22 with TypeScript 6.0 support
+* **testing:** Migrate from Karma/Jasmine to Vitest via `@angular/build:unit-test` builder; expand test suite from 19 to 206 tests (76.74% statement coverage)
+* **linting:** Migrate ESLint config from `.eslintrc.json` to `eslint.config.mjs` (ESLint 10 flat config)
+* **build:** Replace `@angular-devkit/build-angular` builders with `@angular/build` equivalents
+* **templates:** Migrate `*ngIf`/`*ngFor` structural directives to `@if`/`@for` built-in control flow
+* **di:** Migrate constructor injection to `inject()` function where applicable
+
+### Internal
+* Peer dependencies now include `^22.0.0` (Angular 20 and 21 still supported)
+* ESLint migrated to flat config (`eslint.config.mjs`)
+* CI/CD: split into separate `ci.yml`, `publish.yml`, and `release.yml` workflows
+* CI: upgrade Node.js to 24
+* Add Codecov coverage integration
+* Add Dependabot configuration for automated dependency updates
+
+---
+
 <a name="3.0.5"></a>
 ## [3.0.5](https://github.com/kolkov/angular-editor/compare/v3.0.4...v3.0.5) (2026-01-30)
 

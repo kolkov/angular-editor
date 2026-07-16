@@ -2,64 +2,39 @@ name: Publish to npm
 
 on:
   push:
-    tags:
-      - 'v*' # Trigger on version tags like v3.0.0, v3.1.0, etc.
+    tags: ['v*']
+
+permissions:
+  contents: read
+  id-token: write
 
 jobs:
   publish:
+    name: Publish
     runs-on: ubuntu-latest
-    permissions:
-      contents: write # Required for creating GitHub releases
-      id-token: write # Required for npm trusted publishing (OIDC)
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: '22' # Node 22 for npm 11.5.1+ (required for OIDC)
+          node-version: 24
+          cache: npm
           registry-url: 'https://registry.npmjs.org'
-          cache: 'npm'
-
-      - name: Upgrade npm for OIDC support
+      - run: npm ci
+      - run: npx ng build angular-editor --configuration production
+      - name: Copy assets to dist
         run: |
-          npm install -g npm@latest
-          npm --version
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run tests
-        run: npm run test:lib -- --watch=false --browsers=ChromeHeadless
-
-      - name: Build production library
-        run: npm run build-prod:lib
-
-      - name: Copy files to dist
+          cp README.md dist/angular-editor/
+          cp LICENSE dist/angular-editor/
+          cp CHANGELOG.md dist/angular-editor/ 2>/dev/null || true
+      - name: Determine dist-tag
+        id: tag
         run: |
-          npm run copy:readme
-          npm run copy:changelog
-          npm run copy:license
-
-      - name: Determine npm tag
-        id: npm-tag
-        run: |
-          VERSION=$(node -p "require('./package.json').version")
-          if [[ "$VERSION" == *"beta"* ]] || [[ "$VERSION" == *"alpha"* ]] || [[ "$VERSION" == *"rc"* ]]; then
-            echo "tag=next" >> $GITHUB_OUTPUT
+          VERSION=$(node -p "require('./projects/angular-editor/package.json').version")
+          if echo "$VERSION" | grep -qE '(alpha|beta|rc)'; then
+            echo "dist_tag=next" >> "$GITHUB_OUTPUT"
           else
-            echo "tag=latest" >> $GITHUB_OUTPUT
+            echo "dist_tag=latest" >> "$GITHUB_OUTPUT"
           fi
-
-      - name: Publish to npm (Trusted Publishing via OIDC)
-        run: npm publish ./dist/angular-editor --tag ${{ steps.npm-tag.outputs.tag }} --provenance --access public
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          body_path: CHANGELOG.md
-          generate_release_notes: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish
+        working-directory: dist/angular-editor
+        run: npm publish --access public --provenance --tag ${{ steps.tag.outputs.dist_tag }}

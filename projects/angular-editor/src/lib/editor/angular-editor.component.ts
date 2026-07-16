@@ -10,7 +10,7 @@ import {
   forwardRef,
   HostBinding,
   HostListener,
-  Inject,
+  inject,
   Input,
   OnDestroy,
   OnInit,
@@ -18,7 +18,8 @@ import {
   Renderer2,
   SecurityContext,
   TemplateRef,
-  ViewChild, ViewEncapsulation,
+  ViewChild,
+  ViewEncapsulation,
   DOCUMENT
 } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
@@ -45,8 +46,8 @@ import {isDefined} from '../utils';
 })
 export class AngularEditorComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnDestroy {
 
-  private onChange: (value: string) => void;
-  private onTouched: () => void;
+  private onChange: ((value: string) => void) | undefined;
+  private onTouched: (() => void) | undefined;
 
   modeVisual = true;
   showPlaceholder = false;
@@ -55,19 +56,23 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   touched = false;
   changed = false;
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   focusInstance: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   blurInstance: any;
 
   @Input() id = '';
   @Input() config: AngularEditorConfig = angularEditorConfig;
   @Input() placeholder = '';
-  @Input() tabIndex: number | null;
+  @Input() tabIndex: number | null = null;
 
-  @Output() html;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @Output() html: EventEmitter<any> = new EventEmitter<any>();
 
-  @ViewChild('editor', {static: true}) textArea: ElementRef;
-  @ViewChild('editorWrapper', {static: true}) editorWrapper: ElementRef;
-  @ViewChild('editorToolbar') editorToolbar: AeToolbarComponent;
+  @ViewChild('editor', {static: true}) textArea!: ElementRef;
+  @ViewChild('editorWrapper', {static: true}) editorWrapper!: ElementRef;
+  @ViewChild('editorToolbar') editorToolbar!: AeToolbarComponent;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @ContentChild("customButtons") customButtonsTemplateRef?: TemplateRef<any>;
   executeCommandFn = this.executeCommand.bind(this);
 
@@ -88,13 +93,16 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     this.focus();
   }
 
+  private r = inject(Renderer2);
+  private editorService = inject(AngularEditorService);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private doc: any = inject(DOCUMENT);
+  private sanitizer = inject(DomSanitizer);
+  private cdRef = inject(ChangeDetectorRef);
+
   constructor(
-    private r: Renderer2,
-    private editorService: AngularEditorService,
-    @Inject(DOCUMENT) private doc: any,
-    private sanitizer: DomSanitizer,
-    private cdRef: ChangeDetectorRef,
     @Attribute('tabindex') defaultTabIndex: string,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Attribute('autofocus') private autoFocus: any
   ) {
     const parsedTabIndex = Number(defaultTabIndex);
@@ -111,13 +119,14 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     }
   }
 
-  onPaste(event: ClipboardEvent) {
+  onPaste(event: ClipboardEvent): string | undefined {
     if (this.config.rawPaste) {
       event.preventDefault();
-      const text = event.clipboardData.getData('text/plain');
+      const text = event.clipboardData?.getData('text/plain') ?? '';
       document.execCommand('insertHTML', false, text);
       return text;
     }
+    return undefined;
   }
 
   /**
@@ -181,12 +190,12 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     this.editorService.executeInNextQueueIteration(this.editorService.saveSelection);
 
     if (typeof this.onTouched === 'function') {
-      this.onTouched();
+      (this.onTouched)();
     }
 
     if (event.relatedTarget !== null) {
       const parent = (event.relatedTarget as HTMLElement).parentElement;
-      if (!parent.classList.contains('angular-editor-toolbar-set') && !parent.classList.contains('ae-picker')) {
+      if (!parent?.classList.contains('angular-editor-toolbar-set') && !parent?.classList.contains('ae-picker')) {
         this.blurEvent.emit(event);
         this.focused = false;
       }
@@ -211,18 +220,15 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    * @param element html element from contenteditable
    */
   onContentChange(element: HTMLElement): void {
-    let html = '';
-    if (this.modeVisual) {
-      html = element.innerHTML;
-    } else {
-      html = element.innerText;
-    }
+    let html: string = this.modeVisual ? element.innerHTML : element.innerText;
     if ((!html || html === '<br>')) {
       html = '';
     }
     if (typeof this.onChange === 'function') {
-      this.onChange(this.config.sanitize || this.config.sanitize === undefined ?
-        this.sanitizer.sanitize(SecurityContext.HTML, html) : html);
+      const sanitized = (this.config.sanitize || this.config.sanitize === undefined)
+        ? (this.sanitizer.sanitize(SecurityContext.HTML, html) ?? '')
+        : html;
+      (this.onChange)(sanitized);
       if ((!html) !== this.showPlaceholder) {
         this.togglePlaceholder(this.showPlaceholder);
       }
@@ -236,8 +242,9 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    *
    * @param fn a function
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   registerOnChange(fn: any): void {
-    this.onChange = e => (e === '<br>' ? fn('') : fn(e));
+    this.onChange = (e: string) => (e === '<br>' ? fn('') : fn(e));
   }
 
   /**
@@ -246,6 +253,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    *
    * @param fn a function
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
@@ -255,6 +263,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    *
    * @param value value to be executed when there is a change in contenteditable
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   writeValue(value: any): void {
 
     if ((!value || value === '<br>' || value === '') !== this.showPlaceholder) {
@@ -401,8 +410,8 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   }
 
   private configure() {
-    this.editorService.uploadUrl = this.config.uploadUrl;
-    this.editorService.uploadWithCredentials = this.config.uploadWithCredentials;
+    this.editorService.uploadUrl = this.config.uploadUrl ?? '';
+    this.editorService.uploadWithCredentials = this.config.uploadWithCredentials ?? false;
     if (this.config.defaultParagraphSeparator) {
       this.editorService.setDefaultParagraphSeparator(this.config.defaultParagraphSeparator);
     }
@@ -415,7 +424,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   }
 
   getFonts() {
-    const fonts = this.config.fonts ? this.config.fonts : angularEditorConfig.fonts;
+    const fonts = this.config.fonts ? this.config.fonts : (angularEditorConfig.fonts ?? []);
     return fonts.map(x => {
       return {label: x.name, value: x.name};
     });
@@ -423,7 +432,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
   getCustomTags() {
     const tags = ['span'];
-    this.config.customClasses.forEach(x => {
+    (this.config.customClasses ?? []).forEach(x => {
       if (x.tag !== undefined) {
         if (!tags.includes(x.tag)) {
           tags.push(x.tag);

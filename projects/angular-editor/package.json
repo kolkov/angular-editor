@@ -1,7 +1,7 @@
 {
   "name": "@kolkov/angular-editor",
-  "version": "3.0.5",
-  "description": "A simple native WYSIWYG editor for Angular 20+. Rich Text editor component for Angular.",
+  "version": "3.1.0",
+  "description": "A simple native WYSIWYG editor for Angular 22+. Rich Text editor component for Angular.",
   "author": "Andrey Kolkov <a.kolkov@gmail.com>",
   "repository": "https://github.com/kolkov/angular-editor",
   "license": "MIT",
@@ -10,9 +10,9 @@
     "url": "https://github.com/kolkov/angular-editor/issues"
   },
   "peerDependencies": {
-    "@angular/common": "^20.0.0 || ^21.0.0",
-    "@angular/core": "^20.0.0 || ^21.0.0",
-    "@angular/forms": "^20.0.0 || ^21.0.0",
+    "@angular/common": "^20.0.0 || ^21.0.0 || ^22.0.0",
+    "@angular/core": "^20.0.0 || ^21.0.0 || ^22.0.0",
+    "@angular/forms": "^20.0.0 || ^21.0.0 || ^22.0.0",
     "rxjs": "^7.8.0"
   },
   "dependencies": {
