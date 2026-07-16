@@ -1,163 +1,218 @@
 @if (showToolbar) {
   <div class="angular-editor-toolbar">
-    <div aeToolbarSet>
-      <button aeButton title="Undo" iconName="undo" (click)="triggerCommand('undo')" [hidden]="isButtonHidden('undo')">
-      </button>
-      <button aeButton title="Redo" iconName="redo" (click)="triggerCommand('redo')"
-              [hidden]="isButtonHidden('redo')">
-      </button>
-    </div>
-    <div aeToolbarSet>
-      <button [id]="'bold-'+id" aeButton title="Bold" iconName="bold" (click)="triggerCommand('bold')"
-              [disabled]="htmlMode" [hidden]="isButtonHidden('bold')">
-      </button>
-      <button [id]="'italic-'+id" aeButton iconName="italic" title="Italic" (click)="triggerCommand('italic')"
-              [disabled]="htmlMode" [hidden]="isButtonHidden('italic')">
-      </button>
-      <button [id]="'underline-'+id" aeButton title="Underline" iconName="underline"
-              (click)="triggerCommand('underline')" [disabled]="htmlMode" [hidden]="isButtonHidden('underline')">
-      </button>
-      <button [id]="'strikeThrough-'+id" aeButton iconName="strikeThrough" title="Strikethrough"
-              (click)="triggerCommand('strikeThrough')" [disabled]="htmlMode"
-              [hidden]="isButtonHidden('strikeThrough')">
-      </button>
-      <button [id]="'subscript-'+id" aeButton title="Subscript" iconName="subscript"
-              (click)="triggerCommand('subscript')" [disabled]="htmlMode" [hidden]="isButtonHidden('subscript')">
-      </button>
-      <button [id]="'superscript-'+id" aeButton iconName="superscript" title="Superscript"
-              (click)="triggerCommand('superscript')" [disabled]="htmlMode"
-              [hidden]="isButtonHidden('superscript')">
-      </button>
-    </div>
-    <div aeToolbarSet>
-      <button [id]="'justifyLeft-'+id" aeButton iconName="justifyLeft" title="Justify Left"
-              (click)="triggerCommand('justifyLeft')" [disabled]="htmlMode"
-              [hidden]="isButtonHidden('justifyLeft')">
-      </button>
-      <button [id]="'justifyCenter-'+id" aeButton iconName="justifyCenter" title="Justify Center"
-              (click)="triggerCommand('justifyCenter')" [disabled]="htmlMode"
-              [hidden]="isButtonHidden('justifyCenter')">
-      </button>
-      <button [id]="'justifyRight-'+id" aeButton iconName="justifyRight" title="Justify Right"
-              (click)="triggerCommand('justifyRight')" [disabled]="htmlMode"
-              [hidden]="isButtonHidden('justifyRight')">
-      </button>
-      <button [id]="'justifyFull-'+id" aeButton iconName="justifyFull" title="Justify Full"
-              (click)="triggerCommand('justifyFull')" [disabled]="htmlMode"
-              [hidden]="isButtonHidden('justifyFull')">
-      </button>
-    </div>
-    <div aeToolbarSet>
-      <button [id]="'indent-'+id" aeButton iconName="indent" title="Indent"
-              (click)="triggerCommand('indent')"
-              [disabled]="htmlMode" [hidden]="isButtonHidden('indent')">
-      </button>
-      <button [id]="'outdent-'+id" aeButton iconName="outdent" title="Outdent"
-              (click)="triggerCommand('outdent')"
-              [disabled]="htmlMode" [hidden]="isButtonHidden('outdent')">
-      </button>
-    </div>
-    <div aeToolbarSet>
-      <button [id]="'insertUnorderedList-'+id" aeButton iconName="unorderedList" title="Unordered List"
-              (click)="triggerCommand('insertUnorderedList')" [disabled]="htmlMode"
-              [hidden]="isButtonHidden('insertUnorderedList')">
-      </button>
-      <button [id]="'insertOrderedList-'+id" aeButton iconName="orderedList" title="Ordered List"
-              (click)="triggerCommand('insertOrderedList')" [disabled]="htmlMode"
-              [hidden]="isButtonHidden('insertOrderedList')">
-      </button>
-    </div>
-    <div aeToolbarSet>
-      <ae-select class="select-heading" [options]="headings"
-                 [(ngModel)]="block"
-                 (change)="triggerCommand(block)"
-                 [disabled]="htmlMode"
-                 [hidden]="isButtonHidden('heading')"
-                 tabindex="-1"></ae-select>
-    </div>
-    <div aeToolbarSet>
-      <ae-select class="select-font" [options]="fonts"
-                 [(ngModel)]="fontName"
-                 (change)="setFontName(fontName)"
-                 [disabled]="htmlMode"
-                 [hidden]="isButtonHidden('fontName')"
-                 tabindex="-1"></ae-select>
-    </div>
-    <div aeToolbarSet>
-      <ae-select class="select-font-size" [options]="fontSizes"
-                 [(ngModel)]="fontSize"
-                 (change)="setFontSize(fontSize)"
-                 [disabled]="htmlMode"
-                 [hidden]="isButtonHidden('fontSize')"
-                 tabindex="-1">
-      </ae-select>
-    </div>
-    <div aeToolbarSet>
-      <input
-        style="display: none"
-        type="color" (change)="insertColor(fgInput.value, 'textColor')"
-        #fgInput>
-      <button [id]="'foregroundColorPicker-'+id" aeButton iconName="textColor"
-              (click)="focus(); fgInput.click()"
-              title="Text Color"
-              [disabled]="htmlMode" [hidden]="isButtonHidden('textColor')">
-      </button>
-      <input
-        style="display: none"
-        type="color" (change)="insertColor(bgInput.value, 'backgroundColor')"
-        #bgInput>
-      <button [id]="'backgroundColorPicker-'+id" aeButton iconName="backgroundColor"
-              (click)="focus(); bgInput.click()"
-              title="Background Color"
-              [disabled]="htmlMode" [hidden]="isButtonHidden('backgroundColor')">
-      </button>
-    </div>
-    @if (_customClasses) {
+    @if (!isButtonHidden('undo') || !isButtonHidden('redo')) {
+      <div aeToolbarSet>
+        @if (!isButtonHidden('undo')) {
+          <button aeButton title="Undo" iconName="undo" (click)="triggerCommand('undo')">
+          </button>
+        }
+        @if (!isButtonHidden('redo')) {
+          <button aeButton title="Redo" iconName="redo" (click)="triggerCommand('redo')">
+          </button>
+        }
+      </div>
+    }
+    @if (!isButtonHidden('bold') || !isButtonHidden('italic') || !isButtonHidden('underline') || !isButtonHidden('strikeThrough') || !isButtonHidden('subscript') || !isButtonHidden('superscript')) {
+      <div aeToolbarSet>
+        @if (!isButtonHidden('bold')) {
+          <button [id]="'bold-'+id" aeButton title="Bold" iconName="bold" (click)="triggerCommand('bold')"
+                  [disabled]="htmlMode">
+          </button>
+        }
+        @if (!isButtonHidden('italic')) {
+          <button [id]="'italic-'+id" aeButton iconName="italic" title="Italic" (click)="triggerCommand('italic')"
+                  [disabled]="htmlMode">
+          </button>
+        }
+        @if (!isButtonHidden('underline')) {
+          <button [id]="'underline-'+id" aeButton title="Underline" iconName="underline"
+                  (click)="triggerCommand('underline')" [disabled]="htmlMode">
+          </button>
+        }
+        @if (!isButtonHidden('strikeThrough')) {
+          <button [id]="'strikeThrough-'+id" aeButton iconName="strikeThrough" title="Strikethrough"
+                  (click)="triggerCommand('strikeThrough')" [disabled]="htmlMode">
+          </button>
+        }
+        @if (!isButtonHidden('subscript')) {
+          <button [id]="'subscript-'+id" aeButton title="Subscript" iconName="subscript"
+                  (click)="triggerCommand('subscript')" [disabled]="htmlMode">
+          </button>
+        }
+        @if (!isButtonHidden('superscript')) {
+          <button [id]="'superscript-'+id" aeButton iconName="superscript" title="Superscript"
+                  (click)="triggerCommand('superscript')" [disabled]="htmlMode">
+          </button>
+        }
+      </div>
+    }
+    @if (!isButtonHidden('justifyLeft') || !isButtonHidden('justifyCenter') || !isButtonHidden('justifyRight') || !isButtonHidden('justifyFull')) {
+      <div aeToolbarSet>
+        @if (!isButtonHidden('justifyLeft')) {
+          <button [id]="'justifyLeft-'+id" aeButton iconName="justifyLeft" title="Justify Left"
+                  (click)="triggerCommand('justifyLeft')" [disabled]="htmlMode">
+          </button>
+        }
+        @if (!isButtonHidden('justifyCenter')) {
+          <button [id]="'justifyCenter-'+id" aeButton iconName="justifyCenter" title="Justify Center"
+                  (click)="triggerCommand('justifyCenter')" [disabled]="htmlMode">
+          </button>
+        }
+        @if (!isButtonHidden('justifyRight')) {
+          <button [id]="'justifyRight-'+id" aeButton iconName="justifyRight" title="Justify Right"
+                  (click)="triggerCommand('justifyRight')" [disabled]="htmlMode">
+          </button>
+        }
+        @if (!isButtonHidden('justifyFull')) {
+          <button [id]="'justifyFull-'+id" aeButton iconName="justifyFull" title="Justify Full"
+                  (click)="triggerCommand('justifyFull')" [disabled]="htmlMode">
+          </button>
+        }
+      </div>
+    }
+    @if (!isButtonHidden('indent') || !isButtonHidden('outdent')) {
+      <div aeToolbarSet>
+        @if (!isButtonHidden('indent')) {
+          <button [id]="'indent-'+id" aeButton iconName="indent" title="Indent"
+                  (click)="triggerCommand('indent')"
+                  [disabled]="htmlMode">
+          </button>
+        }
+        @if (!isButtonHidden('outdent')) {
+          <button [id]="'outdent-'+id" aeButton iconName="outdent" title="Outdent"
+                  (click)="triggerCommand('outdent')"
+                  [disabled]="htmlMode">
+          </button>
+        }
+      </div>
+    }
+    @if (!isButtonHidden('insertUnorderedList') || !isButtonHidden('insertOrderedList')) {
+      <div aeToolbarSet>
+        @if (!isButtonHidden('insertUnorderedList')) {
+          <button [id]="'insertUnorderedList-'+id" aeButton iconName="unorderedList" title="Unordered List"
+                  (click)="triggerCommand('insertUnorderedList')" [disabled]="htmlMode">
+          </button>
+        }
+        @if (!isButtonHidden('insertOrderedList')) {
+          <button [id]="'insertOrderedList-'+id" aeButton iconName="orderedList" title="Ordered List"
+                  (click)="triggerCommand('insertOrderedList')" [disabled]="htmlMode">
+          </button>
+        }
+      </div>
+    }
+    @if (!isButtonHidden('heading')) {
+      <div aeToolbarSet>
+        <ae-select class="select-heading" [options]="headings"
+                   [(ngModel)]="block"
+                   (change)="triggerCommand(block)"
+                   [disabled]="htmlMode"
+                   tabindex="-1"></ae-select>
+      </div>
+    }
+    @if (!isButtonHidden('fontName')) {
+      <div aeToolbarSet>
+        <ae-select class="select-font" [options]="fonts"
+                   [(ngModel)]="fontName"
+                   (change)="setFontName(fontName)"
+                   [disabled]="htmlMode"
+                   tabindex="-1"></ae-select>
+      </div>
+    }
+    @if (!isButtonHidden('fontSize')) {
+      <div aeToolbarSet>
+        <ae-select class="select-font-size" [options]="fontSizes"
+                   [(ngModel)]="fontSize"
+                   (change)="setFontSize(fontSize)"
+                   [disabled]="htmlMode"
+                   tabindex="-1">
+        </ae-select>
+      </div>
+    }
+    @if (!isButtonHidden('textColor') || !isButtonHidden('backgroundColor')) {
+      <div aeToolbarSet>
+        @if (!isButtonHidden('textColor')) {
+          <input
+            style="display: none"
+            type="color" (change)="insertColor(fgInput.value, 'textColor')"
+            #fgInput>
+          <button [id]="'foregroundColorPicker-'+id" aeButton iconName="textColor"
+                  (click)="focus(); fgInput.click()"
+                  title="Text Color"
+                  [disabled]="htmlMode">
+          </button>
+        }
+        @if (!isButtonHidden('backgroundColor')) {
+          <input
+            style="display: none"
+            type="color" (change)="insertColor(bgInput.value, 'backgroundColor')"
+            #bgInput>
+          <button [id]="'backgroundColorPicker-'+id" aeButton iconName="backgroundColor"
+                  (click)="focus(); bgInput.click()"
+                  title="Background Color"
+                  [disabled]="htmlMode">
+          </button>
+        }
+      </div>
+    }
+    @if (_customClasses && !isButtonHidden('customClasses')) {
       <div aeToolbarSet>
         <ae-select class="select-custom-style" [options]="customClassList"
                    [(ngModel)]="customClassId"
                    (change)="setCustomClass(customClassId)"
                    [disabled]="htmlMode"
-                   [hidden]="isButtonHidden('customClasses')"
                    tabindex="-1"></ae-select>
       </div>
     }
-    <div aeToolbarSet>
-      <button [id]="'link-'+id" aeButton iconName="link" (click)="insertUrl()"
-              title="Insert Link" [disabled]="isLinkButtonDisabled" [hidden]="isButtonHidden('link')">
-      </button>
-      <button [id]="'unlink-'+id" aeButton iconName="unlink" (click)="triggerCommand('unlink')"
-              title="Unlink" [disabled]="htmlMode || !linkSelected" [hidden]="isButtonHidden('unlink')">
-      </button>
-      <input
-        style="display: none"
-        accept="image/*"
-        type="file" (change)="onFileChanged($event)"
-        #fileInput>
-      <button [id]="'insertImage-'+id" aeButton iconName="image" (click)="focus(); fileInput.click()"
-              title="Insert Image"
-              [disabled]="htmlMode" [hidden]="isButtonHidden('insertImage')">
-      </button>
-      <button [id]="'insertVideo-'+id" aeButton iconName="video"
-              (click)="insertVideo()" title="Insert Video" [disabled]="htmlMode"
-              [hidden]="isButtonHidden('insertVideo')">
-      </button>
-      <button [id]="'insertHorizontalRule-'+id" aeButton iconName="horizontalLine" title="Horizontal Line"
-              (click)="triggerCommand('insertHorizontalRule')" [disabled]="htmlMode"
-              [hidden]="isButtonHidden('insertHorizontalRule')">
-      </button>
-    </div>
-    <div aeToolbarSet>
-      <button [id]="'clearFormatting-'+id" aeButton iconName="removeFormat" title="Clear Formatting"
-              class="angular-editor-button"
-              (click)="triggerCommand('removeFormat')" [disabled]="htmlMode" [hidden]="isButtonHidden('removeFormat')">
-      </button>
-    </div>
-    <div aeToolbarSet>
-      <button [id]="'toggleEditorMode-'+id" aeButton iconName="htmlCode" title="HTML Code"
-              (click)="triggerCommand('toggleEditorMode')" [hidden]="isButtonHidden('toggleEditorMode')">
-      </button>
-    </div>
+    @if (!isButtonHidden('link') || !isButtonHidden('unlink') || !isButtonHidden('insertImage') || !isButtonHidden('insertVideo') || !isButtonHidden('insertHorizontalRule')) {
+      <div aeToolbarSet>
+        @if (!isButtonHidden('link')) {
+          <button [id]="'link-'+id" aeButton iconName="link" (click)="insertUrl()"
+                  title="Insert Link" [disabled]="isLinkButtonDisabled">
+          </button>
+        }
+        @if (!isButtonHidden('unlink')) {
+          <button [id]="'unlink-'+id" aeButton iconName="unlink" (click)="triggerCommand('unlink')"
+                  title="Unlink" [disabled]="htmlMode || !linkSelected">
+          </button>
+        }
+        @if (!isButtonHidden('insertImage')) {
+          <input
+            style="display: none"
+            accept="image/*"
+            type="file" (change)="onFileChanged($event)"
+            #fileInput>
+          <button [id]="'insertImage-'+id" aeButton iconName="image" (click)="focus(); fileInput.click()"
+                  title="Insert Image"
+                  [disabled]="htmlMode">
+          </button>
+        }
+        @if (!isButtonHidden('insertVideo')) {
+          <button [id]="'insertVideo-'+id" aeButton iconName="video"
+                  (click)="insertVideo()" title="Insert Video" [disabled]="htmlMode">
+          </button>
+        }
+        @if (!isButtonHidden('insertHorizontalRule')) {
+          <button [id]="'insertHorizontalRule-'+id" aeButton iconName="horizontalLine" title="Horizontal Line"
+                  (click)="triggerCommand('insertHorizontalRule')" [disabled]="htmlMode">
+          </button>
+        }
+      </div>
+    }
+    @if (!isButtonHidden('removeFormat')) {
+      <div aeToolbarSet>
+        <button [id]="'clearFormatting-'+id" aeButton iconName="removeFormat" title="Clear Formatting"
+                class="angular-editor-button"
+                (click)="triggerCommand('removeFormat')" [disabled]="htmlMode">
+        </button>
+      </div>
+    }
+    @if (!isButtonHidden('toggleEditorMode')) {
+      <div aeToolbarSet>
+        <button [id]="'toggleEditorMode-'+id" aeButton iconName="htmlCode" title="HTML Code"
+                (click)="triggerCommand('toggleEditorMode')">
+        </button>
+      </div>
+    }
     <ng-content></ng-content>
   </div>
 }
