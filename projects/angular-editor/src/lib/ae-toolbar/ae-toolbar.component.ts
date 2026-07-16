@@ -153,7 +153,7 @@ export class AeToolbarComponent {
 
   @Output() execute: EventEmitter<string> = new EventEmitter<string>();
 
-  @ViewChild('fileInput', {static: true}) myInputFile!: ElementRef;
+  @ViewChild('fileInput', {static: false}) myInputFile!: ElementRef;
 
   public get isLinkButtonDisabled(): boolean {
     return this.htmlMode || !this.editorService.selectedText;
