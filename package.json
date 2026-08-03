@@ -49,7 +49,7 @@
     "typescript-eslint": "^8.62.0",
     "cpx": "^1.5.0",
     "eslint": "^10.6.0",
-    "jsdom": "^29.1.1",
+    "jsdom": "^30.0.1",
     "ng-packagr": "^22.0.0",
     "typescript": "~6.0.2",
     "vitest": "^4.0.8"
