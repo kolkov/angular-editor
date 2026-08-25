@@ -354,3 +354,14 @@ If you like my work and I save your time you can buy me a :beer: or :pizza: [![D
 [demo]: https://angular-editor-wysiwyg.stackblitz.io/
 [example]: https://stackblitz.com/edit/angular-editor-wysiwyg
 [icons]: https://www.svgrepo.com/collection/ligature-symbols-icons/
+
+
+## Star History
+
+<a href="https://starhistory.io">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.starhistory.io/png?repos=kolkov/angular-editor&style=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.starhistory.io/png?repos=kolkov/angular-editor&style=professional" />
+   <img alt="Star History Chart" src="https://api.starhistory.io/png?repos=kolkov/angular-editor" width="800" />
+ </picture>
+</a>
