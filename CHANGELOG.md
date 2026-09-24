@@ -1,3 +1,18 @@
+<a name="3.1.1"></a>
+## [3.1.1](https://github.com/kolkov/angular-editor/compare/v3.1.0...v3.1.1) (2026-09-24)
+
+### Bug Fixes
+* **toolbar:** use `@if` instead of `[hidden]` to remove hidden buttons from DOM ([#477](https://github.com/kolkov/angular-editor/issues/477)) ([#600](https://github.com/kolkov/angular-editor/pull/600))
+  - Hidden toolbar buttons are now completely removed from the DOM instead of being hidden with CSS
+  - Fixes duplicate ID conflicts when custom buttons reuse the same command names (e.g. bold, italic)
+  - Improves performance by not rendering unnecessary DOM elements
+  - Thanks to @moamenelbarky for the contribution
+
+### Dependencies
+* **deps:** bump zone.js from 0.15.1 to 0.16.2 ([#604](https://github.com/kolkov/angular-editor/pull/604))
+
+---
+
 <a name="3.1.0"></a>
 ## [3.1.0](https://github.com/kolkov/angular-editor/compare/v3.0.5...v3.1.0) (2026-07-16)
 
