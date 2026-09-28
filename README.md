@@ -12,7 +12,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/AndreyKolkov)
 
-A simple native WYSIWYG/Rich Text editor for Angular 22+
+A simple native WYSIWYG/Rich Text editor for Angular 20+
 
 ![Nov-27-2019 17-26-29](https://user-images.githubusercontent.com/216412/69763434-259cd800-113b-11ea-918f-0565ebce0e48.gif)
 
@@ -30,9 +30,9 @@ Install via [npm][npm] package manager
 npm install @kolkov/angular-editor --save
 ```
 ### Versions
-3.1.0 and above - for Angular v22+ (CSS variables, Vitest testing)
+3.1.x - for Angular v20, v21, v22 (CSS variables, SVG icons, Vitest testing)
 
-3.0.0 and above - for Angular v20+ (CSS variables, modern Angular 20)
+3.0.x - for Angular v20, v21 (CSS variables, modern Angular)
 
 2.0.0 and above - for Angular v13-19
 
@@ -42,10 +42,10 @@ npm install @kolkov/angular-editor --save
 
 0.15.x - for Angular v6.x.x
 
-**Note:** Version 3.1.0 requires:
-- Angular 22.0.0 or higher
+**Note:** Version 3.1.x requires:
+- Angular 20.0.0 or higher (supports 20, 21, and 22)
 - RxJS 7.8.0 or higher
-- TypeScript 6.0 or higher
+- TypeScript 5.6+ (Angular 20/21) or 6.0+ (Angular 22)
 
 Attention! `alpha` and `beta` versions may contain breaking changes.
 
