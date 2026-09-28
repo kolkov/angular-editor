@@ -181,8 +181,14 @@ export class AeToolbarComponent {
       return;
     }
     this.buttons.forEach(e => {
+      if (this.isButtonHidden(e)) {
+        return;
+      }
       const result = this.doc.queryCommandState(e);
       const elementById = this.doc.getElementById(e + '-' + this.id);
+      if (!elementById) {
+        return;
+      }
       if (result) {
         this.r.addClass(elementById, 'active');
       } else {

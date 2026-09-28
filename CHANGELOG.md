@@ -1,3 +1,14 @@
+<a name="3.1.2"></a>
+## [3.1.2](https://github.com/kolkov/angular-editor/compare/v3.1.1...v3.1.2) (2026-09-28)
+
+### Bug Fixes
+* **toolbar:** fix TypeError when `triggerButtons()` attempts to toggle active class on hidden buttons removed from DOM by `@if` — skip hidden buttons via `isButtonHidden()` guard and add null safety check for `getElementById()`
+
+### Docs
+* **readme:** fix Angular version compatibility — clarify that v3.1.x supports Angular 20, 21, and 22 (not just 22)
+
+---
+
 <a name="3.1.1"></a>
 ## [3.1.1](https://github.com/kolkov/angular-editor/compare/v3.1.0...v3.1.1) (2026-09-24)
 

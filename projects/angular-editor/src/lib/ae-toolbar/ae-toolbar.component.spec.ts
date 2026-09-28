@@ -337,6 +337,35 @@ describe('AeToolbarComponent', () => {
       expect(queryMock).toHaveBeenCalled();
       expect(queryMock.mock.calls.length).toBeGreaterThan(0);
     });
+
+    it('should skip hidden buttons and not throw when element is not in DOM', () => {
+      component.showToolbar = true;
+      component.hiddenButtons = [['bold', 'italic']];
+      const queryMock = vi.fn().mockReturnValue(false);
+      Object.defineProperty(document, 'queryCommandState', {
+        value: queryMock,
+        writable: true,
+        configurable: true,
+      });
+
+      expect(() => component.triggerButtons()).not.toThrow();
+      const calledCommands = queryMock.mock.calls.map((c: string[]) => c[0]);
+      expect(calledCommands).not.toContain('bold');
+      expect(calledCommands).not.toContain('italic');
+    });
+
+    it('should not throw when getElementById returns null for a visible button', () => {
+      component.showToolbar = true;
+      component.id = 'nonexistent-editor';
+      const queryMock = vi.fn().mockReturnValue(true);
+      Object.defineProperty(document, 'queryCommandState', {
+        value: queryMock,
+        writable: true,
+        configurable: true,
+      });
+
+      expect(() => component.triggerButtons()).not.toThrow();
+    });
   });
 
   // ==========================================================================
