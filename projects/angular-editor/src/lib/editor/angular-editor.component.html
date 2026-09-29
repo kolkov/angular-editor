@@ -22,7 +22,7 @@
   >
     <ng-container
       [ngTemplateOutlet]="customButtonsTemplateRef"
-      [ngTemplateOutletContext]="{ executeCommandFn: this.executeCommandFn}"
+      [ngTemplateOutletContext]="{ executeCommandFn: this.executeCommandFn, formattingState: this.editorService.formattingState }"
     >
     </ng-container>
   </angular-editor-toolbar>

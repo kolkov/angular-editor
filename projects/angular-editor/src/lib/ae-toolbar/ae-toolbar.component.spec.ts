@@ -64,16 +64,10 @@ describe('AeToolbarComponent', () => {
       expect(component.htmlMode).toBe(false);
     });
 
-    it('should have default block as "default"', () => {
-      expect(component.block).toBe('default');
-    });
-
-    it('should have default fontName', () => {
-      expect(component.fontName).toBe('Times New Roman');
-    });
-
-    it('should have default fontSize', () => {
-      expect(component.fontSize).toBe('3');
+    it('should expose editorService with default formatting state', () => {
+      expect(editorService.currentBlock()).toBe('default');
+      expect(editorService.currentFontSize()).toBe('3');
+      expect(editorService.isBold()).toBe(false);
     });
   });
 
@@ -170,28 +164,28 @@ describe('AeToolbarComponent', () => {
   // ==========================================================================
 
   describe('defaultFontName setter', () => {
-    it('should set fontName when value is provided', () => {
+    it('should update service formatting state when value is provided', () => {
       component.defaultFontName = 'Calibri';
-      expect(component.fontName).toBe('Calibri');
+      expect(editorService.currentFontName()).toBe('Calibri');
     });
 
-    it('should not change fontName when value is empty', () => {
-      const original = component.fontName;
+    it('should not change state when value is empty', () => {
+      editorService.setInitialState({fontName: 'Arial'});
       component.defaultFontName = '';
-      expect(component.fontName).toBe(original);
+      expect(editorService.currentFontName()).toBe('Arial');
     });
   });
 
   describe('defaultFontSize setter', () => {
-    it('should set fontSize when value is provided', () => {
+    it('should update service formatting state when value is provided', () => {
       component.defaultFontSize = '5';
-      expect(component.fontSize).toBe('5');
+      expect(editorService.currentFontSize()).toBe('5');
     });
 
-    it('should not change fontSize when value is empty', () => {
-      const original = component.fontSize;
+    it('should not change state when value is empty', () => {
+      editorService.setInitialState({fontSize: '4'});
       component.defaultFontSize = '';
-      expect(component.fontSize).toBe(original);
+      expect(editorService.currentFontSize()).toBe('4');
     });
   });
 
@@ -219,26 +213,14 @@ describe('AeToolbarComponent', () => {
 
   describe('setEditorMode', () => {
     it('should set htmlMode to true when m is true', () => {
-      const btn = document.createElement('button');
-      btn.id = 'toggleEditorMode-test-toolbar';
-      document.body.appendChild(btn);
-
       component.setEditorMode(true);
       expect(component.htmlMode).toBe(true);
-
-      document.body.removeChild(btn);
     });
 
     it('should set htmlMode to false when m is false', () => {
-      const btn = document.createElement('button');
-      btn.id = 'toggleEditorMode-test-toolbar';
-      document.body.appendChild(btn);
-
       component.setEditorMode(true);
       component.setEditorMode(false);
       expect(component.htmlMode).toBe(false);
-
-      document.body.removeChild(btn);
     });
   });
 
@@ -306,117 +288,125 @@ describe('AeToolbarComponent', () => {
   });
 
   // ==========================================================================
-  // triggerButtons
+  // Reactive formatting state (via AngularEditorService signals)
   // ==========================================================================
 
-  describe('triggerButtons', () => {
-    it('should not query command state when showToolbar is false', () => {
-      component.showToolbar = false;
-      const queryMock = vi.fn().mockReturnValue(false);
-      Object.defineProperty(document, 'queryCommandState', {
-        value: queryMock,
-        writable: true,
-        configurable: true,
-      });
-
-      component.triggerButtons();
-      expect(queryMock).not.toHaveBeenCalled();
+  describe('reactive formatting state', () => {
+    it('should reflect bold state from service signal', () => {
+      expect(editorService.isBold()).toBe(false);
+      editorService.setInitialState({bold: true});
+      expect(editorService.isBold()).toBe(true);
     });
 
-    it('should query command state for each button when showToolbar is true', () => {
-      component.showToolbar = true;
-      const queryMock = vi.fn().mockReturnValue(false);
-      Object.defineProperty(document, 'queryCommandState', {
-        value: queryMock,
-        writable: true,
-        configurable: true,
-      });
-
-      component.triggerButtons();
-      // There are 15 buttons in the buttons array
-      expect(queryMock).toHaveBeenCalled();
-      expect(queryMock.mock.calls.length).toBeGreaterThan(0);
+    it('should reflect italic state from service signal', () => {
+      editorService.setInitialState({italic: true});
+      expect(editorService.isItalic()).toBe(true);
     });
 
-    it('should skip hidden buttons and not throw when element is not in DOM', () => {
-      component.showToolbar = true;
-      component.hiddenButtons = [['bold', 'italic']];
-      const queryMock = vi.fn().mockReturnValue(false);
-      Object.defineProperty(document, 'queryCommandState', {
-        value: queryMock,
-        writable: true,
-        configurable: true,
+    it('should reflect all toggle states', () => {
+      editorService.setInitialState({
+        bold: true, italic: true, underline: true,
+        strikeThrough: true, subscript: true, superscript: true,
       });
-
-      expect(() => component.triggerButtons()).not.toThrow();
-      const calledCommands = queryMock.mock.calls.map((c: string[]) => c[0]);
-      expect(calledCommands).not.toContain('bold');
-      expect(calledCommands).not.toContain('italic');
+      expect(editorService.isBold()).toBe(true);
+      expect(editorService.isItalic()).toBe(true);
+      expect(editorService.isUnderline()).toBe(true);
+      expect(editorService.isStrikeThrough()).toBe(true);
+      expect(editorService.isSubscript()).toBe(true);
+      expect(editorService.isSuperscript()).toBe(true);
     });
 
-    it('should not throw when getElementById returns null for a visible button', () => {
-      component.showToolbar = true;
-      component.id = 'nonexistent-editor';
-      const queryMock = vi.fn().mockReturnValue(true);
-      Object.defineProperty(document, 'queryCommandState', {
-        value: queryMock,
-        writable: true,
-        configurable: true,
-      });
+    it('should reflect alignment states', () => {
+      editorService.setInitialState({justifyCenter: true});
+      expect(editorService.isJustifyCenter()).toBe(true);
+      expect(editorService.isJustifyLeft()).toBe(false);
+    });
 
-      expect(() => component.triggerButtons()).not.toThrow();
+    it('should reflect list states', () => {
+      editorService.setInitialState({insertUnorderedList: true});
+      expect(editorService.isUnorderedList()).toBe(true);
+      expect(editorService.isOrderedList()).toBe(false);
+    });
+
+    it('should reflect link selection from service signal', () => {
+      expect(editorService.isLinkSelected()).toBe(false);
+      editorService.setInitialState({linkSelected: true});
+      expect(editorService.isLinkSelected()).toBe(true);
+    });
+
+    it('should reflect block type from service signal', () => {
+      expect(editorService.currentBlock()).toBe('default');
+      editorService.setInitialState({block: 'h1'});
+      expect(editorService.currentBlock()).toBe('h1');
+    });
+
+    it('should reflect font name from service signal', () => {
+      editorService.setInitialState({fontName: 'Calibri'});
+      expect(editorService.currentFontName()).toBe('Calibri');
+    });
+
+    it('should reflect font size from service signal', () => {
+      editorService.setInitialState({fontSize: '5'});
+      expect(editorService.currentFontSize()).toBe('5');
+    });
+
+    it('should reflect custom class id from service signal', () => {
+      editorService.setInitialState({customClassId: '2'});
+      expect(editorService.currentCustomClassId()).toBe('2');
     });
   });
 
   // ==========================================================================
-  // triggerBlocks
+  // detectFormattingState (service method)
   // ==========================================================================
 
-  describe('triggerBlocks', () => {
-    it('should not process when showToolbar is false', () => {
-      component.showToolbar = false;
-      component.triggerBlocks([]);
-      // block stays default since showToolbar is false
-      expect(component.block).toBe('default');
-    });
-
-    it('should detect link selection when A node is present', () => {
-      component.showToolbar = true;
-
-      const aElement = document.createElement('a');
-      aElement.id = 'link-test-toolbar';
-      document.body.appendChild(aElement);
-
-      // Create a mock node with nodeName A
-      const mockNode = { nodeName: 'A' } as Node;
-      component.triggerBlocks([mockNode]);
-      expect(component.linkSelected).toBe(true);
-
-      document.body.removeChild(aElement);
-    });
-
-    it('should set block to h1 when H1 node is present', () => {
-      component.showToolbar = true;
-
-      const mockNode = { nodeName: 'H1' } as Node;
-      component.triggerBlocks([mockNode]);
-      expect(component.block).toBe('h1');
+  describe('detectFormattingState', () => {
+    it('should detect block type from ancestor nodes', () => {
+      const mockNode = {nodeName: 'H1'} as Node;
+      editorService.detectFormattingState([mockNode]);
+      expect(editorService.currentBlock()).toBe('h1');
     });
 
     it('should reset block to default when no heading found', () => {
-      component.showToolbar = true;
-      component.block = 'h2';
-
-      component.triggerBlocks([]);
-      expect(component.block).toBe('default');
+      editorService.setInitialState({block: 'h2'});
+      editorService.detectFormattingState([]);
+      expect(editorService.currentBlock()).toBe('default');
     });
 
-    it('should set linkSelected to false when no A node present', () => {
-      component.showToolbar = true;
-      component.linkSelected = true;
+    it('should detect link selection from A node', () => {
+      const mockNode = {nodeName: 'A'} as Node;
+      editorService.detectFormattingState([mockNode]);
+      expect(editorService.isLinkSelected()).toBe(true);
+      expect(editorService.isLink()).toBe(true);
+    });
 
-      component.triggerBlocks([]);
-      expect(component.linkSelected).toBe(false);
+    it('should clear link selection when no A node', () => {
+      editorService.setInitialState({linkSelected: true, link: true});
+      editorService.detectFormattingState([]);
+      expect(editorService.isLinkSelected()).toBe(false);
+    });
+
+    it('should detect indent from BLOCKQUOTE ancestor', () => {
+      const mockNode = {nodeName: 'BLOCKQUOTE'} as Node;
+      editorService.detectFormattingState([mockNode]);
+      expect(editorService.isIndent()).toBe(true);
+    });
+
+    it('should detect custom class from ancestor nodes', () => {
+      const mockElement = document.createElement('div');
+      mockElement.className = 'highlight';
+      const customClasses = [{name: 'Highlight', class: 'highlight'}];
+
+      editorService.detectFormattingState([mockElement], customClasses);
+      expect(editorService.currentCustomClassId()).toBe('0');
+    });
+
+    it('should reset custom class when no matching ancestor', () => {
+      editorService.setInitialState({customClassId: '1'});
+      const customClasses = [{name: 'Highlight', class: 'highlight'}];
+
+      editorService.detectFormattingState([], customClasses);
+      expect(editorService.currentCustomClassId()).toBe('-1');
     });
   });
 

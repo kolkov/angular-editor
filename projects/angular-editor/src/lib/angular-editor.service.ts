@@ -1,8 +1,14 @@
-import {inject, Injectable, DOCUMENT} from '@angular/core';
+import {computed, inject, Injectable, signal, DOCUMENT} from '@angular/core';
 import {HttpClient, HttpEvent} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
-import {CustomClass} from './config';
+import {
+  CustomClass,
+  EditorFormattingState,
+  DEFAULT_FORMATTING_STATE,
+  TOGGLE_COMMANDS,
+  BLOCK_TAGS,
+} from './config';
 
 export interface UploadResponse {
   imageUrl: string;
@@ -15,6 +21,31 @@ export class AngularEditorService {
   selectedText: string = '';
   uploadUrl: string = '';
   uploadWithCredentials: boolean = false;
+
+  private readonly _formattingState = signal<EditorFormattingState>(DEFAULT_FORMATTING_STATE);
+  readonly formattingState = this._formattingState.asReadonly();
+
+  readonly isBold = computed(() => this.formattingState().bold);
+  readonly isItalic = computed(() => this.formattingState().italic);
+  readonly isUnderline = computed(() => this.formattingState().underline);
+  readonly isStrikeThrough = computed(() => this.formattingState().strikeThrough);
+  readonly isSubscript = computed(() => this.formattingState().subscript);
+  readonly isSuperscript = computed(() => this.formattingState().superscript);
+  readonly isJustifyLeft = computed(() => this.formattingState().justifyLeft);
+  readonly isJustifyCenter = computed(() => this.formattingState().justifyCenter);
+  readonly isJustifyRight = computed(() => this.formattingState().justifyRight);
+  readonly isJustifyFull = computed(() => this.formattingState().justifyFull);
+  readonly isUnorderedList = computed(() => this.formattingState().insertUnorderedList);
+  readonly isOrderedList = computed(() => this.formattingState().insertOrderedList);
+  readonly isIndent = computed(() => this.formattingState().indent);
+  readonly isLink = computed(() => this.formattingState().link);
+  readonly currentBlock = computed(() => this.formattingState().block);
+  readonly currentFontName = computed(() => this.formattingState().fontName);
+  readonly currentFontSize = computed(() => this.formattingState().fontSize);
+  readonly currentForeColor = computed(() => this.formattingState().foreColor);
+  readonly currentBackColor = computed(() => this.formattingState().backColor);
+  readonly isLinkSelected = computed(() => this.formattingState().linkSelected);
+  readonly currentCustomClassId = computed(() => this.formattingState().customClassId);
 
   private http = inject(HttpClient);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -173,6 +204,53 @@ export class AngularEditorService {
 
   setDefaultParagraphSeparator(separator: string) {
     this.doc.execCommand('defaultParagraphSeparator', false, separator);
+  }
+
+  setInitialState(overrides: Partial<EditorFormattingState>): void {
+    this._formattingState.update(state => ({...state, ...overrides}));
+  }
+
+  detectFormattingState(ancestorNodes: Node[], customClasses?: CustomClass[]): void {
+    const state: EditorFormattingState = { ...DEFAULT_FORMATTING_STATE };
+
+    for (const cmd of TOGGLE_COMMANDS) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (state as any)[cmd] = this.doc.queryCommandState(cmd);
+    }
+
+    // Indent: check queryCommandState OR BLOCKQUOTE ancestor (unified, no double-toggle)
+    state.indent = this.doc.queryCommandState('indent') ||
+      ancestorNodes.some(n => n.nodeName === 'BLOCKQUOTE');
+
+    state.linkSelected = ancestorNodes.some(n => n.nodeName === 'A');
+    state.link = state.linkSelected;
+
+    let blockFound = false;
+    for (const node of ancestorNodes) {
+      if (!blockFound && BLOCK_TAGS.includes(node.nodeName)) {
+        state.block = node.nodeName.toLowerCase();
+        blockFound = true;
+      }
+    }
+
+    if (customClasses) {
+      let classFound = false;
+      for (let i = 0; i < customClasses.length; i++) {
+        const cc = customClasses[i];
+        const match = ancestorNodes.find(n => n instanceof Element && n.className === cc.class);
+        if (match && !classFound) {
+          state.customClassId = i.toString();
+          classFound = true;
+        }
+      }
+    }
+
+    state.foreColor = this.doc.queryCommandValue('ForeColor');
+    state.fontSize = this.doc.queryCommandValue('FontSize') || state.fontSize;
+    state.fontName = this.doc.queryCommandValue('FontName').replace(/"/g, '');
+    state.backColor = this.doc.queryCommandValue('backColor');
+
+    this._formattingState.set(state);
   }
 
   /**

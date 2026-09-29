@@ -13,7 +13,7 @@ const ANGULAR_EDITOR_LOGO_URL = 'https://raw.githubusercontent.com/kolkov/angula
 export class AppComponent implements OnInit {
   title = 'app';
 
-  form: FormGroup;
+  form!: FormGroup;
 
   htmlContent1 = '';
   htmlContent2 = '';
@@ -92,15 +92,18 @@ export class AppComponent implements OnInit {
     console.log(this.htmlContent1);
   }
 
-  onChange(event) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onChange(event: any) {
     console.log('changed');
   }
 
-  onBlur(event) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onBlur(event: any) {
     console.log('blur ' + event);
   }
 
-  onChange2(event) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onChange2(event: any) {
     console.warn(this.form.value);
   }
 }

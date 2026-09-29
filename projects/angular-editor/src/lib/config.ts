@@ -36,6 +36,63 @@ export interface Font {
   class: string;
 }
 
+export interface EditorFormattingState {
+  bold: boolean;
+  italic: boolean;
+  underline: boolean;
+  strikeThrough: boolean;
+  subscript: boolean;
+  superscript: boolean;
+  justifyLeft: boolean;
+  justifyCenter: boolean;
+  justifyRight: boolean;
+  justifyFull: boolean;
+  insertUnorderedList: boolean;
+  insertOrderedList: boolean;
+  indent: boolean;
+  link: boolean;
+  block: string;
+  fontName: string;
+  fontSize: string;
+  foreColor: string;
+  backColor: string;
+  linkSelected: boolean;
+  customClassId: string;
+}
+
+export const DEFAULT_FORMATTING_STATE: EditorFormattingState = {
+  bold: false,
+  italic: false,
+  underline: false,
+  strikeThrough: false,
+  subscript: false,
+  superscript: false,
+  justifyLeft: false,
+  justifyCenter: false,
+  justifyRight: false,
+  justifyFull: false,
+  insertUnorderedList: false,
+  insertOrderedList: false,
+  indent: false,
+  link: false,
+  block: 'default',
+  fontName: '',
+  fontSize: '3',
+  foreColor: '',
+  backColor: '',
+  linkSelected: false,
+  customClassId: '-1',
+};
+
+export const TOGGLE_COMMANDS = [
+  'bold', 'italic', 'underline', 'strikeThrough',
+  'subscript', 'superscript',
+  'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull',
+  'insertUnorderedList', 'insertOrderedList',
+] as const;
+
+export const BLOCK_TAGS = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P', 'PRE', 'DIV'];
+
 export interface AngularEditorConfig {
   editable?: boolean;
   spellcheck?: boolean;
