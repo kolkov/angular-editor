@@ -1,3 +1,18 @@
+<a name="3.2.0"></a>
+## [3.2.0](https://github.com/kolkov/angular-editor/compare/v3.1.2...v3.2.0) (2026-09-29)
+
+### Refactoring
+* **toolbar:** replace imperative DOM manipulation with reactive Signal-based state
+  - Add `EditorFormattingState` interface and `formattingState` signal to `AngularEditorService`
+  - All toolbar buttons now use `[class.active]` Angular binding instead of `getElementById` + `classList`
+  - Remove `triggerButtons()` and `triggerBlocks()` methods (replaced by `detectFormattingState()`)
+  - Fix null crash when hidden buttons are not in DOM
+  - Fix double-toggle on indent button
+  - Custom buttons now receive `formattingState` signal via template context
+  - New public API: `EditorFormattingState`, `DEFAULT_FORMATTING_STATE`, `TOGGLE_COMMANDS`, `BLOCK_TAGS`
+
+---
+
 <a name="3.1.2"></a>
 ## [3.1.2](https://github.com/kolkov/angular-editor/compare/v3.1.1...v3.1.2) (2026-09-28)
 

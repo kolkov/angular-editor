@@ -16,32 +16,32 @@
       <div aeToolbarSet>
         @if (!isButtonHidden('bold')) {
           <button [id]="'bold-'+id" aeButton title="Bold" iconName="bold" (click)="triggerCommand('bold')"
-                  [disabled]="htmlMode">
+                  [class.active]="editorService.isBold()" [disabled]="htmlMode">
           </button>
         }
         @if (!isButtonHidden('italic')) {
           <button [id]="'italic-'+id" aeButton iconName="italic" title="Italic" (click)="triggerCommand('italic')"
-                  [disabled]="htmlMode">
+                  [class.active]="editorService.isItalic()" [disabled]="htmlMode">
           </button>
         }
         @if (!isButtonHidden('underline')) {
           <button [id]="'underline-'+id" aeButton title="Underline" iconName="underline"
-                  (click)="triggerCommand('underline')" [disabled]="htmlMode">
+                  (click)="triggerCommand('underline')" [class.active]="editorService.isUnderline()" [disabled]="htmlMode">
           </button>
         }
         @if (!isButtonHidden('strikeThrough')) {
           <button [id]="'strikeThrough-'+id" aeButton iconName="strikeThrough" title="Strikethrough"
-                  (click)="triggerCommand('strikeThrough')" [disabled]="htmlMode">
+                  (click)="triggerCommand('strikeThrough')" [class.active]="editorService.isStrikeThrough()" [disabled]="htmlMode">
           </button>
         }
         @if (!isButtonHidden('subscript')) {
           <button [id]="'subscript-'+id" aeButton title="Subscript" iconName="subscript"
-                  (click)="triggerCommand('subscript')" [disabled]="htmlMode">
+                  (click)="triggerCommand('subscript')" [class.active]="editorService.isSubscript()" [disabled]="htmlMode">
           </button>
         }
         @if (!isButtonHidden('superscript')) {
           <button [id]="'superscript-'+id" aeButton iconName="superscript" title="Superscript"
-                  (click)="triggerCommand('superscript')" [disabled]="htmlMode">
+                  (click)="triggerCommand('superscript')" [class.active]="editorService.isSuperscript()" [disabled]="htmlMode">
           </button>
         }
       </div>
@@ -50,22 +50,22 @@
       <div aeToolbarSet>
         @if (!isButtonHidden('justifyLeft')) {
           <button [id]="'justifyLeft-'+id" aeButton iconName="justifyLeft" title="Justify Left"
-                  (click)="triggerCommand('justifyLeft')" [disabled]="htmlMode">
+                  (click)="triggerCommand('justifyLeft')" [class.active]="editorService.isJustifyLeft()" [disabled]="htmlMode">
           </button>
         }
         @if (!isButtonHidden('justifyCenter')) {
           <button [id]="'justifyCenter-'+id" aeButton iconName="justifyCenter" title="Justify Center"
-                  (click)="triggerCommand('justifyCenter')" [disabled]="htmlMode">
+                  (click)="triggerCommand('justifyCenter')" [class.active]="editorService.isJustifyCenter()" [disabled]="htmlMode">
           </button>
         }
         @if (!isButtonHidden('justifyRight')) {
           <button [id]="'justifyRight-'+id" aeButton iconName="justifyRight" title="Justify Right"
-                  (click)="triggerCommand('justifyRight')" [disabled]="htmlMode">
+                  (click)="triggerCommand('justifyRight')" [class.active]="editorService.isJustifyRight()" [disabled]="htmlMode">
           </button>
         }
         @if (!isButtonHidden('justifyFull')) {
           <button [id]="'justifyFull-'+id" aeButton iconName="justifyFull" title="Justify Full"
-                  (click)="triggerCommand('justifyFull')" [disabled]="htmlMode">
+                  (click)="triggerCommand('justifyFull')" [class.active]="editorService.isJustifyFull()" [disabled]="htmlMode">
           </button>
         }
       </div>
@@ -75,7 +75,7 @@
         @if (!isButtonHidden('indent')) {
           <button [id]="'indent-'+id" aeButton iconName="indent" title="Indent"
                   (click)="triggerCommand('indent')"
-                  [disabled]="htmlMode">
+                  [class.active]="editorService.isIndent()" [disabled]="htmlMode">
           </button>
         }
         @if (!isButtonHidden('outdent')) {
@@ -90,12 +90,12 @@
       <div aeToolbarSet>
         @if (!isButtonHidden('insertUnorderedList')) {
           <button [id]="'insertUnorderedList-'+id" aeButton iconName="unorderedList" title="Unordered List"
-                  (click)="triggerCommand('insertUnorderedList')" [disabled]="htmlMode">
+                  (click)="triggerCommand('insertUnorderedList')" [class.active]="editorService.isUnorderedList()" [disabled]="htmlMode">
           </button>
         }
         @if (!isButtonHidden('insertOrderedList')) {
           <button [id]="'insertOrderedList-'+id" aeButton iconName="orderedList" title="Ordered List"
-                  (click)="triggerCommand('insertOrderedList')" [disabled]="htmlMode">
+                  (click)="triggerCommand('insertOrderedList')" [class.active]="editorService.isOrderedList()" [disabled]="htmlMode">
           </button>
         }
       </div>
@@ -103,8 +103,8 @@
     @if (!isButtonHidden('heading')) {
       <div aeToolbarSet>
         <ae-select class="select-heading" [options]="headings"
-                   [(ngModel)]="block"
-                   (change)="triggerCommand(block)"
+                   [ngModel]="editorService.currentBlock()"
+                   (ngModelChange)="triggerCommand($event)"
                    [disabled]="htmlMode"
                    tabindex="-1"></ae-select>
       </div>
@@ -112,8 +112,8 @@
     @if (!isButtonHidden('fontName')) {
       <div aeToolbarSet>
         <ae-select class="select-font" [options]="fonts"
-                   [(ngModel)]="fontName"
-                   (change)="setFontName(fontName)"
+                   [ngModel]="editorService.currentFontName()"
+                   (ngModelChange)="setFontName($event)"
                    [disabled]="htmlMode"
                    tabindex="-1"></ae-select>
       </div>
@@ -121,8 +121,8 @@
     @if (!isButtonHidden('fontSize')) {
       <div aeToolbarSet>
         <ae-select class="select-font-size" [options]="fontSizes"
-                   [(ngModel)]="fontSize"
-                   (change)="setFontSize(fontSize)"
+                   [ngModel]="editorService.currentFontSize()"
+                   (ngModelChange)="setFontSize($event)"
                    [disabled]="htmlMode"
                    tabindex="-1">
         </ae-select>
@@ -157,8 +157,8 @@
     @if (_customClasses && !isButtonHidden('customClasses')) {
       <div aeToolbarSet>
         <ae-select class="select-custom-style" [options]="customClassList"
-                   [(ngModel)]="customClassId"
-                   (change)="setCustomClass(customClassId)"
+                   [ngModel]="editorService.currentCustomClassId()"
+                   (ngModelChange)="setCustomClass($event)"
                    [disabled]="htmlMode"
                    tabindex="-1"></ae-select>
       </div>
@@ -167,12 +167,12 @@
       <div aeToolbarSet>
         @if (!isButtonHidden('link')) {
           <button [id]="'link-'+id" aeButton iconName="link" (click)="insertUrl()"
-                  title="Insert Link" [disabled]="isLinkButtonDisabled">
+                  title="Insert Link" [class.active]="editorService.isLink()" [disabled]="isLinkButtonDisabled">
           </button>
         }
         @if (!isButtonHidden('unlink')) {
           <button [id]="'unlink-'+id" aeButton iconName="unlink" (click)="triggerCommand('unlink')"
-                  title="Unlink" [disabled]="htmlMode || !linkSelected">
+                  title="Unlink" [disabled]="htmlMode || !editorService.isLinkSelected()">
           </button>
         }
         @if (!isButtonHidden('insertImage')) {
@@ -209,6 +209,7 @@
     @if (!isButtonHidden('toggleEditorMode')) {
       <div aeToolbarSet>
         <button [id]="'toggleEditorMode-'+id" aeButton iconName="htmlCode" title="HTML Code"
+                [class.active]="htmlMode"
                 (click)="triggerCommand('toggleEditorMode')">
         </button>
       </div>

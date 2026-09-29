@@ -5,9 +5,7 @@ import {
   inject,
   Input,
   Output,
-  Renderer2,
   ViewChild,
-  DOCUMENT
 } from '@angular/core';
 import {AngularEditorService, UploadResponse} from '../angular-editor.service';
 import {HttpEvent, HttpResponse} from '@angular/common/http';
@@ -25,100 +23,32 @@ import {Observable} from 'rxjs';
 
 export class AeToolbarComponent {
   htmlMode = false;
-  linkSelected = false;
-  block = 'default';
-  fontName = 'Times New Roman';
-  fontSize = '3';
-  foreColour: string = '';
-  backColor: string = '';
 
   headings: SelectOption[] = [
-    {
-      label: 'Heading 1',
-      value: 'h1',
-    },
-    {
-      label: 'Heading 2',
-      value: 'h2',
-    },
-    {
-      label: 'Heading 3',
-      value: 'h3',
-    },
-    {
-      label: 'Heading 4',
-      value: 'h4',
-    },
-    {
-      label: 'Heading 5',
-      value: 'h5',
-    },
-    {
-      label: 'Heading 6',
-      value: 'h6',
-    },
-    {
-      label: 'Paragraph',
-      value: 'p',
-    },
-    {
-      label: 'Predefined',
-      value: 'pre'
-    },
-    {
-      label: 'Standard',
-      value: 'div'
-    },
-    {
-      label: 'default',
-      value: 'default'
-    }
+    {label: 'Heading 1', value: 'h1'},
+    {label: 'Heading 2', value: 'h2'},
+    {label: 'Heading 3', value: 'h3'},
+    {label: 'Heading 4', value: 'h4'},
+    {label: 'Heading 5', value: 'h5'},
+    {label: 'Heading 6', value: 'h6'},
+    {label: 'Paragraph', value: 'p'},
+    {label: 'Predefined', value: 'pre'},
+    {label: 'Standard', value: 'div'},
+    {label: 'default', value: 'default'}
   ];
 
   fontSizes: SelectOption[] = [
-    {
-      label: '1',
-      value: '1',
-    },
-    {
-      label: '2',
-      value: '2',
-    },
-    {
-      label: '3',
-      value: '3',
-    },
-    {
-      label: '4',
-      value: '4',
-    },
-    {
-      label: '5',
-      value: '5',
-    },
-    {
-      label: '6',
-      value: '6',
-    },
-    {
-      label: '7',
-      value: '7',
-    }
+    {label: '1', value: '1'},
+    {label: '2', value: '2'},
+    {label: '3', value: '3'},
+    {label: '4', value: '4'},
+    {label: '5', value: '5'},
+    {label: '6', value: '6'},
+    {label: '7', value: '7'}
   ];
 
-  customClassId = '-1';
   _customClasses: CustomClass[] = [];
   customClassList: SelectOption[] = [{label: '', value: ''}];
-
-  tagMap: Record<string, string> = {
-    BLOCKQUOTE: 'indent',
-    A: 'link'
-  };
-
-  select = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P', 'PRE', 'DIV'];
-
-  buttons = ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'justifyLeft', 'justifyCenter',
-    'justifyRight', 'justifyFull', 'indent', 'outdent', 'insertUnorderedList', 'insertOrderedList', 'link'];
 
   @Input() id: string = '';
   @Input() uploadUrl: string = '';
@@ -138,14 +68,14 @@ export class AeToolbarComponent {
   @Input()
   set defaultFontName(value: string) {
     if (value) {
-      this.fontName = value;
+      this.editorService.setInitialState({fontName: value});
     }
   }
 
   @Input()
   set defaultFontSize(value: string) {
     if (value) {
-      this.fontSize = value;
+      this.editorService.setInitialState({fontSize: value});
     }
   }
 
@@ -159,110 +89,21 @@ export class AeToolbarComponent {
     return this.htmlMode || !this.editorService.selectedText;
   }
 
-  private r = inject(Renderer2);
-  private editorService = inject(AngularEditorService);
-  private er = inject(ElementRef);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private doc: any = inject(DOCUMENT);
+  protected editorService = inject(AngularEditorService);
 
-  /**
-   * Trigger command from editor header buttons
-   * @param command string from toolbar buttons
-   */
   triggerCommand(command: string) {
     this.execute.emit(command);
   }
 
-  /**
-   * highlight editor buttons when cursor moved or positioning
-   */
-  triggerButtons() {
-    if (!this.showToolbar) {
-      return;
-    }
-    this.buttons.forEach(e => {
-      if (this.isButtonHidden(e)) {
-        return;
-      }
-      const result = this.doc.queryCommandState(e);
-      const elementById = this.doc.getElementById(e + '-' + this.id);
-      if (!elementById) {
-        return;
-      }
-      if (result) {
-        this.r.addClass(elementById, 'active');
-      } else {
-        this.r.removeClass(elementById, 'active');
-      }
-    });
+  setEditorMode(m: boolean) {
+    this.htmlMode = m;
   }
 
-  /**
-   * trigger highlight editor buttons when cursor moved or positioning in block
-   */
-  triggerBlocks(nodes: Node[]) {
-    if (!this.showToolbar) {
-      return;
-    }
-    this.linkSelected = nodes.findIndex(x => x.nodeName === 'A') > -1;
-    let found = false;
-    this.select.forEach(y => {
-      const node = nodes.find(x => x.nodeName === y);
-      if (node !== undefined && y === node.nodeName) {
-        if (found === false) {
-          this.block = node.nodeName.toLowerCase();
-          found = true;
-        }
-      } else if (found === false) {
-        this.block = 'default';
-      }
-    });
-
-    found = false;
-    if (this._customClasses) {
-      this._customClasses.forEach((y, index) => {
-        const node = nodes.find(x => {
-          if (x instanceof Element) {
-            return x.className === y.class;
-          }
-          return false;
-        });
-        if (node !== undefined) {
-          if (found === false) {
-            this.customClassId = index.toString();
-            found = true;
-          }
-        } else if (found === false) {
-          this.customClassId = '-1';
-        }
-      });
-    }
-
-    Object.keys(this.tagMap).map(e => {
-      const elementById = this.doc.getElementById(this.tagMap[e] + '-' + this.id);
-      const node = nodes.find(x => x.nodeName === e);
-      if (node !== undefined && e === node.nodeName) {
-        this.r.addClass(elementById, 'active');
-      } else {
-        this.r.removeClass(elementById, 'active');
-      }
-    });
-
-    this.foreColour = this.doc.queryCommandValue('ForeColor');
-    this.fontSize = this.doc.queryCommandValue('FontSize');
-    this.fontName = this.doc.queryCommandValue('FontName').replace(/"/g, '');
-    this.backColor = this.doc.queryCommandValue('backColor');
-  }
-
-  /**
-   * insert URL link
-   */
   insertUrl() {
     let url = 'https://';
     const selection = this.editorService.savedSelection;
     if (selection && selection.commonAncestorContainer.parentElement?.nodeName === 'A') {
       const parent = selection.commonAncestorContainer.parentElement as HTMLAnchorElement;
-      // Use getAttribute to preserve relative URLs instead of href which returns absolute URL
       const href = parent.getAttribute('href');
       if (href !== '' && href !== null) {
         url = href;
@@ -274,9 +115,6 @@ export class AeToolbarComponent {
     }
   }
 
-  /**
-   * insert Video link
-   */
   insertVideo() {
     this.execute.emit('');
     const url = prompt('Insert Video link', `https://`);
@@ -285,47 +123,21 @@ export class AeToolbarComponent {
     }
   }
 
-  /** insert color */
   insertColor(color: string, where: string) {
     this.editorService.insertColor(color, where);
     this.execute.emit('');
   }
 
-  /**
-   * set font Name/family
-   * @param foreColor string
-   */
-  setFontName(foreColor: string): void {
-    this.editorService.setFontName(foreColor);
+  setFontName(fontName: string): void {
+    this.editorService.setFontName(fontName);
     this.execute.emit('');
   }
 
-  /**
-   * set font Size
-   * @param fontSize string
-   */
   setFontSize(fontSize: string): void {
     this.editorService.setFontSize(fontSize);
     this.execute.emit('');
   }
 
-  /**
-   * toggle editor mode (WYSIWYG or SOURCE)
-   * @param m boolean
-   */
-  setEditorMode(m: boolean) {
-    const toggleEditorModeButton = this.doc.getElementById('toggleEditorMode' + '-' + this.id);
-    if (m) {
-      this.r.addClass(toggleEditorModeButton, 'active');
-    } else {
-      this.r.removeClass(toggleEditorModeButton, 'active');
-    }
-    this.htmlMode = m;
-  }
-
-  /**
-   * Upload image when file is selected.
-   */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onFileChanged(event: any) {
     const file = event.target.files[0];
@@ -349,7 +161,6 @@ export class AeToolbarComponent {
           if (fr.result !== null) {
             this.editorService.insertImage(fr.result.toString());
           }
-          // Reset input value to allow re-uploading the same file
           event.target.value = null;
         };
         reader.readAsDataURL(file);
@@ -367,9 +178,6 @@ export class AeToolbarComponent {
     event.srcElement.value = null;
   }
 
-  /**
-   * Set custom class
-   */
   setCustomClass(classId: string) {
     if (classId === '-1') {
       this.execute.emit('clear');

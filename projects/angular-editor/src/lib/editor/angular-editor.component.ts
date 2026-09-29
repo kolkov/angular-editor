@@ -141,7 +141,9 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     }
     if (command === 'toggleEditorMode') {
       this.toggleEditorMode(this.modeVisual);
-    } else if (command !== '') {
+      return;
+    }
+    if (command !== '') {
       if (command === 'clear') {
         this.editorService.removeSelectedElements(this.getCustomTags());
         this.onContentChange(this.textArea.nativeElement);
@@ -151,8 +153,8 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       } else {
         this.editorService.executeCommand(command, value);
       }
-      this.exec();
     }
+    this.exec();
   }
 
   /**
@@ -392,21 +394,20 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    * Send a node array from the contentEditable of the editor
    */
   exec() {
-    this.editorToolbar.triggerButtons();
-
     let userSelection;
     if (this.doc.getSelection) {
       userSelection = this.doc.getSelection();
       this.editorService.executeInNextQueueIteration(this.editorService.saveSelection);
     }
 
-    let a = userSelection.focusNode;
-    const els = [];
+    let a = userSelection?.focusNode;
+    const els: Node[] = [];
     while (a && a.id !== 'editor') {
       els.unshift(a);
       a = a.parentNode;
     }
-    this.editorToolbar.triggerBlocks(els);
+
+    this.editorService.detectFormattingState(els, this.config.customClasses);
   }
 
   private configure() {
