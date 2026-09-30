@@ -24,7 +24,8 @@ import {
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {AeToolbarComponent} from '../ae-toolbar/ae-toolbar.component';
 import {AngularEditorService} from '../angular-editor.service';
-import {AE_SANITIZER, AngularEditorConfig, angularEditorConfig} from '../config';
+import {AE_SANITIZER, AE_MARKDOWN_CONVERTER, AngularEditorConfig, angularEditorConfig} from '../config';
+import type {MarkdownConverter} from '../config';
 import {isDefined} from '../utils';
 
 @Component({
@@ -96,13 +97,32 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private doc: any = inject(DOCUMENT);
   private sanitizeFn = inject(AE_SANITIZER);
+  private markdownConverter: MarkdownConverter | null = inject(AE_MARKDOWN_CONVERTER, {optional: true});
   private cdRef = inject(ChangeDetectorRef);
+
+  @Output() contentChanged = new EventEmitter<{html: string; markdown?: string; text: string}>();
+
+  private get isMarkdownOutput(): boolean {
+    return this.config.outputFormat === 'markdown' && this.markdownConverter !== null;
+  }
 
   private sanitizeHtml(html: string): string {
     if (this.config.sanitize === false) {
       return html;
     }
     return this.sanitizeFn(html);
+  }
+
+  getHtml(): string {
+    return this.textArea.nativeElement.innerHTML;
+  }
+
+  getMarkdown(): string {
+    if (!this.markdownConverter) {
+      throw new Error('AE_MARKDOWN_CONVERTER must be provided to use getMarkdown(). Import provideMarkdownConverter() from @kolkov/angular-editor/markdown.');
+    }
+    const html = this.sanitizeHtml(this.textArea.nativeElement.innerHTML);
+    return this.markdownConverter.toMarkdown(html);
   }
 
   constructor(
@@ -116,6 +136,12 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
   ngOnInit() {
     this.config.toolbarPosition = this.config.toolbarPosition ? this.config.toolbarPosition : angularEditorConfig.toolbarPosition;
+    if (this.config.outputFormat === 'markdown' && !this.markdownConverter) {
+      throw new Error(
+        'outputFormat "markdown" requires AE_MARKDOWN_CONVERTER. ' +
+        'Import provideMarkdownConverter() from @kolkov/angular-editor/markdown.'
+      );
+    }
   }
 
   ngAfterViewInit() {
@@ -131,6 +157,19 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       document.execCommand('insertHTML', false, text);
       return text;
     }
+
+    const shouldPasteMarkdown = this.config.pasteMarkdown ?? this.isMarkdownOutput;
+    if (shouldPasteMarkdown && this.markdownConverter) {
+      const html = event.clipboardData?.getData('text/html') ?? '';
+      const text = event.clipboardData?.getData('text/plain') ?? '';
+      if (!html && text) {
+        event.preventDefault();
+        const converted = this.markdownConverter.toHtml(text);
+        document.execCommand('insertHTML', false, converted);
+        return converted;
+      }
+    }
+
     return undefined;
   }
 
@@ -232,7 +271,25 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       html = '';
     }
     if (typeof this.onChange === 'function') {
-      (this.onChange)(this.sanitizeHtml(html));
+      const sanitized = this.sanitizeHtml(html);
+      const output = this.isMarkdownOutput
+        ? this.markdownConverter!.toMarkdown(sanitized)
+        : sanitized;
+      (this.onChange)(output);
+
+      if (this.contentChanged.observed) {
+        const event: {html: string; markdown?: string; text: string} = {
+          html: sanitized,
+          text: element.innerText,
+        };
+        if (this.markdownConverter) {
+          event.markdown = this.isMarkdownOutput
+            ? output
+            : this.markdownConverter.toMarkdown(sanitized);
+        }
+        this.contentChanged.emit(event);
+      }
+
       if ((!html) !== this.showPlaceholder) {
         this.togglePlaceholder(this.showPlaceholder);
       }
@@ -276,6 +333,10 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
     if (value === undefined || value === '' || value === '<br>') {
       value = null;
+    }
+
+    if (value && this.isMarkdownOutput) {
+      value = this.markdownConverter!.toHtml(value);
     }
 
     this.refreshView(value);
