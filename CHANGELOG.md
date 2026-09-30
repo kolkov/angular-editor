@@ -1,3 +1,19 @@
+<a name="3.3.0"></a>
+## [3.3.0](https://github.com/kolkov/angular-editor/compare/v3.2.0...v3.3.0) (2026-09-30)
+
+### Features
+* **sanitizer:** add `AE_SANITIZER` injection token for custom HTML sanitization
+  - Allows replacing Angular's `DomSanitizer` with custom sanitizer (e.g., DOMPurify) via `provideEditorSanitizer()`
+  - Fixes non-ASCII character encoding issue (Cyrillic `тест` → `&#1090;...` with default DomSanitizer)
+  - Supports global and per-component override via Angular hierarchical injector
+  - Zero new library dependencies — users bring their own sanitizer
+  - New public API: `AeSanitizeFn`, `AE_SANITIZER`, `provideEditorSanitizer()`
+
+### Docs
+* **demo:** showcase DOMPurify sanitizer and custom button with reactive `formattingState`
+
+---
+
 <a name="3.2.0"></a>
 ## [3.2.0](https://github.com/kolkov/angular-editor/compare/v3.1.2...v3.2.0) (2026-09-29)
 

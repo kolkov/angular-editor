@@ -16,17 +16,15 @@ import {
   OnInit,
   Output,
   Renderer2,
-  SecurityContext,
   TemplateRef,
   ViewChild,
   ViewEncapsulation,
   DOCUMENT
 } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {DomSanitizer} from '@angular/platform-browser';
 import {AeToolbarComponent} from '../ae-toolbar/ae-toolbar.component';
 import {AngularEditorService} from '../angular-editor.service';
-import {AngularEditorConfig, angularEditorConfig} from '../config';
+import {AE_SANITIZER, AngularEditorConfig, angularEditorConfig} from '../config';
 import {isDefined} from '../utils';
 
 @Component({
@@ -97,8 +95,15 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   private editorService = inject(AngularEditorService);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private doc: any = inject(DOCUMENT);
-  private sanitizer = inject(DomSanitizer);
+  private sanitizeFn = inject(AE_SANITIZER);
   private cdRef = inject(ChangeDetectorRef);
+
+  private sanitizeHtml(html: string): string {
+    if (this.config.sanitize === false) {
+      return html;
+    }
+    return this.sanitizeFn(html);
+  }
 
   constructor(
     @Attribute('tabindex') defaultTabIndex: string,
@@ -227,10 +232,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       html = '';
     }
     if (typeof this.onChange === 'function') {
-      const sanitized = (this.config.sanitize || this.config.sanitize === undefined)
-        ? (this.sanitizer.sanitize(SecurityContext.HTML, html) ?? '')
-        : html;
-      (this.onChange)(sanitized);
+      (this.onChange)(this.sanitizeHtml(html));
       if ((!html) !== this.showPlaceholder) {
         this.togglePlaceholder(this.showPlaceholder);
       }
@@ -286,11 +288,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    */
   refreshView(value: string): void {
     const normalizedValue = value === null ? '' : value;
-    // Apply sanitization to prevent XSS when setting innerHTML
-    const sanitizedValue = this.config.sanitize !== false
-      ? this.sanitizer.sanitize(SecurityContext.HTML, normalizedValue)
-      : normalizedValue;
-    this.r.setProperty(this.textArea.nativeElement, 'innerHTML', sanitizedValue);
+    this.r.setProperty(this.textArea.nativeElement, 'innerHTML', this.sanitizeHtml(normalizedValue));
 
     return;
   }
@@ -364,20 +362,12 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       oCode.focus();
     } else {
       if (this.doc.querySelectorAll) {
-        // Apply sanitization to prevent XSS when switching from HTML mode
-        if (this.config.sanitize !== false) {
-          editableElement.innerText = this.sanitizer.sanitize(SecurityContext.HTML, editableElement.innerText);
-        }
+        editableElement.innerText = this.sanitizeHtml(editableElement.innerText);
         this.r.setProperty(editableElement, 'innerHTML', editableElement.innerText);
       } else {
         oContent = this.doc.createRange();
         oContent.selectNodeContents(editableElement.firstChild);
-        let oContentString = oContent.toString();
-        // Apply sanitization to prevent XSS when switching from HTML mode
-        if (this.config.sanitize !== false) {
-          oContentString = this.sanitizer.sanitize(SecurityContext.HTML, oContentString);
-        }
-        this.r.setProperty(editableElement, 'innerHTML', oContentString);
+        this.r.setProperty(editableElement, 'innerHTML', this.sanitizeHtml(oContent.toString()));
       }
       this.r.setProperty(editableElement, 'contentEditable', true);
       this.modeVisual = true;
