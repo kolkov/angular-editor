@@ -1,6 +1,22 @@
+import { inject, InjectionToken, Provider, SecurityContext } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { UploadResponse } from './angular-editor.service';
 import { HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
+export type AeSanitizeFn = (html: string) => string;
+
+export const AE_SANITIZER = new InjectionToken<AeSanitizeFn>('AE_SANITIZER', {
+  providedIn: 'root',
+  factory: () => {
+    const domSanitizer = inject(DomSanitizer);
+    return (html: string) => domSanitizer.sanitize(SecurityContext.HTML, html) ?? '';
+  },
+});
+
+export function provideEditorSanitizer(sanitizeFn: AeSanitizeFn): Provider {
+  return { provide: AE_SANITIZER, useValue: sanitizeFn };
+}
 
 /**
  * Custom class configuration for applying styles to selected content.

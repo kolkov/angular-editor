@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AngularEditorComponent } from './angular-editor.component';
 import { AngularEditorModule } from '../angular-editor.module';
-import { angularEditorConfig } from '../config';
+import { AE_SANITIZER, angularEditorConfig, provideEditorSanitizer } from '../config';
 
 // jsdom does not implement execCommand / queryCommandState / queryCommandValue
 function mockDocumentCommands(): void {
@@ -338,6 +338,88 @@ describe('AngularEditorComponent', () => {
       component.writeValue('<p>Safe content</p>');
       expect(component.textArea.nativeElement.innerHTML).toContain('<p>Safe content</p>');
     });
+  });
+
+  // ==========================================================================
+  // Custom Sanitizer (AE_SANITIZER InjectionToken)
+  // ==========================================================================
+
+  describe('custom sanitizer (AE_SANITIZER)', () => {
+    it('should use default DomSanitizer when no custom sanitizer provided', () => {
+      component.config.sanitize = true;
+      component.writeValue('<p>Hello</p>');
+      expect(component.textArea.nativeElement.innerHTML).toContain('Hello');
+    });
+
+    it('should bypass sanitizer when sanitize is false', () => {
+      component.config.sanitize = false;
+      const fn = vi.fn();
+      component.registerOnChange(fn);
+      component.textArea.nativeElement.innerHTML = '<p>Raw</p>';
+      component.onContentChange(component.textArea.nativeElement);
+      expect(fn).toHaveBeenCalledWith('<p>Raw</p>');
+    });
+  });
+
+})
+
+describe('AngularEditorComponent with custom sanitizer', () => {
+  let component: AngularEditorComponent;
+  let fixture: ComponentFixture<AngularEditorComponent>;
+  const customSanitizer = vi.fn((html: string) => html.replace(/<script[^>]*>.*?<\/script>/gi, ''));
+
+  beforeEach(async () => {
+    mockDocumentCommands();
+    customSanitizer.mockClear();
+
+    await TestBed.configureTestingModule({
+      imports: [FormsModule, AngularEditorModule],
+      providers: [
+        provideHttpClient(),
+        provideEditorSanitizer(customSanitizer),
+      ],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(AngularEditorComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('should call custom sanitizer function on writeValue', () => {
+    component.config.sanitize = true;
+    component.writeValue('<p>Hello</p>');
+    expect(customSanitizer).toHaveBeenCalled();
+  });
+
+  it('should use custom sanitizer output', () => {
+    component.config.sanitize = true;
+    component.writeValue('<p>Safe</p><script>alert("xss")</script>');
+    expect(component.textArea.nativeElement.innerHTML).not.toContain('<script>');
+    expect(component.textArea.nativeElement.innerHTML).toContain('Safe');
+  });
+
+  it('should not call custom sanitizer when sanitize is false', () => {
+    component.config.sanitize = false;
+    component.writeValue('<p>Raw</p>');
+    expect(customSanitizer).not.toHaveBeenCalled();
+  });
+
+  it('should call custom sanitizer on onContentChange', () => {
+    component.config.sanitize = true;
+    const fn = vi.fn();
+    component.registerOnChange(fn);
+    component.textArea.nativeElement.innerHTML = '<p>Content</p>';
+    component.onContentChange(component.textArea.nativeElement);
+    expect(customSanitizer).toHaveBeenCalledWith('<p>Content</p>');
+  });
+
+  it('provideEditorSanitizer should provide AE_SANITIZER token', () => {
+    const injected = TestBed.inject(AE_SANITIZER);
+    expect(injected).toBe(customSanitizer);
   });
 
   // ==========================================================================

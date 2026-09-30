@@ -308,6 +308,50 @@ toolbarHiddenButtons: [
 ]
 ```
 
+### Custom Sanitization
+
+By default, the editor uses Angular's built-in `DomSanitizer` for HTML sanitization. You can provide a custom sanitizer function via the `AE_SANITIZER` injection token — for example, to use [DOMPurify](https://github.com/cure53/DOMPurify) which preserves non-ASCII characters (Cyrillic, Chinese, Arabic, etc.) without converting them to HTML entities.
+
+```bash
+npm install dompurify
+npm install -D @types/dompurify
+```
+
+**Global (all editors in the app):**
+
+```typescript
+import DOMPurify from 'dompurify';
+import { provideEditorSanitizer } from '@kolkov/angular-editor';
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideEditorSanitizer((html) => DOMPurify.sanitize(html)),
+  ],
+});
+```
+
+**Per-component (different sanitizers for different editors):**
+
+```typescript
+import DOMPurify from 'dompurify';
+import { provideEditorSanitizer } from '@kolkov/angular-editor';
+
+@Component({
+  selector: 'app-strict-editor',
+  template: '<angular-editor [(ngModel)]="content"></angular-editor>',
+  providers: [
+    provideEditorSanitizer((html) => DOMPurify.sanitize(html, {
+      ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'a', 'p', 'br', 'ul', 'ol', 'li'],
+    })),
+  ],
+})
+export class StrictEditorComponent {
+  content = '';
+}
+```
+
+Setting `sanitize: false` in the editor config bypasses sanitization entirely (not recommended for user-generated content).
+
 ## What's included
 
 Within the download you'll find the following directories and files. You'll see something like this:

@@ -9,5 +9,5 @@ export * from './lib/ae-toolbar-set/ae-toolbar-set.component';
 export * from './lib/ae-select/ae-select.component';
 export * from './lib/ae-toolbar/ae-toolbar.component';
 export * from './lib/angular-editor.module';
-export type { AngularEditorConfig, CustomClass, EditorFormattingState } from './lib/config';
-export { DEFAULT_FORMATTING_STATE, TOGGLE_COMMANDS, BLOCK_TAGS } from './lib/config';
+export type { AngularEditorConfig, CustomClass, EditorFormattingState, AeSanitizeFn } from './lib/config';
+export { DEFAULT_FORMATTING_STATE, TOGGLE_COMMANDS, BLOCK_TAGS, AE_SANITIZER, provideEditorSanitizer } from './lib/config';
