@@ -5,9 +5,11 @@
   <label for="test_input">Test input </label>
   <input id="test_input">
   <br><br>
+
+  <h3>Editor 1 — Custom buttons with reactive state (sanitize: false)</h3>
   <angular-editor id="editor1" [(ngModel)]="htmlContent1" [config]="config1" (ngModelChange)="onChange($event)"
                   (blur)="onBlur($event)">
-    <ng-template #customButtons let-executeCommandFn="executeCommandFn">
+    <ng-template #customButtons let-executeCommandFn="executeCommandFn" let-state="formattingState">
       <ae-toolbar-set>
         <button aeButton title="Angular editor logo" (click)="executeCommandFn('insertHtml', angularEditorLogo)">
           <svg viewBox="-8 0 272 272" xmlns="http://www.w3.org/2000/svg"
@@ -29,12 +31,19 @@
             </g>
           </svg>
         </button>
+        <button aeButton title="Bold+Underline indicator"
+                [class.active]="state && state().underline"
+                [style.color]="state && state().underline ? '#e23237' : 'inherit'">
+          U?
+        </button>
       </ae-toolbar-set>
     </ng-template>
   </angular-editor>
   <p class="html">
     HTML Output:  {{ htmlContent1 }}
   </p>
+
+  <h3>Editor 2 — DOMPurify sanitizer (Cyrillic preserved, toolbar bottom)</h3>
   <form [formGroup]="form">
     <angular-editor autofocus="true" id="editor2" formControlName="signature" [config]="config2"
                     (ngModelChange)="onChange2($event)"></angular-editor>
@@ -46,4 +55,3 @@
     Form Status: {{ form.status }}
   </p>
 </div>
-
