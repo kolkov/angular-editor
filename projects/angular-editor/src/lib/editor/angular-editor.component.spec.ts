@@ -705,6 +705,13 @@ describe('AngularEditorComponent with Markdown', () => {
       component.writeValue(null as any);
       expect(component.textArea.nativeElement.innerHTML).toBe('');
     });
+
+    it('should re-render when config changes to markdown after writeValue', () => {
+      component.writeValue('# Hello');
+      expect(component.textArea.nativeElement.innerHTML).not.toContain('<h1>');
+      component.config = {...component.config, outputFormat: 'markdown'};
+      expect(mockConverter.toHtml).toHaveBeenCalledWith('# Hello');
+    });
   });
 
   // ==========================================================================

@@ -17,10 +17,25 @@ export class TurndownAdapter implements HtmlToMarkdownRenderer {
     if (config.gfm !== false) {
       this.addGfmRules();
     }
+
+    this.addCleanupRules();
   }
 
   render(html: string): string {
     return this.turndown.turndown(html);
+  }
+
+  private addCleanupRules(): void {
+    this.turndown.addRule('preWithoutCode', {
+      filter: (node) => {
+        return node.nodeName === 'PRE' &&
+          !(node.firstChild && node.firstChild.nodeName === 'CODE');
+      },
+      replacement: (_content, node) => {
+        const code = (node as HTMLElement).textContent || '';
+        return '\n\n```\n' + code.replace(/\n$/, '') + '\n```\n\n';
+      },
+    });
   }
 
   private addGfmRules(): void {

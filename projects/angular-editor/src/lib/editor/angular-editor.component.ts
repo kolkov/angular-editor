@@ -61,7 +61,22 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   blurInstance: any;
 
   @Input() id = '';
-  @Input() config: AngularEditorConfig = angularEditorConfig;
+
+  private _config: AngularEditorConfig = angularEditorConfig;
+  private lastWrittenValue: string | null = null;
+
+  @Input()
+  set config(value: AngularEditorConfig) {
+    const hadMarkdown = this._config.outputFormat === 'markdown';
+    this._config = value;
+    if (!hadMarkdown && value.outputFormat === 'markdown' && this.lastWrittenValue) {
+      this.writeValue(this.lastWrittenValue);
+    }
+  }
+
+  get config(): AngularEditorConfig {
+    return this._config;
+  }
   @Input() placeholder = '';
   @Input() tabIndex: number | null = null;
 
@@ -326,6 +341,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   writeValue(value: any): void {
+    this.lastWrittenValue = value;
 
     if ((!value || value === '<br>' || value === '') !== this.showPlaceholder) {
       this.togglePlaceholder(this.showPlaceholder);
