@@ -10,7 +10,8 @@
     "lint:lib": "ng lint angular-editor",
     "build-watch:lib": "ng build angular-editor --watch",
     "test:lib": "ng test angular-editor",
-    "test-ci": "ng test angular-editor --coverage",
+    "test:markdown": "vitest run projects/angular-editor/markdown/",
+    "test-ci": "ng test angular-editor --coverage && vitest run projects/angular-editor/markdown/",
     "build:lib": "ng-packagr -p projects/angular-editor/ng-package.json",
     "build-prod:lib": "ng-packagr -p projects/angular-editor/ng-package.json -c projects/angular-editor/tsconfig.lib.prod.json",
     "publish:lib": "npm run copy:readme && npm run copy:changelog && npm run copy:license && npm publish ./dist/angular-editor --tag latest",
@@ -30,8 +31,10 @@
     "@angular/platform-browser-dynamic": "^22.1.7",
     "@angular/router": "^22.1.7",
     "dompurify": "^3.4.16",
+    "marked": "^18.0.14",
     "rxjs": "~7.8.0",
     "tslib": "^2.4.0",
+    "turndown": "^7.2.4",
     "zone.js": "~0.16.2"
   },
   "devDependencies": {
@@ -46,6 +49,7 @@
     "@angular/language-service": "^22.1.7",
     "@eslint/js": "^10.0.1",
     "@types/dompurify": "^3.0.5",
+    "@types/turndown": "^5.0.6",
     "@vitest/coverage-v8": "^4.1.9",
     "angular-eslint": "^22.0.0",
     "cpx": "^1.5.0",
