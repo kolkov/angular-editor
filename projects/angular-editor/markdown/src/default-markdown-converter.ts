@@ -1,5 +1,5 @@
+import type { MarkdownConverter } from '@kolkov/angular-editor';
 import {
-  MarkdownConverter,
   MarkdownConversionConfig,
   HtmlToMarkdownRenderer,
   MarkdownToHtmlRenderer,

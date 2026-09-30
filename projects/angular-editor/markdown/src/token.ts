@@ -1,6 +1,2 @@
-import { InjectionToken } from '@angular/core';
-import { MarkdownConverter } from './types';
-
-export const AE_MARKDOWN_CONVERTER = new InjectionToken<MarkdownConverter>(
-  'AE_MARKDOWN_CONVERTER'
-);
+export { AE_MARKDOWN_CONVERTER } from '@kolkov/angular-editor';
+export type { MarkdownConverter } from '@kolkov/angular-editor';

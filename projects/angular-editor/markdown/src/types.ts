@@ -26,7 +26,4 @@ export const DEFAULT_CONVERSION_CONFIG: MarkdownConversionConfig = {
   linkStyle: 'inlined',
 };
 
-export interface MarkdownConverter {
-  toMarkdown(html: string): string;
-  toHtml(markdown: string): string;
-}
+export type { MarkdownConverter } from '@kolkov/angular-editor';

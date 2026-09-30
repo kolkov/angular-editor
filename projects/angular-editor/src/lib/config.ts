@@ -135,7 +135,18 @@ export interface AngularEditorConfig {
   toolbarHiddenButtons?: string[][];
   rawPaste?: boolean;
   textDirection?: 'ltr' | 'rtl' | 'auto';
+  outputFormat?: 'html' | 'markdown';
+  pasteMarkdown?: boolean;
 }
+
+export interface MarkdownConverter {
+  toMarkdown(html: string): string;
+  toHtml(markdown: string): string;
+}
+
+export const AE_MARKDOWN_CONVERTER = new InjectionToken<MarkdownConverter>(
+  'AE_MARKDOWN_CONVERTER'
+);
 
 export const angularEditorConfig: AngularEditorConfig = {
   editable: true,
