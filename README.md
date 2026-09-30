@@ -352,6 +352,68 @@ export class StrictEditorComponent {
 
 Setting `sanitize: false` in the editor config bypasses sanitization entirely (not recommended for user-generated content).
 
+### Markdown Support
+
+The editor supports Markdown output via the `@kolkov/angular-editor/markdown` secondary entry point. HTML remains the canonical data model — Markdown conversion happens at the I/O boundary.
+
+**Install dependencies:**
+
+```bash
+npm install marked turndown
+npm install -D @types/turndown
+```
+
+**Register the Markdown converter:**
+
+```typescript
+import { provideMarkdownConverter } from '@kolkov/angular-editor/markdown';
+
+// In NgModule providers or bootstrapApplication:
+providers: [
+  provideMarkdownConverter(),
+]
+```
+
+**Markdown output via ngModel (outputFormat):**
+
+```html
+<angular-editor [(ngModel)]="markdownContent"
+                [config]="{ outputFormat: 'markdown' }">
+</angular-editor>
+<!-- markdownContent is now a Markdown string -->
+```
+
+**Dual output via contentChanged event (HTML + Markdown simultaneously):**
+
+```html
+<angular-editor [(ngModel)]="htmlContent"
+                (contentChanged)="onContentChanged($event)">
+</angular-editor>
+```
+
+```typescript
+onContentChanged(event: { html: string; markdown?: string; text: string }) {
+  console.log(event.html);      // HTML output
+  console.log(event.markdown);  // Markdown output (when converter provided)
+  console.log(event.text);      // Plain text
+}
+```
+
+**Explicit methods:**
+
+```typescript
+@ViewChild(AngularEditorComponent) editor: AngularEditorComponent;
+
+getContent() {
+  const html = this.editor.getHtml();
+  const markdown = this.editor.getMarkdown();
+}
+```
+
+**Markdown paste:** When `outputFormat: 'markdown'` or `pasteMarkdown: true`, plain text pasted from clipboard is automatically treated as Markdown and converted to rich text. HTML paste works as usual.
+
+> **Note:** Markdown conversion is lossy for features without Markdown equivalents (font colors, font sizes, custom classes, subscript/superscript, text alignment). These features are preserved in HTML output but lost in Markdown output.
+
 ## What's included
 
 Within the download you'll find the following directories and files. You'll see something like this:

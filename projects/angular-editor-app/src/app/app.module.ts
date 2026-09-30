@@ -6,6 +6,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {AngularEditorModule} from '../../../angular-editor/src/lib/angular-editor.module';
 import {provideEditorSanitizer} from '../../../angular-editor/src/lib/config';
+import {provideMarkdownConverter} from '../../../angular-editor/markdown/src/provide';
 import DOMPurify from 'dompurify';
 
 
@@ -22,6 +23,7 @@ import DOMPurify from 'dompurify';
   ],
   providers: [
     provideEditorSanitizer((html) => DOMPurify.sanitize(html)),
+    provideMarkdownConverter(),
   ],
   bootstrap: [AppComponent]
 })
