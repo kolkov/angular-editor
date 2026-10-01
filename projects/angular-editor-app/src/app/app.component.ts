@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   form!: FormGroup;
 
   htmlContent1 = '';
-  markdownContent = '';
+  markdownContent = '# Hello World\n\nThis is **bold** and *italic* text.\n\n- Item 1\n- Item 2\n';
   markdownOutput = '';
   angularEditorLogo = `<img alt="angular editor logo" src="${ANGULAR_EDITOR_LOGO_URL}">`;
 

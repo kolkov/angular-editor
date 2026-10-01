@@ -624,8 +624,8 @@ describe('AngularEditorComponent with Markdown', () => {
   let component: AngularEditorComponent;
   let fixture: ComponentFixture<AngularEditorComponent>;
   const mockConverter: MarkdownConverter = {
-    toMarkdown: vi.fn((html: string) => `# MD\n\n${html.replace(/<[^>]+>/g, '')}\n`),
-    toHtml: vi.fn((md: string) => `<p>${md.replace(/^#+ /gm, '').trim()}</p>`),
+    toMarkdown: vi.fn((html: string) => `# MD\n\n${(html || '').replace(/<[^>]+>/g, '')}\n`),
+    toHtml: vi.fn((md: string) => `<p>${(md || '').replace(/^#+ /gm, '').trim()}</p>`),
   };
 
   beforeEach(async () => {
@@ -866,6 +866,72 @@ describe('AngularEditorComponent with Markdown', () => {
 
       component.onPaste(mockEvent);
       expect(toHtmlSpy).toHaveBeenCalledWith('**bold**');
+    });
+  });
+
+  // ==========================================================================
+  // Source mode with Markdown
+  // ==========================================================================
+
+  describe('source mode with markdown', () => {
+    it('should show Markdown in source mode when outputFormat is markdown', () => {
+      component.config = {outputFormat: 'markdown', sanitize: false};
+      component.textArea.nativeElement.innerHTML = '<h1>Hello</h1><p>World</p>';
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const toMdSpy = vi.spyOn((component as any).markdownConverter, 'toMarkdown');
+
+      component.toggleEditorMode(true);
+
+      expect(toMdSpy).toHaveBeenCalled();
+      expect(component.modeVisual).toBe(false);
+    });
+
+    it('should show HTML in source mode when outputFormat is html', () => {
+      component.config = {sanitize: false};
+      component.textArea.nativeElement.innerHTML = '<h1>Hello</h1>';
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const toMdSpy = vi.spyOn((component as any).markdownConverter, 'toMarkdown');
+
+      component.toggleEditorMode(true);
+
+      expect(toMdSpy).not.toHaveBeenCalled();
+      expect(component.modeVisual).toBe(false);
+    });
+
+    it('should convert Markdown back to HTML when switching from source to visual', () => {
+      component.config = {outputFormat: 'markdown', sanitize: false};
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const toHtmlSpy = vi.spyOn((component as any).markdownConverter, 'toHtml');
+
+      component.toggleEditorMode(true);
+      component.toggleEditorMode(false);
+
+      expect(toHtmlSpy).toHaveBeenCalled();
+      expect(component.modeVisual).toBe(true);
+    });
+
+    it('should use green background for Markdown source mode', () => {
+      component.config = {outputFormat: 'markdown', sanitize: false};
+      component.textArea.nativeElement.innerHTML = '<p>test</p>';
+
+      component.toggleEditorMode(true);
+
+      const code = component.textArea.nativeElement.querySelector('code');
+      if (code) {
+        expect(code.style.backgroundColor).toBe('rgb(232, 245, 233)');
+      }
+    });
+
+    it('should use yellow background for HTML source mode', () => {
+      component.config = {sanitize: false};
+      component.textArea.nativeElement.innerHTML = '<p>test</p>';
+
+      component.toggleEditorMode(true);
+
+      const code = component.textArea.nativeElement.querySelector('code');
+      if (code) {
+        expect(code.style.backgroundColor).toBe('rgb(255, 245, 185)');
+      }
     });
   });
 });

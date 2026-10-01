@@ -62,21 +62,10 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
   @Input() id = '';
 
-  private _config: AngularEditorConfig = angularEditorConfig;
-  private lastWrittenValue: string | null = null;
+  @Input() config: AngularEditorConfig = angularEditorConfig;
 
-  @Input()
-  set config(value: AngularEditorConfig) {
-    const hadMarkdown = this._config.outputFormat === 'markdown';
-    this._config = value;
-    if (!hadMarkdown && value.outputFormat === 'markdown' && this.lastWrittenValue) {
-      this.writeValue(this.lastWrittenValue);
-    }
-  }
-
-  get config(): AngularEditorConfig {
-    return this._config;
-  }
+  private pendingValue: string | undefined;
+  private viewInitialized = false;
   @Input() placeholder = '';
   @Input() tabIndex: number | null = null;
 
@@ -160,6 +149,11 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   }
 
   ngAfterViewInit() {
+    this.viewInitialized = true;
+    if (this.pendingValue !== undefined) {
+      this.applyValue(this.pendingValue);
+      this.pendingValue = undefined;
+    }
     if (isDefined(this.autoFocus)) {
       this.focus();
     }
@@ -341,8 +335,14 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   writeValue(value: any): void {
-    this.lastWrittenValue = value;
+    if (!this.viewInitialized) {
+      this.pendingValue = value;
+      return;
+    }
+    this.applyValue(value);
+  }
 
+  private applyValue(value: any): void {
     if ((!value || value === '<br>' || value === '') !== this.showPlaceholder) {
       this.togglePlaceholder(this.showPlaceholder);
     }
@@ -404,11 +404,21 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    * @param bToSource A boolean value from the editor
    */
   toggleEditorMode(bToSource: boolean) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let oContent: any;
     const editableElement = this.textArea.nativeElement;
 
     if (bToSource) {
-      oContent = this.r.createText(editableElement.innerHTML);
+      let sourceText: string;
+      if (this.isMarkdownOutput) {
+        sourceText = this.markdownConverter!.toMarkdown(
+          this.sanitizeHtml(editableElement.innerHTML)
+        );
+      } else {
+        sourceText = editableElement.innerHTML;
+      }
+
+      oContent = this.r.createText(sourceText);
       this.r.setProperty(editableElement, 'innerHTML', '');
       this.r.setProperty(editableElement, 'contentEditable', false);
 
@@ -423,7 +433,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       this.r.setStyle(oCode, 'word-break', 'keep-all');
       this.r.setStyle(oCode, 'outline', 'none');
       this.r.setStyle(oCode, 'margin', '0');
-      this.r.setStyle(oCode, 'background-color', '#fff5b9');
+      this.r.setStyle(oCode, 'background-color', this.isMarkdownOutput ? '#e8f5e9' : '#fff5b9');
       this.r.setProperty(oCode, 'contentEditable', true);
       this.r.appendChild(oCode, oContent);
       this.focusInstance = this.r.listen(oCode, 'focus', (event) => this.onTextAreaFocus(event));
@@ -431,21 +441,22 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       this.r.appendChild(oPre, oCode);
       this.r.appendChild(editableElement, oPre);
 
-      // ToDo move to service
       this.doc.execCommand('defaultParagraphSeparator', false, 'div');
 
       this.modeVisual = false;
       this.viewMode.emit(false);
       oCode.focus();
     } else {
-      if (this.doc.querySelectorAll) {
-        editableElement.innerText = this.sanitizeHtml(editableElement.innerText);
-        this.r.setProperty(editableElement, 'innerHTML', editableElement.innerText);
+      const sourceContent = editableElement.innerText;
+
+      if (this.isMarkdownOutput) {
+        const html = this.markdownConverter!.toHtml(sourceContent);
+        this.r.setProperty(editableElement, 'innerHTML', this.sanitizeHtml(html));
       } else {
-        oContent = this.doc.createRange();
-        oContent.selectNodeContents(editableElement.firstChild);
-        this.r.setProperty(editableElement, 'innerHTML', this.sanitizeHtml(oContent.toString()));
+        const sanitized = this.sanitizeHtml(sourceContent);
+        this.r.setProperty(editableElement, 'innerHTML', sanitized);
       }
+
       this.r.setProperty(editableElement, 'contentEditable', true);
       this.modeVisual = true;
       this.viewMode.emit(true);
