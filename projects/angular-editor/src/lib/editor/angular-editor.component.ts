@@ -24,7 +24,8 @@ import {
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {AeToolbarComponent} from '../ae-toolbar/ae-toolbar.component';
 import {AngularEditorService} from '../angular-editor.service';
-import {AE_SANITIZER, AngularEditorConfig, angularEditorConfig} from '../config';
+import {AE_SANITIZER, AE_MARKDOWN_CONVERTER, AngularEditorConfig, angularEditorConfig} from '../config';
+import type {MarkdownConverter} from '../config';
 import {isDefined} from '../utils';
 
 @Component({
@@ -60,7 +61,11 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   blurInstance: any;
 
   @Input() id = '';
+
   @Input() config: AngularEditorConfig = angularEditorConfig;
+
+  private pendingValue: string | undefined;
+  private viewInitialized = false;
   @Input() placeholder = '';
   @Input() tabIndex: number | null = null;
 
@@ -96,13 +101,32 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private doc: any = inject(DOCUMENT);
   private sanitizeFn = inject(AE_SANITIZER);
+  private markdownConverter: MarkdownConverter | null = inject(AE_MARKDOWN_CONVERTER, {optional: true});
   private cdRef = inject(ChangeDetectorRef);
+
+  @Output() contentChanged = new EventEmitter<{html: string; markdown?: string; text: string}>();
+
+  private get isMarkdownOutput(): boolean {
+    return this.config.outputFormat === 'markdown' && this.markdownConverter !== null;
+  }
 
   private sanitizeHtml(html: string): string {
     if (this.config.sanitize === false) {
       return html;
     }
     return this.sanitizeFn(html);
+  }
+
+  getHtml(): string {
+    return this.textArea.nativeElement.innerHTML;
+  }
+
+  getMarkdown(): string {
+    if (!this.markdownConverter) {
+      throw new Error('AE_MARKDOWN_CONVERTER must be provided to use getMarkdown(). Import provideMarkdownConverter() from @kolkov/angular-editor/markdown.');
+    }
+    const html = this.sanitizeHtml(this.textArea.nativeElement.innerHTML);
+    return this.markdownConverter.toMarkdown(html);
   }
 
   constructor(
@@ -116,9 +140,20 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
 
   ngOnInit() {
     this.config.toolbarPosition = this.config.toolbarPosition ? this.config.toolbarPosition : angularEditorConfig.toolbarPosition;
+    if (this.config.outputFormat === 'markdown' && !this.markdownConverter) {
+      throw new Error(
+        'outputFormat "markdown" requires AE_MARKDOWN_CONVERTER. ' +
+        'Import provideMarkdownConverter() from @kolkov/angular-editor/markdown.'
+      );
+    }
   }
 
   ngAfterViewInit() {
+    this.viewInitialized = true;
+    if (this.pendingValue !== undefined) {
+      this.applyValue(this.pendingValue);
+      this.pendingValue = undefined;
+    }
     if (isDefined(this.autoFocus)) {
       this.focus();
     }
@@ -131,6 +166,19 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       document.execCommand('insertHTML', false, text);
       return text;
     }
+
+    const shouldPasteMarkdown = this.config.pasteMarkdown ?? this.isMarkdownOutput;
+    if (shouldPasteMarkdown && this.markdownConverter) {
+      const html = event.clipboardData?.getData('text/html') ?? '';
+      const text = event.clipboardData?.getData('text/plain') ?? '';
+      if (!html && text) {
+        event.preventDefault();
+        const converted = this.markdownConverter.toHtml(text);
+        document.execCommand('insertHTML', false, converted);
+        return converted;
+      }
+    }
+
     return undefined;
   }
 
@@ -232,7 +280,25 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       html = '';
     }
     if (typeof this.onChange === 'function') {
-      (this.onChange)(this.sanitizeHtml(html));
+      const sanitized = this.sanitizeHtml(html);
+      const output = this.isMarkdownOutput
+        ? this.markdownConverter!.toMarkdown(sanitized)
+        : sanitized;
+      (this.onChange)(output);
+
+      if (this.contentChanged.observed) {
+        const event: {html: string; markdown?: string; text: string} = {
+          html: sanitized,
+          text: element.innerText,
+        };
+        if (this.markdownConverter) {
+          event.markdown = this.isMarkdownOutput
+            ? output
+            : this.markdownConverter.toMarkdown(sanitized);
+        }
+        this.contentChanged.emit(event);
+      }
+
       if ((!html) !== this.showPlaceholder) {
         this.togglePlaceholder(this.showPlaceholder);
       }
@@ -269,13 +335,24 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   writeValue(value: any): void {
+    if (!this.viewInitialized) {
+      this.pendingValue = value;
+      return;
+    }
+    this.applyValue(value);
+  }
 
+  private applyValue(value: any): void {
     if ((!value || value === '<br>' || value === '') !== this.showPlaceholder) {
       this.togglePlaceholder(this.showPlaceholder);
     }
 
     if (value === undefined || value === '' || value === '<br>') {
       value = null;
+    }
+
+    if (value && this.isMarkdownOutput) {
+      value = this.markdownConverter!.toHtml(value);
     }
 
     this.refreshView(value);
@@ -327,11 +404,21 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    * @param bToSource A boolean value from the editor
    */
   toggleEditorMode(bToSource: boolean) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let oContent: any;
     const editableElement = this.textArea.nativeElement;
 
     if (bToSource) {
-      oContent = this.r.createText(editableElement.innerHTML);
+      let sourceText: string;
+      if (this.isMarkdownOutput) {
+        sourceText = this.markdownConverter!.toMarkdown(
+          this.sanitizeHtml(editableElement.innerHTML)
+        );
+      } else {
+        sourceText = editableElement.innerHTML;
+      }
+
+      oContent = this.r.createText(sourceText);
       this.r.setProperty(editableElement, 'innerHTML', '');
       this.r.setProperty(editableElement, 'contentEditable', false);
 
@@ -346,7 +433,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       this.r.setStyle(oCode, 'word-break', 'keep-all');
       this.r.setStyle(oCode, 'outline', 'none');
       this.r.setStyle(oCode, 'margin', '0');
-      this.r.setStyle(oCode, 'background-color', '#fff5b9');
+      this.r.setStyle(oCode, 'background-color', this.isMarkdownOutput ? '#e8f5e9' : '#fff5b9');
       this.r.setProperty(oCode, 'contentEditable', true);
       this.r.appendChild(oCode, oContent);
       this.focusInstance = this.r.listen(oCode, 'focus', (event) => this.onTextAreaFocus(event));
@@ -354,21 +441,22 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       this.r.appendChild(oPre, oCode);
       this.r.appendChild(editableElement, oPre);
 
-      // ToDo move to service
       this.doc.execCommand('defaultParagraphSeparator', false, 'div');
 
       this.modeVisual = false;
       this.viewMode.emit(false);
       oCode.focus();
     } else {
-      if (this.doc.querySelectorAll) {
-        editableElement.innerText = this.sanitizeHtml(editableElement.innerText);
-        this.r.setProperty(editableElement, 'innerHTML', editableElement.innerText);
+      const sourceContent = editableElement.innerText;
+
+      if (this.isMarkdownOutput) {
+        const html = this.markdownConverter!.toHtml(sourceContent);
+        this.r.setProperty(editableElement, 'innerHTML', this.sanitizeHtml(html));
       } else {
-        oContent = this.doc.createRange();
-        oContent.selectNodeContents(editableElement.firstChild);
-        this.r.setProperty(editableElement, 'innerHTML', this.sanitizeHtml(oContent.toString()));
+        const sanitized = this.sanitizeHtml(sourceContent);
+        this.r.setProperty(editableElement, 'innerHTML', sanitized);
       }
+
       this.r.setProperty(editableElement, 'contentEditable', true);
       this.modeVisual = true;
       this.viewMode.emit(true);

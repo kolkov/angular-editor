@@ -16,7 +16,8 @@ export class AppComponent implements OnInit {
   form!: FormGroup;
 
   htmlContent1 = '';
-  htmlContent2 = '';
+  markdownContent = '# Hello World\n\nThis is **bold** and *italic* text.\n\n- Item 1\n- Item 2\n';
+  markdownOutput = '';
   angularEditorLogo = `<img alt="angular editor logo" src="${ANGULAR_EDITOR_LOGO_URL}">`;
 
   config1: AngularEditorConfig = {
@@ -27,30 +28,16 @@ export class AppComponent implements OnInit {
     placeholder: 'Enter text here...',
     translate: 'no',
     sanitize: false,
-    // toolbarPosition: 'top',
     outline: true,
     defaultFontName: 'Comic Sans MS',
     defaultFontSize: '5',
-    // showToolbar: false,
     defaultParagraphSeparator: 'p',
     customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
+      {name: 'quote', class: 'quote'},
+      {name: 'redText', class: 'redText'},
+      {name: 'titleText', class: 'titleText', tag: 'h1'},
     ],
-    toolbarHiddenButtons: [
-      ['bold', 'italic'],
-    ],
+    toolbarHiddenButtons: [['bold', 'italic']],
     textDirection: 'auto'
   };
 
@@ -67,20 +54,23 @@ export class AppComponent implements OnInit {
     defaultFontSize: '5',
     defaultParagraphSeparator: 'p',
     customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
+      {name: 'quote', class: 'quote'},
+      {name: 'redText', class: 'redText'},
+      {name: 'titleText', class: 'titleText', tag: 'h1'},
     ]
+  };
+
+  configMarkdown: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    minHeight: '5rem',
+    maxHeight: '15rem',
+    placeholder: 'Type here — try pasting Markdown!',
+    translate: 'no',
+    sanitize: true,
+    outputFormat: 'markdown',
+    pasteMarkdown: true,
+    defaultParagraphSeparator: 'p',
   };
 
   constructor(private formBuilder: FormBuilder) {}
@@ -89,7 +79,6 @@ export class AppComponent implements OnInit {
     this.form = this.formBuilder.group({
       signature: ['', Validators.required]
     });
-    console.log(this.htmlContent1);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -105,5 +94,10 @@ export class AppComponent implements OnInit {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange2(event: any) {
     console.warn(this.form.value);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onContentChanged(event: any) {
+    this.markdownOutput = event.markdown || '';
   }
 }

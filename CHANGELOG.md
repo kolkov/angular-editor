@@ -1,3 +1,32 @@
+<a name="3.4.0"></a>
+## [3.4.0](https://github.com/kolkov/angular-editor/compare/v3.3.0...v3.4.0) (2026-10-01)
+
+### Features
+* **markdown:** add `@kolkov/angular-editor/markdown` secondary entry point
+  - Rich model: `DefaultMarkdownConverter`, `HtmlPreprocessor`, `MarkdownPostprocessor`
+  - Adapters: `TurndownAdapter` (HTML→MD), `MarkedAdapter` (MD→HTML) with GFM support
+  - Angular DI: `AE_MARKDOWN_CONVERTER` token + `provideMarkdownConverter()`
+  - Tree-shakeable: zero bundle impact without `provideMarkdownConverter()`
+* **markdown:** integrate Markdown I/O with editor component
+  - `outputFormat: 'markdown'` config switches CVA to emit/accept Markdown
+  - `@Output() contentChanged` event emits `{html, markdown?, text}` (all formats)
+  - `getHtml()` / `getMarkdown()` public methods for explicit access
+  - Markdown paste: `text/plain`-only clipboard → treat as Markdown → convert to HTML
+  - `pasteMarkdown` config for independent paste control
+* **markdown:** source mode shows Markdown when `outputFormat` is `'markdown'`
+  - Green background (#e8f5e9) distinguishes Markdown source from HTML source
+  - Editing Markdown source and switching back converts MD→HTML
+
+### Bug Fixes
+* **markdown:** fix `writeValue` timing — deferred value pattern (ngx-quill best practice)
+* **markdown:** fix `<pre>` without `<code>` child (IDE paste) → code block conversion
+
+### Docs
+* **readme:** add "Markdown Support" section with examples (outputFormat, contentChanged, paste)
+* **demo:** add Editor 3 showcasing Markdown output mode with initial content
+
+---
+
 <a name="3.3.0"></a>
 ## [3.3.0](https://github.com/kolkov/angular-editor/compare/v3.2.0...v3.3.0) (2026-09-30)
 

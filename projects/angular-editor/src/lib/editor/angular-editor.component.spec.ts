@@ -5,7 +5,8 @@ import { FormsModule } from '@angular/forms';
 
 import { AngularEditorComponent } from './angular-editor.component';
 import { AngularEditorModule } from '../angular-editor.module';
-import { AE_SANITIZER, angularEditorConfig, provideEditorSanitizer } from '../config';
+import { AE_SANITIZER, AE_MARKDOWN_CONVERTER, angularEditorConfig, provideEditorSanitizer } from '../config';
+import type { MarkdownConverter } from '../config';
 
 // jsdom does not implement execCommand / queryCommandState / queryCommandValue
 function mockDocumentCommands(): void {
@@ -611,6 +612,326 @@ describe('AngularEditorComponent with custom sanitizer', () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       component.refreshView(null as any);
       expect(component.textArea.nativeElement.innerHTML).toBe('');
+    });
+  });
+});
+
+// ============================================================================
+// Markdown Integration Tests (separate TestBed with mock converter)
+// ============================================================================
+
+describe('AngularEditorComponent with Markdown', () => {
+  let component: AngularEditorComponent;
+  let fixture: ComponentFixture<AngularEditorComponent>;
+  const mockConverter: MarkdownConverter = {
+    toMarkdown: vi.fn((html: string) => `# MD\n\n${(html || '').replace(/<[^>]+>/g, '')}\n`),
+    toHtml: vi.fn((md: string) => `<p>${(md || '').replace(/^#+ /gm, '').trim()}</p>`),
+  };
+
+  beforeEach(async () => {
+    mockDocumentCommands();
+    (mockConverter.toMarkdown as ReturnType<typeof vi.fn>).mockClear();
+    (mockConverter.toHtml as ReturnType<typeof vi.fn>).mockClear();
+
+    await TestBed.configureTestingModule({
+      imports: [FormsModule, AngularEditorModule],
+      providers: [
+        provideHttpClient(),
+        {provide: AE_MARKDOWN_CONVERTER, useValue: mockConverter},
+      ],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(AngularEditorComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  // ==========================================================================
+  // getHtml / getMarkdown
+  // ==========================================================================
+
+  describe('getHtml / getMarkdown', () => {
+    it('getHtml should return current innerHTML', () => {
+      component.textArea.nativeElement.innerHTML = '<p>Hello</p>';
+      expect(component.getHtml()).toBe('<p>Hello</p>');
+    });
+
+    it('getMarkdown should call converter.toMarkdown', () => {
+      component.textArea.nativeElement.innerHTML = '<p>Hello</p>';
+      const result = component.getMarkdown();
+      expect(mockConverter.toMarkdown).toHaveBeenCalled();
+      expect(result).toContain('Hello');
+    });
+  });
+
+  // ==========================================================================
+  // outputFormat: 'markdown' — CVA behavior
+  // ==========================================================================
+
+  describe('outputFormat: markdown', () => {
+    beforeEach(() => {
+      component.config = {...angularEditorConfig, outputFormat: 'markdown'};
+    });
+
+    it('onContentChange should emit markdown via onChange', () => {
+      const fn = vi.fn();
+      component.registerOnChange(fn);
+      component.textArea.nativeElement.innerHTML = '<p>Hello</p>';
+      component.onContentChange(component.textArea.nativeElement);
+      expect(mockConverter.toMarkdown).toHaveBeenCalled();
+      expect(fn).toHaveBeenCalled();
+      const emitted = fn.mock.calls[0][0];
+      expect(emitted).toContain('Hello');
+      expect(emitted).not.toContain('<p>');
+    });
+
+    it('writeValue should convert markdown to HTML for display', () => {
+      component.writeValue('# Hello');
+      expect(mockConverter.toHtml).toHaveBeenCalledWith('# Hello');
+      expect(component.textArea.nativeElement.innerHTML).toContain('Hello');
+    });
+
+    it('writeValue with empty string should clear editor', () => {
+      component.writeValue('');
+      expect(component.textArea.nativeElement.innerHTML).toBe('');
+    });
+
+    it('writeValue with null should clear editor', () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      component.writeValue(null as any);
+      expect(component.textArea.nativeElement.innerHTML).toBe('');
+    });
+
+    it('should re-render when config changes to markdown after writeValue', () => {
+      component.writeValue('# Hello');
+      expect(component.textArea.nativeElement.innerHTML).not.toContain('<h1>');
+      component.config = {...component.config, outputFormat: 'markdown'};
+      expect(mockConverter.toHtml).toHaveBeenCalledWith('# Hello');
+    });
+  });
+
+  // ==========================================================================
+  // outputFormat: 'html' (default) — unchanged behavior
+  // ==========================================================================
+
+  describe('outputFormat: html (default)', () => {
+    it('onContentChange should emit HTML via onChange (unchanged)', () => {
+      const fn = vi.fn();
+      component.registerOnChange(fn);
+      component.textArea.nativeElement.innerHTML = '<p>Hello</p>';
+      component.onContentChange(component.textArea.nativeElement);
+      expect(mockConverter.toMarkdown).not.toHaveBeenCalled();
+      expect(fn).toHaveBeenCalled();
+    });
+
+    it('writeValue should NOT call converter', () => {
+      component.writeValue('<p>Hello</p>');
+      expect(mockConverter.toHtml).not.toHaveBeenCalled();
+    });
+  });
+
+  // ==========================================================================
+  // contentChanged event
+  // ==========================================================================
+
+  describe('contentChanged event', () => {
+    it('should emit html and text always', () => {
+      component.config = {...angularEditorConfig, sanitize: false};
+      const spy = vi.fn();
+      component.contentChanged.subscribe(spy);
+      const fn = vi.fn();
+      component.registerOnChange(fn);
+      component.textArea.nativeElement.innerHTML = '<p>Test</p>';
+      component.textArea.nativeElement.innerText = 'Test';
+      component.onContentChange(component.textArea.nativeElement);
+      expect(spy).toHaveBeenCalled();
+      const event = spy.mock.calls[0][0];
+      expect(event.html).toBeDefined();
+      expect(event.text).toBeDefined();
+    });
+
+    it('should include markdown when converter is provided', () => {
+      const spy = vi.fn();
+      component.contentChanged.subscribe(spy);
+      const fn = vi.fn();
+      component.registerOnChange(fn);
+      component.textArea.nativeElement.innerHTML = '<p>Test</p>';
+      component.onContentChange(component.textArea.nativeElement);
+      const event = spy.mock.calls[0][0];
+      expect(event.markdown).toBeDefined();
+      expect(mockConverter.toMarkdown).toHaveBeenCalled();
+    });
+
+    it('should NOT compute markdown when no observers', () => {
+      const fn = vi.fn();
+      component.registerOnChange(fn);
+      component.textArea.nativeElement.innerHTML = '<p>Test</p>';
+      component.onContentChange(component.textArea.nativeElement);
+      // no subscription on contentChanged → toMarkdown should not be called (outputFormat is html)
+      expect(mockConverter.toMarkdown).not.toHaveBeenCalled();
+    });
+  });
+
+  // ==========================================================================
+  // Markdown paste
+  // ==========================================================================
+
+  describe('markdown paste', () => {
+    it('should convert text/plain as markdown when no text/html and outputFormat is markdown', () => {
+      component.config = {outputFormat: 'markdown', sanitize: false};
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const toHtmlSpy = vi.spyOn((component as any).markdownConverter, 'toHtml');
+
+      const preventSpy = vi.fn();
+      const mockEvent = {
+        type: 'paste',
+        preventDefault: preventSpy,
+        clipboardData: {
+          getData: (type: string) => {
+            if (type === 'text/html') return '';
+            if (type === 'text/plain') return '# Hello';
+            return '';
+          },
+        },
+      } as unknown as ClipboardEvent;
+
+      const result = component.onPaste(mockEvent);
+      expect(preventSpy).toHaveBeenCalled();
+      expect(toHtmlSpy).toHaveBeenCalledWith('# Hello');
+      expect(result).toContain('Hello');
+    });
+
+    it('should NOT convert when text/html is present', () => {
+      component.config = {outputFormat: 'markdown', sanitize: false};
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const toHtmlSpy = vi.spyOn((component as any).markdownConverter, 'toHtml');
+
+      const preventSpy = vi.fn();
+      const mockEvent = {
+        type: 'paste',
+        preventDefault: preventSpy,
+        clipboardData: {
+          getData: (type: string) => {
+            if (type === 'text/html') return '<b>Bold</b>';
+            if (type === 'text/plain') return 'Bold';
+            return '';
+          },
+        },
+      } as unknown as ClipboardEvent;
+
+      const result = component.onPaste(mockEvent);
+      expect(preventSpy).not.toHaveBeenCalled();
+      expect(toHtmlSpy).not.toHaveBeenCalled();
+      expect(result).toBeUndefined();
+    });
+
+    it('should respect rawPaste over markdown paste', () => {
+      component.config = {outputFormat: 'markdown', rawPaste: true, sanitize: false};
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const toHtmlSpy = vi.spyOn((component as any).markdownConverter, 'toHtml');
+
+      const mockEvent = {
+        type: 'paste',
+        preventDefault: vi.fn(),
+        clipboardData: {
+          getData: (type: string) => type === 'text/plain' ? '# Hello' : '',
+        },
+      } as unknown as ClipboardEvent;
+
+      const result = component.onPaste(mockEvent);
+      expect(result).toBe('# Hello');
+      expect(toHtmlSpy).not.toHaveBeenCalled();
+    });
+
+    it('should use pasteMarkdown config independently of outputFormat', () => {
+      component.config = {outputFormat: 'html', pasteMarkdown: true, sanitize: false};
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const toHtmlSpy = vi.spyOn((component as any).markdownConverter, 'toHtml');
+
+      const mockEvent = {
+        type: 'paste',
+        preventDefault: vi.fn(),
+        clipboardData: {
+          getData: (type: string) => {
+            if (type === 'text/html') return '';
+            if (type === 'text/plain') return '**bold**';
+            return '';
+          },
+        },
+      } as unknown as ClipboardEvent;
+
+      component.onPaste(mockEvent);
+      expect(toHtmlSpy).toHaveBeenCalledWith('**bold**');
+    });
+  });
+
+  // ==========================================================================
+  // Source mode with Markdown
+  // ==========================================================================
+
+  describe('source mode with markdown', () => {
+    it('should show Markdown in source mode when outputFormat is markdown', () => {
+      component.config = {outputFormat: 'markdown', sanitize: false};
+      component.textArea.nativeElement.innerHTML = '<h1>Hello</h1><p>World</p>';
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const toMdSpy = vi.spyOn((component as any).markdownConverter, 'toMarkdown');
+
+      component.toggleEditorMode(true);
+
+      expect(toMdSpy).toHaveBeenCalled();
+      expect(component.modeVisual).toBe(false);
+    });
+
+    it('should show HTML in source mode when outputFormat is html', () => {
+      component.config = {sanitize: false};
+      component.textArea.nativeElement.innerHTML = '<h1>Hello</h1>';
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const toMdSpy = vi.spyOn((component as any).markdownConverter, 'toMarkdown');
+
+      component.toggleEditorMode(true);
+
+      expect(toMdSpy).not.toHaveBeenCalled();
+      expect(component.modeVisual).toBe(false);
+    });
+
+    it('should convert Markdown back to HTML when switching from source to visual', () => {
+      component.config = {outputFormat: 'markdown', sanitize: false};
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const toHtmlSpy = vi.spyOn((component as any).markdownConverter, 'toHtml');
+
+      component.toggleEditorMode(true);
+      component.toggleEditorMode(false);
+
+      expect(toHtmlSpy).toHaveBeenCalled();
+      expect(component.modeVisual).toBe(true);
+    });
+
+    it('should use green background for Markdown source mode', () => {
+      component.config = {outputFormat: 'markdown', sanitize: false};
+      component.textArea.nativeElement.innerHTML = '<p>test</p>';
+
+      component.toggleEditorMode(true);
+
+      const code = component.textArea.nativeElement.querySelector('code');
+      if (code) {
+        expect(code.style.backgroundColor).toBe('rgb(232, 245, 233)');
+      }
+    });
+
+    it('should use yellow background for HTML source mode', () => {
+      component.config = {sanitize: false};
+      component.textArea.nativeElement.innerHTML = '<p>test</p>';
+
+      component.toggleEditorMode(true);
+
+      const code = component.textArea.nativeElement.querySelector('code');
+      if (code) {
+        expect(code.style.backgroundColor).toBe('rgb(255, 245, 185)');
+      }
     });
   });
 });

@@ -46,12 +46,26 @@
   <h3>Editor 2 — DOMPurify sanitizer (Cyrillic preserved, toolbar bottom)</h3>
   <form [formGroup]="form">
     <angular-editor autofocus="true" id="editor2" formControlName="signature" [config]="config2"
+                    (contentChanged)="onContentChanged($event)"
                     (ngModelChange)="onChange2($event)"></angular-editor>
   </form>
   <p>
     Form Value: {{ form.value.signature }}
   </p>
+  @if (markdownOutput) {
+    <div>
+      Markdown Output:
+      <pre>{{ markdownOutput }}</pre>
+    </div>
+  }
   <p>
     Form Status: {{ form.status }}
   </p>
+
+  <h3>Editor 3 — Markdown output mode (outputFormat: 'markdown')</h3>
+  <angular-editor id="editor3" [(ngModel)]="markdownContent" [config]="configMarkdown"></angular-editor>
+  <div>
+    ngModel (Markdown):
+    <pre>{{ markdownContent }}</pre>
+  </div>
 </div>
