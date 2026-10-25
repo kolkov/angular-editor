@@ -30,7 +30,7 @@
     "@angular/platform-browser": "^22.1.7",
     "@angular/platform-browser-dynamic": "^22.1.7",
     "@angular/router": "^22.1.7",
-    "dompurify": "^3.4.16",
+    "dompurify": "^3.4.17",
     "marked": "^18.0.14",
     "rxjs": "~7.8.0",
     "tslib": "^2.4.0",
