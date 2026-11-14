@@ -1,7 +1,8 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AngularEditorComponent } from './angular-editor.component';
 import { AngularEditorModule } from '../angular-editor.module';
@@ -933,5 +934,43 @@ describe('AngularEditorComponent with Markdown', () => {
         expect(code.style.backgroundColor).toBe('rgb(255, 245, 185)');
       }
     });
+  });
+});
+
+@Component({
+  imports: [ReactiveFormsModule, AngularEditorModule],
+  template: `
+    <form [formGroup]="form">
+      <angular-editor formControlName="content" [config]="{customClasses: [{name: 'Quote', class: 'quote'}]}"></angular-editor>
+    </form>
+  `,
+})
+class ReactiveFormHostComponent {
+  form = new FormGroup({content: new FormControl('')});
+}
+
+describe('AngularEditorComponent in a reactive form', () => {
+  beforeEach(async () => {
+    mockDocumentCommands();
+
+    await TestBed.configureTestingModule({
+      imports: [ReactiveFormHostComponent],
+      providers: [provideHttpClient()],
+    }).compileComponents();
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('should not warn that toolbar selects cannot register with the parent form', () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+    const fixture = TestBed.createComponent(ReactiveFormHostComponent);
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelectorAll('ae-select').length).toBe(4);
+    const formWarnings = warnSpy.mock.calls.filter(args => String(args[0]).includes('NG01354'));
+    expect(formWarnings).toEqual([]);
   });
 });

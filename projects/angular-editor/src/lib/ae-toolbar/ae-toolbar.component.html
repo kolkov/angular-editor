@@ -105,6 +105,7 @@
         <ae-select class="select-heading" [options]="headings"
                    [ngModel]="editorService.currentBlock()"
                    (ngModelChange)="triggerCommand($event)"
+                   [ngModelOptions]="{standalone: true}"
                    [disabled]="htmlMode"
                    tabindex="-1"></ae-select>
       </div>
@@ -114,6 +115,7 @@
         <ae-select class="select-font" [options]="fonts"
                    [ngModel]="editorService.currentFontName()"
                    (ngModelChange)="setFontName($event)"
+                   [ngModelOptions]="{standalone: true}"
                    [disabled]="htmlMode"
                    tabindex="-1"></ae-select>
       </div>
@@ -123,6 +125,7 @@
         <ae-select class="select-font-size" [options]="fontSizes"
                    [ngModel]="editorService.currentFontSize()"
                    (ngModelChange)="setFontSize($event)"
+                   [ngModelOptions]="{standalone: true}"
                    [disabled]="htmlMode"
                    tabindex="-1">
         </ae-select>
@@ -159,6 +162,7 @@
         <ae-select class="select-custom-style" [options]="customClassList"
                    [ngModel]="editorService.currentCustomClassId()"
                    (ngModelChange)="setCustomClass($event)"
+                   [ngModelOptions]="{standalone: true}"
                    [disabled]="htmlMode"
                    tabindex="-1"></ae-select>
       </div>
